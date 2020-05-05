@@ -1,0 +1,49 @@
+{
+  "name": "scread",
+  "version": "1.0.0",
+  "description": "Scread init message.",
+  "author": "Cankun Wang",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt --hostname 0.0.0.0 --port 3333",
+    "build": "nuxt build",
+    "start": "nuxt-start -p 9003 -H 0.0.0.0",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore."
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.10.3",
+    "@nuxtjs/markdownit": "^1.2.9",
+    "algoliasearch": "^4.2.0",
+    "github-markdown-css": "^4.0.0",
+    "highcharts": "^8.0.4",
+    "highcharts-vue": "^1.3.5",
+    "markdown-it-anchor": "^5.2.7",
+    "markdown-it-attrs": "^3.0.2",
+    "markdown-it-div": "^1.1.0",
+    "markdown-it-emoji": "^1.4.0",
+    "markdown-it-toc-done-right": "^4.1.0",
+    "nuxt": "^2.12.2",
+    "nuxt-start": "^2.12.2",
+    "vue-autosuggest": "^2.1.1",
+    "vue-cytoscape": "^1.0.8",
+    "vue-instantsearch": "^2.7.0"
+  },
+  "devDependencies": {
+    "@mdi/font": "^4.9.95",
+    "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/eslint-config": "^2.0.0",
+    "@nuxtjs/eslint-module": "^1.2.0",
+    "@nuxtjs/proxy": "^1.3.3",
+    "@nuxtjs/vuetify": "^1.11.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-nuxt": "^0.5.2",
+    "eslint-plugin-prettier": "^3.1.3",
+    "prettier": "^1.19.1",
+    "vue-cli-plugin-vuetify": "^2.0.4",
+    "vue-template-compiler": "^2.6.11",
+    "vuetify-loader": "^1.3.0"
+  }
+}
