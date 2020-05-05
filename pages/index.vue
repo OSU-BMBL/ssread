@@ -2,10 +2,9 @@
   <div>
     <v-layout column justify-center align-center>
       <v-flex xs12 sm8 md6 lg12>
-        <p class="display-2">DESSO</p>
+        <p class="display-2">Scread</p>
         <p class="title">
-          DNA sequence motifs and shape motifs database from deep learning
-          framework
+          Single-cell RNA-seq Alzheimer's Disease Database
         </p>
       </v-flex>
     </v-layout>

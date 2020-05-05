@@ -21,7 +21,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#39b982' },
+  loading: { color: '#5698c3' },
   /*
    ** Global CSS
    */
@@ -87,7 +87,7 @@ export default {
       // https://nipponcolors.com/
       themes: {
         light: {
-          primary: '#1781b5', // 釉蓝
+          primary: '#6A4C9C', // 桔梗紫
           secondary: '#CA7853', // 远州茶
           tertiary: '#F17C67', // 珊瑚朱
           accent: '#5698c3', // 晴蓝
