@@ -3,19 +3,18 @@
     <v-layout>
       <v-container fluid grid-list-md>
         <v-layout row wrap>
-          <v-flex xs12 md12 lg4>
-            <tf-info :tf="motif[0]"></tf-info>
-          </v-flex>
-          <v-flex xs12 md12 lg4>
-            <motif-circos></motif-circos>
-          </v-flex>
-          <v-flex xs12 md12 lg4>
-            <motif-network></motif-network>
+          <v-flex xs12 md12 lg12>
+            <dataset-info :de="de"></dataset-info>
           </v-flex>
         </v-layout>
         <v-layout row wrap>
-          <v-flex v-for="(n, i) in motif.length" :key="n" xs12 md6 lg3>
-            <motif-info :motif="motif[i]"></motif-info>
+          <v-flex xs12 md12 lg12>
+            <de-info :de="de"></de-info>
+          </v-flex>
+        </v-layout>
+        <v-layout row wrap>
+          <v-flex xs12 md12 lg12>
+            <dimension-info :de="de"></dimension-info>
           </v-flex>
         </v-layout>
         <Fab></Fab>
@@ -24,41 +23,39 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex' // <--- To map motif
+import { mapState } from 'vuex' // <--- To map data from Vuex
 import Fab from '@/components/utils/Fab'
-import TFInfo from '@/components/motif/TFInfo'
-import MotifInfo from '@/components/motif/MotifInfo'
-import MotifNetwork from '@/components/motif/TestNetwork'
-import MotifCircos from '@/components/motif/MotifCircos'
+import DeInfo from '@/components/ad/DeInfo'
+import DimensionInfo from '@/components/ad/DimensionInfo'
+import DatasetInfo from '@/components/ad/DatasetInfo'
 export default {
   components: {
-    'tf-info': TFInfo,
-    'motif-info': MotifInfo,
-    'motif-network': MotifNetwork,
-    'motif-circos': MotifCircos,
+    'de-info': DeInfo,
+    'dimension-info': DimensionInfo,
+    'dataset-info': DatasetInfo,
     Fab
   },
   async asyncData({ store, error, params }) {
     try {
-      await store.dispatch('motifs/fetchMotif', params.id)
+      await store.dispatch('ad/fetchDe', params.id)
     } catch (e) {
       error({
         statusCode: 503,
-        message: 'ERROR CODE 503, using async await single motif' + params.id
+        message: 'ERROR CODE 503,' + params.id
       })
     }
   },
   computed: mapState({
-    motif: (state) => state.motifs.motif
+    de: (state) => state.ad.de
   }),
   head() {
     return {
-      title: this.motif.data_id,
+      title: this.de.data_id,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: 'What you need to know about motif #' + this.motif.data_id
+          content: 'What you need to know about motif #' + this.de.data_id
         }
       ]
     }

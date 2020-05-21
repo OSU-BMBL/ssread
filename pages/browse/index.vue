@@ -3,7 +3,7 @@
     <div class="motif-header">
       <v-card>
         <v-card-title>
-          Broswse all motifs:
+          Broswse all datasets:
           <v-spacer></v-spacer>
           <v-text-field
             v-model="search"

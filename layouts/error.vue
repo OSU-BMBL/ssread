@@ -12,20 +12,15 @@
         <v-btn nuxt to="/" color="primary" outlined>
           Return to home
         </v-btn>
-        <lost-image />
       </v-col>
       <v-col cols="3"></v-col>
     </v-row>
   </v-container>
 </template>
 <script>
-import lostImage from '@/components/svg/404'
-
 export default {
   name: 'NuxtError',
-  components: {
-    lostImage
-  },
+  components: {},
   props: {
     error: {
       // <--- Send in the error

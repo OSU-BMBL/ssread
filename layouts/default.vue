@@ -7,7 +7,6 @@
           <span class="app-bar-title hidden-sm-and-down">{{ title }}</span>
         </nuxt-link>
       </v-toolbar-title>
-      <search-box></search-box>
       <v-spacer />
     </v-app-bar>
     <v-navigation-drawer
@@ -81,7 +80,7 @@
       width="auto"
     >
       <v-col class="text-center caption" cols="12">
-        DESSO is developed by <a href="https://u.osu.edu/bmbl/">BMBL</a> and it
+        scREAD is developed by <a href="https://u.osu.edu/bmbl/">BMBL</a> and it
         is licensed under
         <a href="https://creativecommons.org/licenses/by/4.0/"
           ><v-icon>mdi-creative-commons</v-icon> Creative Commons Attribution
@@ -92,15 +91,12 @@
   </v-app>
 </template>
 <script>
-import SearchBox from '@/components/utils/SearchBox'
 export default {
-  components: {
-    'search-box': SearchBox
-  },
+  components: {},
   data() {
     return {
       drawer: null,
-      title: 'DESSO database',
+      title: 'scREAD',
       appBarColor: 'primary',
       appBarTextColor: '#ccccd6', // 远山紫
       items: [
@@ -108,8 +104,8 @@ export default {
         { icon: 'mdi-table', text: 'Browse', url: '/browse' },
         {
           icon: 'mdi-file-find-outline',
-          text: 'Prediction',
-          url: '/prediction'
+          text: 'Submit',
+          url: '/submit'
         },
         {
           icon: 'mdi-help-box',
@@ -145,7 +141,7 @@ export default {
   },
   head() {
     return {
-      titleTemplate: '%s - DESSO database',
+      titleTemplate: '%s - scREAD',
       meta: [
         {
           hid: 'default description',
