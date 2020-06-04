@@ -2,10 +2,11 @@
   <v-app id="keep">
     <v-app-bar app clipped-left clipped-right :color="appBarColor" dark>
       <v-app-bar-nav-icon class="hidden-lg-and-up" @click="drawer = !drawer" />
-      <v-toolbar-title style="width: 300px" class="ml-2 pl-4">
+      <v-toolbar-title width="300" class="ml-2 pl-4">
         <nuxt-link to="/">
-          <span class="app-bar-title hidden-sm-and-down">{{ title }}</span>
+          <span class="app-bar-title display-1 bold">{{ title }}</span>
         </nuxt-link>
+        <span class="app-bar-title hidden-sm-and-down">{{ fullTitle }}</span>
       </v-toolbar-title>
       <v-spacer />
     </v-app-bar>
@@ -13,17 +14,18 @@
       v-model="drawer"
       app
       clipped
+      relative
       hide-overlay
       class="grey lighten-4"
       width="325"
     >
-      <v-list dense class="grey lighten-4" shaped>
+      <v-list dense class="grey lighten-4 deep-purple--text" shaped>
         <template v-for="(item, i) in items">
           <v-list-item
             v-if="!item.sublinks"
             :key="i"
             :to="item.url"
-            active-class="blue lighten-4"
+            active-class="purple lighten-4"
           >
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
@@ -36,10 +38,10 @@
             v-else
             :key="i"
             :to="item.url"
-            active-class="blue lighten-5"
+            active-class="deep-purple--text"
           >
             <template v-slot:activator>
-              <v-list-item-action active-class="blue lighten-4">
+              <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-action>
               <v-list-item-title class="black--text">
@@ -51,7 +53,7 @@
               :key="sublink.text"
               class="px-8"
               :to="sublink.url"
-              active-class="blue lighten-4"
+              active-class="purple lighten-4"
             >
               <v-list-item-action>
                 <v-icon>{{ sublink.icon }}</v-icon>
@@ -66,7 +68,7 @@
     </v-navigation-drawer>
 
     <v-content>
-      <v-container class="px-6">
+      <v-container class="px-6" fluid>
         <nuxt />
       </v-container>
     </v-content>
@@ -97,6 +99,7 @@ export default {
     return {
       drawer: null,
       title: 'scREAD',
+      fullTitle: "A Single-cell RNA-Seq Database for Alzheimer's Disease",
       appBarColor: 'primary',
       appBarTextColor: '#ccccd6', // 远山紫
       items: [
@@ -118,14 +121,14 @@ export default {
               url: '/help/usage'
             },
             {
-              icon: 'mdi-book-open-page-variant',
-              text: 'Background information',
-              url: '/help/background'
-            },
-            {
               icon: 'mdi-frequently-asked-questions',
               text: 'Frequently asked questions',
               url: '/help/faq'
+            },
+            {
+              icon: 'mdi-account-box',
+              text: 'Contact us',
+              url: '/help/contact'
             },
             {
               icon: 'mdi-api',
