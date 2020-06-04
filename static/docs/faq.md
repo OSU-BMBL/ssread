@@ -2,73 +2,139 @@
 
 # FAQ
 
-## Something broke! what do I do?
+---
 
-The server is in active maintenance so it is possible that something can break during our updates. If it is not connected, please try refreshing your browser, and contact us to report your problems.
-If that does not fix the problem, please send us your input file and how you reproduced the bug to help us fix the problem by using the Report bug button. When reporting a bug, please also include screenshots and the browser that you used.
+## What is Alzheimer's disease?
 
-## I have a great feature idea.How do i suggest it to you.
+Alzheimer's disease (AD), also referred to simply as Alzheimer's, the most common form of dementia, is a progressive neurodegenerative disorder of the central nervous system. As the most common cause of dementia, AD mostly strikes the elderly over 65, starting with mild memory loss and progressively develops into broad, severe cognitive impairment and behavioral disturbances. Pathologically, amyloid-beta (Aβ) peptides produced by neurons form extracellular aggregates that initiate disease; intraneuronal tau hyperphosphorylation and aggregation ensue, causing neuronal and synaptic dysfunction and cell death. [Wikipedia](https://en.wikipedia.org/wiki/Alzheimer%27s_disease)
 
-We are always looking for ways to improve the server! Please use our contact email on the about page to send us feature suggestions.
+## What is single-cell RNA sequencing?
 
-## which brower is proposed.
+Single-cell RNA sequencing (scRNA-seq) examines the sequence information from individual cells with optimized next-generation sequencing (NGS) technologies, providing a higher resolution of cellular differences and a better understanding of the function of an individual cell in the context of its microenvironment. ScRNA-seq can reveal complex and rare cell populations, uncover regulatory relationships between genes, and track the trajectories of distinct cell lineages in development. In cancer, sequencing the RNAs expressed by individual cells can give insight into the existence and behavior of different cell types. In microbial systems, a population of the same species can appear to be genetically clonal, but single-cell sequencing of RNA or epigenetic modifications can reveal cell-to-cell variability that may help populations rapidly adapt to survive in changing environments. [Wikipedia](https://en.wikipedia.org/wiki/Single_cell_sequencing)
 
-The google, firfox and safari.
+## What is scREAD?
 
-## Why we deploy the Basset model on this server.
+The scREAD (Single-Cell Rna-sEq Alzheimer's Disease) is the first database dedicated to do scRNA-Seq analysis of Alzheimer's diseases. The scREAD takes advantage of a curation effort aimed at providing comprehensive scRNA-Seq data analysis results based on all human and mouse Alzheimer's disease studies published in the public domain. Data are systematically and manually collected from the scientific literature published in [GEO](https://www.ncbi.nlm.nih.gov/geo/) and [Synapse](https://www.synapse.org/#) databases. The construction of healthy atlas for different species' brain regions and ages, and all the analysis results based on the healthy atlas can be used as a reference for AD researchers. The researchers can also use scREAD pipeline into their dataset to identify cell types, cell-type-specific biomarkers, and cell-type-specific regulons that are most useful for Alzheimer's disease studies.
 
-Before developing this server, we applied the main top deep learning model to find motif on the 185 chip-seq datasets. In our experiments, we evaluate the performance of all deep learning models from two aspects including find motifs and peaks classification. About the first aspect we compare all deep learning models' performance by computing the P-value, E-value, and Q-value of motifs. with regarding to the second one, we select eight criterions to evaluate the capacities that identify the peaks is TFs binding site or not, finally we summary eight criterions as the area of octagon.  
-Accoding to the area of each deep learning model shown as figure1, the Basset model obtainded the best performance about peaks classification and the DESSO model obtainded the best performance about finding motifs.
-![figure2](/docs/figures/background_figure1.png)  
-Figure 1. A characterization of the 20 methods evaluated in this study and their overall evaluation results
+## Which species are covered in scREAD?
 
-## How many moitf databases are compared on this server.
+For now, the scREAD is focused on human and mouse these two species. AD is currently ranked as the sixth leading cause of human death in the United States. But human samples of AD is very hard to achieve. There is a large ongoing effort to characterize animal models of AD in order to better understand disease pathophysiology as well as to identify models suitable for investigating potential therapeutics. In 1995, researchers made a breakthrough — the creation of transgenic mice carrying a single gene mutation associated with the uncommon, inherited form of AD. Researchers drew confidence from the structural similarity between the mouse plaques and those found in people. In 2006, several research groups generated mice containing multiple gene mutations associated with familial AD. Such models provided researchers with important insight into AD.
 
-we compared the found motif to the hocomoco, transfac and jaspar databases.
+## Which brain regions are covered in scREAD?
 
-## How to analysis the single-cell ship-seq data.
+For the human species, the scREAD covers three regions. For the mouse species, the scREAD covers five regions. The detail information is showed as the following table:
 
-we select 6 of 10 samples with peak length of 50k from the GSE117309 as total single-cell dataset,and find motifs from these data. we analysis the found motif, which is depicted in single-cell topic[single-cell](link to single-cell topic).
+| Species | Region                 |
+| ------- | ---------------------- |
+| Human   | Entorhinal Cortex      |
+| Human   | Prefrontal cortex      |
+| Human   | Superior frontal gyrus |
+| Mouse   | Cortex                 |
+| Mouse   | Cerebellum             |
+| Mouse   | Cerebral cortex        |
+| Mouse   | Hippocampus            |
+| Mouse   | Prefrontal cortex      |
 
-## What can this server do in motif analyses.
+## Which type of data are covered in scREAD?
 
-> **Our server has a number of novel capabilities:**  
-> (i) find TFs are related to cancer types  
-> (ii) identifying the binding sites  
-> (iii) finding DNA motifs from chip-seq peaks  
-> (iv) match denovo motifs to the existed motifs  
-> (v) motif scanning  
-> (vi) annotation genes to TFs binding sites
-> (vii) finding motifs from the single-cell schip-seq dataset
+The scREAD contains four human and eight mouse AD scRNA-seq datasets that are collected from [GEO](https://www.ncbi.nlm.nih.gov/geo/) and [Synapse](https://www.synapse.org/#) databases as of June 1st, 2020. The detail information are shown as the following table:
 
-## Which model is used on this server?
+| Species | Data_ID     | Pubmed_ID      | Publication                                                                                                                                                                                                                       |
+| ------- | ----------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Human   | GSE138852   | PMID: 31768052 | Grubman A, Chew G, Ouyang JF, Sun G et al. A single-cell atlas of entorhinal cortex from individuals with Alzheimer's disease reveals cell-type-specific gene expression regulation. Nat Neurosci 2019 Dec;22(12):2087-2097.      |
+| Human   | syn18485175 | PMID: 31042697 | Mathys, H., Davila-Velderrain, J., Peng, Z. et al. Single-cell transcriptomic analysis of Alzheimer’s disease. Nature 570, 332–337 (2019). https://doi.org/10.1038/s41586-019-1195-2                                              |
+| Human   | GSE147528   | NA             | Leng K, Li E, Eser R, et al. Molecular characterization of selectively vulnerable neurons in Alzheimer’s Disease. bioRxiv; 2020. DOI: 10.1101/2020.04.04.025825.                                                                  |
+| Human   | syn21125841 | PMID: 31932797 | Zhou Y, Song WM, Andhey PS, Swain A et al. Human and mouse single-nucleus transcriptomics reveal TREM2-dependent and TREM2-independent cellular responses in Alzheimer's disease. Nat Med 2020 Jan;26(1):131-142.                 |
+| Mouse   | GSE98969    | PMID: 28602351 | Keren-Shaul H, Spinrad A, Weiner A, Matcovitch-Natan O et al. A Unique Microglia Type Associated with Restricting Development of Alzheimer's Disease. Cell 2017 Jun 15;169(7):1276-1290.e17.                                      |
+| Mouse   | GSE103334   | PMID: 29020624 | Mathys H, Adaikkan C, Gao F, Young JZ et al. Temporal Tracking of Microglia Activation in Neurodegeneration at Single-Cell Resolution. Cell Rep 2017 Oct 10;21(2):366-380.                                                        |
+| Mouse   | GSE130626   | PMID: 31902528 | Nugent AA, Lin K, van Lengerich B, Lianoglou S et al. TREM2 Regulates Microglial Cholesterol Metabolism upon Chronic Phagocytic Challenge. Neuron 2020 Mar 4;105(5):837-854.e9.                                                   |
+| Mouse   | GSE141044   | PMID: 31928331 | Zhong S, Wang M, Zhan Y, Zhang J et al. Single-nucleus RNA sequencing reveals transcriptional changes of hippocampal neurons in APP23 mouse model of Alzheimer's disease. Biosci Biotechnol Biochem 2020 May;84(5):919-926.       |
+| Mouse   | GSE140510   | PMID: 31932797 | Zhou Y, Song WM, Andhey PS, Swain A et al. Human and mouse single-nucleus transcriptomics reveal TREM2-dependent and TREM2-independent cellular responses in Alzheimer's disease. Nat Med 2020 Jan;26(1):131-142.                 |
+| Mouse   | GSE140399   | PMID: 31932797 | Zhou Y, Song WM, Andhey PS, Swain A et al. Human and mouse single-nucleus transcriptomics reveal TREM2-dependent and TREM2-independent cellular responses in Alzheimer's disease. Nat Med 2020 Jan;26(1):131-142.                 |
+| Mouse   | GSE143758   | PMID: 32341542 | Habib, N., McCabe, C., Medina, S. et al. Disease-associated astrocytes in Alzheimer’s disease and aging. Nat Neurosci (2020). https://doi.org/10.1038/s41593-020-0624-8                                                           |
+| Mouse   | GSE147495   | PMID: 32320664 | Lau SF, Chen C, Fu WY, et al. IL-33-PU.1 Transcriptome Reprogramming Drives Functional State Transition and Clearance Activity of Microglia in Alzheimer's Disease. Cell Rep. 2020;31(3):107530. doi:10.1016/j.celrep.2020.107530 |
 
-### method A
+## What is differential expression?
 
-Now, there is novel deep learning model named DEESO (Yang, 2019), which has some specificities about motif prediction. The DESSO model is the first tool to use the structure shape of DNA to find motifs, and obtain the best performance compared to the existed deep learning tools,such as Deepbind, Basset, etc.
-![Desso](/docs/figures/desso_workflow.png)
+We categorized the experiments for differential expression as one of the following conditions: control versus AD and AD versus AD. The differential expression analysis under each condition can be accessed through the Seurat FindMarkers function. All results were scaled by cell types and presented in the tables, allowing users to explore the expression of interesting genes in different conditions.
 
-Figure 1. Schematic overview of DESSO framework.
-A.The CNN model for optimizing motif detectors; B.Determination of optimal motif instances recognized by each motif detector; C. Construction of the optimized motif profile. This algorithm of DESSO is depicted in detail, please see the section algorithm.
+## What is enrichment analysis?
 
-### method B
+Enrichment analysis is a computational method for inferring knowledge about an input gene set by comparing it to annotated gene sets representing prior biological knowledge. Enrichment analysis checks whether an input set of genes significantly overlaps with annotated gene sets. For more information, you can read this excellent review about enrichment analysis [here](https://pubmed.ncbi.nlm.nih.gov/19033363/).
 
-The Basset model can be also used to find motifs from the genomics data, and we have located the Basset model for each transcription factor.we have selected 185 cancers related transcription factors, and compared to the existed 19 deep learning models about peaks classification. Finally, our experimental results show that the Basset model obtained the highest score for peaks prediction.
-![Desso](/docs/figures/basset_workflow.png)
+## What are regulons and cell-type-specific regulons (CTSRs) and why are they important?
 
-## How many datasets are utilized on the website?
+The term regulon was first introduced by Maas et al. in 1964, intended to name a maximal group of co-regulated genes, which may be scattered in a genome without apparent patterns in terms of their genomic locations. Based on that, cell-type-specific regulon was defined as a group of genes, receiving similar regulatory signals in a specific cell type, hence tend to have similar expression patterns and share conserved motifs in this cell type. A successful elucidation of CTSRs will substantially improve the identification of transcriptionally co-regulated gene modules, realistically allowing reliable prediction of global transcription regulation networks encoded in a specific cell type.
 
-The this server, we used the dataset including two parts. The first part is
-the 690 ChIP-Seq datasets of uniform TFBS based on ENCODE data freeze were downloaded from the ENCODE Analysis Database at UCSC. These datasets contained 161 TFs and cover 91 human cell types,each dataset contained a number of peaks ranging from 101 to 92385, ranked in the decreasing order of their signal scores. These peaks were derived from the SPP peak caller and de-noised by the Irreproducible Discovery Rate based on signal reproducibility among biological replicates. The average length of the de-noised peaks is 300 bps. In our study, we processed the peaks as the fixed length of 101, based on the TFs binding preference.
-the second is that We collect obtain chip-seq data of 185 TFs associated with 20 cancer types from the pumed, we obtain the dinding sites of these TFs from the CIStrime website [Zheng, 2018], which must meet that quality control is the highest and belong to human. we train the deep learning models through these two part of datasets,and publish our results on the website.
+## What is IRIS3?
 
-## What kinds of formats of motifs can be used to analysis.
+IRIS3 (Integrated Cell-type-specific Regulon Inference Server from Single-cell RNA-Seq) is an easy-to-use server empowered by over 20 functionalities to support comprehensive interpretations and graphical visualizations of identified CTSRs. CTSR data can be used to reliably characterize and distinguish the corresponding cell type from others and can be combined with other computational or experimental analyses for biomedical studies. CTSRs can, therefore, aid in the discovery of major regulatory mechanisms and allow reliable constructions of global transcriptional regulation networks encoded in a specific cell type. The broader impact of IRIS3 includes, but is not limited to, investigation of complex diseases hierarchies and heterogeneity, causal gene regulatory network construction, and drug development. IRIS3 is freely accessible from [https://bmbl.bmi.osumc.edu/iris3/](https://bmbl.bmi.osumc.edu/iris3/) with no login requirement. More information about this paper can be found [here](https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkaa394/5838867).
 
-Currently we accept three kinds of motif formats, shown as follows,  
-(i)bed file
+## How to interpret the file names?
 
-(ii) meme
+The file name is composed of six parts, they are species, condition, region, gender, age, and code numbers based on the string order of the file_name. Here are two examples showing how to read the file_name column:
 
-(iii) fasta
+| file_name                         | species | condition | region            | gender | age      | code_numbers |
+| --------------------------------- | ------- | --------- | ----------------- | ------ | -------- | ------------ |
+| M-H-Cerebellum-Male-7m            | Mouse   | Control   | Cerebellum        | Male   | 7 months | NA           |
+| H-AD-Prefrontal cortex-Female_001 | Human   | Disease   | Prefrontal cortex | Female | NA       | 001          |
 
-(vi) pwm
+## How to interpret the data_id?
+
+The data_id name is composed of three parts, they are Alzheimer's disease (the two letters), the region of different species (the first three numbers), and code numbers (the last two numbers). Here are two examples showing how to read data_id:
+
+| data_id | Alzheimer's disease | Region                | code_number |
+| ------- | ------------------- | --------------------- | ----------- |
+| AD00101 | AD                  | region of mouse (001) | 01          |
+| AD00402 | AD                  | region of human (004) | 02          |
+
+## What is fst format?
+
+Multithreaded serialization of compressed data frames using the 'fst' format. The 'fst' format allows for random access of stored data and compression with the LZ4 and ZSTD compressors created by Yann Collet.
+You can see more information about Package ‘fst’ [here](https://cran.r-project.org/web/packages/fst/fst.pdf).
+
+## How can we define different mouse age stages?
+
+The choice of rodent age should be given more consideration, as it improves the quality and relevance of the data obtained, and reduces variability. As for the age of mice and rats used, it should depend on the development or senescence of the system being studied. For example, [Flurkey et al.](https://www.elsevier.com/books/the-mouse-in-biomedical-research/fox/978-0-12-369457-7) defined a mature adult C57BL6/J mouse as 3–6 months (equivalent in this analysis to 20–30 human years), a middle-aged mouse as 10–14 months (equivalent to 38–47 human years) and an old mouse as 18–24 months (equivalent to 56–69 human years). So in our database, we define the different mouse age stages as the following table shows:
+
+| Age_Stage | Ranger of ages |
+| --------- | -------------- |
+| 2 months  | 1-2 months     |
+| 7 months  | 4-8 months     |
+| 15 months | 10-15 months   |
+| 20 months | 20 months      |
+
+## Which cell types are covered in scREAD?
+
+There are eight cell types covered in our database. They are Astrocytes, Endothelial cells, Excitatory neurons, Inhibitory neurons, Microglia, Oligodendrocytes, Oligodendrocyte precursor cells, and Pericytes.
+
+## Where the scREAD store the data uploaded by users?
+
+We will ask for your permission when we want to store the data uploaded by you into our database. Then we will store the data in the background of our database.
+
+## Where can I find the source code?
+
+The source code of scREAD can be accessed on GitHub at ...
+
+## How can I download the datasets in scREAD?
+
+The datasets of scREAD can be downloaded from [Download]() page.
+
+## What are the future plans of scREAD?
+
+- Collect more AD scRNA-Seq data from more brain regions, and build up healthy atlas in diverse brain regions of human, mouse and extend to other species.
+- Collect AD single-cell omics data, such as scATAC-seq data, and achieve more comprehensive analysis results based on single-cell multiple omics data.
+
+## What computational tools are used in scREAD?
+
+| Tools      | Publication                                                                                                                                                                                                                                                                                                                                       |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| IRIS3      | Anjun Ma, Cankun Wang, Yuzhou Chang, Faith H Brennan, Adam McDermaid, Bingqiang Liu, Chi Zhang, Phillip G Popovich, Qin Ma, IRIS3: integrated cell-type-specific regulon inference server from single-cell RNA-Seq, Nucleic Acids Research, , gkaa394, https://doi.org/10.1093/nar/gkaa394                                                        |
+| Seurat     | Stuart T*, Butler A*, Hoffman P, Hafemeister C, Papalexi E, Mauck WM, Hao Y, Stoeckius M, Smibert P, Satija R. Comprehensive Integration of Single-Cell Data Cell. 2019. DOI:https://doi.org/10.1016/j.cell.2019.05.031                                                                                                                           |
+| Harmony    | Korsunsky, I., Millard, N., Fan, J. et al. Fast, sensitive and accurate integration of single-cell data with Harmony. Nat Methods 16, 1289–1296 (2019). https://doi.org/10.1038/s41592-019-0619-0                                                                                                                                                 |
+| Polychrome | Coombes, K., Brock, G., Abrams, Z., & Abruzzo, L. (2019). Polychrome: Creating and Assessing Qualitative Palettes with Many Colors. Journal of Statistical Software, 90(Code Snippet 1), 1 - 23. doi:http://dx.doi.org/10.18637/jss.v090.c01                                                                                                      |
+| Destiny    | Angerer P, Haghverdi L, Büttner M, Theis F, Marr C, Büttner F (2015). “destiny: diffusion maps for large-scale single-cell data in R.” Bioinformatics, 32(8), 1241 1242 1243. doi: 10.1093/bioinformatics/btv715, More information at <http://www.helmholtz-muenchen.de/icb/destiny>, http://bioinformatics.oxfordjournals.org/content/32/8/1241. |
+
+## What is the scREAD overall pipeline?
+
+PCA + PCA

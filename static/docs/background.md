@@ -1,64 +1,40 @@
 [[toc]]
 
-# Background information
+# The Basics of scREAD
 
-Short description about the primary functions of the server, including peaks classification, motif finding and motif analyses.
+## Pipeline Overview
 
-## Introduction for DESSO server
+![pipeline](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/1590522837804.jpg)
 
-One of the most fundamental questions in biology is how to understand the transcription factor binding and regulated mechanism. Larger-scale chip-seq sequencing and biology experiment studies are now rapidly opening up new ways to track this question by this binding mode from transcription faactor. Here, we developed the DESSO databases, aiming to provide a service for users to find and analysis motifs from their data.
+scREAD (A single-cell RNA-Seq database for Alzheimer's Disease) is a database that contains all existing Human and Mouse Alzheimer's Disease (AD) Single-cell RNA-Seq (scRNA-Seq) data as of June 1st.
 
-## Overview for DESSO server
+## Input
 
-By manually curating several the state-of-art models, which is used to find motifs. we collected 185 transcription factors related to 20 cancer types, to evaluate deep learning models. In the light of the experimental results, DESSO model obtained the best result on finding motifs, Basset model obtained the best performance on peaks classification. Based on the published paper, the DESSO model also obtained the best performance on 690 chips-seq datas. In this server, we installed these two model to performan two kinds of tasks, and we also published the found motifs of the DESSO, the trained model for each transcription factor. regarding to the Basset mode, we also deployed the trained model for peaks classification, because of its best perfomance. Meanwhile, the single-cell chip-seq experiment is a challenge for people, because of the limitted technology. We collect the single-cell chips-seq data to finding motifs by using deep learning models.
+1. scRNA-Seq gene expression matrix (Optional):
+   The required input is gene expression data with two acceptable formats, compressed files are encouraged to decrease the uploading time. 1. A single txt, tsv or csv formatted gene expression matrix. The compressed format (gzip) is accepted 2. A single fst formatted gene expression matrix.
 
-## What is DNA motif
+Identifiers can be represented as Gene Symbols (e.g., HSPA9), Ensembl Gene IDs (e.g., ENSG00000113013). Human and mouse genes are annotated with respect to the reference genome using the org.HS.eg.db R package and org.Mn.eg.db package, respectively.
 
-Gene regulation mechanism is an important biological field, the gene expression is controlled by transcription factors, which is regulatory protein and bind to DNA. Each transcription factor (TF) has a specific binding site (TFBS), and each kind of TFBS also has a unique binding model, named motif.
-A DNA motif is a region of DNA that regulates the expression of downstream genes located on that same molecule of DNA, i.e., a chromosome. This concept is equivalent to a DNA cis-regulatory element or cis-element. It contains the transcription factor binding sites (TFBSs) and other conserved functional elements in the 5 intergenic regions of genes.
+2. Cell label file (Optional):a two-column matrix with the first column as the cell names exactly matching the gene expression file, and the second column as ground-truth cell clusters. The cluster indicator could either be terms (e.g. Excitatory neurons, Microglia) or numbers (e.g. 1,2). The cell label file will be used to evaluate the predicted cell types (evaluation omitted otherwise) and cell types inference (or use the predicted cell type instead).
 
-## What can this server do in motif analyses.
+## The overall pipeline includes four modules:
 
-> **Our server has a number of novel capabilities:**  
-> (i) find TFs are related to cancer types  
-> (ii) identifying the binding sites  
-> (iii) finding DNA motifs from chip-seq peaks  
-> (iv) match denovo motifs to the existed motifs  
-> (v) motif scanning  
-> (vi) annotation genes to TFs binding sites
-> (vii) finding motifs from the single-cell schip-seq dataset
+Our database organically integrates multiple state-of-the-art tools, including IRIS3, scran, Seurat, and IRIS-EDA. These tools are either reputed or have been justified with the best performance in the analytical area.
 
-## Why we deploy the Basset model on this server.
-
-Before developing this server, we applied the main top deep learning model to find motif on the 185 chip-seq datasets. In our experiments, we evaluate the performance of all deep learning models from two aspects including find motifs and peaks classification. About the first aspect we compare all deep learning models' performance by computing the P-value, E-value, and Q-value of motifs. with regarding to the second one, we select eight criterions to evaluate the capacities that identify the peaks is TFs binding site or not, finally we summary eight criterions as the area of octagon.  
-Accoding to the area of each deep learning model shown as figure1, the Basset model obtainded the best performance about peaks classification and the DESSO model obtainded the best performance about finding motifs.
-![Figure1](/docs/figures/background_figure1.png)
-Figure 1. A characterization of the 20 methods evaluated in this study and their overall evaluation results
-
-## What kinds of formats of input sequences are suitable for this server to find motifs.
-
-Currently we accept three kinds of motif formats, shown as follows,  
-(i) bed file
-
-(ii) fasta file
-
-(iii) sequences
-
-## What kinds of formats of motifs can be used to analysis.
-
-Currently we accept three kinds of motif formats, shown as follows,  
-(i)bed file
-
-(ii) meme
-
-(iii) fasta
-
-(vi) pwm
-
-## Cite us.
-
-[1][2]
+### Module 1: Human and Mouse healthy atlas
 
 ---
 
----
+The AD scRNA-Seq data of Human and Mouse healthy atlas is downloaded from Gene Expression Omnibus (GEO) database and Synapse. Cell types are predicted in Seurat (version 3.1).
+
+### Module 2: Prediction of Human and Mouse disease-associated cell clusters
+
+Identify AD-associated cells. AD associated cells are projected into the healthy atlas using principal components analysis method in Seurat.
+
+### Module 3: Identification of differentially expressed genes
+
+Differentially expressed genes (DGEs) analysis in scREAD is performed using DESeq2. The DGEs can be sent to perform the enrichment analysis against different functional annotation databases to identify the enriched GO functionalities, biological pathways, etc. The enrichment test is performed by Enrichr.
+
+### Module 4: Identification of cell cluster specific regulons
+
+For each regulon, the regulon activity score (RAS) in a cell is calculated based on the rank of the expression value in the cell for all the involved genes. The regulon specificity score (RSS) for a cell type can then be calculated according to the entropy of RAS of cells inside the cell type compared to outside the cell type. An RSS ranges from 0 to 1, with a higher value representing a more significant specificity of this regulon in the cell type. An empirical p-value of a regulon’s RSS can be estimated by comparing it with the RSSs of randomly selected gene sets (having the same number of genes in this regulon through a bootstrap method) in the same cell type for 10,000 times. Regulon p-values will be Bonferroni-adjusted by multiplying the number of all the identified regulons in the exact cell type. Regulons with adjusted p-values less than 0.05 were considered as cell cluster specific regulons.
