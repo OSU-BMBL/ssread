@@ -15,7 +15,7 @@
         </v-card-title>
         <v-data-table
           :headers="headers"
-          :items="motifs"
+          :items="dataset"
           :items-per-page="15"
           :search="search"
           class="elevation-1"
@@ -31,7 +31,7 @@ import { mapState } from 'vuex' // <--- To map motif
 export default {
   async asyncData({ store, error, params }) {
     try {
-      await store.dispatch('motifs/fetchMotifs')
+      await store.dispatch('ad/fetchDatasets')
     } catch (e) {
       error({
         statusCode: 503,
@@ -44,36 +44,41 @@ export default {
       search: '',
       headers: [
         {
-          text: 'Motif ID',
+          text: 'ID',
           align: 'start',
           sortable: false,
-          value: 'base_id'
+          value: 'data_id'
         },
-        { text: 'TF target name', value: 'tf_name' },
-        { text: 'TF target class', value: 'tf_class' },
-        { text: 'TF target family', value: 'tf_family' },
-        { text: 'Motif name (JASPAR)', value: 'tf_name_jaspar' },
-        { text: 'Motif name (HOCOMOCO)', value: 'tf_name_hocomoco' },
-        { text: 'Motif name (Transfac)', value: 'tf_name_transfac' }
+        { text: 'Species', value: 'species' },
+        { text: 'Gender', value: 'gender' },
+        { text: 'Condition', value: 'condition' },
+        { text: 'Region', value: 'region' },
+        { text: 'Stage', value: 'stage' },
+        { text: 'Age', value: 'age' },
+        { text: 'Mice model', value: 'mice_model' },
+        { text: 'GEO', value: 'geo_id' },
+        { text: '#Cells', value: 'n_cell' },
+        { text: '#DEGs', value: 'n_deg' },
+        { text: '#Regulons', value: 'n_iris3_regulon' }
       ]
     }
   },
   computed: mapState({
-    motifs: (state) => state.motifs.motifs
+    dataset: (state) => state.ad.datasets
   }),
   methods: {
-    handleClick(motif) {
-      this.$router.push('/browse/' + motif.data_id)
+    handleClick(dataset) {
+      this.$router.push('/browse/' + dataset.data_id)
     }
   },
   head() {
     return {
-      title: this.motif,
+      title: this.data_id,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: 'What you need to know about motif #' + this.motifs
+          content: 'What you need to know'
         }
       ]
     }
