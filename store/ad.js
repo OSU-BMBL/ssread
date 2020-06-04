@@ -1,34 +1,71 @@
 import AdService from '~/services/AdService.js'
 export const state = () => ({
-  motifs: [],
+  dataset: [],
+  datasets: [],
+  deMeta: [],
   de: [],
-  tfbs: []
+  dimension: [],
+  expression: [],
+  regulon: []
 })
 export const mutations = {
-  SET_MOTIFS(state, motifs) {
-    state.motifs = motifs
+  SET_DATASETS(state, datasets) {
+    state.datasets = datasets
+  },
+  SET_DATASET(state, dataset) {
+    state.dataset = dataset
+  },
+  SET_DE_META(state, deMeta) {
+    state.deMeta = deMeta
   },
   SET_DE(state, de) {
     state.de = de
   },
-  SET_TFBS(state, tfbs) {
-    state.tfbs = tfbs
+  SET_DIMENSION(state, dimension) {
+    state.dimension = dimension
+  },
+  SET_EXPRESSION(state, expression) {
+    state.expression = expression
+  },
+  SET_REGULON(state, regulon) {
+    state.regulon = regulon
   }
 }
 export const actions = {
-  fetchMotifs({ commit }) {
-    return AdService.getMotifs().then((response) => {
-      commit('SET_MOTIFS', response.data)
+  fetchDatasets({ commit }) {
+    return AdService.getDatasets().then((response) => {
+      commit('SET_DATASETS', response.data)
     })
   },
-  fetchDe({ commit }, id) {
-    return AdService.getDe(id).then(function(response) {
+  fetchDataset({ commit }, id) {
+    return AdService.getDataset(id).then((response) => {
+      commit('SET_DATASET', response.data)
+    })
+  },
+  fetchDeMeta({ commit }, id) {
+    return AdService.getDeMeta(id).then(function(response) {
+      commit('SET_DE_META', response.data)
+    })
+  },
+
+  fetchDe({ commit }, params) {
+    return AdService.getDe(params).then(function(response) {
       commit('SET_DE', response.data)
     })
   },
-  fetchTfbs({ commit }, id) {
-    return AdService.getTfbs(id).then(function(response) {
-      commit('SET_TFBS', response.data)
+  fetchRegulon({ commit }, id) {
+    return AdService.getRegulon(id).then(function(response) {
+      commit('SET_REGULON', response.data)
+    })
+  },
+  fetchDimension({ commit }, id) {
+    return AdService.getDimension(id).then(function(response) {
+      commit('SET_DIMENSION', response.data)
+    })
+  },
+  fetchExpression({ commit }, gene) {
+    return AdService.getExpression(gene).then(function(response) {
+      commit('SET_EXPRESSION', response.data)
     })
   }
 }
