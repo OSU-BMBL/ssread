@@ -6,141 +6,314 @@
       :class="{ 'on-hover': hover }"
     >
       <v-card-title class="primary white--text subtitle-1"
-        >Differential expression / Gene set enrichment</v-card-title
+        >Differential expression (DE) / Gene set enrichment</v-card-title
       >
-
       <v-card-text>
-        <p class="my-3 text--primary">Data ID: {{ de[0].data_id }}</p>
         <p class="display-1 text--primary"></p>
       </v-card-text>
+      <v-row xs="12" md="8" lg="12">
+        <v-col cols="md-5 lg-5">
+          <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-0">
+            <p class="title text--primary py-0 my-0">Comparison group:</p>
+            <v-select
+              v-model="comparisonSelect"
+              :hint="` ${comparisonSelect.hint}`"
+              :items="comparisonItems"
+              item-text="comparisonText"
+              item-value="hint"
+              label="DE Comparison type:"
+              persistent-hint
+              return-object
+              single-line
+              @change="updateDe()"
+            ></v-select>
+          </v-col>
+          <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-0">
+            <p class="title text--primary py-0 my-0">Cell type of interest:</p>
+            <v-select
+              v-model="cellTypeSelect"
+              :items="cellTypeItems"
+              item-text="type"
+              item-value="abbr"
+              label="Cell type of interest"
+              return-object
+              single-line
+              @change="updateDe()"
+            ></v-select>
+          </v-col>
 
-      <v-row wrap> </v-row>
-      <v-col xs="12" md="8" lg="4">
-        <v-select :items="comparison" label="Comparison:"></v-select>
-      </v-col>
-      <v-col xs="12" md="8" lg="4">
-        <v-select :items="cellType" label="Cell type of Interest:"></v-select>
-      </v-col>
-      <p class="my-3 text--primary">Log fold-change cutoff:</p>
-      <v-row>
-        <v-col class="px-4" xs="12" md="8" lg="4">
-          <v-range-slider
-            v-model="range"
-            :max="max"
-            :min="min"
+          <v-row>
+            <v-col xs="12" md="10" lg="11" class="px-7 py-0 my-0">
+              <p class="title text--primary">Log2 fold-change cutoff:</p>
+              <v-slider
+                v-model="lfc_range"
+                max="5"
+                min="0"
+                hide-details
+                :thumb-size="24"
+                thumb-label="always"
+                class="align-center"
+                :step="lfc_slider"
+              >
+                <template v-slot:append>
+                  <v-text-field
+                    v-model="lfc_range"
+                    class="mt-0 pt-0"
+                    hide-details
+                    single-line
+                    type="number"
+                    style="width: 80px"
+                  ></v-text-field>
+                </template>
+              </v-slider>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col xs="12" md="10" lg="11" class="px-7 py-0 my-0">
+              <p class="title text--primary">Adjusted p-value cutoff:</p>
+              <v-slider
+                v-model="p_range"
+                :tick-labels="ticksLabels"
+                max="8"
+                min="1"
+                step="1"
+                ticks="always"
+                tick-size="4"
+              >
+                <template v-slot:append>
+                  <v-text-field
+                    v-model="pSliderValue"
+                    class="mt-0 pt-0"
+                    center
+                    hide-details
+                    single-line
+                    type="number"
+                    style="width: 80px"
+                  ></v-text-field> </template
+              ></v-slider>
+            </v-col>
+          </v-row>
+          <v-col cols="12" md="8">
+            <v-radio-group v-model="deDirection" row>
+              <span class="title">DE direction: </span>
+              <v-radio label="All" value="all"></v-radio>
+              <v-radio label="UP" value="up"></v-radio>
+              <v-radio label="Down" value="down"></v-radio>
+            </v-radio-group>
+          </v-col>
+        </v-col>
+
+        <v-col cols="md-6 lg-8">
+          <v-text-field
+            v-model="searchDe"
+            prepend-icon="mdi-magnify"
+            label="Search"
+            single-line
             hide-details
-            class="align-center"
-            step="0.05"
+          ></v-text-field
+          ><v-data-table
+            dense
+            :search="searchDe"
+            :headers="headers"
+            :items="filterDe"
+            :items-per-page="15"
+            class="elevation-1"
           >
-            <template v-slot:prepend>
-              <v-text-field
-                :value="range[0]"
-                class="mt-0 pt-0"
-                hide-details
-                single-line
-                type="number"
-                style="width: 60px"
-                @change="$set(range, 0, $event)"
-              ></v-text-field>
+            <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title>DE genes </v-toolbar-title>
+                <v-spacer></v-spacer>
+              </v-toolbar>
             </template>
-            <template v-slot:append>
-              <v-text-field
-                :value="range[1]"
-                class="mt-0 pt-0"
-                hide-details
-                single-line
-                type="number"
-                style="width: 60px"
-                @change="$set(range, 1, $event)"
-              ></v-text-field>
-            </template>
-          </v-range-slider>
+          </v-data-table>
         </v-col>
       </v-row>
-      <p class="my-3 text--primary">Adjusted p-value cutoff:</p>
+      <v-divider></v-divider>
       <v-row>
-        <v-col class="px-4" xs="12" md="8" lg="4">
-          <v-range-slider
-            v-model="range"
-            :max="max"
-            :min="min"
+        <v-col xs="12" md="6" lg="6">
+          <v-text-field
+            v-model="keggSearch"
+            prepend-icon="mdi-magnify"
+            label="Search"
+            single-line
             hide-details
-            class="align-center"
-            step="0.05"
+          ></v-text-field>
+          <v-data-table
+            dense
+            :search="keggSearch"
+            :headers="enrichHeaders"
+            :items="keggResult"
+            :items-per-page="10"
+            class="elevation-1"
+            :expanded.sync="expanded"
+            show-expand
           >
-            <template v-slot:prepend>
-              <v-text-field
-                :value="range[0]"
-                class="mt-0 pt-0"
-                hide-details
-                single-line
-                type="number"
-                style="width: 60px"
-                @change="$set(range, 0, $event)"
-              ></v-text-field>
+            <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title>KEGG pathway</v-toolbar-title>
+                <v-spacer></v-spacer>
+              </v-toolbar>
             </template>
-            <template v-slot:append>
-              <v-text-field
-                :value="range[1]"
-                class="mt-0 pt-0"
-                hide-details
-                single-line
-                type="number"
-                style="width: 60px"
-                @change="$set(range, 1, $event)"
-              ></v-text-field>
+            <template v-slot:expanded-item="{ item }">
+              <td :colspan="headers.length">
+                {{ item.genes.join(',') }}
+              </td>
             </template>
-          </v-range-slider>
+          </v-data-table>
         </v-col>
+        <v-col xs="12" md="6" lg="6">
+          <v-text-field
+            v-model="bpSearch"
+            prepend-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+          <v-data-table
+            dense
+            :search="bpSearch"
+            :headers="enrichHeaders"
+            :items="bpResult"
+            :items-per-page="10"
+            class="elevation-1"
+            :expanded.sync="expanded"
+            show-expand
+          >
+            <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title>GO: Biological Process </v-toolbar-title>
+                <v-spacer></v-spacer>
+              </v-toolbar>
+            </template>
+            <template v-slot:expanded-item="{ item }">
+              <td :colspan="headers.length">
+                {{ item.genes.join(',') }}
+              </td>
+            </template>
+          </v-data-table>
+        </v-col>
+        <v-col xs="12" md="6" lg="6">
+          <v-text-field
+            v-model="mfSearch"
+            prepend-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+          <v-data-table
+            dense
+            :search="mfSearch"
+            :headers="enrichHeaders"
+            :items="mfResult"
+            :items-per-page="10"
+            class="elevation-1"
+            :expanded.sync="expanded"
+            show-expand
+          >
+            <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title>GO: Molecular Function</v-toolbar-title>
+                <v-spacer></v-spacer>
+              </v-toolbar>
+            </template>
+            <template v-slot:expanded-item="{ item }">
+              <td :colspan="headers.length">
+                {{ item.genes.join(',') }}
+              </td>
+            </template>
+          </v-data-table>
+        </v-col>
+        <v-col xs="12" md="6" lg="6">
+          <v-text-field
+            v-model="ccSearch"
+            prepend-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+          <v-data-table
+            dense
+            :search="ccSearch"
+            :headers="enrichHeaders"
+            :items="ccResult"
+            :items-per-page="10"
+            class="elevation-1"
+            :expanded.sync="expanded"
+            show-expand
+          >
+            <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title>GO: Cellular Component </v-toolbar-title>
+                <v-spacer></v-spacer>
+              </v-toolbar>
+            </template>
+            <template v-slot:expanded-item="{ item }">
+              <td :colspan="headers.length">
+                {{ item.genes.join(',') }}
+              </td>
+            </template>
+          </v-data-table>
+        </v-col>
+        <!--
+        <v-col
+          ><v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn color="primary" dark v-on="on"
+                >Explore more on Enrichr</v-btn
+              >
+            </template>
+
+            <span>Tooltip</span>
+          </v-tooltip></v-col
+        >-->
       </v-row>
-      <v-col cols="12" md="8">
-        <v-radio-group v-model="uploadType">
-          <span class="title">DE direction</span>
-          <v-radio label="All" value="all"></v-radio>
-          <v-radio label="UP" value="up"></v-radio>
-          <v-radio label="Down" value="down"></v-radio>
-        </v-radio-group>
-      </v-col>
-      <v-col cols="md-6 lg-4">
-        <v-text-field
-          v-model="search"
-          prepend-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field
-        ><v-data-table
-          :search="search"
-          :headers="headers"
-          :items="de"
-          :items-per-page="15"
-          class="elevation-1"
-          @click:row="handleClick"
-        ></v-data-table>
-        <v-divider inset></v-divider>
-      </v-col>
-      <v-card-actions>
-        <v-btn text color="secondary">
-          Enrichment analysis
-        </v-btn>
-      </v-card-actions>
     </v-card>
   </v-hover>
 </template>
 
 <script>
+import { mapState } from 'vuex' // <--- To map data from Vuex
 import axios from 'axios'
+import FormData from 'form-data'
+import _ from 'lodash'
+
 export default {
   name: 'DeInfo',
   props: {
-    de: {
-      type: Array,
+    dataId: {
+      type: String,
       required: true
+    }
+  },
+  async asyncData({ store, error, params }) {
+    const defaultDeParams = {
+      aDataId: params.id,
+      bDataId: params.id,
+      type: 'cell_type_specific',
+      ct: 'ast'
+    }
+    try {
+      await store.dispatch('ad/fetchDataset', params.id)
+      await store.dispatch('ad/fetchDimension', params.id)
+      await store.dispatch('ad/fetchDe', defaultDeParams)
+      await store.dispatch('ad/fetchDeMeta', params.id)
+    } catch (e) {
+      error({
+        statusCode: 503,
+        message: 'ERROR CODE 503,' + params.id
+      })
     }
   },
   data() {
     return {
-      search: '',
+      bDataId: this.dataId,
+      type: 'cell_type_specific',
+      ct: 'ast',
+      searchDe: '',
+      keggSearch: '',
+      bpSearch: '',
+      mfSearch: '',
+      ccSearch: '',
       headers: [
         { text: 'Gene name', value: 'gene' },
         { text: 'Log fold-change', value: 'avg_logFC' },
@@ -149,85 +322,328 @@ export default {
         { text: 'Cell type', value: 'ct' },
         { text: 'Comparison type', value: 'type' } */
       ],
-      enrich: [],
+      enrichHeaders: [
+        { text: 'Name', value: 'name' },
+        { text: 'Adjusted p-value', value: 'adjPvalue' },
+        { text: '', value: 'data-table-expand' }
+      ],
+      expanded: [],
       comparison: [
         'Cell type specific genes',
-        'AD vs Control',
-        'Comparison between sex',
-        'Comparison between stage',
-        'Comparison between age',
-        'Sub-cluster specific genes'
+        'Disease vs disease (based on gender)',
+        'Disease vs disease (based on stage)',
+        'Subcluster specific genes'
+      ],
+      comparisonSelect: {
+        comparisonText: 'Cell type specific genes',
+        hint:
+          'Find differentially expressed genes in each cell type by comparing it to all of the others.',
+        bDataId: 'AD00103',
+        type: 'cell_type_specific'
+      },
+      comparisonItems: [
+        {
+          comparisonText: 'Cell type specific genes',
+          hint:
+            'Find differentially expressed genes in each cell type by comparing it to all of the others.',
+          bDataId: 'AD00103',
+          type: 'cell_type_specific'
+        },
+        {
+          comparisonText: 'Control vs disease ',
+          hint:
+            'Compare cuurent dataset with control dataset: H-H-Prefrontal cortex-Female (AD00106)',
+          bDataId: 'AD001063',
+          type: 'a_vs_b'
+        },
+        {
+          comparisonText: 'Disease vs disease (based on gender)',
+          hint:
+            'Compare cuurent dataset with disease dataset: H-AD.late-Prefrontal cortex-Male_001 (AD00102)',
+          bDataId: 'AD00102',
+          type: 'a_vs_b'
+        },
+        {
+          comparisonText: 'Disease vs disease (based on stage)',
+          hint:
+            'Compare cuurent dataset with disease dataset: H-AD.earyly-Prefrontal cortex-female_001 (AD00104)',
+          bDataId: 'AD00105',
+          type: 'a_vs_b'
+        },
+        {
+          comparisonText: 'Subcluster specific genes',
+          hint:
+            'Comparing the subcluster of interest against other subclusters within the same cell type.',
+          bDataId: 'AD00103',
+          type: 'subcluster'
+        }
+      ],
+      cellTypeSelect: {
+        type: 'Astrocytes',
+        abbr: 'ast'
+      },
+      cellTypeItems: [
+        {
+          type: 'Astrocytes',
+          abbr: 'ast'
+        },
+        {
+          type: 'Microglia',
+          abbr: 'mic'
+        },
+        { type: 'Endothelial cells', abbr: 'end' },
+        { type: 'Excitatory neurons', abbr: 'exc' },
+        { type: 'Inhibitory neurons', abbr: 'inh' },
+        {
+          type: 'Oligodendrocytes',
+          abbr: 'oli'
+        },
+        { type: 'Oligodendrocyte precursor cells', abbr: 'opc' },
+        { type: 'Pericytes', abbr: 'per' }
       ],
       cellType: [
-        'Microglia',
         'Astrocytes',
+        'Microglia',
+        'Endothelial cells',
         'Excitatory neurons',
         'Inhibitory neurons',
         'Oligodendrocytes',
         'Oligodendrocyte precursor cells',
         'Pericytes'
       ],
-      min: -4,
-      max: 4,
-      slider: 1.5,
-      range: [-4, 4]
+      lfc_slider: 0.05,
+      lfc_range: 1,
+      p_slider: 0.001,
+      p_range: '6',
+      ticksLabels: [
+        '10^-6',
+        '10^-5',
+        '10^-4',
+        '10^-3',
+        '0.01',
+        '0.05',
+        '0.1',
+        '1'
+      ],
+      deDirection: 'all',
+      keggResult: [],
+      bpResult: [],
+      mfResult: [],
+      ccResult: []
     }
   },
   computed: {
+    ...mapState({
+      de: (state) => state.ad.de.rows,
+      n_de: (state) => state.ad.de.count,
+      de_meta: (state) => state.ad.deMeta
+    }),
     genes() {
-      return [
-        'PHF14',
-        'RBM3',
-        'MSL1',
-        'PHF21A',
-        'ARL10',
-        'INSR',
-        'JADE2',
-        'P2RX7',
-        'LINC00662',
-        'CCDC101',
-        'PPM1B',
-        'KANSL1L',
-        'CRYZL1',
-        'ANAPC16',
-        'TMCC1',
-        'CDH8',
-        'RBM11',
-        'CNPY2',
-        'HSPA1L',
-        'CUL2',
-        'PLBD2',
-        'LARP7',
-        'TECPR2',
-        'ZNF302',
-        'CUX1',
-        'MOB2',
-        'CYTH2',
-        'SEC22C',
-        'EIF4E3',
-        'ROBO2',
-        'ADAMTS9-AS2',
-        'CXXC1',
-        'LINC01314',
-        'ATF7',
-        'ATP5F1'
-      ]
+      return _.map(this.filterDe, 'gene')
+    },
+    pSliderValue() {
+      switch (this.p_range) {
+        case 1:
+          return '0.000001'
+        case 2:
+          return '0.00001'
+        case 3:
+          return '0.0001'
+        case 4:
+          return '0.001'
+        case 5:
+          return '0.01'
+        case 6:
+          return '0.05'
+        case 7:
+          return '0.01'
+        case 8:
+          return '1'
+        default:
+          return '0'
+      }
+    },
+    filterDe() {
+      if (this.deDirection === 'up') {
+        return this.de.filter(
+          (row) =>
+            row.avg_logFC >= this.lfc_range &&
+            row.p_val_adj <= this.pSliderValue
+        )
+      } else if (this.deDirection === 'down') {
+        return this.de.filter(
+          (row) =>
+            row.avg_logFC <= -1 * this.lfc_range &&
+            row.p_val_adj <= this.pSliderValue
+        )
+      } else {
+        return this.de.filter(
+          (row) =>
+            (row.avg_logFC <= -1 * this.lfc_range ||
+              row.avg_logFC >= this.lfc_range) &&
+            row.p_val_adj <= this.pSliderValue
+        )
+      }
+    }
+  },
+  watch: {
+    filterDe() {
+      this.sendKegg(this.genes)
+      this.sendBp(this.genes)
+      this.sendMf(this.genes)
+      this.sendCc(this.genes)
     }
   },
   methods: {
-    async handleClick(genes) {
-      // const ENRICHR_URL = 'http://amp.pharm.mssm.edu/Enrichr/addList'
-      // const description = 'Example gene list'
-      const payload = {
-        list: this.genes,
-        description: 'description'
-      }
+    async sendKegg(genes) {
+      const geneSetLibrary = 'KEGG_2019_Human'
+      const formData = new FormData()
+      formData.append('method', 'post')
+      formData.append('name', 'list')
+      formData.append('enctype', 'multipart/form-data')
+      formData.append('list', genes.join('\n'))
+      formData.append('description', 'test test')
+      const geneListEnrichrId = await axios
+        .post('https://amp.pharm.mssm.edu/Enrichr/addList', formData)
+        .then(function(response) {
+          return response.data.userListId
+        })
+      const enrichrResult = await axios
+        .get(
+          'https://amp.pharm.mssm.edu/Enrichr/enrich?userListId=' +
+            geneListEnrichrId +
+            '&backgroundType=' +
+            geneSetLibrary
+        )
+        .then(function(response) {
+          return response.data
+        })
+      this.keggResult = enrichrResult.KEGG_2019_Human.map((value) => ({
+        index: value[0],
+        name: value[1],
+        pvalue: value[2],
+        odd: value[3],
+        score: value[4],
+        genes: value[5],
+        adjPvalue: value[6],
+        key8: value[7]
+      }))
+      return enrichrResult
+    },
+    async sendBp(genes) {
+      const geneSetLibrary = 'GO_Biological_Process_2018'
+      const formData = new FormData()
+      formData.append('method', 'post')
+      formData.append('name', 'list')
+      formData.append('enctype', 'multipart/form-data')
+      formData.append('list', genes.join('\n'))
+      formData.append('description', 'test test')
+      const geneListEnrichrId = await axios
+        .post('https://amp.pharm.mssm.edu/Enrichr/addList', formData)
+        .then(function(response) {
+          return response.data.userListId
+        })
+      const enrichrResult = await axios
+        .get(
+          'https://amp.pharm.mssm.edu/Enrichr/enrich?userListId=' +
+            geneListEnrichrId +
+            '&backgroundType=' +
+            geneSetLibrary
+        )
+        .then(function(response) {
+          return response.data
+        })
+      this.bpResult = enrichrResult.GO_Biological_Process_2018.map((value) => ({
+        index: value[0],
+        name: value[1],
+        pvalue: value[2],
+        odd: value[3],
+        score: value[4],
+        genes: value[5],
+        adjPvalue: value[6],
+        key8: value[7]
+      }))
+      return enrichrResult
+    },
+    async sendMf(genes) {
+      const geneSetLibrary = 'GO_Molecular_Function_2018'
+      const formData = new FormData()
+      formData.append('method', 'post')
+      formData.append('name', 'list')
+      formData.append('enctype', 'multipart/form-data')
+      formData.append('list', genes.join('\n'))
+      formData.append('description', 'test test')
+      const geneListEnrichrId = await axios
+        .post('https://amp.pharm.mssm.edu/Enrichr/addList', formData)
+        .then(function(response) {
+          return response.data.userListId
+        })
+      const enrichrResult = await axios
+        .get(
+          'https://amp.pharm.mssm.edu/Enrichr/enrich?userListId=' +
+            geneListEnrichrId +
+            '&backgroundType=' +
+            geneSetLibrary
+        )
+        .then(function(response) {
+          return response.data
+        })
+      this.mfResult = enrichrResult.GO_Molecular_Function_2018.map((value) => ({
+        index: value[0],
+        name: value[1],
+        pvalue: value[2],
+        odd: value[3],
+        score: value[4],
+        genes: value[5],
+        adjPvalue: value[6],
+        key8: value[7]
+      }))
+      return enrichrResult
+    },
+    async sendCc(genes) {
+      const geneSetLibrary = 'GO_Cellular_Component_2018'
+      const formData = new FormData()
+      formData.append('method', 'post')
+      formData.append('name', 'list')
+      formData.append('enctype', 'multipart/form-data')
+      formData.append('list', genes.join('\n'))
+      formData.append('description', 'test test')
+      const geneListEnrichrId = await axios
+        .post('https://amp.pharm.mssm.edu/Enrichr/addList', formData)
+        .then(function(response) {
+          return response.data.userListId
+        })
+      const enrichrResult = await axios
+        .get(
+          'https://amp.pharm.mssm.edu/Enrichr/enrich?userListId=' +
+            geneListEnrichrId +
+            '&backgroundType=' +
+            geneSetLibrary
+        )
+        .then(function(response) {
+          return response.data
+        })
+      this.ccResult = enrichrResult.GO_Cellular_Component_2018.map((value) => ({
+        index: value[0],
+        name: value[1],
+        pvalue: value[2],
+        odd: value[3],
+        score: value[4],
+        genes: value[5],
+        adjPvalue: value[6],
+        key8: value[7]
+      }))
+      return enrichrResult
+    },
 
-      const enrich = await axios.post(
-        'http://amp.pharm.mssm.edu/Enrichr/addList',
-        payload
-      )
-      console.log(enrich)
+    async updateDe() {
+      const params = {
+        aDataId: this.dataId,
+        bDataId: this.comparisonSelect.bDataId,
+        type: this.comparisonSelect.type,
+        ct: this.cellTypeSelect.abbr
+      }
+      await this.$store.dispatch('ad/fetchDe', params)
     }
   }
 }
