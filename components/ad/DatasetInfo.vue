@@ -8,10 +8,7 @@
       <v-card-title class="primary white--text subtitle-1"
         >Dataset information</v-card-title
       >
-      <v-card-text>
-        <p class="my-3 text--primary">Data ID: {{ de[0].data_id }}</p>
-        <p class="display-1 text--primary"></p>
-      </v-card-text>
+      <v-card-text> </v-card-text>
 
       <v-layout row wrap>
         <v-flex xs12 md12 lg7
@@ -21,28 +18,32 @@
 
           <v-card-text>
             <p class="my-0">
+              <span class="text--secondary">scREAD Data ID: </span>
+              <span class="text--primary">{{ dataset[0].data_id }}</span>
+            </p>
+            <p class="my-0">
               <span class="text--secondary">Species: </span>
-              <span class="text--primary">Human</span>
+              <span class="text--primary">{{ dataset[0].species }}</span>
             </p>
             <p class="my-0">
               <span class="text--secondary">Region: </span>
-              <span class="text--primary"></span>
+              <span class="text--primary">{{ dataset[0].region }}</span>
             </p>
             <p class="my-0">
               <span class="text--secondary">Condition: </span>
-              <span class="text--primary"></span>
+              <span class="text--primary">{{ dataset[0].condition }}</span>
+            </p>
+            <p class="my-0">
+              <span class="text--secondary">Stage: </span>
+              <span class="text--primary">{{ dataset[0].stage }}</span>
             </p>
             <p class="my-0">
               <span class="text--secondary">Gender: </span>
-              <span class="text--primary"></span>
+              <span class="text--primary">{{ dataset[0].gender }}</span>
             </p>
             <p class="my-0">
               <span class="text--secondary">Age: </span>
-              <span class="text--primary"></span>
-            </p>
-            <p class="my-0">
-              <span class="text--secondary">GSE number: </span>
-              <span class="text--primary"></span>
+              <span class="text--primary">{{ dataset[0].age }}</span>
             </p>
           </v-card-text>
           <v-card-title class="my-0 py-0"
@@ -51,25 +52,38 @@
           </v-card-title>
           <v-card-text>
             <p class="my-0">
-              <span class="text--secondary">Dataset source:: </span>
-              <span class="text--primary">source link</span>
-            </p>
-
-            <p class="my-0">
-              <span class="text--secondary">Experiment: </span>
-              <span class="text--primary">experiment link</span>
+              <span class="text--secondary"
+                >Number of AD associated cells:
+              </span>
+              <span class="text--primary">6377</span>
             </p>
             <p class="my-0">
-              <span class="text--secondary">Lab: </span>
-              <span class="text--primary">Lab</span>
+              <span class="text--secondary"
+                >Number of cells from original dataset:
+              </span>
+              <span class="text--primary">6769</span>
+            </p>
+            <p class="my-0">
+              <span class="text--secondary">Dataset source: </span>
+              <span class="text--primary"
+                >https://pubmed.ncbi.nlm.nih.gov/31042697/</span
+              >
+            </p>
+            <p class="my-0">
+              <span class="text--secondary">GSE number: </span>
+              <span class="text--primary">{{ dataset[0].geo_id }}</span>
             </p>
             <p class="my-0">
               <span class="text--secondary">Pubmed ID: </span>
-              <span class="text--primary">PMED00000001</span>
+              <span class="text--primary">31042697</span>
             </p>
             <p class="my-0">
               <span class="text--secondary">Citation: </span>
-              <span class="text--primary">111</span>
+              <span class="text--primary"
+                >Mathys, H., Davila-Velderrain, J., Peng, Z. et al. Single-cell
+                transcriptomic analysis of Alzheimer’s disease. Nature 570,
+                332–337 (2019). https://doi.org/10.1038/s41586-019-1195-2
+              </span>
             </p>
           </v-card-text></v-flex
         >
@@ -78,6 +92,25 @@
             >Related dataset
             <v-divider class="my-0 py-0"></v-divider>
           </v-card-title>
+          <p class="my-0">
+            <span class="text--secondary">Same region: </span>
+            <span class="text--primary"
+              >AD00101: H-H-Prefrontal cortex-Male; AD00106: H-H-Prefrontal
+              cortex-Female</span
+            >
+          </p>
+          <p class="my-0">
+            <span class="text--secondary">Same stage: </span>
+            <span class="text--primary"
+              >AD00104: H-AD.early-Prefrontal cortex-Male_001</span
+            >
+          </p>
+          <p class="my-0">
+            <span class="text--secondary">Same gender: </span>
+            <span class="text--primary"
+              >AD00105: H-AD.early-Prefrontal cortex-Female_001</span
+            >
+          </p>
         </v-flex>
       </v-layout>
     </v-card>
@@ -86,9 +119,9 @@
 
 <script>
 export default {
-  name: 'DeInfo',
+  name: 'DasetInfo',
   props: {
-    de: {
+    dataset: {
       type: Array,
       required: true
     }
