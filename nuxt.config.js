@@ -31,7 +31,7 @@ export default {
    */
   plugins: [
     '@/plugins/plugin.js',
-    { src: '@/plugins/highcharts.js', ssr: false }
+    { src: '@/plugins/highcharts.js', mode: 'client' }
   ],
   /*
    ** Nuxt.js dev-modules
