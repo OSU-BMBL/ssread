@@ -104,7 +104,11 @@ export default {
       appBarTextColor: '#ccccd6', // 远山紫
       items: [
         { icon: 'mdi-home', text: 'Home', url: '/' },
-        { icon: 'mdi-table', text: 'Browse', url: '/browse' },
+        {
+          icon: 'mdi-table',
+          text: 'Browse healthy atlas',
+          url: '/browse_healthy_atlas'
+        },
         {
           icon: 'mdi-file-find-outline',
           text: 'Submit',
@@ -137,8 +141,7 @@ export default {
             }
           ]
         },
-        { icon: 'mdi-download', text: 'Downloads', url: '/downloads' },
-        { icon: 'mdi-information', text: 'About us', url: '/about' }
+        { icon: 'mdi-download', text: 'Downloads', url: '/downloads' }
       ]
     }
   },
