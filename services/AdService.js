@@ -44,6 +44,9 @@ export default {
   getDataset(id) {
     return apiClient.get('/dataset/' + id)
   },
+  getPublication(id) {
+    return apiClient.get('/publication/' + id)
+  },
   getDeMeta(id) {
     return apiClient.get('/de/' + id + '/meta')
   },
@@ -60,11 +63,10 @@ export default {
     )
   },
   getRegulon(id) {
-    console.log(id)
     return apiClient.get('/regulon/AD00102')
   },
-  getDimension(id) {
-    return apiClient.get('/dimension/' + id)
+  getDimension(id, type) {
+    return apiClient.get('/dimension/' + id + '?type=' + type)
   },
   getExpression(gene) {
     return apiClient.get('/expression/' + gene)

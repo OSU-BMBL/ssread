@@ -1,7 +1,10 @@
 import AdService from '~/services/AdService.js'
 export const state = () => ({
+  dialog: [],
   dataset: [],
   datasets: [],
+  dialogDataset: [],
+  publication: [],
   deMeta: [],
   de: [],
   dimension: [],
@@ -14,6 +17,12 @@ export const mutations = {
   },
   SET_DATASET(state, dataset) {
     state.dataset = dataset
+  },
+  SET_DIALOG_DATASET(state, dialogDataset) {
+    state.dialogDataset = dialogDataset
+  },
+  SET_PUBLICATION(state, publication) {
+    state.publication = publication
   },
   SET_DE_META(state, deMeta) {
     state.deMeta = deMeta
@@ -29,6 +38,9 @@ export const mutations = {
   },
   SET_REGULON(state, regulon) {
     state.regulon = regulon
+  },
+  SET_DIALOG(state, dialog) {
+    state.dialog = dialog
   }
 }
 export const actions = {
@@ -42,12 +54,16 @@ export const actions = {
       commit('SET_DATASET', response.data)
     })
   },
+  fetchPublication({ commit }, id) {
+    return AdService.getPublication(id).then((response) => {
+      commit('SET_PUBLICATION', response.data)
+    })
+  },
   fetchDeMeta({ commit }, id) {
     return AdService.getDeMeta(id).then(function(response) {
       commit('SET_DE_META', response.data)
     })
   },
-
   fetchDe({ commit }, params) {
     return AdService.getDe(params).then(function(response) {
       commit('SET_DE', response.data)
@@ -58,14 +74,23 @@ export const actions = {
       commit('SET_REGULON', response.data)
     })
   },
-  fetchDimension({ commit }, id) {
-    return AdService.getDimension(id).then(function(response) {
+  fetchDimension({ commit }, params) {
+    return AdService.getDimension(params.id, params.type).then(function(
+      response
+    ) {
+      console.log(params.type)
       commit('SET_DIMENSION', response.data)
     })
   },
   fetchExpression({ commit }, gene) {
     return AdService.getExpression(gene).then(function(response) {
       commit('SET_EXPRESSION', response.data)
+    })
+  },
+  setDialog(context, id) {
+    context.commit('SET_DIALOG', id)
+    return AdService.getDataset(id).then((response) => {
+      context.commit('SET_DIALOG_DATASET', response.data)
     })
   }
 }
