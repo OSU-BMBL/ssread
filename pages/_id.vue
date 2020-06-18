@@ -13,12 +13,15 @@
         </v-layout>
         <v-layout row wrap>
           <v-flex xs12 md12 lg12>
-            <dimension-info :dimension="dimension"></dimension-info>
+            <dimension-info
+              :dimension="dimension"
+              :ct="cellType"
+            ></dimension-info>
           </v-flex>
         </v-layout>
         <v-layout row wrap>
           <v-flex xs12 md12 lg12>
-            <de-info :data-id="dataId"></de-info>
+            <de-info :data-id="dataId" :ct="cellType"></de-info>
           </v-flex>
         </v-layout>
         <Fab></Fab>
@@ -44,13 +47,17 @@ export default {
       aDataId: params.id,
       bDataId: params.id,
       type: 'cell_type_specific',
-      ct: 'ast'
+      ct: 'Astrocytes'
     }
     try {
       await store.dispatch('ad/fetchDatasets')
       await store.dispatch('ad/fetchDataset', params.id)
+      await store.dispatch('ad/fetchCellType', params.id)
       await store.dispatch('ad/fetchPublication', params.id)
-      await store.dispatch('ad/fetchDimension', { id: params.id, type: 'all' })
+      await store.dispatch('ad/fetchDimension', {
+        id: params.id,
+        type: 'All cell types'
+      })
       await store.dispatch('ad/fetchDe', defaultDeParams)
       await store.dispatch('ad/fetchDeMeta', params.id)
       await store.dispatch('ad/fetchRegulon', params.id)
@@ -66,7 +73,8 @@ export default {
       dataset: (state) => state.ad.dataset,
       datasets: (state) => state.ad.datasets,
       dimension: (state) => state.ad.dimension,
-      publication: (state) => state.ad.publication
+      publication: (state) => state.ad.publication,
+      cellType: (state) => state.ad.cellType
     }),
     dataId() {
       return this.$route.params.id

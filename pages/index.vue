@@ -21,7 +21,7 @@
     <div class="motif-header">
       <v-card>
         <v-card-title>
-          scREAD covers 55 datasets from 11 studies, seven brain regions,
+          scREAD covers 55 datasets from 11 studies, eight brain regions,
           {{ totalCells }}
           cells.
           <v-spacer></v-spacer>
@@ -342,7 +342,7 @@ export default {
       )
     },
     totalCells() {
-      return _.sumBy(this.dataset, 'n_cell')
+      return _.sumBy(this.dataset, 'n_original_cell')
     }
   },
   methods: {
@@ -364,7 +364,7 @@ export default {
   },
   head() {
     return {
-      title: this.data_id,
+      title: 'Home',
       meta: [
         {
           hid: 'description',

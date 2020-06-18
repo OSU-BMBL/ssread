@@ -6,6 +6,7 @@ export const state = () => ({
   dialogDataset: [],
   publication: [],
   deMeta: [],
+  cellType: [],
   de: [],
   dimension: [],
   expression: [],
@@ -17,6 +18,9 @@ export const mutations = {
   },
   SET_DATASET(state, dataset) {
     state.dataset = dataset
+  },
+  SET_CELL_TYPE(state, cellType) {
+    state.cellType = cellType
   },
   SET_DIALOG_DATASET(state, dialogDataset) {
     state.dialogDataset = dialogDataset
@@ -54,6 +58,11 @@ export const actions = {
       commit('SET_DATASET', response.data)
     })
   },
+  fetchCellType({ commit }, id) {
+    return AdService.getCellType(id).then((response) => {
+      commit('SET_CELL_TYPE', response.data)
+    })
+  },
   fetchPublication({ commit }, id) {
     return AdService.getPublication(id).then((response) => {
       commit('SET_PUBLICATION', response.data)
@@ -78,7 +87,6 @@ export const actions = {
     return AdService.getDimension(params.id, params.type).then(function(
       response
     ) {
-      console.log(params.type)
       commit('SET_DIMENSION', response.data)
     })
   },

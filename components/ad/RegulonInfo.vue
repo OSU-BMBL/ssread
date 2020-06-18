@@ -21,6 +21,25 @@
             :items-per-page="10"
             class="elevation-1"
           >
+            <template v-slot:item="row">
+              <tr>
+                <td>{{ row.item.index }}</td>
+                <td>
+                  <a
+                    :href="
+                      'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
+                        row.item.tf_name
+                    "
+                    target="_blank"
+                    style="text-decoration:none;"
+                    >{{ row.item.tf_name }}</a
+                  >
+                </td>
+                <td>{{ row.item.rss }}</td>
+                <td>{{ row.item.rss_pval }}</td>
+                <td>{{ row.item.gene_symbol }}</td>
+              </tr>
+            </template>
           </v-data-table>
           <iframe
             src="https://bmbl.bmi.osumc.edu/iris3/results.php?jobid=20200520163920"
@@ -57,6 +76,7 @@ export default {
       search: '',
       headers: [
         { text: 'Index', value: 'index' },
+        { text: 'Cell type', value: 'cell_type' },
         { text: 'Transcription factor', value: 'tf_name' },
         { text: 'Regulon specificity score', value: 'rss' },
         { text: 'Regulon p-value', value: 'rss_pval' },
@@ -66,7 +86,8 @@ export default {
   },
   computed: {
     ...mapState({
-      regulon: (state) => state.ad.regulon
+      regulon: (state) => state.ad.regulon,
+      cellType: (state) => state.ad.dimension
     })
   },
   methods: {}

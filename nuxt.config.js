@@ -1,5 +1,3 @@
-import EventService from './services/EventService.js'
-
 export default {
   mode: 'universal',
   /*
@@ -114,7 +112,9 @@ export default {
 
     transpile: ['vue-instantsearch', 'instantsearch.js/es'],
     extend(config, ctx) {}
-  },
+  }
+
+  /*
   generate: {
     routes: () => {
       return EventService.getEvents().then((response) => {
@@ -124,4 +124,5 @@ export default {
       })
     }
   }
+  */
 }

@@ -6,7 +6,7 @@
         <nuxt-link to="/">
           <span class="app-bar-title display-1 bold">{{ title }}</span>
         </nuxt-link>
-        <span class="app-bar-title hidden-sm-and-down">{{ fullTitle }}</span>
+        <span class="app-bar-title hidden-sm-and-down">{{ fullTitle }} </span>
       </v-toolbar-title>
       <v-spacer />
     </v-app-bar>

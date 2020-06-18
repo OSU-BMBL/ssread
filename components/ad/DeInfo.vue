@@ -12,7 +12,7 @@
         <p class="display-1 text--primary"></p>
       </v-card-text>
       <v-row xs="12" md="8" lg="12">
-        <v-col cols="md-6 lg-6">
+        <v-col cols="md-6 lg-7">
           <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-2">
             <p class="subtitle-1 font-weight-bold py-0 my-2">
               Group:
@@ -22,22 +22,62 @@
                     >mdi-help-circle-outline</v-icon
                   >
                 </template>
-                <span>tolltip.</span>
+                <span
+                  >Select differential expression test group between two
+                  specific set of cells.</span
+                >
               </v-tooltip>
             </p>
             <v-select
-              v-model="comparisonSelect"
-              :hint="` ${comparisonSelect.hint}`"
-              :items="comparisonItems"
-              item-text="comparisonText"
+              v-model="groupSelect"
+              :hint="` ${groupSelect.hint}`"
+              :items="groupItems"
+              item-text="groupText"
               item-value="hint"
               label="DE Comparison type:"
               return-object
               single-line
               persistent-hint
               @change="updateDe()"
+            ></v-select> </v-col
+          ><v-col
+            v-if="
+              groupSelect.groupText !== 'Cell type specific genes' &&
+                groupSelect.groupText !== 'Subcluster specific genes'
+            "
+            xs="12"
+            md="10"
+            lg="10"
+            class="px-4 py-0 my-2"
+          >
+            <p class="subtitle-1 font-weight-bold py-0 my-2">
+              Dataset:
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                    >mdi-help-circle-outline</v-icon
+                  >
+                </template>
+                <span
+                  >Based on the group information above, select data to compare
+                  with the current one.</span
+                >
+              </v-tooltip>
+            </p>
+            <v-select
+              v-model="comparisonSelect"
+              :hint="` ${comparisonSelect.hint}`"
+              :items="comparisonItems"
+              item-text="value"
+              item-value="value"
+              label="Select:"
+              return-object
+              single-line
+              persistent-hint
+              @change="updateDe()"
             ></v-select>
           </v-col>
+
           <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-2">
             <p class="subtitle-1 font-weight-bold py-0 my-2">
               Cell type of interest:
@@ -47,15 +87,46 @@
                     >mdi-help-circle-outline</v-icon
                   >
                 </template>
-                <span>tolltip.</span>
+                <span
+                  >Select the cell type of interest to perform differential
+                  expresison analysis.</span
+                >
               </v-tooltip>
             </p>
             <v-select
               v-model="cellTypeSelect"
               :items="cellTypeItems"
-              item-text="type"
-              item-value="abbr"
               label="Cell type of interest"
+              return-object
+              single-line
+              @change="updateDe()"
+            ></v-select>
+          </v-col>
+          <v-col
+            v-if="groupSelect.groupText === 'Subcluster specific genes'"
+            xs="12"
+            md="10"
+            lg="10"
+            class="px-4 py-0 my-2"
+          >
+            <p class="subtitle-1 font-weight-bold py-0 my-2">
+              Subcluster:
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                    >mdi-help-circle-outline</v-icon
+                  >
+                </template>
+                <span
+                  >Based on the group information above, select data to compare
+                  with the current one.</span
+                >
+              </v-tooltip>
+            </p>
+            <v-select
+              v-model="subclusterSelect"
+              :items="subclusterItems"
+              label="Select:"
               return-object
               single-line
               @change="updateDe()"
@@ -150,7 +221,7 @@
           </v-col>
         </v-col>
 
-        <v-col cols="md-6 lg-8">
+        <v-col cols="md-5 lg-5">
           <v-text-field
             v-model="searchDe"
             prepend-icon="mdi-magnify"
@@ -170,13 +241,29 @@
               <v-toolbar flat>
                 <v-toolbar-title
                   >DE genes
-                  {{ comparisonSelect.hint }}
                   <v-btn color="primary">
                     Download
                   </v-btn></v-toolbar-title
                 >
                 <v-spacer></v-spacer>
               </v-toolbar>
+            </template>
+            <template v-slot:item="row">
+              <tr>
+                <td>
+                  <a
+                    :href="
+                      'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
+                        row.item.gene
+                    "
+                    target="_blank"
+                    style="text-decoration:none;"
+                    >{{ row.item.gene }}</a
+                  >
+                </td>
+                <td>{{ row.item.avg_logFC }}</td>
+                <td>{{ row.item.p_val_adj }}</td>
+              </tr>
             </template>
           </v-data-table>
         </v-col>
@@ -415,6 +502,10 @@ export default {
     dataId: {
       type: String,
       required: true
+    },
+    ct: {
+      type: Array,
+      required: true
     }
   },
   async asyncData({ store, error, params }) {
@@ -440,7 +531,6 @@ export default {
     return {
       bDataId: this.dataId,
       type: 'cell_type_specific',
-      ct: 'ast',
       panel: [],
       searchDe: '',
       keggSearch: '',
@@ -464,96 +554,53 @@ export default {
         { text: '', value: 'data-table-expand' }
       ],
       expanded: [],
-      comparison: [
-        'Cell type specific genes',
-        'Disease vs disease (same region, different ** )',
-        'Disease vs disease (based on stage)',
-        'Subcluster specific genes'
-      ],
-      comparisonSelect: {
-        comparisonText: 'Cell type specific genes',
+      groupSelect: {
+        groupText: 'Cell type specific genes',
         hint:
           'Find differentially expressed genes in each cell type by comparing it to all of the others.',
         bDataId: 'AD00103',
         type: 'cell_type_specific'
       },
-      comparisonItems: [
+      groupItems: [
         {
-          comparisonText: 'Cell type specific genes',
+          groupText: 'Cell type specific genes',
           hint:
             'Find differentially expressed genes in each cell type by comparing it to all of the others.',
           bDataId: 'AD00103',
           type: 'cell_type_specific'
         },
         {
-          comparisonText: 'Control vs disease (same region)',
+          groupText: 'Control vs disease (same region)',
           hint:
-            'Compare current dataset with control dataset: H-H-Prefrontal cortex-Female (AD00106)',
-          bDataId: 'AD001063',
+            'Compare control with disease dataset in the same species, region, gender and age.',
+          bDataId: 'AD00106',
           type: 'a_vs_b'
         },
         {
-          comparisonText: 'Disease vs disease (same region)',
+          groupText: 'Disease vs disease (same region)',
           hint:
-            'Compare current dataset with disease dataset: H-AD.late-Prefrontal cortex-Male_001 (AD00102)',
+            'Compare two disease datasets in the same species, region, gender and age.',
           bDataId: 'AD00102',
           type: 'a_vs_b'
         },
         {
-          comparisonText: 'Disease vs disease (different region)',
+          groupText: 'Disease vs disease (different region)',
           hint:
-            'Compare current dataset with disease dataset: H-AD.earyly-Prefrontal cortex-female_001 (AD00104)',
+            'Compare two disease datasets in the same species, gender and age but in different region.',
           bDataId: 'AD00105',
           type: 'a_vs_b'
         },
         {
-          comparisonText: 'Disease vs disease (different region)',
-          hint:
-            'Compare current dataset with disease dataset: H-AD.earyly-Prefrontal cortex-female_001 (AD00104)',
-          bDataId: 'AD00105',
-          type: 'a_vs_b'
-        },
-        {
-          comparisonText: 'Subcluster specific genes',
+          groupText: 'Subcluster specific genes',
           hint:
             'Comparing the subcluster of interest against other subclusters within the same cell type.',
           bDataId: 'AD00103',
           type: 'subcluster'
         }
       ],
-      cellTypeSelect: {
-        type: 'Astrocytes',
-        abbr: 'ast'
-      },
-      cellTypeItems: [
-        {
-          type: 'Astrocytes',
-          abbr: 'ast'
-        },
-        {
-          type: 'Microglia',
-          abbr: 'mic'
-        },
-        { type: 'Endothelial cells', abbr: 'end' },
-        { type: 'Excitatory neurons', abbr: 'exc' },
-        { type: 'Inhibitory neurons', abbr: 'inh' },
-        {
-          type: 'Oligodendrocytes',
-          abbr: 'oli'
-        },
-        { type: 'Oligodendrocyte precursor cells', abbr: 'opc' },
-        { type: 'Pericytes', abbr: 'per' }
-      ],
-      cellType: [
-        'Astrocytes',
-        'Microglia',
-        'Endothelial cells',
-        'Excitatory neurons',
-        'Inhibitory neurons',
-        'Oligodendrocytes',
-        'Oligodendrocyte precursor cells',
-        'Pericytes'
-      ],
+      cellTypeSelect: 'Astrocytes',
+      subclusterSelect: '',
+      comparisonSelect: '',
       lfc_slider: 0.05,
       lfc_range: 1,
       p_slider: 0.001,
@@ -584,6 +631,9 @@ export default {
     genes() {
       return _.map(this.filterDe, 'gene')
     },
+    cellTypeItems() {
+      return _.map(this.ct, 'cell_type')
+    },
     pSliderValue() {
       switch (this.p_range) {
         case 1:
@@ -606,20 +656,22 @@ export default {
           return '0'
       }
     },
+    subclusterItems() {
+      return [0, 1, 2]
+    },
+    comparisonItems() {
+      return this.de_meta.filter(
+        (row) => row.description === this.groupSelect.groupText
+      )
+    },
     filterDe() {
       switch (this.deDirection) {
         case 'up':
-          return this.de
-            .map((row) => {
-              return Object.assign({}, row, {
-                p_val_adj: row.p_val_adj.toExponential(6)
-              })
-            })
-            .filter(
-              (row) =>
-                row.avg_logFC >= this.lfc_range &&
-                row.p_val_adj <= this.pSliderValue
-            )
+          return this.de.filter(
+            (row) =>
+              row.avg_logFC >= this.lfc_range &&
+              row.p_val_adj <= this.pSliderValue
+          )
         case 'down':
           return this.de.filter(
             (row) =>
@@ -706,7 +758,6 @@ export default {
         .catch(() => {
           return { GO_Biological_Process_2018: [[1, 'not found']] }
         })
-      console.log(enrichrResult)
       this.bpResult = enrichrResult.GO_Biological_Process_2018.map((value) => ({
         index: value[0],
         name: value[1],
@@ -791,21 +842,45 @@ export default {
     },
 
     async updateDe() {
-      const params = {
-        aDataId: this.dataId,
-        bDataId: this.comparisonSelect.bDataId,
-        type: this.comparisonSelect.type,
-        ct: this.cellTypeSelect.abbr
+      if (this.groupSelect.groupText === 'Cell type specific genes') {
+        const params = {
+          aDataId: this.dataId,
+          bDataId: this.dataId,
+          type: this.groupSelect.type,
+          ct: this.cellTypeSelect
+        }
+        await console.log(params)
+        await this.$store.dispatch('ad/fetchDe', params)
+      } else if (this.groupSelect.groupText === 'Subcluster specific genes') {
+        const params = {
+          aDataId: this.dataId,
+          bDataId: this.subclusterSelect,
+          type: this.groupSelect.type,
+          ct: this.cellTypeSelect
+        }
+        await console.log(params)
+        if (params.bDataId !== '') {
+          await console.log(params)
+          await this.$store.dispatch('ad/fetchDe', params)
+        }
+      } else {
+        const params = {
+          aDataId: this.comparisonSelect.data_id,
+          bDataId: this.comparisonSelect.b_data_id,
+          type: this.groupSelect.type,
+          ct: this.cellTypeSelect
+        }
+        await console.log(params)
+        await this.$store.dispatch('ad/fetchDe', params)
       }
-      await this.$store.dispatch('ad/fetchDe', params)
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .v-messages__message {
-  line-height: 16px;
+  line-height: 18px;
   font-size: 14px;
 }
 </style>
