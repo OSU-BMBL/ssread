@@ -5,16 +5,26 @@
       :elevation="hover ? 10 : 2"
       :class="{ 'on-hover': hover }"
     >
-      <v-card-title class="primary white--text subtitle-1"
-        >Differential expression (DE) / Gene set enrichment</v-card-title
-      >
+      <v-card-title class="primary white--text title-1"
+        >Differential expression (DE) / Gene set enrichment
+      </v-card-title>
       <v-card-text>
         <p class="display-1 text--primary"></p>
       </v-card-text>
       <v-row xs="12" md="8" lg="12">
-        <v-col cols="md-5 lg-5">
-          <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-0">
-            <p class="title text--primary py-0 my-0">Comparison group:</p>
+        <v-col cols="md-6 lg-6">
+          <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-2">
+            <p class="subtitle-1 font-weight-bold py-0 my-2">
+              Group:
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                    >mdi-help-circle-outline</v-icon
+                  >
+                </template>
+                <span>tolltip.</span>
+              </v-tooltip>
+            </p>
             <v-select
               v-model="comparisonSelect"
               :hint="` ${comparisonSelect.hint}`"
@@ -22,14 +32,24 @@
               item-text="comparisonText"
               item-value="hint"
               label="DE Comparison type:"
-              persistent-hint
               return-object
               single-line
+              persistent-hint
               @change="updateDe()"
             ></v-select>
           </v-col>
-          <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-0">
-            <p class="title text--primary py-0 my-0">Cell type of interest:</p>
+          <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-2">
+            <p class="subtitle-1 font-weight-bold py-0 my-2">
+              Cell type of interest:
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                    >mdi-help-circle-outline</v-icon
+                  >
+                </template>
+                <span>tolltip.</span>
+              </v-tooltip>
+            </p>
             <v-select
               v-model="cellTypeSelect"
               :items="cellTypeItems"
@@ -43,8 +63,22 @@
           </v-col>
 
           <v-row>
-            <v-col xs="12" md="10" lg="11" class="px-7 py-0 my-0">
-              <p class="title text--primary">Log2 fold-change cutoff:</p>
+            <v-col xs="12" md="10" lg="11" class="px-7 py-0 my-2">
+              <p class="subtitle-1 font-weight-bold">
+                Log2 fold-change cutoff:
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                      >mdi-help-circle-outline</v-icon
+                    >
+                  </template>
+                  <span
+                    >Limit testing to genes which show, on average, at least
+                    X-fold difference (log-scale) between the two groups of
+                    cells.</span
+                  >
+                </v-tooltip>
+              </p>
               <v-slider
                 v-model="lfc_range"
                 max="5"
@@ -69,8 +103,21 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col xs="12" md="10" lg="11" class="px-7 py-0 my-0">
-              <p class="title text--primary">Adjusted p-value cutoff:</p>
+            <v-col xs="12" md="10" lg="11" class="px-7 py-0 my-2">
+              <p class="subtitle-1 font-weight-bold">
+                Adjusted p-value cutoff:<v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                      >mdi-help-circle-outline</v-icon
+                    >
+                  </template>
+                  <span
+                    >The adjusted p-value is calculated from differentially
+                    expressed genes between two groups of cells using a Wilcoxon
+                    Rank Sum test in Seurat R package.</span
+                  >
+                </v-tooltip>
+              </p>
               <v-slider
                 v-model="p_range"
                 :tick-labels="ticksLabels"
@@ -95,7 +142,7 @@
           </v-row>
           <v-col cols="12" md="8">
             <v-radio-group v-model="deDirection" row>
-              <span class="title">DE direction: </span>
+              <span class="subtitle-1 font-weight-bold">DE direction: </span>
               <v-radio label="All" value="all"></v-radio>
               <v-radio label="UP" value="up"></v-radio>
               <v-radio label="Down" value="down"></v-radio>
@@ -121,7 +168,13 @@
           >
             <template v-slot:top>
               <v-toolbar flat>
-                <v-toolbar-title>DE genes </v-toolbar-title>
+                <v-toolbar-title
+                  >DE genes
+                  {{ comparisonSelect.hint }}
+                  <v-btn color="primary">
+                    Download
+                  </v-btn></v-toolbar-title
+                >
                 <v-spacer></v-spacer>
               </v-toolbar>
             </template>
@@ -129,156 +182,235 @@
         </v-col>
       </v-row>
       <v-divider></v-divider>
-      <v-row>
-        <v-col xs="12" md="6" lg="6">
-          <v-text-field
-            v-model="keggSearch"
-            prepend-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field>
-          <v-data-table
-            dense
-            :search="keggSearch"
-            :headers="enrichHeaders"
-            :items="keggResult"
-            :items-per-page="10"
-            class="elevation-1"
-            :expanded.sync="expanded"
-            show-expand
-          >
-            <template v-slot:top>
-              <v-toolbar flat>
-                <v-toolbar-title>KEGG pathway</v-toolbar-title>
-                <v-spacer></v-spacer>
-              </v-toolbar>
-            </template>
-            <template v-slot:expanded-item="{ item }">
-              <td :colspan="headers.length">
-                {{ item.genes.join(',') }}
-              </td>
-            </template>
-          </v-data-table>
-        </v-col>
-        <v-col xs="12" md="6" lg="6">
-          <v-text-field
-            v-model="bpSearch"
-            prepend-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field>
-          <v-data-table
-            dense
-            :search="bpSearch"
-            :headers="enrichHeaders"
-            :items="bpResult"
-            :items-per-page="10"
-            class="elevation-1"
-            :expanded.sync="expanded"
-            show-expand
-          >
-            <template v-slot:top>
-              <v-toolbar flat>
-                <v-toolbar-title>GO: Biological Process </v-toolbar-title>
-                <v-spacer></v-spacer>
-              </v-toolbar>
-            </template>
-            <template v-slot:expanded-item="{ item }">
-              <td :colspan="headers.length">
-                {{ item.genes.join(',') }}
-              </td>
-            </template>
-          </v-data-table>
-        </v-col>
-        <v-col xs="12" md="6" lg="6">
-          <v-text-field
-            v-model="mfSearch"
-            prepend-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field>
-          <v-data-table
-            dense
-            :search="mfSearch"
-            :headers="enrichHeaders"
-            :items="mfResult"
-            :items-per-page="10"
-            class="elevation-1"
-            :expanded.sync="expanded"
-            show-expand
-          >
-            <template v-slot:top>
-              <v-toolbar flat>
-                <v-toolbar-title>GO: Molecular Function</v-toolbar-title>
-                <v-spacer></v-spacer>
-              </v-toolbar>
-            </template>
-            <template v-slot:expanded-item="{ item }">
-              <td :colspan="headers.length">
-                {{ item.genes.join(',') }}
-              </td>
-            </template>
-          </v-data-table>
-        </v-col>
-        <v-col xs="12" md="6" lg="6">
-          <v-text-field
-            v-model="ccSearch"
-            prepend-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field>
-          <v-data-table
-            dense
-            :search="ccSearch"
-            :headers="enrichHeaders"
-            :items="ccResult"
-            :items-per-page="10"
-            class="elevation-1"
-            :expanded.sync="expanded"
-            show-expand
-          >
-            <template v-slot:top>
-              <v-toolbar flat>
-                <v-toolbar-title>GO: Cellular Component </v-toolbar-title>
-                <v-spacer></v-spacer>
-              </v-toolbar>
-            </template>
-            <template v-slot:expanded-item="{ item }">
-              <td :colspan="headers.length">
-                {{ item.genes.join(',') }}
-              </td>
-            </template>
-          </v-data-table>
-        </v-col>
-        <!--
-        <v-col
-          ><v-tooltip bottom>
-            <template v-slot:activator="{ on }">
-              <v-btn color="primary" dark v-on="on"
-                >Explore more on Enrichr</v-btn
-              >
-            </template>
+      <v-expansion-panels v-model="panel" hover multiple>
+        <v-expansion-panel>
+          <v-expansion-panel-header>KEGG pathway</v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <v-text-field
+              v-model="keggSearch"
+              prepend-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+            ></v-text-field>
+            <v-data-table
+              dense
+              :search="keggSearch"
+              :headers="enrichHeaders"
+              :items="keggResult"
+              :items-per-page="10"
+              class="elevation-1"
+              :expanded.sync="expanded"
+              show-expand
+            >
+              <template v-slot:top>
+                <v-toolbar flat>
+                  <v-toolbar-title>
+                    KEGG Pathway
+                    <v-tooltip top>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                          >mdi-help-circle-outline</v-icon
+                        >
+                      </template>
+                      <span
+                        >KEGG Pathway enrichment analysis using the DE genes
+                        above.</span
+                      > </v-tooltip
+                    ><v-btn color="primary">
+                      Download
+                    </v-btn></v-toolbar-title
+                  >
+                  <v-spacer></v-spacer>
+                </v-toolbar>
+              </template>
+              <template v-slot:expanded-item="{ item }">
+                <td :colspan="headers.length">
+                  {{ item.genes.join(',') }}
+                </td>
+              </template>
+            </v-data-table>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-            <span>Tooltip</span>
-          </v-tooltip></v-col
-        >-->
+        <v-expansion-panel>
+          <v-expansion-panel-header
+            >GO: Biological Process</v-expansion-panel-header
+          >
+          <v-expansion-panel-content>
+            <v-text-field
+              v-model="bpSearch"
+              prepend-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+            ></v-text-field>
+            <v-data-table
+              dense
+              :search="bpSearch"
+              :headers="enrichHeaders"
+              :items="bpResult"
+              :items-per-page="10"
+              class="elevation-1"
+              :expanded.sync="expanded"
+              show-expand
+            >
+              <template v-slot:top>
+                <v-toolbar flat>
+                  <v-toolbar-title
+                    >GO: Biological Process<v-tooltip top>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                          >mdi-help-circle-outline</v-icon
+                        >
+                      </template>
+                      <span
+                        >GO: Biological Process enrichment analysis using the DE
+                        genes above.</span
+                      > </v-tooltip
+                    ><v-btn color="primary">
+                      Download
+                    </v-btn>
+                  </v-toolbar-title>
+                  <v-spacer></v-spacer>
+                </v-toolbar>
+              </template>
+              <template v-slot:expanded-item="{ item }">
+                <td :colspan="headers.length">
+                  {{ item.genes.join(',') }}
+                </td>
+              </template>
+            </v-data-table>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+
+        <v-expansion-panel>
+          <v-expansion-panel-header
+            >GO: Molecular Function</v-expansion-panel-header
+          >
+          <v-expansion-panel-content>
+            <v-text-field
+              v-model="mfSearch"
+              prepend-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+            ></v-text-field>
+            <v-data-table
+              dense
+              :search="mfSearch"
+              :headers="enrichHeaders"
+              :items="mfResult"
+              :items-per-page="10"
+              class="elevation-1"
+              :expanded.sync="expanded"
+              show-expand
+            >
+              <template v-slot:top>
+                <v-toolbar flat>
+                  <v-toolbar-title
+                    >GO: Molecular Function<v-tooltip top>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                          >mdi-help-circle-outline</v-icon
+                        >
+                      </template>
+                      <span
+                        >GO: Molecular Function enrichment analysis using the DE
+                        genes above.</span
+                      > </v-tooltip
+                    ><v-btn color="primary">
+                      Download
+                    </v-btn></v-toolbar-title
+                  >
+                  <v-spacer></v-spacer>
+                </v-toolbar>
+              </template>
+              <template v-slot:expanded-item="{ item }">
+                <td :colspan="headers.length">
+                  {{ item.genes.join(',') }}
+                </td>
+              </template>
+            </v-data-table>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+        <v-expansion-panel>
+          <v-expansion-panel-header
+            >GO: Cellular Component</v-expansion-panel-header
+          >
+          <v-expansion-panel-content>
+            <v-text-field
+              v-model="ccSearch"
+              prepend-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+            ></v-text-field>
+            <v-data-table
+              dense
+              :search="ccSearch"
+              :headers="enrichHeaders"
+              :items="ccResult"
+              :items-per-page="10"
+              class="elevation-1"
+              :expanded.sync="expanded"
+              show-expand
+            >
+              <template v-slot:top>
+                <v-toolbar flat>
+                  <v-toolbar-title
+                    >GO: Cellular Component<v-tooltip top>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                          >mdi-help-circle-outline</v-icon
+                        >
+                      </template>
+                      <span
+                        >GO: Cellular Component enrichment analysis using the DE
+                        genes above.</span
+                      > </v-tooltip
+                    ><v-btn color="primary">
+                      Download
+                    </v-btn>
+                  </v-toolbar-title>
+                  <v-spacer></v-spacer>
+                </v-toolbar>
+              </template>
+              <template v-slot:expanded-item="{ item }">
+                <td :colspan="headers.length">
+                  {{ item.genes.join(',') }}
+                </td>
+              </template>
+            </v-data-table>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+        <v-expansion-panel>
+          <v-expansion-panel-header
+            >Cell-type-specific regulons</v-expansion-panel-header
+          >
+          <v-expansion-panel-content>
+            <regulon-info :data-id="dataId"></regulon-info
+          ></v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+      <v-row>
+        <v-col xs="12" md="6" lg="6"> </v-col>
       </v-row>
     </v-card>
   </v-hover>
 </template>
 
 <script>
-import { mapState } from 'vuex' // <--- To map data from Vuex
+import { mapState } from 'vuex'
 import axios from 'axios'
 import FormData from 'form-data'
 import _ from 'lodash'
-
+import RegulonInfo from '@/components/ad/RegulonInfo'
 export default {
   name: 'DeInfo',
+  components: {
+    'regulon-info': RegulonInfo
+  },
   props: {
     dataId: {
       type: String,
@@ -309,6 +441,7 @@ export default {
       bDataId: this.dataId,
       type: 'cell_type_specific',
       ct: 'ast',
+      panel: [],
       searchDe: '',
       keggSearch: '',
       bpSearch: '',
@@ -323,14 +456,17 @@ export default {
         { text: 'Comparison type', value: 'type' } */
       ],
       enrichHeaders: [
+        { text: 'Index', value: 'index' },
         { text: 'Name', value: 'name' },
         { text: 'Adjusted p-value', value: 'adjPvalue' },
+        { text: 'Odds ratio', value: 'odd' },
+        { text: 'Combined score', value: 'score' },
         { text: '', value: 'data-table-expand' }
       ],
       expanded: [],
       comparison: [
         'Cell type specific genes',
-        'Disease vs disease (based on gender)',
+        'Disease vs disease (same region, different ** )',
         'Disease vs disease (based on stage)',
         'Subcluster specific genes'
       ],
@@ -350,23 +486,30 @@ export default {
           type: 'cell_type_specific'
         },
         {
-          comparisonText: 'Control vs disease ',
+          comparisonText: 'Control vs disease (same region)',
           hint:
-            'Compare cuurent dataset with control dataset: H-H-Prefrontal cortex-Female (AD00106)',
+            'Compare current dataset with control dataset: H-H-Prefrontal cortex-Female (AD00106)',
           bDataId: 'AD001063',
           type: 'a_vs_b'
         },
         {
-          comparisonText: 'Disease vs disease (based on gender)',
+          comparisonText: 'Disease vs disease (same region)',
           hint:
-            'Compare cuurent dataset with disease dataset: H-AD.late-Prefrontal cortex-Male_001 (AD00102)',
+            'Compare current dataset with disease dataset: H-AD.late-Prefrontal cortex-Male_001 (AD00102)',
           bDataId: 'AD00102',
           type: 'a_vs_b'
         },
         {
-          comparisonText: 'Disease vs disease (based on stage)',
+          comparisonText: 'Disease vs disease (different region)',
           hint:
-            'Compare cuurent dataset with disease dataset: H-AD.earyly-Prefrontal cortex-female_001 (AD00104)',
+            'Compare current dataset with disease dataset: H-AD.earyly-Prefrontal cortex-female_001 (AD00104)',
+          bDataId: 'AD00105',
+          type: 'a_vs_b'
+        },
+        {
+          comparisonText: 'Disease vs disease (different region)',
+          hint:
+            'Compare current dataset with disease dataset: H-AD.earyly-Prefrontal cortex-female_001 (AD00104)',
           bDataId: 'AD00105',
           type: 'a_vs_b'
         },
@@ -464,25 +607,32 @@ export default {
       }
     },
     filterDe() {
-      if (this.deDirection === 'up') {
-        return this.de.filter(
-          (row) =>
-            row.avg_logFC >= this.lfc_range &&
-            row.p_val_adj <= this.pSliderValue
-        )
-      } else if (this.deDirection === 'down') {
-        return this.de.filter(
-          (row) =>
-            row.avg_logFC <= -1 * this.lfc_range &&
-            row.p_val_adj <= this.pSliderValue
-        )
-      } else {
-        return this.de.filter(
-          (row) =>
-            (row.avg_logFC <= -1 * this.lfc_range ||
-              row.avg_logFC >= this.lfc_range) &&
-            row.p_val_adj <= this.pSliderValue
-        )
+      switch (this.deDirection) {
+        case 'up':
+          return this.de
+            .map((row) => {
+              return Object.assign({}, row, {
+                p_val_adj: row.p_val_adj.toExponential(6)
+              })
+            })
+            .filter(
+              (row) =>
+                row.avg_logFC >= this.lfc_range &&
+                row.p_val_adj <= this.pSliderValue
+            )
+        case 'down':
+          return this.de.filter(
+            (row) =>
+              row.avg_logFC <= -1 * this.lfc_range &&
+              row.p_val_adj <= this.pSliderValue
+          )
+        default:
+          return this.de.filter(
+            (row) =>
+              (row.avg_logFC <= -1 * this.lfc_range ||
+                row.avg_logFC >= this.lfc_range) &&
+              row.p_val_adj <= this.pSliderValue
+          )
       }
     }
   },
@@ -522,10 +672,10 @@ export default {
         index: value[0],
         name: value[1],
         pvalue: value[2],
-        odd: value[3],
-        score: value[4],
+        odd: value[3].toFixed(2),
+        score: value[4].toFixed(2),
         genes: value[5],
-        adjPvalue: value[6],
+        adjPvalue: value[6].toExponential(4),
         key8: value[7]
       }))
       return enrichrResult
@@ -553,14 +703,18 @@ export default {
         .then(function(response) {
           return response.data
         })
+        .catch(() => {
+          return { GO_Biological_Process_2018: [[1, 'not found']] }
+        })
+      console.log(enrichrResult)
       this.bpResult = enrichrResult.GO_Biological_Process_2018.map((value) => ({
         index: value[0],
         name: value[1],
         pvalue: value[2],
-        odd: value[3],
-        score: value[4],
+        odd: value[3].toFixed(2),
+        score: value[4].toFixed(2),
         genes: value[5],
-        adjPvalue: value[6],
+        adjPvalue: value[6].toExponential(4),
         key8: value[7]
       }))
       return enrichrResult
@@ -592,10 +746,10 @@ export default {
         index: value[0],
         name: value[1],
         pvalue: value[2],
-        odd: value[3],
-        score: value[4],
+        odd: value[3].toFixed(2),
+        score: value[4].toFixed(2),
         genes: value[5],
-        adjPvalue: value[6],
+        adjPvalue: value[6].toExponential(4),
         key8: value[7]
       }))
       return enrichrResult
@@ -627,10 +781,10 @@ export default {
         index: value[0],
         name: value[1],
         pvalue: value[2],
-        odd: value[3],
-        score: value[4],
+        odd: value[3].toFixed(2),
+        score: value[4].toFixed(2),
         genes: value[5],
-        adjPvalue: value[6],
+        adjPvalue: value[6].toExponential(4),
         key8: value[7]
       }))
       return enrichrResult
@@ -649,4 +803,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-messages__message {
+  line-height: 16px;
+  font-size: 14px;
+}
+</style>
