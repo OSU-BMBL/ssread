@@ -1,3 +1,9 @@
 GET http://localhost:8889/api/desso/info
 ###
 POST https://httpbin.org/post
+
+
+
+
+### // Get DEG list comparison type
+GET https://bmbls.bmi.osumc.edu/api/scread/de/AD00103/meta

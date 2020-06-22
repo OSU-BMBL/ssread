@@ -16,6 +16,9 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
+  router: {
+    base: '/scread/'
+  },
   /*
    ** Customize the progress-bar color
    */
@@ -46,7 +49,8 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/markdownit'
+    '@nuxtjs/markdownit',
+    ['@nuxtjs/proxy', { pathRewrite: { '^/scread': '/' } }]
   ],
   markdownit: {
     preset: 'default',
