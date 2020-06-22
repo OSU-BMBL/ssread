@@ -3,7 +3,7 @@
     <v-layout column justify-center align-center>
       <v-flex xs="12" md="6" lg="12">
         <p class="display-2">scREAD</p>
-        <p class="title">
+        <p class="display-3">
           A single-cell RNA-Seq database for Alzheimer's Disease.
         </p>
       </v-flex>
