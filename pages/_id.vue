@@ -80,9 +80,9 @@ export default {
       return this.$route.params.id
     },
     relatedDatasets() {
-      return this.datasets.filter((row) =>
-        row.public_id.split('; ').includes(this.dataset[0].public_id)
-      )
+      return this.datasets.filter((row) => {
+        return row.public_id.split('; ')[0].includes(this.dataset[0].public_id)
+      })
     }
   },
   head() {

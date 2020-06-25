@@ -4,25 +4,19 @@
       <v-flex>
         <v-container fluid grid-list-md>
           <v-layout row wrap>
-            <v-flex v-for="(n, i) in 9" :key="n" xs12 md6 lg4>
-              <v-hover v-slot:default="{ hover }" open-delay="0">
-                <v-card
-                  class="mx-auto pa-2"
-                  max-width="800"
-                  tile
-                  :elevation="hover ? 16 : 2"
-                  :class="{ 'on-hover': hover }"
-                >
-                  <v-card-title primary-title> {{ assembly[i] }} </v-card-title>
-                  <healthy-atlas :dimension="dimension"></healthy-atlas>
-                  <v-card-actions>
-                    <v-btn color="primary">
-                      Details
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-hover>
-            </v-flex>
+            <v-expansion-panels v-model="panelIndex">
+              <v-expansion-panel v-for="(n, i) in assembly.length" :key="n">
+                <v-expansion-panel-header @click="clearDimension()">{{
+                  atlasId[i] + ': ' + assembly[i]
+                }}</v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <healthy-atlas :atlas-id="atlasId[i]"></healthy-atlas>
+                  <v-btn color="primary" @click="openDetailsPage(atlasId[i])">
+                    Details
+                  </v-btn>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
           </v-layout>
         </v-container>
       </v-flex>
@@ -31,51 +25,53 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import HealthyAtlas from '@/components/ad/HealthyAtlas'
 
 export default {
   components: {
     'healthy-atlas': HealthyAtlas
   },
-
-  async asyncData({ store, error, params }) {
-    try {
-      await store.dispatch('ad/fetchDimension', 'AD00103')
-    } catch (e) {
-      error({
-        statusCode: 503,
-        message: 'ERROR CODE 503,' + params.id
-      })
-    }
-  },
-
   data() {
     return {
+      panelIndex: [],
       assembly: [
-        `Mouse-H-Cortex-Male-7m`,
+        `Human-H-Prefrontal cortex-Male`,
+        `Human-H-Prefrontal cortex-Female`,
+        `Human-H-Entorhinal Cortex-Male`,
+        `Human-H-Entorhinal Cortex-Female`,
+        `Human-H-Cortex-Male-7m`,
         `Mouse-H-Cortex-Male-15m`,
         `Mouse-H-Cerebral cortex-Female-15m`,
-        `Mouse-H-Cerebellum-Male-7m`,
+        `Mouse-H-CerebelluMouse-Male-7m`,
+        `Mouse-H-Prefrontal cortex-Male-7m`,
+        `Mouse-H-Prefrontal cortex-Male-15m`,
         `Mouse-H-Hippocampus-Male-7m`,
         `Mouse-H-Hippocampus-Male-15m`,
         `Mouse-H-Hippocampus-Female-7m`,
         `Mouse-H-Hippocampus-Female-20m`,
-        `Mouse-H-Prefrontal cortex-Male-7m`,
-        `Mouse-H-Prefrontal cortex-Male-15m`,
-        `Human-H-Entorhinal Cortex-Male`,
-        `Human-H-Entorhinal Cortex-Female`,
-        `Human-H-Prefrontal cortex-Male`,
-        `Human-H-Prefrontal cortex-Female`,
         `Human-H-Superior frontal gyrus-Male`
+      ],
+      atlasId: [
+        `AD00101`,
+        `AD00106`,
+        `AD00201`,
+        `AD00202`,
+        `AD00301`,
+        `AD00302`,
+        `AD00401`,
+        `AD00501`,
+        `AD00601`,
+        `AD00602`,
+        `AD00702`,
+        `AD00703`,
+        `AD00704`,
+        `AD00705`,
+        `AD00801`
       ]
     }
   },
 
   computed: {
-    ...mapState({
-      dimension: (state) => state.ad.dimension
-    }),
     dataId() {
       return this.$route.params.id
     },
@@ -83,6 +79,14 @@ export default {
       return this.datasets.filter(
         (row) => row.data_id.substr(0, 5) === this.dataId.substr(0, 5)
       )
+    }
+  },
+  methods: {
+    async clearDimension() {
+      await this.$store.dispatch('ad/clearDimension')
+    },
+    openDetailsPage(id) {
+      this.$router.push(id)
     }
   }
 }

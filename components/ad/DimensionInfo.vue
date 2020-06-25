@@ -20,7 +20,10 @@
                     >mdi-help-circle-outline</v-icon
                   >
                 </template>
-                <span>Tooltip</span>
+                <span
+                  >Select UMAP coordinates source, either using all cells or
+                  subset of a specific cell type.</span
+                >
               </v-tooltip>
             </p>
 
@@ -36,20 +39,18 @@
             ></v-autocomplete>
             <p
               v-if="clusterCoordinatesSelect === 'All cell types'"
-              class=" text--primary"
+              class="text--primary"
             >
-              ARI score compared with cell labels provided in the original
-              paper: 0.9827172<v-tooltip top>
+              Average silhouette score: {{ dataset[0].silhouette_score }}
+              <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon color="primary" dark v-bind="attrs" v-on="on"
                     >mdi-help-circle-outline</v-icon
                   >
                 </template>
                 <span
-                  >Adjusted Rand Index (ARI) computes a similarity measure
-                  between two clusterings by considering all pairs of cells and
-                  counting pairs that are assigned in the same or different
-                  clusters in the predicted and true clusterings.</span
+                  >Silhouette score that measures how similar a cell is to its
+                  type compared to other clusters.</span
                 >
               </v-tooltip>
             </p>
@@ -63,7 +64,11 @@
                     >mdi-help-circle-outline</v-icon
                   >
                 </template>
-                <span>Tooltip</span>
+                <span
+                  >Select or search gene of interest to plot gene expression
+                  value on the UMAP plot, darker points indicate higher
+                  expression values.</span
+                >
               </v-tooltip>
             </p>
             <v-autocomplete
@@ -2167,7 +2172,7 @@ export default {
         height: 800,
         legend: {
           font: {
-            size: 14
+            size: 12
           },
           orientation: 'h',
           marker: {
@@ -2175,6 +2180,10 @@ export default {
           }
         },
         xaxis: {
+          tickfont: {
+            size: 16,
+            color: 'black'
+          },
           title: {
             text: 'UMAP_1',
             font: {
@@ -2183,6 +2192,10 @@ export default {
           }
         },
         yaxis: {
+          tickfont: {
+            size: 16,
+            color: 'black'
+          },
           title: {
             text: 'UMAP_2',
             font: {
@@ -2206,7 +2219,8 @@ export default {
   },
   computed: {
     ...mapState({
-      expression: (state) => state.ad.expression
+      expression: (state) => state.ad.expression,
+      dataset: (state) => state.ad.dataset
     }),
     clusterCoordinatesItems() {
       const cellTypeList = _.map(this.ct, 'cell_type')

@@ -17,12 +17,13 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   router: {
-    base: '/scread/'
+    base: '/scread',
+    linkActiveClass: 'active-link'
   },
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#5698c3' },
+  loading: { color: '#5698c3', height: '5px' },
   /*
    ** Global CSS
    */
@@ -49,8 +50,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/markdownit',
-    ['@nuxtjs/proxy', { pathRewrite: { '^/scread': '/' } }]
+    '@nuxtjs/markdownit'
   ],
   markdownit: {
     preset: 'default',

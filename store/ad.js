@@ -37,6 +37,9 @@ export const mutations = {
   SET_DIMENSION(state, dimension) {
     state.dimension = dimension
   },
+  RESET_DIMENSION(state) {
+    state.dimension = []
+  },
   SET_EXPRESSION(state, expression) {
     state.expression = expression
   },
@@ -89,6 +92,9 @@ export const actions = {
     ) {
       commit('SET_DIMENSION', response.data)
     })
+  },
+  clearDimension({ commit }) {
+    return commit('RESET_DIMENSION')
   },
   fetchExpression({ commit }, gene) {
     return AdService.getExpression(gene).then(function(response) {

@@ -24,8 +24,8 @@
                 </template>
                 <span
                   >Select differential expression test group between two
-                  specific set of cells.</span
-                >
+                  specific set of cells.
+                </span>
               </v-tooltip>
             </p>
             <v-select
@@ -239,11 +239,10 @@
           >
             <template v-slot:top>
               <v-toolbar flat>
-                <v-toolbar-title
-                  >DE genes
-                  <v-btn color="primary">
-                    Download
-                  </v-btn></v-toolbar-title
+                <v-toolbar-title>
+                  <download-excel :data="filterDe" type="csv">
+                    <v-btn color="primary"> Download</v-btn>
+                  </download-excel></v-toolbar-title
                 >
                 <v-spacer></v-spacer>
               </v-toolbar>
@@ -271,7 +270,7 @@
       <v-divider></v-divider>
       <v-expansion-panels v-model="panel" hover multiple>
         <v-expansion-panel>
-          <v-expansion-panel-header>KEGG pathway</v-expansion-panel-header>
+          <v-expansion-panel-header>KEGG pathway </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-text-field
               v-model="keggSearch"
@@ -293,20 +292,21 @@
               <template v-slot:top>
                 <v-toolbar flat>
                   <v-toolbar-title>
-                    KEGG Pathway
-                    <v-tooltip top>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                          >mdi-help-circle-outline</v-icon
+                    <download-excel :data="keggResult" type="csv">
+                      <v-btn color="primary"> Download</v-btn
+                      ><v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                            >mdi-help-circle-outline</v-icon
+                          >
+                        </template>
+                        <span
+                          >KEGG Pathway enrichment analysis using the DE genes
+                          above. The results are calculated real-time using
+                          Enrichr.</span
                         >
-                      </template>
-                      <span
-                        >KEGG Pathway enrichment analysis using the DE genes
-                        above.</span
-                      > </v-tooltip
-                    ><v-btn color="primary">
-                      Download
-                    </v-btn></v-toolbar-title
+                      </v-tooltip>
+                    </download-excel></v-toolbar-title
                   >
                   <v-spacer></v-spacer>
                 </v-toolbar>
@@ -345,19 +345,21 @@
               <template v-slot:top>
                 <v-toolbar flat>
                   <v-toolbar-title
-                    >GO: Biological Process<v-tooltip top>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                          >mdi-help-circle-outline</v-icon
+                    ><download-excel :data="bpResult" type="csv">
+                      <v-btn color="primary"> Download</v-btn
+                      ><v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                            >mdi-help-circle-outline</v-icon
+                          >
+                        </template>
+                        <span
+                          >GO: Biological Process enrichment analysis using the
+                          DE genes above. The results are calculated real-time
+                          using Enrichr.</span
                         >
-                      </template>
-                      <span
-                        >GO: Biological Process enrichment analysis using the DE
-                        genes above.</span
-                      > </v-tooltip
-                    ><v-btn color="primary">
-                      Download
-                    </v-btn>
+                      </v-tooltip>
+                    </download-excel>
                   </v-toolbar-title>
                   <v-spacer></v-spacer>
                 </v-toolbar>
@@ -396,19 +398,21 @@
               <template v-slot:top>
                 <v-toolbar flat>
                   <v-toolbar-title
-                    >GO: Molecular Function<v-tooltip top>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                          >mdi-help-circle-outline</v-icon
+                    ><download-excel :data="mfResult" type="csv">
+                      <v-btn color="primary"> Download</v-btn
+                      ><v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                            >mdi-help-circle-outline</v-icon
+                          >
+                        </template>
+                        <span
+                          >GO: Molecular Function enrichment analysis using the
+                          DE genes above. The results are calculated real-time
+                          using Enrichr.</span
                         >
-                      </template>
-                      <span
-                        >GO: Molecular Function enrichment analysis using the DE
-                        genes above.</span
-                      > </v-tooltip
-                    ><v-btn color="primary">
-                      Download
-                    </v-btn></v-toolbar-title
+                      </v-tooltip>
+                    </download-excel></v-toolbar-title
                   >
                   <v-spacer></v-spacer>
                 </v-toolbar>
@@ -445,20 +449,22 @@
             >
               <template v-slot:top>
                 <v-toolbar flat>
-                  <v-toolbar-title
-                    >GO: Cellular Component<v-tooltip top>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                          >mdi-help-circle-outline</v-icon
+                  <v-toolbar-title>
+                    <download-excel :data="ccResult" type="csv">
+                      <v-btn color="primary"> Download</v-btn
+                      ><v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                            >mdi-help-circle-outline</v-icon
+                          >
+                        </template>
+                        <span
+                          >GO: Cellular Component enrichment analysis using the
+                          DE genes above. The results are calculated real-time
+                          using Enrichr.</span
                         >
-                      </template>
-                      <span
-                        >GO: Cellular Component enrichment analysis using the DE
-                        genes above.</span
-                      > </v-tooltip
-                    ><v-btn color="primary">
-                      Download
-                    </v-btn>
+                      </v-tooltip>
+                    </download-excel>
                   </v-toolbar-title>
                   <v-spacer></v-spacer>
                 </v-toolbar>
@@ -471,12 +477,17 @@
             </v-data-table>
           </v-expansion-panel-content>
         </v-expansion-panel>
-        <v-expansion-panel>
+        <v-expansion-panel
+          v-show="groupSelect.groupText === 'Cell type specific genes'"
+        >
           <v-expansion-panel-header
             >Cell-type-specific regulons</v-expansion-panel-header
           >
           <v-expansion-panel-content>
-            <regulon-info :data-id="dataId"></regulon-info
+            <regulon-info
+              :data-id="dataId"
+              :jobid="dataset[0].iris3_jobid"
+            ></regulon-info
           ></v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -493,6 +504,7 @@ import axios from 'axios'
 import FormData from 'form-data'
 import _ from 'lodash'
 import RegulonInfo from '@/components/ad/RegulonInfo'
+
 export default {
   name: 'DeInfo',
   components: {
@@ -626,7 +638,8 @@ export default {
     ...mapState({
       de: (state) => state.ad.de.rows,
       n_de: (state) => state.ad.de.count,
-      de_meta: (state) => state.ad.deMeta
+      de_meta: (state) => state.ad.deMeta,
+      dataset: (state) => state.ad.dataset
     }),
     genes() {
       return _.map(this.filterDe, 'gene')
@@ -849,7 +862,6 @@ export default {
           type: this.groupSelect.type,
           ct: this.cellTypeSelect
         }
-        await console.log(params)
         await this.$store.dispatch('ad/fetchDe', params)
       } else if (this.groupSelect.groupText === 'Subcluster specific genes') {
         const params = {
@@ -858,9 +870,7 @@ export default {
           type: this.groupSelect.type,
           ct: this.cellTypeSelect
         }
-        await console.log(params)
         if (params.bDataId !== '') {
-          await console.log(params)
           await this.$store.dispatch('ad/fetchDe', params)
         }
       } else {
@@ -870,7 +880,6 @@ export default {
           type: this.groupSelect.type,
           ct: this.cellTypeSelect
         }
-        await console.log(params)
         await this.$store.dispatch('ad/fetchDe', params)
       }
     }
@@ -878,9 +887,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.v-messages__message {
-  line-height: 18px;
-  font-size: 14px;
-}
-</style>
+<style lang="scss"></style>

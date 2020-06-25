@@ -34,7 +34,7 @@
               <span class="text--primary">{{ dataset[0].condition }}</span>
             </p>
             <p class="my-2">
-              <span class="text--secondary">Stage: </span>
+              <span class="text--secondary">Braak stage: </span>
               <span class="text--primary">{{ dataset[0].stage }}</span>
             </p>
             <p class="my-2">
@@ -57,9 +57,8 @@
           </v-card-text>
           <v-dialog v-model="dialog" max-width="300">
             <v-card>
-              <v-card-title class="my-2 py-0"
-                >Overview<v-divider class="my-2 py-0"></v-divider
-              ></v-card-title>
+              <v-card-title>Overview</v-card-title>
+              <v-divider class="my-2 py-2"></v-divider>
               <v-card-text>
                 <p class="my-2">
                   <span class="text--secondary">scREAD Data ID: </span>
@@ -105,7 +104,12 @@
                 </p>
               </v-card-text>
               <v-card-actions>
-                <v-btn color="primary " text @click="openDetailsPage()">
+                <v-btn
+                  class="mx-2"
+                  color="primary "
+                  text
+                  @click="openDetailsPage()"
+                >
                   details </v-btn
                 ><v-btn color="grey darken-1" text @click="dialog = false">
                   cancel
@@ -150,13 +154,13 @@
 
             <div v-for="(pub, index) in publication" :key="pub.id">
               <div v-if="publication.length === 1">
-                <div class="my-2 py-0 subtitle-2 font-weight-bold">
+                <div class="my-2 py-0 subtitle-1 font-weight-bold">
                   Dataset source:
                   <v-divider class="my-2 py-0"></v-divider>
                 </div>
               </div>
               <div v-else>
-                <div class="my-2 py-0 subtitle-2 font-weight-bold">
+                <div class="my-2 py-0 subtitle-1 font-weight-bold">
                   Dataset source {{ index + 1 }}:
                   <v-divider class="my-2 py-0"></v-divider>
                 </div>

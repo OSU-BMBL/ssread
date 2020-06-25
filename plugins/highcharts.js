@@ -5,6 +5,8 @@ import HighchartsVue from 'highcharts-vue'
 import Sankey from 'highcharts/modules/sankey'
 import Dotplot from 'highcharts/modules/dotplot'
 import DependencyWheel from 'highcharts/modules/dependency-wheel'
+import JsonExcel from 'vue-json-excel'
+
 if (typeof Highcharts === 'object') {
   Sankey(Highcharts)
   DependencyWheel(Highcharts)
@@ -17,4 +19,6 @@ const VuePlotly = {
 }
 Vue.use(VuePlotly)
 Vue.use(HighchartsVue)
-export default VuePlotly
+Vue.component('downloadExcel', JsonExcel)
+
+export default { VuePlotly, JsonExcel }

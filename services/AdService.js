@@ -66,7 +66,7 @@ export default {
     )
   },
   getRegulon(id) {
-    return apiClient.get('/regulon/AD00102')
+    return apiClient.get('/regulon/' + id)
   },
   getDimension(id, type) {
     return apiClient.get('/dimension/' + id + '/type/' + type)

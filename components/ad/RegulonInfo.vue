@@ -10,9 +10,9 @@
             single-line
             hide-details
           ></v-text-field>
-          <v-btn color="primary">
-            Download
-          </v-btn>
+          <download-excel :data="regulon" type="csv">
+            <v-btn color="primary"> Download</v-btn>
+          </download-excel>
           <v-data-table
             dense
             :search="search"
@@ -41,15 +41,15 @@
               </tr>
             </template>
           </v-data-table>
-          <iframe
-            src="https://bmbl.bmi.osumc.edu/iris3/results.php?jobid=20200520163920"
-            height="800"
-            width="100%"
-          ></iframe>
+          <no-ssr>
+            <iframe :src="iris3Frame" height="800" width="100%"></iframe
+          ></no-ssr>
           <p class="text--primary ma-4">
             <span class="font-weight-bold"
               ><a
-                href="https://bmbl.bmi.osumc.edu/iris3/results.php?jobid=20200520163920"
+                :href="
+                  'https://bmbl.bmi.osumc.edu/iris3/results.php?jobid=' + jobid
+                "
                 target="_blank"
                 style="text-decoration:none;"
               >
@@ -69,14 +69,18 @@ import { mapState } from 'vuex' // <--- To map data from Vuex
 export default {
   name: 'RegulonInfo',
   components: {},
-  props: {},
+  props: {
+    jobid: {
+      type: String,
+      required: true
+    }
+  },
 
   data() {
     return {
       search: '',
       headers: [
         { text: 'Index', value: 'index' },
-        { text: 'Cell type', value: 'cell_type' },
         { text: 'Transcription factor', value: 'tf_name' },
         { text: 'Regulon specificity score', value: 'rss' },
         { text: 'Regulon p-value', value: 'rss_pval' },
@@ -88,7 +92,13 @@ export default {
     ...mapState({
       regulon: (state) => state.ad.regulon,
       cellType: (state) => state.ad.dimension
-    })
+    }),
+    iris3Frame() {
+      return (
+        'https://bmbl.bmi.osumc.edu/iris3/results_scread.php?jobid=' +
+        this.jobid
+      )
+    }
   },
   methods: {}
 }

@@ -3,6 +3,30 @@
     <no-ssr>
       <v-row>
         <v-col xs="12" md="12" lg="12" class="px-4 py-0 my-0">
+          <v-btn @click="updateCluster(atlasId)" class="primary"
+            >Show UMAP plot</v-btn
+          >
+          <v-row>
+            <v-col xs="12" md="6" lg="3" class="px-4 py-0 my-0">
+              <p class="subtitle-1 font-weight-bold">
+                Point size:
+              </p>
+              <v-slider
+                v-model="pointSize"
+                max="10"
+                min="1"
+                hide-details
+                :thumb-size="24"
+                thumb-label="always"
+                class="align-center"
+                step="1"
+                ticks="always"
+                tick-size="4"
+              >
+              </v-slider>
+            </v-col>
+          </v-row>
+
           <vue-plotly :data="allCellDim" :layout="layout" :options="options" />
         </v-col>
       </v-row>
@@ -11,86 +35,29 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import _ from 'lodash'
 
 export default {
   name: 'HealthyAtlas',
   components: {},
   props: {
-    dimension: {
-      type: Array,
+    atlasId: {
+      type: String,
       required: true
     }
   },
   data() {
     return {
       gene: null,
-      search: '',
-      headers: [
-        { text: 'Gene name', value: 'gene' },
-        { text: 'Log fold-change', value: 'avg_logFC' },
-        { text: 'Adjusted p-value', value: 'p_val_adj' }
-      ],
-      xAxisAllCellsSelect: {
-        text: 'umap_1'
-      },
-      xAxisAllCellsItems: [
-        {
-          text: 'umap_1'
-        },
-        {
-          text: 'umap_2'
-        },
-        {
-          text: 'tsne_1'
-        },
-        {
-          text: 'tsne_2'
-        }
-      ],
-      yAxisAllCellsSelect: {
-        text: 'umap_2'
-      },
-      yAxisAllCellsItems: [
-        {
-          text: 'umap_1'
-        },
-        {
-          text: 'umap_2'
-        },
-        {
-          text: 'tsne_1'
-        },
-        {
-          text: 'tsne_2'
-        }
-      ],
-      colorSelect: {
-        text: 'Cell type'
-      },
-      colorItems: [
-        {
-          text: 'Cell type'
-        },
-        {
-          text: 'Group'
-        },
-        {
-          text: 'pca_1'
-        },
-        {
-          text: 'pca_2'
-        },
-        {
-          text: 'pca_3'
-        }
-      ],
       color1: ['Group', 'Sex', 'Stage'],
       enrich: [],
+      clusterCoordinatesSelect: 'All cell types',
+      pointSize: 4,
       layout: {
         autosize: true,
-        width: 450,
-        height: 750,
+        width: 1000,
+        height: 600,
         legend: {
           font: {
             size: 14
@@ -131,69 +98,23 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      dimension: (state) => state.ad.dimension
+    }),
     dataId() {
       return this.$route.params.id
     },
-    genes() {
-      return [
-        'PHF14',
-        'RBM3',
-        'MSL1',
-        'PHF21A',
-        'ARL10',
-        'INSR',
-        'JADE2',
-        'P2RX7',
-        'LINC00662',
-        'CCDC101',
-        'PPM1B',
-        'KANSL1L',
-        'CRYZL1',
-        'ANAPC16',
-        'TMCC1',
-        'CDH8',
-        'RBM11',
-        'CNPY2',
-        'HSPA1L',
-        'CUL2',
-        'PLBD2',
-        'LARP7',
-        'TECPR2',
-        'ZNF302',
-        'CUX1',
-        'MOB2',
-        'CYTH2',
-        'SEC22C',
-        'EIF4E3',
-        'ROBO2',
-        'ADAMTS9-AS2',
-        'CXXC1',
-        'LINC01314',
-        'ATF7',
-        'ATP5F1'
-      ]
-    },
     allCellDim() {
-      function getTrace(dim, cellType, customColor) {
+      function getTrace(dim, cellType, customColor, markerSize) {
         const cuurentDimension = dim.filter((row) => row.cell_type === cellType)
         const X = _.map(cuurentDimension, 'umap_1')
         const Y = _.map(cuurentDimension, 'umap_2')
         const cellNames = _.map(cuurentDimension, 'cell_name')
-
         const trace = {
           x: X,
           y: Y,
-          legendItems: {
-            textfont: {
-              color: 'red'
-            },
-            marker: {
-              size: 20,
-              symbol: 'circle'
-            }
-          },
           marker: {
-            size: 2,
+            size: markerSize,
             symbol: 'circle'
           },
           mode: 'markers',
@@ -204,19 +125,66 @@ export default {
         return trace
       }
 
-      const trace1 = getTrace(this.dimension, 'Astrocytes', '#E64B35FF')
-      const trace2 = getTrace(this.dimension, 'Microglia', '#4DBBD5FF')
-      const trace3 = getTrace(this.dimension, 'Endothelial cells', '#00A087FF')
-      const trace4 = getTrace(this.dimension, 'Excitatory neurons', '#3C5488FF')
-      const trace5 = getTrace(this.dimension, 'Inhibitory neurons', '#F39B7FFF')
-      const trace6 = getTrace(this.dimension, 'Oligodendrocytes', '#8491B499')
+      const trace1 = getTrace(
+        this.dimension,
+        'Astrocytes',
+        '#E64B35FF',
+        this.pointSize
+      )
+      const trace2 = getTrace(
+        this.dimension,
+        'Microglia',
+        '#4DBBD5FF',
+        this.pointSize
+      )
+      const trace3 = getTrace(
+        this.dimension,
+        'Endothelial cells',
+        '#00A087FF',
+        this.pointSize
+      )
+      const trace4 = getTrace(
+        this.dimension,
+        'Excitatory neurons',
+        '#3C5488FF',
+        this.pointSize
+      )
+      const trace5 = getTrace(
+        this.dimension,
+        'Inhibitory neurons',
+        '#F39B7FFF',
+        this.pointSize
+      )
+      const trace6 = getTrace(
+        this.dimension,
+        'Oligodendrocytes',
+        '#8491B499',
+        this.pointSize
+      )
       const trace7 = getTrace(
         this.dimension,
         'Oligodendrocyte precursor cells',
-        '#91D1C2FF'
+        '#91D1C2FF',
+        this.pointSize
       )
-      const trace8 = getTrace(this.dimension, 'Pericytes', '#7E6148FF')
+
+      const trace8 = getTrace(
+        this.dimension,
+        'Pericytes',
+        '#7E6148FF',
+        this.pointSize
+      )
       return [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8]
+    }
+  },
+  methods: {
+    async updateCluster(currentId) {
+      const params = {
+        id: currentId,
+        type: 'All cell types'
+      }
+      await console.log(params)
+      await this.$store.dispatch('ad/fetchDimension', params)
     }
   }
 }

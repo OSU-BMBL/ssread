@@ -19,7 +19,7 @@
       class="grey lighten-4"
       width="325"
     >
-      <v-list dense class="grey lighten-4 deep-purple--text" shaped>
+      <v-list class="grey lighten-4 deep-purple--text" shaped>
         <template v-for="(item, i) in items">
           <v-list-item
             v-if="!item.sublinks"
@@ -133,11 +133,6 @@ export default {
               icon: 'mdi-account-box',
               text: 'Contact us',
               url: '/help/contact'
-            },
-            {
-              icon: 'mdi-api',
-              text: 'API documentation',
-              url: '/help/api'
             }
           ]
         },

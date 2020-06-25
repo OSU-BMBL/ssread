@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-layout column justify-center align-center>
+      <p class="display-3 font-weight-regular" align-center>scREAD</p>
       <v-flex xs="12" md="6" lg="12">
-        <p class="display-2">scREAD</p>
-        <p class="display-3">
-          A single-cell RNA-Seq database for Alzheimer's Disease.
+        <p class="display-1">
+          A single-cell RNA-Seq database for Alzheimer's Disease
         </p>
       </v-flex>
     </v-layout>
@@ -71,18 +71,26 @@
                 return-object
                 single-line
               ></v-select>
-            </v-col> </v-row
-          ><v-col v-show="displayResetFilter" xs="12" md="6" lg="3">
-            <v-btn color="primary" dark @click="resetFilter"
+            </v-col>
+          </v-row>
+          <v-card-actions>
+            <download-excel class="mr-4" :data="filterDataset" type="csv">
+              <v-btn color="primary"> Download</v-btn>
+            </download-excel>
+
+            <v-btn
+              v-show="displayResetFilter"
+              color="primary"
+              dark
+              @click="resetFilter"
               >RESET FILTER</v-btn
-            >
-          </v-col></v-card-text
+            ></v-card-actions
+          ></v-card-text
         >
         <v-dialog v-model="dialog" max-width="300">
           <v-card>
-            <v-card-title class="my-0 py-0"
-              >Overview<v-divider class="my-0 py-0"></v-divider
-            ></v-card-title>
+            <v-card-title>Overview</v-card-title>
+            <v-divider class="my-2 py-2"></v-divider>
             <v-card-text>
               <p class="my-2">
                 <span class="text--secondary">scREAD Data ID: </span>
@@ -126,7 +134,12 @@
               </p>
             </v-card-text>
             <v-card-actions>
-              <v-btn color="primary " text @click="openDetailsPage()">
+              <v-btn
+                class="mx-2"
+                color="primary "
+                text
+                @click="openDetailsPage()"
+              >
                 details </v-btn
               ><v-btn color="grey darken-1" text @click="dialog = false">
                 cancel
@@ -341,6 +354,7 @@ export default {
         this.browseDefault.gender !== 'All'
       )
     },
+
     totalCells() {
       return _.sumBy(this.dataset, 'n_original_cell')
     }
@@ -376,46 +390,27 @@ export default {
   }
 }
 </script>
-<style scoped>
-.prompt-box {
-  position: relative;
-  overflow: hidden;
-  padding: 1em;
-  margin-bottom: 24px;
-  transform: scaleY(1);
+<style>
+.v-messages__message {
+  line-height: 18px;
+  font-size: 14px;
 }
-.prompt-box > .title {
-  margin: 0 0 0.5em;
+
+.v-card__text {
+  font-size: 1em;
 }
-.prompt-box > .title > .meta {
-  margin-left: 10px;
+.v-data-table th {
+  font-size: 1.2em;
 }
-.prompt-box > .actions {
-  display: flex;
-  align-items: center;
+.v-data-table td {
+  font-size: 1em;
 }
-.prompt-box > button {
-  margin-right: 0.5em;
+
+.v-data-table td {
+  font-size: 1em;
 }
-.prompt-box > button:last-of-type {
-  margin-right: 0;
-}
-.location {
-  margin-bottom: 0;
-}
-.location > .icon {
-  margin-left: 10px;
-}
-.motif-header > .title {
-  margin: 0;
-}
-.list-group {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.list-group > .list-item {
-  padding: 1em 0;
-  border-bottom: solid 1px #e5e5e5;
+
+.v-expansion-panel-header {
+  font-size: 1.2em;
 }
 </style>
