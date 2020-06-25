@@ -27,8 +27,7 @@ All rights are reserved to [BMBL](https://u.osu.edu/bmbl/) and Dr. Qin Ma.
 
 
 # Acknowledgment
-
-We acknowledge Ren Qi for her dedicated help in running the data and providing valuable comments. This research utilized two resources of high-performance computing (HPC), which is supported by the Extreme Science and Engineering Discovery Environment (XSEDE) and Ohio State University.
+ This research utilized two resources of high-performance computing (HPC), which is supported by the Extreme Science and Engineering Discovery Environment (XSEDE) and Ohio State University.
 
 # Disclaimer
 

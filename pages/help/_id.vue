@@ -7,6 +7,14 @@
       <v-card class="mx-auto overflow-hidden"> </v-card>
       <div v-html="post"></div>
       <toc :content="navContent"></toc>
+      <div v-if="dataId === 'contact'" style="width:50%;">
+        <script
+          type="text/javascript"
+          src="//rf.revolvermaps.com/0/0/7.js?i=5x6a4rp6wz3&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;sx=0"
+          async="async"
+        ></script>
+      </div>
+
       <Fab></Fab>
     </v-container>
   </v-responsive>
@@ -43,6 +51,33 @@ export default {
       drawer: null,
       post: null,
       navContent: null
+    }
+  },
+  computed: {
+    dataId() {
+      return this.$route.params.id
+    },
+    renderedMd() {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      this.$md.renderer.rules.link_open = function(
+        tokens,
+        idx,
+        options,
+        env,
+        slf
+      ) {
+        const token = tokens[idx]
+        token.attrs = token.attrs.map((attr) => {
+          if (attr[0] === 'href') attr[0] = 'to'
+          return attr
+        })
+        return '<nuxt-link' + slf.renderAttrs(token) + '>'
+      }
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      this.$md.renderer.rules.link_close = function() {
+        return '</nuxt-link>'
+      }
+      return this.$md.render(this.markdown)
     }
   },
   methods: {
