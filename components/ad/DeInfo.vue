@@ -922,6 +922,10 @@ export default {
     },
     clearDeSelection() {
       this.comparisonSelect = {}
+      this.ccResult = []
+      this.bpResult = []
+      this.mfResult = []
+      this.keggResult = []
       this.$store.dispatch('ad/clearDE')
     }
   }
