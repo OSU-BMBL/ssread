@@ -1,4 +1,6 @@
+import _ from 'lodash'
 import AdService from '~/services/AdService.js'
+
 export const state = () => ({
   dialog: [],
   dataset: [],
@@ -10,6 +12,7 @@ export const state = () => ({
   de: [],
   dimension: [],
   expression: [],
+  expressionGenes: [],
   regulon: []
 })
 export const mutations = {
@@ -34,6 +37,9 @@ export const mutations = {
   SET_DE(state, de) {
     state.de = de
   },
+  RESET_DE(state) {
+    state.de = { count: 0, rows: [] }
+  },
   SET_DIMENSION(state, dimension) {
     state.dimension = dimension
   },
@@ -42,6 +48,9 @@ export const mutations = {
   },
   SET_EXPRESSION(state, expression) {
     state.expression = expression
+  },
+  SET_EXPRESSION_GENES(state, genes) {
+    state.expressionGenes = genes
   },
   SET_REGULON(state, regulon) {
     state.regulon = regulon
@@ -81,6 +90,9 @@ export const actions = {
       commit('SET_DE', response.data)
     })
   },
+  clearDE({ commit }) {
+    return commit('RESET_DE')
+  },
   fetchRegulon({ commit }, id) {
     return AdService.getRegulon(id).then(function(response) {
       commit('SET_REGULON', response.data)
@@ -99,6 +111,11 @@ export const actions = {
   fetchExpression({ commit }, gene) {
     return AdService.getExpression(gene).then(function(response) {
       commit('SET_EXPRESSION', response.data)
+    })
+  },
+  fetchExpressionGenes({ commit }, id) {
+    return AdService.getExpressionGenes(id).then(function(response) {
+      commit('SET_EXPRESSION_GENES', _.map(response.data, 'gene'))
     })
   },
   setDialog(context, id) {

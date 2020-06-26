@@ -87,11 +87,11 @@ export default {
   },
   head() {
     return {
-      title: 'Help',
+      title: 'Downloads',
       meta: [
         {
-          name: 'name',
-          content: 'content'
+          name: 'Downloads',
+          content: 'Download dataset from scREAD.'
         }
       ]
     }

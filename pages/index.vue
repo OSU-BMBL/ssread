@@ -8,16 +8,18 @@
         </p>
       </v-flex>
     </v-layout>
-    <v-row
-      ><v-col xs="6" md="6" lg="3">
-        <vue-plotly :data="pieData1" :layout="layout1" /> </v-col
-      ><v-col xs="6" md="6" lg="3">
-        <vue-plotly :data="pieData2" :layout="layout2" /> </v-col
-      ><v-col xs="6" md="6" lg="3">
-        <vue-plotly :data="pieData3" :layout="layout3" /> </v-col
-      ><v-col xs="6" md="6" lg="3">
-        <vue-plotly :data="pieData4" :layout="layout4" /> </v-col
-    ></v-row>
+    <no-ssr>
+      <v-row
+        ><v-col xs="6" md="6" lg="3">
+          <vue-plotly :data="pieData1" :layout="layout1" /> </v-col
+        ><v-col xs="6" md="6" lg="3">
+          <vue-plotly :data="pieData2" :layout="layout2" /> </v-col
+        ><v-col xs="6" md="6" lg="3">
+          <vue-plotly :data="pieData3" :layout="layout3" /> </v-col
+        ><v-col xs="6" md="6" lg="3">
+          <vue-plotly :data="pieData4" :layout="layout4" /> </v-col
+      ></v-row>
+    </no-ssr>
     <div class="motif-header">
       <v-card>
         <v-card-title>
@@ -390,27 +392,4 @@ export default {
   }
 }
 </script>
-<style>
-.v-messages__message {
-  line-height: 18px;
-  font-size: 14px;
-}
-
-.v-card__text {
-  font-size: 1em;
-}
-.v-data-table th {
-  font-size: 1.2em;
-}
-.v-data-table td {
-  font-size: 1em;
-}
-
-.v-data-table td {
-  font-size: 1em;
-}
-
-.v-expansion-panel-header {
-  font-size: 1.2em;
-}
-</style>
+<style></style>

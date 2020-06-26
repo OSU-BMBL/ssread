@@ -38,10 +38,13 @@
               return-object
               single-line
               persistent-hint
-              @change="updateDe()"
+              @change="
+                updateDe()
+                clearDeSelection()
+              "
             ></v-select> </v-col
           ><v-col
-            v-if="
+            v-show="
               groupSelect.groupText !== 'Cell type specific genes' &&
                 groupSelect.groupText !== 'Subcluster specific genes'
             "
@@ -66,7 +69,7 @@
             </p>
             <v-select
               v-model="comparisonSelect"
-              :hint="` ${comparisonSelect.hint}`"
+              :hint="comparisonSelect.hint"
               :items="comparisonItems"
               item-text="value"
               item-value="value"
@@ -237,6 +240,11 @@
             :items-per-page="15"
             class="elevation-1"
           >
+            <template slot="no-data">
+              <v-alert :value="true">
+                {{ deErrorMsg }}
+              </v-alert>
+            </template>
             <template v-slot:top>
               <v-toolbar flat>
                 <v-toolbar-title>
@@ -515,6 +523,10 @@ export default {
       type: String,
       required: true
     },
+    dataset: {
+      type: Array,
+      required: true
+    },
     ct: {
       type: Array,
       required: true
@@ -570,7 +582,6 @@ export default {
         groupText: 'Cell type specific genes',
         hint:
           'Find differentially expressed genes in each cell type by comparing it to all of the others.',
-        bDataId: 'AD00103',
         type: 'cell_type_specific'
       },
       groupItems: [
@@ -578,7 +589,6 @@ export default {
           groupText: 'Cell type specific genes',
           hint:
             'Find differentially expressed genes in each cell type by comparing it to all of the others.',
-          bDataId: 'AD00103',
           type: 'cell_type_specific'
         },
         {
@@ -592,27 +602,24 @@ export default {
           groupText: 'Disease vs disease (same region)',
           hint:
             'Compare two disease datasets in the same species, region, gender and age.',
-          bDataId: 'AD00102',
           type: 'a_vs_b'
         },
         {
           groupText: 'Disease vs disease (different region)',
           hint:
             'Compare two disease datasets in the same species, gender and age but in different region.',
-          bDataId: 'AD00105',
           type: 'a_vs_b'
         },
         {
           groupText: 'Subcluster specific genes',
           hint:
             'Comparing the subcluster of interest against other subclusters within the same cell type.',
-          bDataId: 'AD00103',
           type: 'subcluster'
         }
       ],
-      cellTypeSelect: 'Astrocytes',
+      cellTypeSelect: '',
       subclusterSelect: '',
-      comparisonSelect: '',
+      comparisonSelect: {},
       lfc_slider: 0.05,
       lfc_range: 1,
       p_slider: 0.001,
@@ -638,8 +645,7 @@ export default {
     ...mapState({
       de: (state) => state.ad.de.rows,
       n_de: (state) => state.ad.de.count,
-      de_meta: (state) => state.ad.deMeta,
-      dataset: (state) => state.ad.dataset
+      de_meta: (state) => state.ad.deMeta
     }),
     genes() {
       return _.map(this.filterDe, 'gene')
@@ -699,15 +705,46 @@ export default {
               row.p_val_adj <= this.pSliderValue
           )
       }
+    },
+    deErrorMsg() {
+      if (
+        this.groupSelect.groupText === 'Control vs disease (same region)' &&
+        !this.comparisonItems.includes(this.comparisonSelect)
+      ) {
+        return 'Please select comparison group from the left.'
+      } else if (
+        this.groupSelect.groupText ===
+          'Disease vs disease (different region)' &&
+        !this.comparisonItems.includes(this.comparisonSelect)
+      ) {
+        return 'Please select comparison group from the left.'
+      } else if (
+        this.groupSelect.groupText === 'Disease vs disease (same region)' &&
+        !this.comparisonItems.includes(this.comparisonSelect)
+      ) {
+        return 'Please select comparison group from the left.'
+      } else if (
+        this.groupSelect.groupText === 'Subcluster specific genes' &&
+        !this.comparisonItems.includes(this.comparisonSelect)
+      ) {
+        return 'Please select comparison group from the left.'
+      }
+      return 'Sorry, no DE genes found in current group.'
     }
   },
   watch: {
     filterDe() {
-      this.sendKegg(this.genes)
-      this.sendBp(this.genes)
-      this.sendMf(this.genes)
-      this.sendCc(this.genes)
+      if (this.filterDe.length) {
+        this.sendKegg(this.genes)
+        this.sendBp(this.genes)
+        this.sendMf(this.genes)
+        this.sendCc(this.genes)
+      }
     }
+  },
+  created() {
+    // `this` points to the vm instance
+    this.cellTypeSelect = this.ct[0].cell_type
   },
   methods: {
     async sendKegg(genes) {
@@ -873,7 +910,7 @@ export default {
         if (params.bDataId !== '') {
           await this.$store.dispatch('ad/fetchDe', params)
         }
-      } else {
+      } else if (this.comparisonItems.includes(this.comparisonSelect)) {
         const params = {
           aDataId: this.comparisonSelect.data_id,
           bDataId: this.comparisonSelect.b_data_id,
@@ -882,6 +919,10 @@ export default {
         }
         await this.$store.dispatch('ad/fetchDe', params)
       }
+    },
+    clearDeSelection() {
+      this.comparisonSelect = {}
+      this.$store.dispatch('ad/clearDE')
     }
   }
 }

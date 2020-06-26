@@ -14,6 +14,7 @@
         <v-layout row wrap>
           <v-flex xs12 md12 lg12>
             <dimension-info
+              :dataset="dataset"
               :dimension="dimension"
               :ct="cellType"
             ></dimension-info>
@@ -21,7 +22,11 @@
         </v-layout>
         <v-layout row wrap>
           <v-flex xs12 md12 lg12>
-            <de-info :data-id="dataId" :ct="cellType"></de-info>
+            <de-info
+              :data-id="dataId"
+              :dataset="dataset"
+              :ct="cellType"
+            ></de-info>
           </v-flex>
         </v-layout>
         <Fab></Fab>
@@ -58,6 +63,7 @@ export default {
         id: params.id,
         type: 'All cell types'
       })
+      await store.dispatch('ad/fetchExpressionGenes', params.id)
       await store.dispatch('ad/fetchDe', defaultDeParams)
       await store.dispatch('ad/fetchDeMeta', params.id)
       await store.dispatch('ad/fetchRegulon', params.id)
@@ -81,7 +87,17 @@ export default {
     },
     relatedDatasets() {
       return this.datasets.filter((row) => {
-        return row.public_id.split('; ')[0].includes(this.dataset[0].public_id)
+        return row.public_id
+          .replace(/[(.+?)]/g, ';')
+          .split(';')
+          .map((el) => el.trim())
+          .some((r) =>
+            this.dataset[0].public_id
+              .replace(/[(.+?)]/g, ';')
+              .split(';')
+              .map((el) => el.trim())
+              .includes(r)
+          )
       })
     }
   },

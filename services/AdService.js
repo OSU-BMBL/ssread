@@ -1,43 +1,31 @@
 import axios from 'axios'
 
 const apiClient = axios.create({
-  baseURL: `https://bmbls.bmi.osumc.edu/api/scread`,
-  // baseURL: `http://127.0.0.1:8889/api/scread`,
+  // baseURL: `https://bmbls.bmi.osumc.edu/api/scread`,
+  baseURL: `http://127.0.0.1:8889/api/scread`,
   withCredentials: false,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'
   }
 })
-
-async function sendToEnrichr(genes) {
-  const geneSetLibrary = 'KEGG_2019_Human'
-  const formData = new FormData()
-  formData.append('method', 'post')
-  formData.append('name', 'list')
-  formData.append('enctype', 'multipart/form-data')
-  formData.append('list', genes.join('\n'))
-  formData.append('description', 'test test')
-  const geneListEnrichrId = await axios
-    .post('https://amp.pharm.mssm.edu/Enrichr/addList', formData)
-    .then(function(response) {
-      return response.data.userListId
-    })
-  const enrichrResult = await axios
-    .get(
-      'https://amp.pharm.mssm.edu/Enrichr/enrich?userListId=' +
-        geneListEnrichrId +
-        '&backgroundType=' +
-        geneSetLibrary
-    )
-    .then(function(response) {
-      return response.data
-    })
-  return enrichrResult
-}
+const uploadClient = axios.create({
+  // baseURL: `https://bmbls.bmi.osumc.edu/api/scread`,
+  baseURL: `http://127.0.0.1:8889/api/scread`,
+  method: 'post',
+  headers: {
+    'Content-Type': 'multipart/form-data'
+  }
+})
 
 export default {
-  sendToEnrichr,
+  uploadFiles(formData) {
+    return uploadClient.post('/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  },
   getDatasets() {
     return apiClient.get('/dataset')
   },
@@ -73,5 +61,8 @@ export default {
   },
   getExpression(gene) {
     return apiClient.get('/expression/' + gene)
+  },
+  getExpressionGenes(id) {
+    return apiClient.get('/expression_genes/' + id)
   }
 }

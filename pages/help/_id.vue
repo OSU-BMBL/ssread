@@ -7,13 +7,14 @@
       <v-card class="mx-auto overflow-hidden"> </v-card>
       <div v-html="post"></div>
       <toc :content="navContent"></toc>
-      <div v-if="dataId === 'contact'" style="width:50%;">
-        <script
-          type="text/javascript"
-          src="//rf.revolvermaps.com/0/0/7.js?i=5x6a4rp6wz3&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;sx=0"
-          async="async"
-        ></script>
-      </div>
+      <no-ssr>
+        <div v-if="dataId === 'contact'" style="width:50%;">
+          <script
+            type="text/javascript"
+            src="//rf.revolvermaps.com/0/0/7.js?i=5x6a4rp6wz3&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;sx=0"
+            async="async"
+          ></script></div
+      ></no-ssr>
 
       <Fab></Fab>
     </v-container>

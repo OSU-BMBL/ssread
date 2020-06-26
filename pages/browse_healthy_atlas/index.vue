@@ -9,7 +9,7 @@
                 <v-expansion-panel-header @click="clearDimension()">{{
                   atlasId[i] + ': ' + assembly[i]
                 }}</v-expansion-panel-header>
-                <v-expansion-panel-content>
+                <v-expansion-panel-content v-if="panelIndex === i">
                   <healthy-atlas :atlas-id="atlasId[i]"></healthy-atlas>
                   <v-btn color="primary" @click="openDetailsPage(atlasId[i])">
                     Details
@@ -39,7 +39,8 @@ export default {
         `Human-H-Prefrontal cortex-Female`,
         `Human-H-Entorhinal Cortex-Male`,
         `Human-H-Entorhinal Cortex-Female`,
-        `Human-H-Cortex-Male-7m`,
+        `Human-H-Superior frontal gyrus-Male`,
+        `Mouse-H-Cortex-Male-7m`,
         `Mouse-H-Cortex-Male-15m`,
         `Mouse-H-Cerebral cortex-Female-15m`,
         `Mouse-H-CerebelluMouse-Male-7m`,
@@ -48,14 +49,14 @@ export default {
         `Mouse-H-Hippocampus-Male-7m`,
         `Mouse-H-Hippocampus-Male-15m`,
         `Mouse-H-Hippocampus-Female-7m`,
-        `Mouse-H-Hippocampus-Female-20m`,
-        `Human-H-Superior frontal gyrus-Male`
+        `Mouse-H-Hippocampus-Female-20m`
       ],
       atlasId: [
         `AD00101`,
         `AD00106`,
         `AD00201`,
         `AD00202`,
+        `AD00801`,
         `AD00301`,
         `AD00302`,
         `AD00401`,
@@ -65,8 +66,7 @@ export default {
         `AD00702`,
         `AD00703`,
         `AD00704`,
-        `AD00705`,
-        `AD00801`
+        `AD00705`
       ]
     }
   },
