@@ -9,3 +9,25 @@
   opacity: 0;
 }
 */
+.v-messages__message {
+  line-height: 18px;
+  font-size: 14px;
+}
+
+.v-card__text {
+  font-size: 1em;
+}
+.v-data-table th {
+  font-size: 1.2em;
+}
+.v-data-table td {
+  font-size: 1em;
+}
+
+.v-data-table td {
+  font-size: 1em;
+}
+
+.v-expansion-panel-header {
+  font-size: 1.2em;
+}
