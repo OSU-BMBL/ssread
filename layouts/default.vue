@@ -106,8 +106,8 @@ export default {
         { icon: 'mdi-home', text: 'Home', url: '/' },
         {
           icon: 'mdi-table',
-          text: 'Browse healthy atlas',
-          url: '/browse_healthy_atlas'
+          text: 'Browse control atlas',
+          url: '/browse_control_atlas'
         },
         {
           icon: 'mdi-file-find-outline',

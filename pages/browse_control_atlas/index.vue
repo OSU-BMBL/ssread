@@ -6,11 +6,14 @@
           <v-layout row wrap>
             <v-expansion-panels v-model="panelIndex">
               <v-expansion-panel v-for="(n, i) in assembly.length" :key="n">
-                <v-expansion-panel-header @click="clearDimension()">{{
+                <v-expansion-panel-header @click="clearDimension(atlasId[i])">{{
                   atlasId[i] + ': ' + assembly[i]
                 }}</v-expansion-panel-header>
-                <v-expansion-panel-content v-if="panelIndex === i">
-                  <healthy-atlas :atlas-id="atlasId[i]"></healthy-atlas>
+                <v-expansion-panel-content>
+                  <healthy-atlas
+                    v-if="panelIndex === i"
+                    :atlas-id="atlasId[i]"
+                  ></healthy-atlas>
                   <v-btn color="primary" @click="openDetailsPage(atlasId[i])">
                     Details
                   </v-btn>
@@ -82,8 +85,13 @@ export default {
     }
   },
   methods: {
-    async clearDimension() {
+    async clearDimension(currentId) {
       await this.$store.dispatch('ad/clearDimension')
+      const params = {
+        id: currentId,
+        type: 'All cell types'
+      }
+      await this.$store.dispatch('ad/fetchDimension', params)
     },
     openDetailsPage(id) {
       this.$router.push(id)

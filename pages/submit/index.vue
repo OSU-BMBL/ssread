@@ -20,9 +20,9 @@ export default {
       title: 'Job submission',
       meta: [
         {
-          hid: 'description',
-          name: 'description',
-          content: 'What you need to know about motif #' + this.motifs
+          hid: 'submission',
+          name: 'submission',
+          content: 'Submit your single-cell datasets to scREAD.'
         }
       ]
     }

@@ -108,8 +108,10 @@ export const actions = {
   clearDimension({ commit }) {
     return commit('RESET_DIMENSION')
   },
-  fetchExpression({ commit }, gene) {
-    return AdService.getExpression(gene).then(function(response) {
+  fetchExpression({ commit }, params) {
+    return AdService.getExpression(params.gene, params.id).then(function(
+      response
+    ) {
       commit('SET_EXPRESSION', response.data)
     })
   },

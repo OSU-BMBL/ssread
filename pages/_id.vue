@@ -14,6 +14,7 @@
         <v-layout row wrap>
           <v-flex xs12 md12 lg12>
             <dimension-info
+              :data-id="dataId"
               :dataset="dataset"
               :dimension="dimension"
               :ct="cellType"

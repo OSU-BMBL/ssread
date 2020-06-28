@@ -8,18 +8,34 @@
         </p>
       </v-flex>
     </v-layout>
-    <no-ssr>
+    <div>
       <v-row
         ><v-col xs="6" md="6" lg="3">
-          <vue-plotly :data="pieData1" :layout="layout1" /> </v-col
+          <vue-plotly
+            :data="pieData1"
+            :layout="layout1"
+            :options="options"
+          /> </v-col
         ><v-col xs="6" md="6" lg="3">
-          <vue-plotly :data="pieData2" :layout="layout2" /> </v-col
+          <vue-plotly
+            :data="pieData2"
+            :layout="layout2"
+            :options="options"
+          /> </v-col
         ><v-col xs="6" md="6" lg="3">
-          <vue-plotly :data="pieData3" :layout="layout3" /> </v-col
+          <vue-plotly
+            :data="pieData3"
+            :layout="layout3"
+            :options="options"
+          /> </v-col
         ><v-col xs="6" md="6" lg="3">
-          <vue-plotly :data="pieData4" :layout="layout4" /> </v-col
+          <vue-plotly
+            :data="pieData4"
+            :layout="layout4"
+            :options="options"
+          /> </v-col
       ></v-row>
-    </no-ssr>
+    </div>
     <div class="motif-header">
       <v-card>
         <v-card-title>
@@ -77,7 +93,7 @@
           </v-row>
           <v-card-actions>
             <download-excel class="mr-4" :data="filterDataset" type="csv">
-              <v-btn color="primary"> Download</v-btn>
+              <v-btn color="primary"> Download list table</v-btn>
             </download-excel>
 
             <v-btn
@@ -119,7 +135,7 @@
                 }}</span>
               </p>
               <p class="my-2">
-                <span class="text--secondary">Stage: </span>
+                <span class="text--secondary">Braak stage: </span>
                 <span class="text--primary">{{
                   computedDialogData.stage
                 }}</span>
@@ -154,9 +170,28 @@
           :headers="headers"
           :items="filterDataset"
           :items-per-page="15"
+          sort-by="species"
           class="elevation-1"
-          @click:row="handleClick"
-        ></v-data-table>
+        >
+          <template v-slot:item="row">
+            <tr @click="handleClick(row.item)">
+              <td>
+                <nuxt-link :to="'/' + row.item.data_id">{{
+                  row.item.data_id
+                }}</nuxt-link>
+              </td>
+              <td>{{ row.item.species }}</td>
+              <td>{{ row.item.gender }}</td>
+              <td>{{ row.item.condition }}</td>
+              <td>{{ row.item.region }}</td>
+              <td>{{ row.item.stage }}</td>
+              <td>{{ row.item.age }}</td>
+              <td>{{ row.item.mice_model }}</td>
+              <td>{{ row.item.public_id }}</td>
+              <td>{{ row.item.n_cell }}</td>
+            </tr>
+          </template>
+        </v-data-table>
       </v-card>
     </div>
   </div>
@@ -226,11 +261,21 @@ export default {
       ],
       layout1: {
         title: {
-          text: 'Species'
+          text: 'Species',
+          font: {
+            size: 20
+          }
         },
-        autosize: false,
+        autosize: true,
         width: 400,
         height: 500,
+        margin: {
+          l: 80,
+          r: 80,
+          b: 210,
+          t: 50,
+          pad: 4
+        },
         legend: {
           font: {
             size: 14
@@ -252,11 +297,21 @@ export default {
       ],
       layout2: {
         title: {
-          text: 'Condition'
+          text: 'Condition',
+          font: {
+            size: 20
+          }
         },
-        autosize: false,
+        autosize: true,
         width: 400,
         height: 500,
+        margin: {
+          l: 80,
+          r: 80,
+          b: 210,
+          t: 50,
+          pad: 4
+        },
         legend: {
           font: {
             size: 14
@@ -282,11 +337,21 @@ export default {
       ],
       layout3: {
         title: {
-          text: 'Region'
+          text: 'Region',
+          font: {
+            size: 20
+          }
         },
-        autosize: false,
+        autosize: true,
         width: 400,
         height: 500,
+        margin: {
+          l: 80,
+          r: 80,
+          b: 210,
+          t: 50,
+          pad: 4
+        },
         legend: {
           font: {
             size: 14
@@ -303,17 +368,39 @@ export default {
       ],
       layout4: {
         title: {
-          text: 'Gender'
+          text: 'Gender',
+          font: {
+            size: 20
+          }
         },
-        autosize: false,
+        autosize: true,
         width: 400,
-        height: 400,
+        height: 500,
+        margin: {
+          l: 80,
+          r: 80,
+          b: 210,
+          t: 50,
+          pad: 4
+        },
         legend: {
           font: {
             size: 14
           },
           orientation: 'h'
         }
+      },
+      options: {
+        toImageButtonOptions: {
+          format: 'png', // one of png, svg, jpeg, webp
+          filename: 'download_piechart' + new Date().toISOString(),
+          height: 700,
+          width: 700,
+          scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+        },
+        showLink: false,
+        displaylogo: false,
+        modeBarButtonsToRemove: ['hoverClosestPie']
       }
     }
   },
@@ -385,7 +472,8 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: 'What you need to know'
+          content:
+            'scREAD (single-cell RNA-Seq database for Alzheimer’s Disease), as far as we know, is the first database dedicated to the management of all existing scRNA-Seq and single-nucleus RNA-sequencing (snRNA-Seq) datasets from human postmortem brain tissue with AD and mouse models with AD pathology. What you need to know'
         }
       ]
     }

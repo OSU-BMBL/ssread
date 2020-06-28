@@ -278,7 +278,9 @@
       <v-divider></v-divider>
       <v-expansion-panels v-model="panel" hover multiple>
         <v-expansion-panel>
-          <v-expansion-panel-header>KEGG pathway </v-expansion-panel-header>
+          <v-expansion-panel-header @click="submitEnrichr('kegg')"
+            >KEGG pathway
+          </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-text-field
               v-model="keggSearch"
@@ -329,7 +331,7 @@
         </v-expansion-panel>
 
         <v-expansion-panel>
-          <v-expansion-panel-header
+          <v-expansion-panel-header @click="submitEnrichr('bp')"
             >GO: Biological Process</v-expansion-panel-header
           >
           <v-expansion-panel-content>
@@ -382,7 +384,7 @@
         </v-expansion-panel>
 
         <v-expansion-panel>
-          <v-expansion-panel-header
+          <v-expansion-panel-header @click="submitEnrichr('mf')"
             >GO: Molecular Function</v-expansion-panel-header
           >
           <v-expansion-panel-content>
@@ -434,7 +436,7 @@
           </v-expansion-panel-content>
         </v-expansion-panel>
         <v-expansion-panel>
-          <v-expansion-panel-header
+          <v-expansion-panel-header @click="submitEnrichr('cc')"
             >GO: Cellular Component</v-expansion-panel-header
           >
           <v-expansion-panel-content>
@@ -735,10 +737,18 @@ export default {
   watch: {
     filterDe() {
       if (this.filterDe.length) {
-        this.sendKegg(this.genes)
-        this.sendBp(this.genes)
-        this.sendMf(this.genes)
-        this.sendCc(this.genes)
+        if (this.panel.includes(0)) {
+          this.sendKegg(this.genes)
+        }
+        if (this.panel.includes(1)) {
+          this.sendBp(this.genes)
+        }
+        if (this.panel.includes(2)) {
+          this.sendMf(this.genes)
+        }
+        if (this.panel.includes(3)) {
+          this.sendCc(this.genes)
+        }
       }
     }
   },
@@ -927,6 +937,24 @@ export default {
       this.mfResult = []
       this.keggResult = []
       this.$store.dispatch('ad/clearDE')
+    },
+    submitEnrichr(type) {
+      if (this.filterDe.length) {
+        switch (type) {
+          case 'kegg':
+            this.sendKegg(this.genes)
+            break
+          case 'bp':
+            this.sendBp(this.genes)
+            break
+          case 'mf':
+            this.sendMf(this.genes)
+            break
+          case 'cc':
+            this.sendCc(this.genes)
+            break
+        }
+      }
     }
   }
 }

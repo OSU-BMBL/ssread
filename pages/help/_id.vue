@@ -7,15 +7,14 @@
       <v-card class="mx-auto overflow-hidden"> </v-card>
       <div v-html="post"></div>
       <toc :content="navContent"></toc>
-      <no-ssr>
-        <div v-if="dataId === 'contact'" style="width:50%;">
-          <script
-            type="text/javascript"
-            src="//rf.revolvermaps.com/0/0/7.js?i=5x6a4rp6wz3&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;sx=0"
-            async="async"
-          ></script></div
-      ></no-ssr>
-
+      <client-only placeholder="Loading...">
+        <div v-show="dataId === 'contact'" style="width:100%;">
+          <a href="https://clustrmaps.com/site/1ba7j" title="Visit tracker"
+            ><img
+              src="//www.clustrmaps.com/map_v2.png?d=lo_dyJKzzEyHLmqSLO7k38JNTEzZg7BQaNQuc3EyqgM&cl=ffffff"
+          /></a>
+        </div>
+      </client-only>
       <Fab></Fab>
     </v-container>
   </v-responsive>
@@ -34,7 +33,11 @@ export default {
       const post = await import(`~/static/docs/${params.id}.md`)
       const navStart = post.default.lastIndexOf('<nav')
       const navEnd = post.default.lastIndexOf('nav>') + 4
-      const navContent = post.default.substring(navStart, navEnd)
+      const navContent = post.default
+        .substring(navStart, navEnd)
+        .replace(/href="([^\\'\\"]+)/g, function(m, s) {
+          return 'href="/scread/help/' + params.id + s + '"'
+        })
       // await store.dispatch('docs/commitToc', navContent)
       return {
         post: post.default.slice(navEnd),
@@ -57,6 +60,9 @@ export default {
   computed: {
     dataId() {
       return this.$route.params.id
+    },
+    test() {
+      return this.$md
     },
     renderedMd() {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -89,6 +95,12 @@ export default {
   head() {
     return {
       title: 'Help',
+      script: [
+        {
+          src:
+            'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'
+        }
+      ],
       meta: [
         {
           name: 'name',

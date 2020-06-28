@@ -1,11 +1,8 @@
 <template>
   <div>
-    <no-ssr>
+    <client-only>
       <v-row>
         <v-col xs="12" md="12" lg="12" class="px-4 py-0 my-0">
-          <v-btn @click="updateCluster(atlasId)" class="primary"
-            >Show UMAP plot</v-btn
-          >
           <v-row>
             <v-col xs="12" md="6" lg="3" class="px-4 py-0 my-0">
               <p class="subtitle-1 font-weight-bold">
@@ -26,11 +23,10 @@
               </v-slider>
             </v-col>
           </v-row>
-
           <vue-plotly :data="allCellDim" :layout="layout" :options="options" />
         </v-col>
       </v-row>
-    </no-ssr>
+    </client-only>
   </div>
 </template>
 
@@ -57,7 +53,14 @@ export default {
       layout: {
         autosize: true,
         width: 1000,
-        height: 600,
+        height: 700,
+        margin: {
+          l: 50,
+          r: 50,
+          b: 20,
+          t: 20,
+          pad: 0
+        },
         legend: {
           font: {
             size: 14
@@ -177,16 +180,7 @@ export default {
       return [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8]
     }
   },
-  methods: {
-    async updateCluster(currentId) {
-      const params = {
-        id: currentId,
-        type: 'All cell types'
-      }
-      await console.log(params)
-      await this.$store.dispatch('ad/fetchDimension', params)
-    }
-  }
+  methods: {}
 }
 </script>
 

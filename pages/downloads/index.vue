@@ -33,7 +33,11 @@ export default {
       const post = await import(`~/static/docs/downloads.md`)
       const navStart = post.default.lastIndexOf('<nav')
       const navEnd = post.default.lastIndexOf('nav>') + 4
-      const navContent = post.default.substring(navStart, navEnd)
+      const navContent = post.default
+        .substring(navStart, navEnd)
+        .replace(/href="([^\\'\\"]+)/g, function(m, s) {
+          return 'href="/scread/downloads/' + params.id + s + '"'
+        })
       // await store.dispatch('docs/commitToc', navContent)
       return {
         post: post.default.slice(navEnd),

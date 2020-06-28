@@ -139,12 +139,11 @@
         <v-row>
           <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0">
             <div>
-              <no-ssr>
-                <vue-plotly
-                  :data="allCellDim"
-                  :layout="layout"
-                  :options="options"
-              /></no-ssr>
+              <vue-plotly
+                :data="allCellDim"
+                :layout="layout"
+                :options="options"
+              />
             </div>
           </v-col>
           <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0">
@@ -170,6 +169,10 @@ export default {
   name: 'DimensionInfo',
   components: {},
   props: {
+    dataId: {
+      type: String,
+      required: true
+    },
     dataset: {
       type: Array,
       required: true
@@ -202,18 +205,11 @@ export default {
         margin: {
           l: 50,
           r: 50,
-          b: 200,
+          b: 210,
           t: 20,
-          pad: 4
+          pad: 0
         },
         legend: {
-          margin: {
-            l: 50,
-            r: 50,
-            b: 180,
-            t: 20,
-            pad: 4
-          },
           font: {
             size: 14
           },
@@ -247,7 +243,18 @@ export default {
           }
         }
       },
-      options: {}
+      options: {
+        toImageButtonOptions: {
+          format: 'png', // one of png, svg, jpeg, webp
+          filename: 'download_umap' + new Date().toISOString(),
+          height: 1000,
+          width: 800,
+          scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+        },
+        showLink: false,
+        displaylogo: false,
+        modeBarButtonsToRemove: ['hoverClosestPie']
+      }
     }
   },
   computed: {
@@ -424,7 +431,7 @@ export default {
       const X = _.map(this.dimension, 'umap_1')
       const Y = _.map(this.dimension, 'umap_2')
       const cellNames = _.map(this.dimension, 'cell_name')
-
+      /*
       // Actual gene expression object, this is much shorter than the dimension object
       const actualExpression = this.expression.reduce(
         (acc, cur) => ({ ...acc, [cur.cell_name]: cur.expression }),
@@ -435,6 +442,9 @@ export default {
         (o, key) => Object.assign(o, { [key]: 0 }),
         {}
       )
+
+      // Object.values(_.extend({}, tmpExpression, actualExpression))
+*/
       // merge actualExpression and tmpExpression, overwrite 0 with actual expression values
       const trace = {
         x: X,
@@ -443,7 +453,7 @@ export default {
         text: cellNames,
         marker: {
           size: this.pointSize,
-          color: Object.values(_.extend({}, tmpExpression, actualExpression))
+          color: this.expression
         },
         colorscale: 'YlOrRd'
       }
@@ -456,11 +466,13 @@ export default {
         id: this.$route.params.id,
         type: this.clusterCoordinatesSelect
       }
-      await console.log(params)
       await this.$store.dispatch('ad/fetchDimension', params)
     },
     async updateExpression() {
-      await this.$store.dispatch('ad/fetchExpression', this.gene)
+      await this.$store.dispatch('ad/fetchExpression', {
+        gene: this.gene,
+        id: this.dataset[0].data_id
+      })
     }
   }
 }

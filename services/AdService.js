@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const apiClient = axios.create({
   baseURL: `https://bmbls.bmi.osumc.edu/api/scread`,
-  // baseURL: `http://127.0.0.1:8889/api/scread`,
+  /// baseURL: `http://127.0.0.1:8889/api/scread`,
   withCredentials: false,
   headers: {
     Accept: 'application/json',
@@ -59,8 +59,8 @@ export default {
   getDimension(id, type) {
     return apiClient.get('/dimension/' + id + '/type/' + type)
   },
-  getExpression(gene) {
-    return apiClient.get('/expression/' + gene)
+  getExpression(gene, id) {
+    return apiClient.get('/expression/' + gene + '/id/' + id)
   },
   getExpressionGenes(id) {
     return apiClient.get('/expression_genes/' + id)
