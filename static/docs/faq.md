@@ -2,6 +2,8 @@
 
 # FAQ
 
+---
+
 This is the FAQ of scREAD. This list of questions is not exhaustive. If you have any other questions please email any authors on the [Contact](https://bmbls.bmi.osumc.edu/scread/help/contact) page.
 
 # What is Alzheimer's disease?
@@ -10,11 +12,15 @@ Alzheimer's disease (AD) is the most common cause of dementia, accounting for an
 
 # What is single-cell RNA sequencing?
 
-Single-cell RNA sequencing (scRNA-Seq) examines the dynamic transcriptomic profile of individual cells with next-generation sequencing technologies, hence, provide a higher resolution of cellular differences and a better understanding of the function of an individual cell in the context of its microenvironment. The scRNA-Seq can reveal complex and rare cell populations, uncover regulatory relationships between genes, and track the trajectories of distinct cell lineages in development. The scRNA-Seq is becoming widely used across biological disciplines including neuroscience. More recently, scRNA-Seq has been used in the field of AD and significantly improves our understanding of the pathogenesis of AD at the single-cell level.
+Single-cell RNA sequencing (scRNA-Seq) examines the dynamic transcriptomic profile of individual cells with next-generation sequencing technologies, and hence provide a higher resolution of cellular differences and a better understanding of the function of an individual cell in the context of its microenvironment. The scRNA-Seq can reveal complex and rare cell populations, uncover regulatory relationships between genes, and track the trajectories of distinct cell lineages in development. The scRNA-Seq is becoming widely used across biological disciplines including neuroscience. More recently, scRNA-Seq has been used in the field of AD and significantly improves our understanding of the pathogenesis of AD at the single-cell level.
 
 # What is scREAD?
 
 scREAD (**s**ingle-**c**ell **R**NA-S**e**q database for **A**lzheimer's **D**isease), as far as we know, is the first database dedicated to the management of all existing scRNA-Seq and single-nucleus RNA-sequencing (snRNA-Seq) datasets from human postmortem brain tissue with AD and mouse models with AD pathology. By manually curating 11 AD related studies, four scRNA-Seq datasets and eight snRNA-Seq datasets were retrieved with the following factors well annotated, i.e., organism, gender, brain region, disease/control, and age information. scREAD re-defines the 12 scRNA-Seq & snRNA-Seq datasets into 55 datasets (in total 579,392 cells and eight cell types), each of which corresponds to a specific organism (human or mouse), gender (male or female), brain region (entorhinal cortex, prefrontal cortex, superior frontal gyrus, cortex, cerebellum, cerebral cortex, or hippocampus), disease or control, and age stage (seven months, 15 months, or 20 months for mice, and 50-90+ years old for human). These datasets have been published and freely accessible in the public domain as of June 1st, 2020. Furthermore, scREAD provides comprehensive analysis results and interactive visualizations based on all the collected AD datasets. Moreover, scREAD allows users to submit a new dataset to reproduce all the analyses results showcased in scREAD in support of their AD research. It is freely and openly accessible to all users with no login or registration required and no password-protected.
+
+# Which browsers are supported?
+
+The browsers that scREAD supported are Google Chrome, Safari, and Firefox. The scREAD is not supported by the Internet Explorer browser.
 
 # Which species are covered in scREAD?
 
@@ -24,18 +30,16 @@ Human and Mouse.
 
 For human species, the scREAD covers three regions. For mouse species, the scREAD covers five regions. The detailed information is shown in the following table:
 
-| Species | Region                 | Brodmann area |
-| ------- | ---------------------- | ------------- |
-| Human   | Entorhinal cortex      | 8; NA         |
-| Human   | Prefrontal cortex      | 9_46; 10      |
-| Human   | Superior frontal gyrus | 8             |
-| Mouse   | Cortex                 | NA            |
-| Mouse   | Cerebellum             | NA            |
-| Mouse   | Cerebral cortex        | NA            |
-| Mouse   | Hippocampus            | NA            |
-| Mouse   | Prefrontal cortex      | NA            |
-
-Note: Two datasets come from the human entorhinal cortex region, one dataset has the Brodmann area information, and the other dataset does not have the Brodmann area information. Two datasets come from the human prefrontal cortex region, one dataset comes from Brodmann area 9_46, and the other dataset comes from Brodmann area 10.
+| Species | Region                 | Brodmann area            |
+| ------- | ---------------------- | ------------------------ |
+| Human   | Entorhinal cortex      | NA; NA                   |
+| Human   | Prefrontal cortex      | Area 9, Area 46; Area 10 |
+| Human   | Superior frontal gyrus | Area 8                   |
+| Mouse   | Cortex                 | NA                       |
+| Mouse   | Cerebellum             | NA                       |
+| Mouse   | Cerebral cortex        | NA                       |
+| Mouse   | Hippocampus            | NA                       |
+| Mouse   | Prefrontal cortex      | NA                       |
 
 # Which types of data are covered in scREAD?
 
@@ -64,27 +68,23 @@ The scREAD contains 55 files in total, which are redefined from 12 existing huma
 
 The following figure represents the distribution of the species, gender, condition, and brain region for these 55 files. For each panel in this figure, the color of the bar stands for the number of files, the darker the color is the more files in the corresponding factor.
 
-- For the top left panel, the x-axis represents the species are covered in the 55 files, and the y-axis represents the numbers of files for human and mouse species.
-- For the top right panel, the x-axis represents the gender information is covered in the 55 files, and the y-axis represents the numbers of files for each element.
-- For the bottom left panel, the x-axis represents the condition information is covered in the 55 files, and the y-axis represents the numbers of files for each element.
-- For the bottom right panel, the x-axis represents the numbers of files for each element, and the y-axis represents the brain regions that are covered in the 55 files.
-
 ![barplot](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/markdown.jpg)
+(A) X-axis represents the species are covered in the 55 files, and y-axis represents the numbers of files for human and mouse species. (B) X-axis represents the gender information is covered in the 55 files, and y-axis represents the numbers of files for each element. (C ) X-axis represents the condition information is covered in the 55 files, and y-axis represents the numbers of files for each element. (D) X-axis represents the numbers of files for each element, and y-axis represents the brain regions that are covered in the 55 files.
 
 # How can we define different mouse age stages?
 
 The choice of rodent age should be given more consideration, as it improves the quality and relevance of the data obtained, and reduces variability. As for the age of mice used, it depends on the development or senescence of the system being studied. For example, [Flurkey et al.](https://www.elsevier.com/books/the-mouse-in-biomedical-research/fox/978-0-12-369457-7) defined a mature adult C57BL6/J mouse as 3–6 months (equivalent in this analysis to 20–30 human years), a middle-aged mouse as 10–14 months (equivalent to 38–47 human years) and an old mouse as 18–24 months (equivalent to 56–69 human years). We therefore define the different mouse age stages in our database as shown in the following table:
 
-| Age_Stage | Ranger of ages |
-| --------- | -------------- |
-| 2 months  | 1-2 months     |
-| 7 months  | 4-7 months     |
-| 15 months | 10-15 months   |
-| 20 months | 20 months      |
+| Age_Stage | Range of ages |
+| --------- | ------------- |
+| 2 months  | 1-2 months    |
+| 7 months  | 4-7 months    |
+| 15 months | 10-15 months  |
+| 20 months | 20 months     |
 
-# What is healthy atlas?
+# What is control atlas?
 
-We constructed 15 healthy cell atlases of human and mouse based on 12 datasets, which cover eight brain regions, two genders, and three different mouse age stages. Cell types of these 15 healthy atlases were clustered using Seurat and SCINA based on known cell type markers that collected from literature and [PanglaoDB](https://panglaodb.se).
+We constructed 15 control cell atlases of human and mouse based on 12 datasets, which cover eight brain regions, two genders, and three different mouse age stages. Cell types of these 15 control atlases were clustered using Seurat and SCINA based on known cell type markers that collected from literature and [PanglaoDB](https://panglaodb.se).
 
 # Which cell types are covered in scREAD?
 
@@ -120,7 +120,7 @@ Enrichment analysis is a computational method for inferring knowledge about an i
 
 # What are regulons and cell-type-specific regulons (CTSRs) and why are they important?
 
-The term regulon was first introduced by [Maas et al.](https://www.sciencedirect.com/science/article/abs/pii/S002228366480200X) in 1964, intended to name a maximal group of co-regulated genes, which may be scattered in a genome without apparent patterns in terms of their genomic locations. Based on that, cell-type-specific regulon was defined as a group of genes, receiving similar regulatory signals in a specific cell type, hence tend to have similar expression patterns and share conserved motifs in this cell type. A successful elucidation of CTSRs will substantially improve the identification of transcriptionally co-regulated gene modules, realistically allowing reliable prediction of global transcription regulation networks encoded in a specific cell type.
+The term regulon was first introduced by [Maas et al.](https://www.sciencedirect.com/science/article/abs/pii/S002228366480200X) in 1964, intended to name a maximal group of co-regulated genes, which may be scattered in a genome without apparent patterns in terms of their genomic locations.Based on that, cell-type-specific regulons (CTSRs) are defined as a group of genes, which receive similar regulatory signals in a specific cell type, hence tending to have similar expression patterns and share conserved motifs in this cell type. A successful elucidation of CTSRs will substantially improve the identification of transcriptionally co-regulated gene modules, realistically allowing reliable prediction of global transcription regulation networks encoded in a specific cell type.
 
 # What is IRIS3?
 
@@ -153,8 +153,20 @@ The data_id name is composed of three parts, they are Alzheimer's disease (the t
 
 | data_id | Alzheimer's disease | Region                | code_number |
 | ------- | ------------------- | --------------------- | ----------- |
-| AD00101 | AD                  | region of mouse (001) | 01          |
-| AD00402 | AD                  | region of human (004) | 02          |
+| AD00101 | AD                  | region of human (001) | 01          |
+| AD00402 | AD                  | region of mouse (004) | 02          |
+
+Here is the table showing which brain regions are the first three letters corresponded to:
+| Three letters | Brain Region |
+| ------- | --------------------- |
+| 001 | Human prefrontal cortex|
+| 002 | Human entorhinal cortex|
+| 003 | Mouse cortex|
+| 004 | Mouse cerebral cortex|
+| 005 | Mouse cerebellum|
+| 006 | Mouse prefrontal cortex|
+| 007 | Mouse hippocampus|
+| 008 | Human superior frontal gyrus|
 
 # What is fst format?
 
@@ -196,15 +208,15 @@ The datasets of scREAD can be downloaded from [Download](https://bmbls.bmi.osumc
 
 # Why do you choose PCA instead of CCA or LSI for reduction in the identification of disease dataset cell types?
 
-In the identification of disease cell types, we used Seurat's _FindTransferAnchors_ and _TransferData_ function to transfer cell types from the healthy atlas to disease datasets, which project PCA structure from the reference (healthy atlas) onto the query (disease dataset). PCA is [recommended](https://rdrr.io/cran/Seurat/man/FindTransferAnchors.html) when reference and query datasets are from scRNA-seq. CCA is [considered](https://satijalab.org/seurat/v3.1/atacseq_integration_vignette.html) better captures the shared feature correlation structure across single-cell modalities. LSI is [considered](https://satijalab.org/seurat/v3.1/atacseq_integration_vignette.html) better captures the 'internal' structure of ATAC-seq data in the case of scRNA-seq to scATAC-seq transfer.
+In the identification of disease cell types, we used Seurat's _FindTransferAnchors_ and _TransferData_ function to transfer cell types from the control atlas to disease datasets, which project PCA structure from the reference (control atlas) onto the query (disease dataset). PCA is [recommended](https://rdrr.io/cran/Seurat/man/FindTransferAnchors.html) when reference and query datasets are from scRNA-seq. CCA is [considered](https://satijalab.org/seurat/v3.1/atacseq_integration_vignette.html) better captures the shared feature correlation structure across single-cell modalities. LSI is [considered](https://satijalab.org/seurat/v3.1/atacseq_integration_vignette.html) better captures the 'internal' structure of ATAC-seq data in the case of scRNA-seq to scATAC-seq transfer.
 
 # What is the scREAD overall pipeline?
 
 Our database organically integrates multiple state-of-the-art tools, including [IRIS3](https://bmbl.bmi.osumc.edu/iris3/), [SCINA](https://github.com/jcao89757/SCINA), [Seurat](https://satijalab.org/seurat/), and [IRIS-EDA](https://bmbls.bmi.osumc.edu/IRIS). These tools are either reputed or have been justified with the best performance in the analytical area.
 
-## 1. Construction of Human and Mouse healthy atlas
+## 1. Construction of Human and Mouse control atlas
 
-Human and Mouse healthy atlas come from the 11 scRNA-Seq & snRNA-Seq studies. Genes detected in less than 3 cells and cells detected in less than 200 genes were filtered out. Principal component analysis (PCA) was performed to obtain a small number of principal components, 25 PCA components were used as input of Uniform Manifold Approximation and Projection ([UMAP](https://github.com/lmcinnes/umap)). Initial clustering was performed using Seurat's (v3.1.5) SNN graph clustering using the _FindClusters_ function a resolution of 0.8. Each cell was assigned a cell type based on a manually created marker gene list file (see table below) using SCINA R package (v1.2.0), the cells with unknown labels identified from SCINA were first compared with clusters from Seurat, and then assigned to the nearest identified cell types.
+Human and Mouse control atlas come from the 11 scRNA-Seq & snRNA-Seq studies. Genes detected in less than 3 cells and cells detected in less than 200 genes were filtered out. Principal component analysis (PCA) was performed to obtain a small number of principal components, 25 PCA components were used as input of Uniform Manifold Approximation and Projection ([UMAP](https://github.com/lmcinnes/umap)). Initial clustering was performed using Seurat's (v3.1.5) SNN graph clustering using the _FindClusters_ function a resolution of 0.8. Each cell was assigned a cell type based on a manually created marker gene list file (see table below) using SCINA R package (v1.2.0), the cells with unknown labels identified from SCINA were first compared with clusters from Seurat, and then assigned to the nearest identified cell types.
 
 | **Astrocytes** | **Endothelial cells** | **Excitatory neurons** | **Inhibitory neurons** | **Microglia** | **Oligodendrocytes** | **Oligodendrocyte precursor cells** | **Pericytes** |
 | :------------: | :-------------------: | :--------------------: | :--------------------: | :-----------: | :------------------: | :---------------------------------: | :-----------: |
@@ -221,13 +233,13 @@ Human and Mouse healthy atlas come from the 11 scRNA-Seq & snRNA-Seq studies. Ge
 |     SLC1A3     |                       |                        |                        |     AIF-1     |                      |                                     |
 |                |                       |                        |                        |    TMEM119    |                      |
 
-## 2. Identification of Human and Mouse disease cell types based on the healthy atlas
+## 2. Identification of Human and Mouse disease cell types based on the control atlas
 
-Not all cells collected from AD patient samples are malignant, and there are heterogeneous cells within individual patients, i.e. normal healthy cells are included. These healthy cells maintain distinct regulatory mechanisms and gene expression patterns compared to AD cells and will disturb the accurate identification of AD cell types. Thus, the removal of healthy cells from AD data is critical to identify real AD-associated cells. Using the Human and Mouse healthy atlas, we sought to project AD-associated cells onto the healthy atlas at single-cell resolution to identify Human and Mouse disease cell types. The AD disease cell types were then visualized using UMAP.
+Not all cells collected from AD patient samples are malignant, and there are heterogeneous cells within individual patients, i.e. normal control cells are included. These control cells maintain distinct regulatory mechanisms and gene expression patterns compared to AD cells and will disturb the accurate identification of AD cell types. Thus, the removal of control cells from AD data is critical to identify real AD-associated cells. Using the Human and Mouse control atlas, we sought to project AD-associated cells onto the control atlas at single-cell resolution to identify Human and Mouse disease cell types. The AD disease cell types were then visualized using UMAP.
 
-To determine whether cells from disease datasets are healthy-like. Harmony R package (v1.0) was used to integrate the disease dataset with its corresponding healthy atlas. After the integration, cells were clustered using Seurat with a resolution of 4. A hypergeometric test was performed for each cluster using the number of cells from disease cells and the number of cells from the healthy atlas. Clusters were considered to be healthy-like if the hypergeometric test result was significant (p-value < 0.0001, Benjamini-Hochberg adjusted), and the cells from disease dataset in healthy-like clusters were removed from the downstream analyses.
+To determine whether cells from disease datasets are control-like. Harmony R package (v1.0) was used to integrate the disease dataset with its corresponding control atlas. After the integration, cells were clustered using Seurat with a resolution of 4. A hypergeometric test was performed for each cluster using the number of cells from disease cells and the number of cells from the control atlas. Clusters were considered to be control-like if the hypergeometric test result was significant (p-value < 0.0001, Benjamini-Hochberg adjusted), and the cells from disease dataset in control-like clusters were removed from the downstream analyses.
 
-For the remaining cells, Seurat’s _FindTransferAnchors_ function was used to find transfer anchors using PCA to project the healthy-atlas onto the disease dataset. Cell types were transfered using the _TransferData_ function using PCA for the weighting anchors.
+For the remaining cells, Seurat’s _FindTransferAnchors_ function was used to find transfer anchors using PCA to project the control-atlas onto the disease dataset. Cell types were transfered using the _TransferData_ function using PCA for the weighting anchors.
 
 ## 3. Identification of differentially expressed genes
 
