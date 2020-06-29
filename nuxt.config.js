@@ -24,6 +24,11 @@ export default {
    ** Customize the progress-bar color
    */
   // loading: { color: '#5698c3', height: '5px' },
+  loadingIndicator: {
+    name: 'circle',
+    color: '#3B8070',
+    background: 'white'
+  },
   loading: '@/components/utils/Loading.vue',
   /*
    ** Global CSS
@@ -69,7 +74,8 @@ export default {
           // renderPermalink: (slug, opts, state, permalink) => {},
           permalinkClass: 'header-anchor',
           permalinkSymbol: '#',
-          permalinkBefore: false
+          permalinkBefore: false,
+          permalinkAttrs: (slug) => ({ style: 'display:none' })
         }
       ],
       'markdown-it-attrs',
