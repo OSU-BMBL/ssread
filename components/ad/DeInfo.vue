@@ -492,7 +492,10 @@
           </v-expansion-panel-content>
         </v-expansion-panel>
         <v-expansion-panel
-          v-show="groupSelect.groupText === 'Cell type specific genes'"
+          v-show="
+            groupSelect.groupText === 'Cell type specific genes' &&
+              !noRegulonJob.includes(dataset[0].iris3_jobid)
+          "
         >
           <v-expansion-panel-header
             >Cell-type-specific regulons</v-expansion-panel-header
@@ -647,7 +650,15 @@ export default {
       keggResult: [],
       bpResult: [],
       mfResult: [],
-      ccResult: []
+      ccResult: [],
+      noRegulonJob: [
+        '20200615211954',
+        '20200615212123',
+        '20200615213156',
+        '20200616120129',
+        '20200616115909',
+        '20200616120507'
+      ]
     }
   },
   computed: {
