@@ -173,7 +173,7 @@ Here is the table showing which brain regions are the first three letters corres
 Multithreaded serialization of compressed data frames using the 'fst' format. The 'fst' format allows for random access of stored data and compression with the LZ4 and ZSTD compressors created by Yann Collet.
 You can see more information about Package ‘fst’ [here](https://cran.r-project.org/web/packages/fst/fst.pdf).
 
-# Where the scREAD store the data uploaded by users?
+# Where does the scREAD store the data uploaded by users?
 
 We will ask for your permission when we want to store the data uploaded by you into our database. Then we will store the data in the background of our database.
 
