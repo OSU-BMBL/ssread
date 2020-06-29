@@ -295,8 +295,9 @@
               :headers="enrichHeaders"
               :items="keggResult"
               :items-per-page="10"
+              item-key="index"
               class="elevation-1"
-              :expanded.sync="expanded"
+              :expanded.sync="expandedKegg"
               show-expand
             >
               <template v-slot:top>
@@ -348,8 +349,9 @@
               :headers="enrichHeaders"
               :items="bpResult"
               :items-per-page="10"
+              item-key="index"
               class="elevation-1"
-              :expanded.sync="expanded"
+              :expanded.sync="expandedBp"
               show-expand
             >
               <template v-slot:top>
@@ -401,8 +403,9 @@
               :headers="enrichHeaders"
               :items="mfResult"
               :items-per-page="10"
+              item-key="index"
               class="elevation-1"
-              :expanded.sync="expanded"
+              :expanded.sync="expandedMf"
               show-expand
             >
               <template v-slot:top>
@@ -453,8 +456,9 @@
               :headers="enrichHeaders"
               :items="ccResult"
               :items-per-page="10"
+              item-key="index"
               class="elevation-1"
-              :expanded.sync="expanded"
+              :expanded.sync="expandedCc"
               show-expand
             >
               <template v-slot:top>
@@ -579,7 +583,10 @@ export default {
         { text: 'Combined score', value: 'score' },
         { text: '', value: 'data-table-expand' }
       ],
-      expanded: [],
+      expandedKegg: [],
+      expandedBp: [],
+      expandedMf: [],
+      expandedCc: [],
       groupSelect: {
         groupText: 'Cell type specific genes',
         hint:
