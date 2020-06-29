@@ -74,8 +74,8 @@ The data processing scripts can be found in (https://github.com/Wang-Cankun/scre
 - custom_marker.csv. A manually created marker gene list file used for identified cell types.
 - functions.R. Visualization functions used in R.
 
-- build_healthy_atlas.R: build healthy (control) cells atlas Seurat object from count matrix file.
-- transfer_cell_type.R: filter out healthy-like (control-like) cells in disease dataset
+- build_control_atlas.R: build control cells atlas Seurat object from count matrix file.
+- transfer_cell_type.R: filter out control-like cells in disease dataset
 - run_analysis.R: run analysis workflow, and export tables in scREAD database format.
 
 More information about the pipeline can be found in [What is the scREAD overall pipeline?](https://bmbls.bmi.osumc.edu/scread/help/faq#what-is-the-scread-overall-pipeline%3F)
