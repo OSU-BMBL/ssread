@@ -41,6 +41,8 @@ For human species, the scREAD covers three regions. For mouse species, the scREA
 | Mouse   | Hippocampus            | NA                       |
 | Mouse   | Prefrontal cortex      | NA                       |
 
+Note: We separated the mouse brain region of cortex from cerebral cortex because the corresponding datasets used different mouse models.
+
 # Which types of data are covered in scREAD?
 
 The scREAD contains four human and eight mouse AD scRNA-Seq & snRNA-Seq datasets that are collected from [GEO](https://www.ncbi.nlm.nih.gov/geo/) and [Synapse](https://www.synapse.org/#) databases as of June 1st, 2020. The detail information is shown in the following table
@@ -167,6 +169,7 @@ Here is the table showing which brain regions are the first three letters corres
 | 006 | Mouse prefrontal cortex|
 | 007 | Mouse hippocampus|
 | 008 | Human superior frontal gyrus|
+Note: We separated the mouse brain region of cortex from cerebral cortex because the corresponding datasets used different mouse models.
 
 # What is fst format?
 
