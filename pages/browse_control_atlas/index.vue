@@ -10,13 +10,13 @@
                   atlasId[i] + ': ' + assembly[i]
                 }}</v-expansion-panel-header>
                 <v-expansion-panel-content>
+                  <v-btn color="primary" @click="openDetailsPage(atlasId[i])">
+                    Details
+                  </v-btn>
                   <healthy-atlas
                     v-if="panelIndex === i"
                     :atlas-id="atlasId[i]"
                   ></healthy-atlas>
-                  <v-btn color="primary" @click="openDetailsPage(atlasId[i])">
-                    Details
-                  </v-btn>
                 </v-expansion-panel-content>
               </v-expansion-panel>
             </v-expansion-panels>

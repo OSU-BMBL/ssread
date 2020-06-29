@@ -1,5 +1,11 @@
 <template>
-  <v-navigation-drawer class="grey lighten-4" app right clipped fixed
+  <v-navigation-drawer
+    class="grey lighten-4"
+    app
+    right
+    clipped
+    fixed
+    width="350"
     ><div v-html="content"></div>
   </v-navigation-drawer>
 </template>

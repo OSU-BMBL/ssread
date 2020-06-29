@@ -1,7 +1,7 @@
 <template>
   <v-app id="keep">
     <v-app-bar app clipped-left clipped-right :color="appBarColor" dark>
-      <v-app-bar-nav-icon class="hidden-lg-and-up" @click="drawer = !drawer" />
+      <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-toolbar-title width="300" class="ml-2 pl-4">
         <nuxt-link to="/">
           <span class="app-bar-title display-1 bold">{{ title }}</span>
@@ -83,11 +83,8 @@
     >
       <v-col class="text-center caption" cols="12">
         scREAD is developed by <a href="https://u.osu.edu/bmbl/">BMBL</a> and it
-        is licensed under
-        <a href="https://creativecommons.org/licenses/by/4.0/"
-          ><v-icon>mdi-creative-commons</v-icon> Creative Commons Attribution
-          4.0 International License</a
-        >. | {{ new Date().getFullYear() }}
+        is free and open to all users and there is no login requirement. |
+        {{ new Date().getFullYear() }}
       </v-col>
     </v-footer>
   </v-app>

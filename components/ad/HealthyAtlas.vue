@@ -88,14 +88,16 @@ export default {
         }
       },
       options: {
-        legenditem: {
-          textfont: {
-            color: 'red'
-          },
-          marker: {
-            size: 20,
-            symbol: 'circle'
-          }
+        modeBarButtonsToRemove: [
+          'hoverCompareCartesian',
+          'hoverClosestCartesian'
+        ],
+        toImageButtonOptions: {
+          format: 'png', // one of png, svg, jpeg, webp
+          filename: 'download_control_umap' + new Date().toISOString(),
+          height: 1000,
+          width: 1000,
+          scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
         }
       }
     }

@@ -137,7 +137,7 @@
           </v-col>
 
           <v-row>
-            <v-col xs="12" md="10" lg="11" class="px-7 py-0 my-2">
+            <v-col xs="12" md="12" lg="12" class="px-7 py-0 my-2">
               <p class="subtitle-1 font-weight-bold">
                 Log2 fold-change cutoff:
                 <v-tooltip top>
@@ -170,14 +170,14 @@
                     hide-details
                     single-line
                     type="number"
-                    style="width: 80px"
+                    style="width: 70px"
                   ></v-text-field>
                 </template>
               </v-slider>
             </v-col>
           </v-row>
           <v-row>
-            <v-col xs="12" md="10" lg="11" class="px-7 py-0 my-2">
+            <v-col xs="12" md="12" lg="12" class="px-7 py-0 my-2">
               <p class="subtitle-1 font-weight-bold">
                 Adjusted p-value cutoff:<v-tooltip top>
                   <template v-slot:activator="{ on, attrs }">
@@ -209,12 +209,12 @@
                     hide-details
                     single-line
                     type="number"
-                    style="width: 80px"
+                    style="width: 70px"
                   ></v-text-field> </template
               ></v-slider>
             </v-col>
           </v-row>
-          <v-col cols="12" md="8">
+          <v-col cols="12" md="12" lg="12">
             <v-radio-group v-model="deDirection" row>
               <span class="subtitle-1 font-weight-bold">DE direction: </span>
               <v-radio label="All" value="all"></v-radio>

@@ -253,7 +253,10 @@ export default {
         },
         showLink: false,
         displaylogo: false,
-        modeBarButtonsToRemove: ['hoverClosestPie']
+        modeBarButtonsToRemove: [
+          'hoverCompareCartesian',
+          'hoverClosestCartesian'
+        ]
       }
     }
   },

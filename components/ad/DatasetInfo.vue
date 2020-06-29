@@ -139,7 +139,7 @@
             </p>
             <p class="my-2">
               <span class="text--secondary"
-                >Number of healthy-like cells:
+                >Number of control-like cells:
               </span>
               <span class="text--primary">{{
                 dataset[0].n_original_cell - dataset[0].n_cell

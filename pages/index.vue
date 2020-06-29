@@ -8,9 +8,9 @@
         </p>
       </v-flex>
     </v-layout>
-    <div>
+    <client-only>
       <v-row
-        ><v-col xs="6" md="6" lg="3">
+        ><v-col ref="pie" xs="6" md="6" lg="3">
           <vue-plotly
             :data="pieData1"
             :layout="layout1"
@@ -35,7 +35,7 @@
             :options="options"
           /> </v-col
       ></v-row>
-    </div>
+    </client-only>
     <div class="motif-header">
       <v-card>
         <v-card-title>
@@ -267,11 +267,11 @@ export default {
           }
         },
         autosize: true,
-        width: 400,
+        width: this.pieWidth,
         height: 500,
         margin: {
-          l: 80,
-          r: 80,
+          l: 20,
+          r: 20,
           b: 210,
           t: 50,
           pad: 4
@@ -303,11 +303,11 @@ export default {
           }
         },
         autosize: true,
-        width: 400,
+        width: this.pieWidth,
         height: 500,
         margin: {
-          l: 80,
-          r: 80,
+          l: 20,
+          r: 20,
           b: 210,
           t: 50,
           pad: 4
@@ -343,11 +343,11 @@ export default {
           }
         },
         autosize: true,
-        width: 400,
+        width: this.pieWidth,
         height: 500,
         margin: {
-          l: 80,
-          r: 80,
+          l: 20,
+          r: 20,
           b: 210,
           t: 50,
           pad: 4
@@ -374,11 +374,11 @@ export default {
           }
         },
         autosize: true,
-        width: 400,
+        width: this.pieWidth,
         height: 500,
         margin: {
-          l: 80,
-          r: 80,
+          l: 20,
+          r: 20,
           b: 210,
           t: 50,
           pad: 4
@@ -443,7 +443,10 @@ export default {
         this.browseDefault.gender !== 'All'
       )
     },
-
+    pieWidth() {
+      // return this.$refs.pie.clientWidth
+      return 350
+    },
     totalCells() {
       return _.sumBy(this.dataset, 'n_original_cell')
     }

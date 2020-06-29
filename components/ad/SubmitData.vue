@@ -15,7 +15,7 @@
               information visit our
               <a
                 class="grey--text text--darken-3"
-                href="/help/faq"
+                href="/scread/help/faq"
                 target="_blank"
                 >FAQ.</a
               ></v-card-text
@@ -124,6 +124,24 @@
               </v-textarea>
             </v-col>
             <v-col cols="12" md="8">
+              <v-checkbox v-model="allowStorage">
+                <template v-slot:label>
+                  <div>
+                    Allow permanent storage in scREAD.
+                    <v-tooltip top>
+                      <template v-slot:activator="{ on }">
+                        <v-icon color="primary" dark v-on="on"
+                          >mdi-help-circle-outline</v-icon
+                        >
+                      </template>
+                      By checking this option, you allow us to store your data
+                      in scREAD (both inputs and results) for the future
+                      database construction. Be cautious if your data have not
+                      been published.
+                    </v-tooltip>
+                  </div>
+                </template>
+              </v-checkbox>
               <v-text-field
                 v-model="email"
                 label="E-mail"
@@ -237,6 +255,7 @@ export default {
   data: () => ({
     valid: true,
     dialog: false,
+    allowStorage: false,
     uploadStatus: 'Uploading ...',
     dialogData: 'Uploading files to scREAD server.',
     species: ['Human', 'Mouse', 'Other'],
@@ -317,6 +336,7 @@ export default {
       formData.append('atlasType', this.atlasType)
       formData.append('controlSelect', this.controlSelect)
       formData.append('comments', this.comments)
+      formData.append('allowStorage', this.allowStorage)
       formData.append('diseaseFile', this.diseaseFile)
       formData.append('controlFile', this.controlFile)
 
