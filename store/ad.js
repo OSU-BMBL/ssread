@@ -47,7 +47,7 @@ export const mutations = {
     state.dimension = []
   },
   SET_EXPRESSION(state, expression) {
-    state.expression = expression
+    state.expression = expression.slice(1)
   },
   SET_EXPRESSION_GENES(state, genes) {
     state.expressionGenes = genes
