@@ -211,7 +211,7 @@ The datasets of scREAD can be downloaded from [Download](https://bmbls.bmi.osumc
 
 # Why do you choose PCA instead of CCA or LSI for reduction in the identification of disease dataset cell types?
 
-In the identification of disease cell types, we used Seurat's _FindTransferAnchors_ and _TransferData_ function to transfer cell types from the control atlas to disease datasets, which project PCA structure from the reference (control atlas) onto the query (disease dataset). PCA is [recommended](https://rdrr.io/cran/Seurat/man/FindTransferAnchors.html) when reference and query datasets are from scRNA-seq. CCA is [considered](https://satijalab.org/seurat/v3.1/atacseq_integration_vignette.html) better captures the shared feature correlation structure across single-cell modalities. LSI is [considered](https://satijalab.org/seurat/v3.1/atacseq_integration_vignette.html) better captures the 'internal' structure of ATAC-seq data in the case of scRNA-seq to scATAC-seq transfer.
+In the identification of disease cell types, we used Seurat's _FindTransferAnchors_ and _TransferData_ function to transfer cell types from the control atlas to disease datasets, which project PCA structure from the query (disease dataset) onto the reference (control atlas). PCA is [recommended](https://rdrr.io/cran/Seurat/man/FindTransferAnchors.html) when reference and query datasets are from scRNA-seq. CCA is [considered](https://satijalab.org/seurat/v3.1/atacseq_integration_vignette.html) better captures the shared feature correlation structure across single-cell modalities. LSI is [considered](https://satijalab.org/seurat/v3.1/atacseq_integration_vignette.html) better captures the 'internal' structure of ATAC-seq data in the case of scRNA-seq to scATAC-seq transfer.
 
 # What is the scREAD overall pipeline?
 
@@ -242,7 +242,7 @@ Not all cells collected from AD patient samples are malignant, and there are het
 
 To determine whether cells from disease datasets are control-like. Harmony R package (v1.0) was used to integrate the disease dataset with its corresponding control atlas. After the integration, cells were clustered using Seurat with a resolution of 4. A hypergeometric test was performed for each cluster using the number of cells from disease cells and the number of cells from the control atlas. Clusters were considered to be control-like if the hypergeometric test result was significant (p-value < 0.0001, Benjamini-Hochberg adjusted), and the cells from disease dataset in control-like clusters were removed from the downstream analyses.
 
-For the remaining cells, Seurat’s _FindTransferAnchors_ function was used to find transfer anchors using PCA to project the control-atlas onto the disease dataset. Cell types were transfered using the _TransferData_ function using PCA for the weighting anchors.
+For the remaining cells, Seurat’s _FindTransferAnchors_ function was used to find transfer anchors using PCA to project the disease dataset onto the control-atla. Cell types were transfered using the _TransferData_ function using PCA for the weighting anchors.
 
 ## 3. Identification of differentially expressed genes
 
