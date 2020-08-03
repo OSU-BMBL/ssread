@@ -16,9 +16,9 @@ Hongjun Fu: hongjun.fu@osumc.edu
 
 Qin Ma: qin.ma@osumc.edu
 
-You can contact us by sending an email to [qin.ma@osumc.edu](qin.ma@osumc.edu) or [Hongjun Fu](hongjun.fu@osumc.edu)
+You can contact us by sending an email to [qin.ma@osumc.edu](qin.ma@osumc.edu) or [hongjun.fu@osumc.edu](hongjun.fu@osumc.edu).
 
-If you have any questions or suggestions, please send us feedback on the [google form](https://docs.google.com/forms/d/e/1FAIpQLSereTkpOfJ4LJLe9Ke5dZq78SnX3D7qXjQWY0ofDut0kIfDPg/viewform), or by email: [qin.ma@osumc.edu](qin.ma@osumc.edu)
+If you have any questions or suggestions, please send us feedback on the [google form](https://docs.google.com/forms/d/e/1FAIpQLSereTkpOfJ4LJLe9Ke5dZq78SnX3D7qXjQWY0ofDut0kIfDPg/viewform), or by email: [qin.ma@osumc.edu](qin.ma@osumc.edu).
 
 More web servers developed by [BMBL](https://u.osu.edu/bmbl/) can be found [here](https://u.osu.edu/bmbl/highlights/webservers/).
 

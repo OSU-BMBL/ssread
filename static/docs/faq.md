@@ -238,11 +238,11 @@ Human and Mouse control atlas come from the 11 scRNA-Seq & snRNA-Seq studies. Ge
 
 ## 2. Identification of Human and Mouse disease cell types based on the control atlas
 
-Not all cells collected from AD patient samples are malignant, and there are heterogeneous cells within individual patients, i.e. normal control cells are included. These control cells maintain distinct regulatory mechanisms and gene expression patterns compared to AD cells and will disturb the accurate identification of AD cell types. Thus, the removal of control cells from AD data is critical to identify real AD-associated cells. Using the Human and Mouse control atlas, we sought to project AD-associated cells onto the control atlas at single-cell resolution to identify Human and Mouse disease cell types. The AD disease cell types were then visualized using UMAP.
+Not all cells collected from AD patient samples are malignant, and there are heterogeneous cells within individual patients, i.e. normal control cells are included. These control cells maintain distinct regulatory mechanisms and gene expression patterns compared to AD cells and will disturb the accurate identification of AD cell types. Thus, the removal of control cells from AD data is critical to identify real AD-associated cells. Using the Human and Mouse control atlas, we sought to project control atlas onto the AD-associated cells at single-cell resolution to identify Human and Mouse disease cell types. The AD disease cell types were then visualized using UMAP.
 
 To determine whether cells from disease datasets are control-like. Harmony R package (v1.0) was used to integrate the disease dataset with its corresponding control atlas. After the integration, cells were clustered using Seurat with a resolution of 4. A hypergeometric test was performed for each cluster using the number of cells from disease cells and the number of cells from the control atlas. Clusters were considered to be control-like if the hypergeometric test result was significant (p-value < 0.0001, Benjamini-Hochberg adjusted), and the cells from disease dataset in control-like clusters were removed from the downstream analyses.
 
-For the remaining cells, Seurat’s _FindTransferAnchors_ function was used to find transfer anchors using PCA to project the disease dataset onto the control-atla. Cell types were transfered using the _TransferData_ function using PCA for the weighting anchors.
+For the remaining cells, Seurat’s _FindTransferAnchors_ function was used to find transfer anchors using PCA to project the disease dataset onto the control-atlas. Cell types were transfered using the _TransferData_ function using PCA for the weighting anchors.
 
 ## 3. Identification of differentially expressed genes
 

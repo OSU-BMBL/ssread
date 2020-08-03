@@ -2,9 +2,7 @@
 
 # Usage
 
----
-
-The scREAD database includes five pages, and they are Home, Browse control atlas, Submit, Help, and Download. The 'Home' page contains four statistical pie charts that reflect ratio distribution in 55 files for each of the four factors, and a table that contains the information of 55 datasets. The 'Browse control atlas' page includes the 15 control atlases from different brain regions for human and mouse species. The 'Submit' page provides an interface that can let users submit their AD scRNA-Seq & snRNA-Seq dataset into scREAD to do the same analysis as our database showed. The 'Help' page contains three modules, e.g., Frequently asked questions, Usage, and Contact, and users can find the corresponding information for each of these three modules. The 'Download' page provides downloads for the datasets that are stored in scREAD.
+The scREAD database includes five pages, including Home, Browse control atlas, Submit, Help, and Download. The 'Home' page contains four statistical pie charts that reflect ratio distribution in 55 files for each of the four factors, and a table that contains the information of 55 datasets. The 'Browse control atlas' page includes the 15 control atlases from different brain regions for human and mouse species. The 'Submit' page provides an interface that can let users submit their AD scRNA-Seq & snRNA-Seq dataset into scREAD to do the same analysis as our database showed. The 'Help' page contains three modules, e.g., Frequently asked questions, Usage, and Contact, and users can find the corresponding information for each of these three modules. The 'Download' page provides downloads for the datasets that are stored in scREAD.
 
 ## Home page
 
@@ -64,7 +62,7 @@ Two high-resolution UMAP plots show the predicted cell types and the expression 
 
 1. There are seven predicted cell types which are shown in the drop-down bar. If you choose one of these cell types, then the following UMAP will change to the UMAP of predicted subclusters for this cell type.
 2. The ARI score is used to evaluate the performance of our predicted cell types compared with the original cell labels from the original paper. The higher the score is, the more consistency there is between our predicted cell labels and the original cell labels.
-   Note: If we don't have the ARI score, then it will show a silhouette score instead of.
+   Note: If we don't have the ARI score, then it will show a silhouette score instead.
 3. A sliding bar is used for controlling the size of each point in the following UMAP. It ranges from 1 to 10, the bigger the number is, the larger the point size is.
 4. This function bar contains several quick buttons for graphic operations. For example, the first button is 'Download plot as a png', you can click this button and this UMAP figure will be downloaded to your local computer automatically. For the 'Zoom in' and 'Zoom out' buttons, you can zoom in or zoom out this figure by clicking these two buttons. Furthermore, after you applied zoom in or zoom out in this figure if you want to back to the default figure, then you can click the 'Reset axes' button to let this figure back to the default status.
 5. A floating window will show up when move your cursor on cells, indicating the belonging cell type, cell name, and the UMAP coordinate.
@@ -96,16 +94,20 @@ The genes in the drop-down bar are all of the genes expressed in this dataset an
 9. This is how many rows of the table that will show. The default number is 15, but users can choose another number in the options bar, e.g. 5, 10, 15, and all.
    ![DE2](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/DE3.jpg)
 
-10. KEGG pathway enrichment analysis result table of the DEGs will appear when you click the inverted triangle, and this table can be downloaded when you click the 'Download' button. When you click the reversed triangle at the end of each row in this table, it shows the genes that are enriched on this pathway, and this table can be downloaded when you click the 'Download' button. You can search for a specific item by entering the content you want to search in the search box.
+10. KEGG pathway enrichment analysis result table of the DEGs will appear when you click the inverted triangle, and this table can be downloaded when you click the 'Download' button. When you click the reversed triangle at the end of each row in this table, it shows the genes that are enriched on this pathway. This table can be downloaded when you click the 'Download' button. You can search for a specific item by entering the content you want to search in the search box.
+
     ![KEGG](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/KEGG.jpg)
 
-11. GO biological process analysis result table of the DEGs will appear when you click the inverted triangle, and this table can be downloaded when you click the 'Download' button. When you click the reversed triangle at the end of each row in this table, it shows the genes that are enriched on this item, and this table can be downloaded when you click the 'Download' button. You can search for a specific item by entering the content you want to search in the search box.
+11. GO biological process analysis result table of the DEGs will appear when you click the inverted triangle, and this table can be downloaded when you click the 'Download' button. When you click the reversed triangle at the end of each row in this table, it shows the genes that are enriched on this item. This table can be downloaded when you click the 'Download' button. You can search for a specific item by entering the content you want to search in the search box.
+
     ![GOBP](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/GOBP.jpg)
 
-12. GO molecular function analysis result table of the DEGs will appear when you click the inverted triangle, and this table can be downloaded when you click the 'Download' button. When you click the reversed triangle at the end of each row in this table, it shows the genes that are enriched on this item, and this table can be downloaded when you click the 'Download' button. You can search for a specific item by entering the content you want to search in the search box.
+12. GO molecular function analysis result table of the DEGs will appear when you click the inverted triangle, and this table can be downloaded when you click the 'Download' button. When you click the reversed triangle at the end of each row in this table, it shows the genes that are enriched on this item. This table can be downloaded when you click the 'Download' button. You can search for a specific item by entering the content you want to search in the search box.
+
     ![GOMF](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/GOMF.jpg)
 
-13. GO cellular component analysis result table of the DEGs will appear when you click the inverted triangle, and this table can be downloaded when you click the 'Download' button. When you click the reversed triangle at the end of each row in this table, it shows the genes that are enriched on this item, and this table can be downloaded when you click the 'Download' button. You can search for a specific item by entering the content you want to search in the search box.
+13. GO cellular component analysis result table of the DEGs will appear when you click the inverted triangle, and this table can be downloaded when you click the 'Download' button. When you click the reversed triangle at the end of each row in this table, it shows the genes that are enriched on this item. This table can be downloaded when you click the 'Download' button. You can search for a specific item by entering the content you want to search in the search box.
+
     ![GOCC](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/GOCC.jpg)
 
 14. Cell-type-specific regulon analysis result table of this dataset will appear when you click the inverted triangle, and this result only shows up when you choose the 'Cell type specific genes' in the 'Group' drop-down bar.
