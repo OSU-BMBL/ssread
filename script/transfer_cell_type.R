@@ -1,5 +1,5 @@
 # Goal
-# This document aims to filter out control-like(healthy-like) cells in disease stage dataset 
+# This document aims to filter out control-likecells in disease stage dataset 
 
 # Why use Harmony for integration? 
 # 1. Fast and best performances among 14 tools: A benchmark of batch-effect correction methods for single-cell RNA sequencing data
@@ -35,23 +35,24 @@ suppressPackageStartupMessages(library(org.Mm.eg.db))
 
 args <- commandArgs(TRUE)
 wd <- args[1] # working directory
-healthy_filename <- args[2] # rds seurat object
+control_filename <- args[2] # rds seurat object
 disease_filename <- args[3] # raw filename
 disease_data_id <- args[4] # 
 
 load_test_data <- function(){
+  # This function is used for testing
   rm(list = ls(all = TRUE))
-  setwd("C:/Users/flyku/Desktop/ad/new")
-  healthy_filename <- "AD00201.rds"
-  disease_filename <- "H-AD.Braak 2-Entorhinal cortex -Male_001.fst"
-  disease_data_id <- "AD00205"
+  setwd("C:/Users/flyku/Desktop/script")
+  control_filename <- "control_example.rds"
+  disease_filename <- "example_disease.fst"
+  disease_data_id <- "disease_example"
 }
 
 setwd(wd)
-source("C:/Users/flyku/Desktop/ad/code/functions.R")
+source("functions.R")
 
 ####### Load raw files
-health.obj <- read_rds(healthy_filename)
+health.obj <- read_rds(control_filename)
 disease_matrix <- read.fst(disease_filename)
 rownames(disease_matrix) <- NULL
 
@@ -86,7 +87,6 @@ if(disease_gene_type == "ENSEMBL") {
 #Idents(health.obj) <- health.obj$predicted.id
 #Plot.cluster2D(health.obj,reduction.method = "umap",pt_size = 0.1, txt = "Predicted.id")
 
-
 ####### Load dataset to Seurat object
 all.obj <- merge(health.obj, disease.obj)
 #all.obj <- CreateSeuratObject(counts = cbind(health.obj, disease_matrix), project = "all", min.cells = 5, meta.data = this_meta)
@@ -94,8 +94,8 @@ all.obj <- NormalizeData(all.obj, verbose = T)
 all.obj <- FindVariableFeatures(all.obj, selection.method = "vst", nfeatures = 2000) 
 all.obj <- ScaleData(all.obj, verbose = FALSE) 
 all.obj <- RunPCA(all.obj, pc.genes = all.obj@var.genes, npcs = 25, verbose = T)
-all.obj@meta.data$group <- c(rep("healthy", ncol(health.obj)), rep("disease", ncol(disease.obj)))
-all.obj <- RunHarmony(all.obj, "group", plot_convergence = TRUE)
+all.obj@meta.data$group <- c(rep("control", ncol(health.obj)), rep("disease", ncol(disease.obj)))
+all.obj <- RunHarmony(all.obj, "group", plot_convergence = F)
 all.obj <- RunUMAP(all.obj, reduction = "harmony", dims = 1:25)
 all.obj <- FindNeighbors(all.obj, reduction = "harmony", dims = 1:25)
 all.obj <- FindClusters(all.obj, resolution = 4)
@@ -113,7 +113,7 @@ all.obj <- FindClusters(all.obj, resolution = 4)
 #p2 <- VlnPlot(object = all.obj, features = "harmony_1", group.by = "group", pt.size = .1)
 #plot_grid(p1,p2)
 
-####### Identify healthy atlas, healthy-like, disease like cells
+####### Identify control atlas, control-like, disease like cells
 clusters <- as.data.frame(all.obj$seurat_clusters)
 clusters <- rownames_to_column(clusters, "cell")
 colnames(clusters) <- c("cell","cluster")
@@ -125,51 +125,50 @@ colnames(groups) <- c("cell","group")
 cluster_condition <- merge(clusters,groups, by = "cell", all = FALSE)   
 #cluster_condition <- merge(cluster_condition,meta_file, by = "cell", all = FALSE)   
 
-healthy_disease_like_result <- NULL
+control_disease_like_result <- NULL
 for (i in levels(all.obj$seurat_clusters)) {
   this_cluster <- cluster_condition[which(cluster_condition$cluster == i),]
-  this_cluster_healthy <- this_cluster[which(this_cluster$group %in% "healthy"),]
-  n_this_cluster_healthy <- length(this_cluster_healthy$cell)
-  cluster_healthy.percentage <- n_this_cluster_healthy/length(this_cluster$cell)
+  this_cluster_control <- this_cluster[which(this_cluster$group %in% "control"),]
+  n_this_cluster_control <- length(this_cluster_control$cell)
+  cluster_control.percentage <- n_this_cluster_control/length(this_cluster$cell)
   
-  q = n_this_cluster_healthy - 1
+  q = n_this_cluster_control - 1
   m = ncol(health.obj)
   n = ncol(disease.obj)
   k = length(this_cluster$cell)
   pval <- phyper(q,m,n,k,lower.tail=F)
   
-  this_result <- data.frame(cluster=i, percent_healthy=cluster_healthy.percentage, pval=pval)
-  healthy_disease_like_result <- rbind(healthy_disease_like_result,this_result)
+  this_result <- data.frame(cluster=i, percent_control=cluster_control.percentage, pval=pval)
+  control_disease_like_result <- rbind(control_disease_like_result,this_result)
   
 } 
 
-healthy_disease_like_result$pval <- p.adjust(healthy_disease_like_result$pval,"BH")
-healthy_disease_like_result$group <- ifelse(healthy_disease_like_result$pval < 0.0001, "healthy_cluster", "disease_cluster")
+control_disease_like_result$pval <- p.adjust(control_disease_like_result$pval,"BH")
+control_disease_like_result$group <- ifelse(control_disease_like_result$pval < 0.0001, "control_cluster", "disease_cluster")
 
-### healthy_disease_like_result: cluster group table
-#print(healthy_disease_like_result)  
+### control_disease_like_result: cluster group table
+#print(control_disease_like_result)  
 
-####### Annotate healthy cluster, disease cluster
+####### Annotate control cluster, disease cluster
 tmp_result_group <- all.obj$seurat_clusters
-levels(tmp_result_group) <- healthy_disease_like_result$group
+levels(tmp_result_group) <- control_disease_like_result$group
 all.obj <- AddMetaData(all.obj,tmp_result_group, col.name = "cluster_group")
 
-####### Annotate healthy cells percentage in each Seurat cluster
+####### Annotate control cells percentage in each Seurat cluster
 result_percent <- all.obj$seurat_clusters
-levels(result_percent) <- paste(round(healthy_disease_like_result$percent_healthy, digits = 4), formatC(healthy_disease_like_result$pval, format = "e", digits = 4),sep = "-") 
+levels(result_percent) <- paste(round(control_disease_like_result$percent_control, digits = 4), formatC(control_disease_like_result$pval, format = "e", digits = 4),sep = "-") 
 all.obj <- AddMetaData(all.obj,result_percent, col.name = "healhy_cells_percent")
 
 
-####### Annotate healthy cluster, disease cluster
+####### Annotate control cluster, disease cluster
 combine_group_pathlogy <- paste(tmp_result_group,as.factor(all.obj$group))
 names(combine_group_pathlogy) <- names(tmp_result_group)
 combine_group_pathlogy <- as.factor(combine_group_pathlogy)
 all.obj <- AddMetaData(all.obj,combine_group_pathlogy, col.name = "combine_group_pathlogy")
 
-####### Annotate healthy-like, disease-like cells
-#在healthy cluster类里面的disease cells被定义为healthy-like cells.  那么 disease-associated cells 定义为 disease cells 减去healthy-like cells.
+####### Annotate control-like, disease-like cells
 associate_cells <- combine_group_pathlogy
-levels(associate_cells) <- c("disease-like cells","healthy cells atlas","healthy-like cells","healthy cells atlas")
+levels(associate_cells) <- c("disease-like cells","control cells atlas","control-like cells","control cells atlas")
 all.obj <- AddMetaData(all.obj,associate_cells, col.name = "associate_cells")
 
 #Idents(all.obj) <- all.obj$group
@@ -184,7 +183,7 @@ all.obj <- AddMetaData(all.obj,associate_cells, col.name = "associate_cells")
 
 #
 #Idents(all.obj) <- all.obj$healhy_cells_percent
-#p3 <- Plot.cluster2D(all.obj,reduction.method = "umap",pt_size = 0.1, txt = "Healthy cells percentage-pvalue")
+#p3 <- Plot.cluster2D(all.obj,reduction.method = "umap",pt_size = 0.1, txt = "control cells percentage-pvalue")
 #
 #Idents(all.obj) <- all.obj$cluster_group
 #p4 <- Plot.cluster2D(all.obj,reduction.method = "umap",pt_size = 0.1, txt = "Associate group")
@@ -208,8 +207,6 @@ dstage.obj <- RunPCA(dstage.obj, features = VariableFeatures(object = dstage.obj
 dstage.obj <- RunUMAP(dstage.obj, reduction = "pca", dims = 1:25)
 
 #gc()
-ROWNAMES(dstage.obj)
-rownames(health.obj)
 ## FindTransferAnchors: We recommend using PCA when reference and query datasets are from scRNA-seq
 transfer.anchors <- FindTransferAnchors(reference = health.obj, query = dstage.obj, features = VariableFeatures(object = health.obj), reduction = "pcaproject",verbose = TRUE)
 #transfer.anchors <- FindTransferAnchors(reference = health.obj, query = dstage.obj, features = VariableFeatures(object = health.obj), reduction = "cca",verbose = TRUE)
@@ -232,12 +229,12 @@ dstage.obj <- AddMetaData(dstage.obj, metadata = celltype.predictions)
 #plot_grid(p1,p2)
 
 Idents(health.obj) <- health.obj$predicted.id
-p1 <- Plot.cluster2D(health.obj, reduction.method = "umap",pt_size = 0.4,txt = "Healthy cell type")
+p1 <- Plot.cluster2D(health.obj, reduction.method = "umap",pt_size = 0.4,txt = "Control cell type")
 
 Idents(dstage.obj) <- dstage.obj$predicted.id
 p2 <- Plot.cluster2D(dstage.obj, reduction.method = "umap",pt_size = 0.4,txt = "Disease cell type")
 
-png(paste(disease_data_id,"_transfer_umap.png",sep = ""),width=3000, height=1500,res=300)
+png(paste(disease_data_id,"_transfer_umap.png",sep = ""),width=4000, height=2000,res=300)
 plot_grid(p1,p2)
 dev.off()
 

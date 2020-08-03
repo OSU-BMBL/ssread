@@ -26,24 +26,19 @@ expr_file <- args[2] # raw user filename
 data_id <- args[3] # unique data id
 
 load_test_data <- function(){
+  # This function is used for testing
   rm(list = ls(all = TRUE))
-  wd <- "C:/Users/flyku/Desktop/ad/standard_files"
-  expr_file = "H-H-Entorhinal Cortex-Male.fst"
-  data_id <- 'AD00201'
+  wd <- "C:/Users/flyku/Desktop/script"
+  expr_file = "example_control.fst"
+  data_id <- 'control_example'
 }
 
-source("C:/Users/flyku/Desktop/ad/code/functions.R")
-signatures  <- preprocess.signatures('C:/Users/flyku/Desktop/ad/custom_marker.csv')
+setwd(wd)
+source("functions.R")
+signatures  <- preprocess.signatures('custom_marker.csv')
 cell_type_name <- c('Astrocytes', 'Endothelial cells','Excitatory neurons','Inhibitory neurons','Microglia','Oligodendrocytes','Oligodendrocyte precursor cells','Pericytes')
 names(signatures) <- cell_type_name
 
-setwd(wd)
-#signatures <- signatures[5]
-# Build healthy cell atlas
-
-#all_files <- list.files("data/Mathy_raw_data/expr", pattern = "txt", full.names = T)
-
-#base_name <- tools::file_path_sans_ext(basename(i))
 expr_matrix <- read.fst(expr_file)
 rownames(expr_matrix) <- NULL
 expr_matrix <- column_to_rownames(expr_matrix, var = "X1")
@@ -67,13 +62,10 @@ if(ncol(health.obj) < 2000){
 Idents(health.obj) <- health.obj$seurat_clusters
 health_markers <- FindAllMarkers(health.obj, return.thresh = 0.05, only.pos = T)
 
-#write.csv(health_markers,'health_markers.csv', row.names = F)
-
 cell_type_result <- data.frame()
 for (i in 1:length(levels(Idents(health.obj)))) {
   this_cell_type <- data.frame()
   for (j in 1:8) {
-    #this_overlap <- length(which(tolower(unlist(signatures[j])) %in% tolower(health_markers[health_markers$cluster == (i-1) & health_markers$p_val_adj < 0.05,7])))
     this_marker <-  health_markers[health_markers$cluster == (i-1) & health_markers$p_val_adj < 0.05,7]
     this_overlap <- length(which(tolower(unlist(signatures[j])) %in% tolower(this_marker)))
     
@@ -88,7 +80,7 @@ levels(marker_cell_type) <- cell_type_result$ct
 health.obj <- AddMetaData(health.obj, marker_cell_type, col.name = 'marker_cell_type')
 
 Idents(health.obj) <- health.obj$marker_cell_type
-p1 <- Plot.cluster2D(health.obj,reduction.method = "umap",pt_size = 0.2, txt = "marker_cell_type")
+p1 <- Plot.cluster2D(health.obj,reduction.method = "umap",pt_size = 0.5, txt = "marker_cell_type")
 
 
 exp <- as.matrix(GetAssayData(object = health.obj[['RNA']],slot="data"))
@@ -126,18 +118,17 @@ for (i in 1:length(levels(Idents(health.obj)))) {
 
 
 Idents(health.obj) <- health.obj$seurat_clusters
-p2 <- Plot.cluster2D(health.obj,reduction.method = "umap",pt_size = 0.2, txt = "Predict cluster")
+p2 <- Plot.cluster2D(health.obj,reduction.method = "umap",pt_size = 0.5, txt = "Predict cluster")
 Idents(health.obj) <- health.obj$scina_cell_type
-p3 <- Plot.cluster2D(health.obj,reduction.method = "umap",pt_size = 0.2, txt = "scina_cell_type")
+p3 <- Plot.cluster2D(health.obj,reduction.method = "umap",pt_size = 0.5, txt = "scina_cell_type")
 
 levels(annotate_cell_type) <- annotate_cell_type_name
 health.obj <- AddMetaData(health.obj, as.factor(annotate_cell_type), col.name = 'predicted.id')
 Idents(health.obj) <- health.obj$predicted.id
-p4 <- Plot.cluster2D(health.obj,reduction.method = "umap",pt_size = 0.2, txt = "predicted.id")
-plot_grid(p2,p1,p3,p4)
+p4 <- Plot.cluster2D(health.obj,reduction.method = "umap",pt_size = 0.5, txt = "predicted.id")
 
 png(paste(data_id,"_umap.png",sep = ""),width=3000, height=1500,res = 300)
-plot_grid(p1,p2,p3,p4)
+plot_grid(p4)
 dev.off()
 
 saveRDS(health.obj, file = paste0(data_id,'.rds'))
@@ -153,6 +144,7 @@ write.table(cell_label,paste(data_id,"_cell_label.txt",sep = ""),quote = F,row.n
 
 # Session Infomation
 sessionInfo()
+
 ################# Visualize results
 
 #Idents(health.obj) <- health.obj$annotate_cell_type
