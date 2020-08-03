@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const apiClient = axios.create({
   baseURL: `https://bmbls.bmi.osumc.edu/api/scread`,
-  /// baseURL: `http://127.0.0.1:8889/api/scread`,
+  // baseURL: `http://127.0.0.1:8889/api/scread`,
   withCredentials: false,
   headers: {
     Accept: 'application/json',

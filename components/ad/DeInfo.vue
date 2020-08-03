@@ -771,7 +771,6 @@ export default {
     }
   },
   created() {
-    // `this` points to the vm instance
     this.cellTypeSelect = this.ct[0].cell_type
   },
   methods: {

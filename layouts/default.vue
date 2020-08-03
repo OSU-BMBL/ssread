@@ -82,8 +82,8 @@
       width="auto"
     >
       <v-col class="text-center caption" cols="12">
-        scREAD is developed by <a href="https://u.osu.edu/bmbl/">BMBL</a> and it
-        is free and open to all users and there is no login requirement. |
+        scREAD is developed by <a href="https://u.osu.edu/bmbl/">BMBL</a>, it is
+        free and open to all users and there is no login requirement. |
         {{ new Date().getFullYear() }}
       </v-col>
     </v-footer>
