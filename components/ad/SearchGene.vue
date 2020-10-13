@@ -33,9 +33,7 @@
           </v-row>
 
           <div v-if="results.rows">
-            <p>
-              Total Differentially expressed genes found: {{ results.count }}
-            </p>
+            <p>Found {{ results.count }} genes</p>
             <v-card-text
               ><p class="title">Select filters:</p>
               <v-row>
