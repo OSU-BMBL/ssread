@@ -289,7 +289,7 @@ export default {
         },
         autosize: true,
         width: this.pieWidth,
-        height: 600,
+        height: 500,
         margin: {
           l: 20,
           r: 20,
@@ -325,7 +325,7 @@ export default {
         },
         autosize: true,
         width: this.pieWidth,
-        height: 600,
+        height: 500,
         margin: {
           l: 20,
           r: 20,
@@ -367,7 +367,7 @@ export default {
         },
         autosize: true,
         width: this.pieWidth,
-        height: 600,
+        height: 500,
         margin: {
           l: 20,
           r: 20,
@@ -398,7 +398,7 @@ export default {
         },
         autosize: true,
         width: this.pieWidth,
-        height: 600,
+        height: 500,
         margin: {
           l: 20,
           r: 20,
@@ -473,7 +473,7 @@ export default {
     },
     pieWidth() {
       // return this.$refs.pie.clientWidth
-      return 350
+      return 330
     },
     totalCells() {
       return _.sumBy(this.dataset, 'n_cell')
