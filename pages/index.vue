@@ -40,8 +40,9 @@
     <div class="my-5"><search-gene></search-gene></div>
     <div class="motif-header">
       <v-card>
+        <p class="headline">Dataset overview</p>
+        <br />
         <v-card-title>
-          <p class="headline">Dataset overview</p>
           <p class="title">
             scREAD covers {{ totalDatasets }} datasets from
             {{ totalStudy }} studies, {{ totalBrainRegions }} brain regions,

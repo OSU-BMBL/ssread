@@ -3,8 +3,8 @@
     <v-card-text>
       <v-row
         ><v-col xs="12" md="12" lg="12">
+          <p class="headline">Search differentially expressed gene</p>
           <v-row>
-            <p class="headline">Search differentially expressed gene</p>
             <v-col cols="3"
               ><v-text-field
                 v-model="searchGene"
