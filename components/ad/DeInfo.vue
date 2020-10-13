@@ -494,12 +494,13 @@
         <v-expansion-panel
           v-show="
             groupSelect.groupText === 'Cell type specific genes' &&
-              !noRegulonJob.includes(dataset[0].iris3_jobid)
+              !noRegulonJob.includes(dataset[0].iris3_jobid) &&
+              dataset[0].iris3_jobid !== 'NA'
           "
         >
           <v-expansion-panel-header
-            >Cell-type-specific regulons</v-expansion-panel-header
-          >
+            >Cell-type-specific regulons
+          </v-expansion-panel-header>
           <v-expansion-panel-content>
             <regulon-info
               :data-id="dataId"

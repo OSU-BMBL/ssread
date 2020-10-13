@@ -12,21 +12,27 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore."
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.10.3",
-    "@nuxtjs/markdownit": "^1.2.9",
+    "@nuxtjs/axios": "^5.12.2",
+    "@nuxtjs/markdownit": "^1.2.10",
     "@statnett/vue-plotly": "^0.3.2",
+    "@vue/reactivity": "^3.0.0",
+    "ag-grid-community": "^24.1.0",
+    "ag-grid-vue": "^24.1.0",
     "form-data": "^3.0.0",
     "github-markdown-css": "^4.0.0",
-    "markdown-it-anchor": "^5.2.7",
-    "markdown-it-attrs": "^3.0.2",
+    "image-size": "^0.9.1",
+    "markdown-it-anchor": "^5.3.0",
+    "markdown-it-attrs": "^3.0.3",
     "markdown-it-div": "^1.1.0",
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-toc-done-right": "^4.1.0",
-    "nuxt": "^2.12.2",
-    "nuxt-start": "^2.12.2",
-    "plotly.js": "^1.54.1",
-    "query-string": "^6.13.1",
-    "vue-json-excel": "^0.2.98"
+    "nuxt": "^2.14.6",
+    "nuxt-start": "^2.14.6",
+    "plotly.js": "1.54.1",
+    "query-string": "^6.13.5",
+    "vue-class-component": "^7.2.6",
+    "vue-json-excel": "^0.2.99",
+    "vue-property-decorator": "^9.0.2"
   },
   "devDependencies": {
     "@mdi/font": "^4.9.95",
@@ -36,12 +42,12 @@
     "@nuxtjs/vuetify": "^1.11.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.1.0",
-    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-nuxt": "^0.5.2",
-    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^1.19.1",
-    "vue-cli-plugin-vuetify": "^2.0.4",
-    "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.3.0"
+    "vue-cli-plugin-vuetify": "^2.0.7",
+    "vue-template-compiler": "^2.6.12",
+    "vuetify-loader": "^1.6.0"
   }
 }

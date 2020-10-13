@@ -28,17 +28,17 @@ data_id <- args[3] # unique data id
 load_test_data <- function(){
   # This function is used for testing
   rm(list = ls(all = TRUE))
-  wd <- "C:/Users/flyku/Desktop/script"
-  expr_file = "example_control.fst"
-  data_id <- 'control_example'
+  wd <- "/fs/scratch/PAS1475/ad/input"
+  expr_file = "M-H-subventricular_zone_and_hippocampus-Female-7m_001.fst"
+  data_id <- 'AD01001'
 }
 
-setwd(wd)
-source("functions.R")
-signatures  <- preprocess.signatures('custom_marker.csv')
+source("/fs/scratch/PAS1475/ad/code/functions.R")
+signatures  <- preprocess.signatures('/fs/scratch/PAS1475/ad/code/custom_marker.csv')
 cell_type_name <- c('Astrocytes', 'Endothelial cells','Excitatory neurons','Inhibitory neurons','Microglia','Oligodendrocytes','Oligodendrocyte precursor cells','Pericytes')
 names(signatures) <- cell_type_name
 
+setwd(wd)
 expr_matrix <- read.fst(expr_file)
 rownames(expr_matrix) <- NULL
 expr_matrix <- column_to_rownames(expr_matrix, var = "X1")

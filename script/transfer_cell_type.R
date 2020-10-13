@@ -42,14 +42,16 @@ disease_data_id <- args[4] #
 load_test_data <- function(){
   # This function is used for testing
   rm(list = ls(all = TRUE))
-  setwd("C:/Users/flyku/Desktop/script")
-  control_filename <- "control_example.rds"
-  disease_filename <- "example_disease.fst"
-  disease_data_id <- "disease_example"
+  #setwd("C:/Users/flyku/Desktop/script")
+  wd <- "/fs/scratch/PAS1475/ad/input"
+  control_filename <- "AD01001.rds"
+  disease_filename <- "M-AD-subventricular_zone_and_hippocampus-Female-7m_001.fst"
+  disease_data_id <- "AD01003"
 }
+current_working_dir <- ""
 
 setwd(wd)
-source("functions.R")
+source("/fs/scratch/PAS1475/ad/code/functions.R")
 
 ####### Load raw files
 health.obj <- read_rds(control_filename)

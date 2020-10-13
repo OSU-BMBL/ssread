@@ -369,7 +369,23 @@ export default {
           '#7E6148FF',
           this.pointSize
         )
-        return [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8]
+        const trace9 = getTrace(
+          this.dimension,
+          'NK cells',
+          '#7E6148FE',
+          this.pointSize
+        )
+        return [
+          trace1,
+          trace2,
+          trace3,
+          trace4,
+          trace5,
+          trace6,
+          trace7,
+          trace8,
+          trace9
+        ]
       } else {
         const sub0 = getSubclusterTrace(
           this.dimension,
@@ -427,7 +443,14 @@ export default {
           '#7E6148FF',
           this.pointSize
         )
-        return [sub0, sub1, sub2, sub3, sub4, sub5, sub6, sub7]
+        const sub8 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '8',
+          '#7E6148FE',
+          this.pointSize
+        )
+        return [sub0, sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8]
       }
     },
     expressionDim() {

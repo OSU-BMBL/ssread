@@ -6,15 +6,7 @@ The scREAD is a free resource database, we therefore welcome all kind of feedbac
 
 # Authors
 
-Jing Jiang: jing.jiang@osumc.edu
-
-Cankun Wang: cankun.wang@osumc.edu
-
-Ren Qi : ren.qi@osumc.edu
-
-Hongjun Fu: hongjun.fu@osumc.edu
-
-Qin Ma: qin.ma@osumc.edu
+Jing Jiang, Cankun Wang, Ren Qi, Hongjun Fu, Qin Ma
 
 You can contact us by sending an email to [qin.ma@osumc.edu](qin.ma@osumc.edu) or [hongjun.fu@osumc.edu](hongjun.fu@osumc.edu).
 

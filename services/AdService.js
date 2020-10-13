@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const apiClient = axios.create({
-  baseURL: `https://bmbls.bmi.osumc.edu/api/scread`,
-  // baseURL: `http://127.0.0.1:8889/api/scread`,
+  // baseURL: `https://bmbls.bmi.osumc.edu/api/scread`,
+  baseURL: `http://127.0.0.1:8889/api/scread`,
   withCredentials: false,
   headers: {
     Accept: 'application/json',
@@ -10,8 +10,8 @@ const apiClient = axios.create({
   }
 })
 const uploadClient = axios.create({
-  baseURL: `https://bmbls.bmi.osumc.edu/api/scread`,
-  // baseURL: `http://127.0.0.1:8889/api/scread`,
+  //  baseURL: `https://bmbls.bmi.osumc.edu/api/scread`,
+  baseURL: `http://127.0.0.1:8889/api/scread`,
   method: 'post',
   headers: {
     'Content-Type': 'multipart/form-data'
@@ -41,6 +41,9 @@ export default {
   getDeMeta(id) {
     return apiClient.get('/de/' + id + '/meta')
   },
+  getAllDeMeta() {
+    return apiClient.get('/de-type')
+  },
   getDe(params) {
     return apiClient.get(
       '/de/' +
@@ -64,5 +67,8 @@ export default {
   },
   getExpressionGenes(id) {
     return apiClient.get('/expression_genes/' + id)
+  },
+  getDeGene(gene) {
+    return apiClient.get('/de/gene/' + gene)
   }
 }

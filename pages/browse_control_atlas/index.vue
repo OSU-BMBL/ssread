@@ -52,7 +52,13 @@ export default {
         `Mouse-H-Hippocampus-Male-7m`,
         `Mouse-H-Hippocampus-Male-15m`,
         `Mouse-H-Hippocampus-Female-7m`,
-        `Mouse-H-Hippocampus-Female-20m`
+        `Mouse-H-Hippocampus-Female-20m`,
+        `M-H-cortex_and_hippocampus-Female-7m_001`,
+        `M-H-cortex_and_hippocampus-Female-7m_002`,
+        `M-H-subventricular_zone_and_hippocampus-Female-7m_001`,
+        `M-H-subventricular_zone_and_hippocampus-Female-7m_002`,
+        `H-H-Prefrontal_cortex-Male_BA9`
+        // `H-H-Prefrontal_cortex-Female_BA9`
       ],
       atlasId: [
         `AD00101`,
@@ -69,7 +75,13 @@ export default {
         `AD00702`,
         `AD00703`,
         `AD00704`,
-        `AD00705`
+        `AD00705`,
+        `AD00901`,
+        `AD00902`,
+        `AD01001`,
+        `AD01002`,
+        `AD01101`
+        // `AD01102`
       ]
     }
   },

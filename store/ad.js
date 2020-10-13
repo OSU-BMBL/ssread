@@ -8,8 +8,10 @@ export const state = () => ({
   dialogDataset: [],
   publication: [],
   deMeta: [],
+  deAllMeta: [],
   cellType: [],
   de: [],
+  deGene: [],
   dimension: [],
   expression: [],
   expressionGenes: [],
@@ -33,6 +35,13 @@ export const mutations = {
   },
   SET_DE_META(state, deMeta) {
     state.deMeta = deMeta
+  },
+  SET_ALL_DE_META(state, deAllMeta) {
+    state.deAllMeta = deAllMeta
+  },
+
+  SET_DE_GENE(state, deGene) {
+    state.deGene = deGene
   },
   SET_DE(state, de) {
     state.de = de
@@ -83,6 +92,16 @@ export const actions = {
   fetchDeMeta({ commit }, id) {
     return AdService.getDeMeta(id).then(function(response) {
       commit('SET_DE_META', response.data)
+    })
+  },
+  fetchAllDeMeta({ commit }) {
+    return AdService.getAllDeMeta().then(function(response) {
+      commit('SET_ALL_DE_META', response.data)
+    })
+  },
+  fetchDeGene({ commit }, id) {
+    return AdService.getDeGene(id).then(function(response) {
+      commit('SET_DE_GENE', response.data)
     })
   },
   fetchDe({ commit }, params) {

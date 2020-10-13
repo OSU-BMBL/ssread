@@ -8,9 +8,10 @@
         </p>
       </v-flex>
     </v-layout>
+
     <client-only>
-      <v-row
-        ><v-col ref="pie" xs="6" md="6" lg="3">
+      <v-row>
+        <v-col ref="pie" xs="6" md="6" lg="3">
           <vue-plotly
             :data="pieData1"
             :layout="layout1"
@@ -36,16 +37,21 @@
           /> </v-col
       ></v-row>
     </client-only>
+    <div class="my-5"><search-gene></search-gene></div>
     <div class="motif-header">
       <v-card>
         <v-card-title>
-          scREAD covers 55 datasets from 11 studies, eight brain regions,
-          {{ totalCells }}
-          cells.
+          <p class="headline">
+            scREAD covers {{ totalDatasets }} datasets from
+            {{ totalStudy }} studies, {{ totalBrainRegions }} brain regions,
+            {{ totalCells }}
+            cells.
+          </p>
           <v-spacer></v-spacer>
         </v-card-title>
         <v-card-text
-          ><v-row>
+          ><p class="title">Select filters:</p>
+          <v-row>
             <v-col xs="12" md="6" lg="2">
               <p class="subtitle-1 font-weight-bold py-0 my-0">Species:</p>
               <v-select
@@ -93,7 +99,7 @@
           </v-row>
           <v-card-actions>
             <download-excel class="mr-4" :data="filterDataset" type="csv">
-              <v-btn color="primary"> Download list table</v-btn>
+              <v-btn color="primary"> Download current table</v-btn>
             </download-excel>
 
             <v-btn
@@ -154,7 +160,7 @@
             <v-card-actions>
               <v-btn
                 class="mx-2"
-                color="primary "
+                color="primary"
                 text
                 @click="openDetailsPage()"
               >
@@ -166,6 +172,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+
         <v-data-table
           :headers="headers"
           :items="filterDataset"
@@ -199,10 +206,16 @@
 <script>
 import { mapState } from 'vuex'
 import _ from 'lodash'
+import SearchGene from '@/components/ad/SearchGene'
+
 export default {
+  components: {
+    'search-gene': SearchGene
+  },
   async asyncData({ store, error, params }) {
     try {
       await store.dispatch('ad/fetchDatasets')
+      await store.dispatch('ad/fetchAllDeMeta')
     } catch (e) {
       error({
         statusCode: 503,
@@ -210,10 +223,15 @@ export default {
       })
     }
   },
+
   data() {
     return {
       dialog: false,
+      totalBrainRegions: '10',
+      totalDatasets: '77',
+      totalStudy: '',
       computedDialogData: [],
+      searchedGene: 'malat1',
       headers: [
         {
           text: 'scREAD data ID',
@@ -248,13 +266,16 @@ export default {
           'Entorhinal Cortex',
           'Hippocampus',
           'Prefrontal cortex',
-          'Superior frontal gyrus'
+          'Superior frontal gyrus (BA8)',
+          'Cortex_and_hippocampus',
+          'subventricular zone_and_hippocampus',
+          'Superior parietal lobe'
         ],
         gender: ['All', 'Female', 'Male']
       },
       pieData1: [
         {
-          values: [19, 36],
+          values: [29, 48],
           labels: ['Human', 'Mouse'],
           type: 'pie'
         }
@@ -268,7 +289,7 @@ export default {
         },
         autosize: true,
         width: this.pieWidth,
-        height: 500,
+        height: 600,
         margin: {
           l: 20,
           r: 20,
@@ -304,7 +325,7 @@ export default {
         },
         autosize: true,
         width: this.pieWidth,
-        height: 500,
+        height: 600,
         margin: {
           l: 20,
           r: 20,
@@ -321,16 +342,18 @@ export default {
       },
       pieData3: [
         {
-          values: [6, 10, 3, 9, 2, 5, 16, 4],
+          values: [6, 14, 3, 6, 13, 2, 5, 28, 4, 4],
           labels: [
             'Human_Entorhinal Cortex',
             'Human_Prefrontal cortex',
             'Human_Superior frontal gyrus',
+            'Human_Superior parietal lobe',
             'Mouse_Cortex',
             'Mouse_Cerebellum',
-            'Mouse_Cerebral cortex	',
+            'Mouse_Cerebral cortex',
             'Mouse_Hippocampus',
-            'Mouse_Prefrontal cortex'
+            'Mouse_Prefrontal cortex',
+            'Mouse_Subventricular zone'
           ],
           type: 'pie'
         }
@@ -344,7 +367,7 @@ export default {
         },
         autosize: true,
         width: this.pieWidth,
-        height: 500,
+        height: 600,
         margin: {
           l: 20,
           r: 20,
@@ -361,7 +384,7 @@ export default {
       },
       pieData4: [
         {
-          values: [12, 7, 29, 7],
+          values: [17, 12, 29, 19],
           labels: ['Human-male', 'Human-female', 'Mouse-male', 'Mouse-female'],
           type: 'pie'
         }
@@ -375,7 +398,7 @@ export default {
         },
         autosize: true,
         width: this.pieWidth,
-        height: 500,
+        height: 600,
         margin: {
           l: 20,
           r: 20,
@@ -406,7 +429,12 @@ export default {
   },
   computed: {
     ...mapState({
-      dataset: (state) => state.ad.datasets,
+      dataset: (state) => {
+        const data = state.ad.datasets
+        delete data.silhouette_score
+        delete data.ari_score
+        return data
+      },
       dialogData: (state) => state.ad.dialogDataset
     }),
     currentBrowseItems() {
@@ -448,7 +476,7 @@ export default {
       return 350
     },
     totalCells() {
-      return _.sumBy(this.dataset, 'n_original_cell')
+      return _.sumBy(this.dataset, 'n_cell')
     }
   },
   methods: {

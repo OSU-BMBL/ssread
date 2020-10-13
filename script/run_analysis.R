@@ -25,11 +25,11 @@ b_data_id <- args[3] # raw user filename
 
 load_test_data <- function(){
   rm(list = ls(all = TRUE))
-  setwd("C:/Users/flyku/Desktop/ad/new/")
-  
+  #setwd("C:/Users/flyku/Desktop/ad/new/")
+  wd <- "/fs/scratch/PAS1475/ad/input"
   #B is usually disease object, A is healthy object
-  a_data_id <- "AD00803"
-  b_data_id <- "AD00604"
+  a_data_id <- "AD00601"
+  b_data_id <- "AD00603"
   
   # control, early age, female on the left side, A column
   # disease, late age, male groups are on the right side, B column
@@ -57,7 +57,7 @@ dir.create("subcluster_dimension",showWarnings = F)
 this_out_name <- paste0("de/",a_data_id,"_de_cts.csv")
 if(!file.exists(this_out_name) && length(levels(as.factor(a.obj$predicted.id))) > 1) {
   Idents(a.obj) <- a.obj$predicted.id
-  cts_markers <- FindAllMarkers(a.obj)
+  cts_markers <- FindAllMarkers(a.obj, test.use = "MAST")
   if(nrow(cts_markers) >1){
     cts_markers["a_data_id"] <- a_data_id
     cts_markers["b_data_id"] <- a_data_id
@@ -74,7 +74,7 @@ if(!file.exists(this_out_name) && length(levels(as.factor(a.obj$predicted.id))) 
 this_out_name <- paste0("de/",b_data_id,"_de_cts.csv")
 if(!file.exists(this_out_name) && length(levels(as.factor(b.obj$predicted.id))) > 1) {
   Idents(b.obj) <- b.obj$predicted.id
-  cts_markers <- FindAllMarkers(b.obj)
+  cts_markers <- FindAllMarkers(b.obj, test.use = "MAST")
   if(nrow(cts_markers) >1){
     cts_markers["a_data_id"] <- b_data_id
     cts_markers["b_data_id"] <- b_data_id
@@ -103,7 +103,7 @@ for(i in 1:a_total_ct){
   if(!file.exists(this_out_name) | !file.exists(this_subcluster_dimension_name)) {
     this_obj <- subset(a.obj, subset = predicted.id == this_ct)
     # If cells too few, PCA will fail
-     
+    
     if(ncol(this_obj) < 50) {
       dim_to_use <- ncol(this_obj) - 1
       pc_to_use <- ncol(this_obj) - 1
@@ -129,7 +129,7 @@ for(i in 1:a_total_ct){
       if (length(levels(this_obj$seurat_clusters)) <= 1) {
         this_markers <- data.frame(p_val=1,avg_logFC=0,pct.1=0,pct.2=0,p_val_adj=1,cluster=0,gene=0)
       } else {
-        this_markers <- Seurat::FindAllMarkers(this_obj)
+        this_markers <- Seurat::FindAllMarkers(this_obj, test.use = "MAST")
       }
       this_markers["a_data_id"] <- a_data_id
       this_markers["b_data_id"] <- a_data_id
@@ -197,7 +197,7 @@ for(i in 1:b_total_ct){
       if (length(levels(this_obj$seurat_clusters)) <= 1) {
         this_markers <- data.frame(p_val=1,avg_logFC=0,pct.1=0,pct.2=0,p_val_adj=1,cluster=0,gene=0)
       } else {
-        this_markers <- Seurat::FindAllMarkers(this_obj)
+        this_markers <- Seurat::FindAllMarkers(this_obj, test.use = "MAST")
       }
       this_markers["a_data_id"] <- b_data_id
       this_markers["b_data_id"] <- b_data_id
@@ -224,6 +224,7 @@ for(i in 1:b_total_ct){
 }
 
 
+
 ####### Compare A data cell type with B data cell type
 # Compare healthy vs. disease
 for(i in 1:b_total_ct){
@@ -237,16 +238,18 @@ for(i in 1:b_total_ct){
   this_out_name <- paste0("de/",a_data_id,"_vs_",b_data_id,"_de_",abbr_this_ct,".csv")
   if(!file.exists(this_out_name) && this_ct %in% levels(as.factor(a.obj$predicted.id))) {
     this_a_obj <- subset(a.obj, subset = predicted.id == this_ct)
-    this_a_obj[['condition']] <- "a"
+    this_a_obj[['condition']] <- 1
     this_b_obj <- subset(b.obj, subset = predicted.id == this_ct)
-    this_b_obj[['condition']] <- "b"
+    this_b_obj[['condition']] <- 2
     if(ncol(this_a_obj) > 3 && ncol(this_b_obj) > 3) {
       this_combined <- merge(this_a_obj, y = this_b_obj, add.cell.ids = c("a", "b"), project = "combined")
+      this_combined <- NormalizeData(this_combined)
       #expr <- GetAssayData(this_b_obj)
       #colnames(expr) <-  gsub('([[:punct:]])|\\s+','_',colnames(expr))
       #this_b_obj <- CreateSeuratObject(expr)
       Idents(this_combined) <- this_combined$condition
-      this_markers <- Seurat::FindMarkers(this_combined, ident.1 = "a", ident.2 = "b")
+      this_markers <- FindMarkers(this_combined, ident.1 = 1, ident.2 = 2, test.use = "MAST", latent.vars = 'condition')
+
       this_markers["cluster"] <- this_ct
       this_markers["gene"] <- rownames(this_markers)
       this_markers["a_data_id"] <- a_data_id
@@ -258,6 +261,7 @@ for(i in 1:b_total_ct){
     }
   }
 }
+
 
 ####### Export dimension reduction table, A data
 this_out_name <- paste0("dimension/",a_data_id,"_dimension_reduction.csv")
