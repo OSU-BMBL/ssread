@@ -40,8 +40,6 @@
     <div class="my-5"><search-gene></search-gene></div>
     <div class="motif-header">
       <v-card>
-        <v-row><p class="headline">Dataset overview</p></v-row>
-        <br />
         <v-card-title>
           <p class="title">
             scREAD covers {{ totalDatasets }} datasets from
