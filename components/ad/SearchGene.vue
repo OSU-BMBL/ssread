@@ -140,7 +140,7 @@ export default {
 
   data() {
     return {
-      searchGene: 'malat1',
+      searchGene: '',
       headers: [
         { text: 'Gene', value: 'gene' },
         { text: 'logFC', value: 'avg_logFC' },
