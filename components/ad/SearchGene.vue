@@ -4,6 +4,7 @@
       <v-row
         ><v-col xs="12" md="12" lg="12">
           <v-row>
+            <p class="headline">Search differentially expressed gene</p>
             <v-col cols="3"
               ><v-text-field
                 v-model="searchGene"
@@ -13,7 +14,7 @@
                 solo
                 hide-details
                 autofocus
-                label="Search differentially expressed gene"
+                label="Search"
                 height="50"
                 style="font-size:1.6em !important"
                 prepend-inner-icon="mdi-magnify"

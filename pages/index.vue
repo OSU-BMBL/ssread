@@ -41,7 +41,8 @@
     <div class="motif-header">
       <v-card>
         <v-card-title>
-          <p class="headline">
+          <p class="headline">Dataset overview</p>
+          <p class="title">
             scREAD covers {{ totalDatasets }} datasets from
             {{ totalStudy }} studies, {{ totalBrainRegions }} brain regions,
             {{ totalCells }}
@@ -113,7 +114,7 @@
         >
         <v-dialog v-model="dialog" max-width="300">
           <v-card>
-            <v-card-title>Overview</v-card-title>
+            <v-card-title>Dataset overview</v-card-title>
             <v-divider class="my-2 py-2"></v-divider>
             <v-card-text>
               <p class="my-2">
@@ -231,7 +232,6 @@ export default {
       totalDatasets: '77',
       totalStudy: '',
       computedDialogData: [],
-      searchedGene: 'malat1',
       headers: [
         {
           text: 'scREAD data ID',
