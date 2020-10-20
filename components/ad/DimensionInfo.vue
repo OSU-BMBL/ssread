@@ -272,10 +272,10 @@ export default {
     },
     allCellDim() {
       function getTrace(dim, cellType, customColor, markerSize) {
-        const cuurentDimension = dim.filter((row) => row.cell_type === cellType)
-        const X = _.map(cuurentDimension, 'umap_1')
-        const Y = _.map(cuurentDimension, 'umap_2')
-        const cellNames = _.map(cuurentDimension, 'cell_name')
+        const currentDimension = dim.filter((row) => row.cell_type === cellType)
+        const X = _.map(currentDimension, 'umap_1')
+        const Y = _.map(currentDimension, 'umap_2')
+        const cellNames = _.map(currentDimension, 'cell_name')
         const trace = {
           x: X,
           y: Y,
@@ -298,12 +298,12 @@ export default {
         customColor,
         markerSize
       ) {
-        const cuurentDimension = dim.filter(
+        const currentDimension = dim.filter(
           (row) => row.subcluster === subcluster
         )
-        const X = _.map(cuurentDimension, 'umap_1')
-        const Y = _.map(cuurentDimension, 'umap_2')
-        const cellNames = _.map(cuurentDimension, 'cell_name')
+        const X = _.map(currentDimension, 'umap_1')
+        const Y = _.map(currentDimension, 'umap_2')
+        const cellNames = _.map(currentDimension, 'cell_name')
         const trace = {
           x: X,
           y: Y,
