@@ -16,24 +16,28 @@
             :data="pieData1"
             :layout="layout1"
             :options="options"
+            @click="clickSelectDatasetDialog()"
           /> </v-col
         ><v-col xs="6" md="6" lg="3">
           <vue-plotly
             :data="pieData2"
             :layout="layout2"
             :options="options"
+            @click="clickSelectDatasetDialog()"
           /> </v-col
         ><v-col xs="6" md="6" lg="3">
           <vue-plotly
             :data="pieData3"
             :layout="layout3"
             :options="options"
+            @click="clickSelectDatasetDialog()"
           /> </v-col
         ><v-col xs="6" md="6" lg="3">
           <vue-plotly
             :data="pieData4"
             :layout="layout4"
             :options="options"
+            @click="clickSelectDatasetDialog()"
           /> </v-col
       ></v-row>
     </client-only>
@@ -161,7 +165,7 @@
               <v-btn
                 class="mx-2"
                 color="primary"
-                text
+                dark
                 @click="openDetailsPage()"
               >
                 details </v-btn
@@ -173,7 +177,86 @@
           </v-card>
         </v-dialog>
 
+        <v-dialog v-model="selectDatasetDialog" max-width="800">
+          <v-card>
+            <v-card-title>Dataset selection</v-card-title>
+            <v-divider class="my-2 py-2"></v-divider>
+            <v-card-text>
+              <p class="my-2">
+                <v-select
+                  v-model="browseDefault.species"
+                  :items="browseItems.species"
+                  item-text="value"
+                  item-value="value"
+                  label="Species"
+                  return-object
+                  outlined
+                ></v-select>
+              </p>
+              <p class="my-2">
+                <v-select
+                  v-model="browseDefault.condition"
+                  :items="browseItems.condition"
+                  item-text="value"
+                  item-value="value"
+                  label="Condition"
+                  return-object
+                  outlined
+                ></v-select>
+              </p>
+              <p class="my-2">
+                <v-select
+                  v-model="browseDefault.gender"
+                  :items="browseItems.gender"
+                  item-text="value"
+                  item-value="value"
+                  label="Gender"
+                  return-object
+                  outlined
+                ></v-select>
+              </p>
+              <p class="my-2">
+                <v-select
+                  v-model="browseDefault.region"
+                  :items="browseItems.region"
+                  item-text="value"
+                  item-value="value"
+                  label="Brain region"
+                  return-object
+                  outlined
+                ></v-select>
+              </p>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn
+                class="mx-2"
+                color="primary"
+                dark
+                @click="updateSelectDataset()"
+              >
+                apply
+              </v-btn>
+              <v-btn
+                v-show="displayResetFilter"
+                color="primary"
+                dark
+                @click="resetFilter"
+                >RESET FILTER</v-btn
+              >
+              <v-btn
+                color="grey darken-1"
+                text
+                @click="selectDatasetDialog = false"
+              >
+                cancel
+              </v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
         <v-data-table
+          id="datasetTable"
           :headers="headers"
           :items="filterDataset"
           :items-per-page="15"
@@ -227,9 +310,8 @@ export default {
   data() {
     return {
       dialog: false,
-      totalBrainRegions: '10',
-      totalDatasets: '77',
-      totalStudy: '',
+      selectDatasetDialog: false,
+      totalStudy: '15',
       computedDialogData: [],
       headers: [
         {
@@ -262,19 +344,19 @@ export default {
           'Cerebellum',
           'Cerebral cortex',
           'Cortex',
+          'Cortex and hippocampus',
           'Entorhinal Cortex',
           'Hippocampus',
           'Prefrontal cortex',
+          'Subventricular zone and hippocampus',
           'Superior frontal gyrus (BA8)',
-          'Cortex_and_hippocampus',
-          'subventricular zone_and_hippocampus',
           'Superior parietal lobe'
         ],
         gender: ['All', 'Female', 'Male']
       },
       pieData1: [
         {
-          values: [29, 48],
+          values: [26, 47],
           labels: ['Human', 'Mouse'],
           type: 'pie'
         }
@@ -305,7 +387,7 @@ export default {
       },
       pieData2: [
         {
-          values: [5, 14, 10, 26],
+          values: [9, 20, 14, 30],
           labels: [
             'Human-control',
             'Human-disease',
@@ -341,7 +423,7 @@ export default {
       },
       pieData3: [
         {
-          values: [6, 14, 3, 6, 13, 2, 5, 28, 4, 4],
+          values: [6, 14, 3, 6, 13, 2, 5, 24, 4, 4],
           labels: [
             'Human_Entorhinal Cortex',
             'Human_Prefrontal cortex',
@@ -383,7 +465,7 @@ export default {
       },
       pieData4: [
         {
-          values: [17, 12, 29, 19],
+          values: [17, 9, 29, 18],
           labels: ['Human-male', 'Human-female', 'Mouse-male', 'Mouse-female'],
           type: 'pie'
         }
@@ -434,7 +516,8 @@ export default {
         delete data.ari_score
         return data
       },
-      dialogData: (state) => state.ad.dialogDataset
+      dialogData: (state) => state.ad.dialogDataset,
+      selectDatasetDialogData: (state) => state.ad.SelectDatasetDialogData
     }),
     currentBrowseItems() {
       return this.browseItems.species
@@ -472,10 +555,23 @@ export default {
     },
     pieWidth() {
       // return this.$refs.pie.clientWidth
-      return 330
+      return 320
+    },
+    brainRegions() {
+      const region = this.dataset
+        .map((row) => row.region)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .sort()
+      return region
+    },
+    totalBrainRegions() {
+      return this.brainRegions.length
+    },
+    totalDatasets() {
+      return this.dataset.length
     },
     totalCells() {
-      return _.sumBy(this.dataset, 'n_cell')
+      return _.sumBy(this.dataset, 'n_original_cell')
     }
   },
   methods: {
@@ -484,6 +580,18 @@ export default {
       await this.$store.dispatch('ad/setDialog', item.data_id)
       this.computedDialogData = this.dialogData[0]
       this.dialog = true
+    },
+
+    clickSelectDatasetDialog(item) {
+      //  await this.$store.dispatch('ad/setDialog', item.data_id)
+      //  this.computedSelectDatasetDialogData = this.selectDatasetDialogData[0]
+      this.selectDatasetDialog = true
+    },
+
+    updateSelectDataset() {
+      this.selectDatasetDialog = false
+      this.$router.push({ hash: '' })
+      this.$vuetify.goTo('#datasetTable')
     },
     resetFilter() {
       this.browseDefault.species = 'All'

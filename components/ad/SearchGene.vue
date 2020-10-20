@@ -1,9 +1,9 @@
 <template>
   <v-card>
     <v-card-text>
-      <v-row
-        ><v-col xs="12" md="12" lg="12">
-          <p class="headline">Search differentially expressed gene</p>
+      <v-row>
+        <v-col xs="12" md="12" lg="12">
+          <p class="headline">Search differentially expressed genes</p>
           <v-row>
             <v-col cols="3"
               ><v-text-field
@@ -33,11 +33,11 @@
           </v-row>
 
           <div v-if="results.rows">
-            <p>Found {{ results.count }} genes</p>
+            <p>Found {{ results.count }} records</p>
             <v-card-text
               ><p class="title">Select filters:</p>
               <v-row>
-                <v-col xs="12" md="6" lg="2">
+                <v-col xs="12" md="6" lg="4">
                   <p class="subtitle-1 font-weight-bold py-0 my-0">Species:</p>
                   <v-select
                     v-model="searchDefault.species"
@@ -49,7 +49,7 @@
                     multiple
                   ></v-select>
                 </v-col>
-                <v-col xs="12" md="6" lg="2">
+                <v-col xs="12" md="6" lg="4">
                   <p class="subtitle-1 font-weight-bold py-0 my-0">
                     Condition:
                   </p>
@@ -63,31 +63,7 @@
                     multiple
                   ></v-select>
                 </v-col>
-                <v-col xs="12" md="6" lg="2">
-                  <p class="subtitle-1 font-weight-bold py-0 my-0">Region:</p>
-                  <v-select
-                    v-model="searchDefault.region"
-                    :items="searchItems.region"
-                    item-text="value"
-                    item-value="value"
-                    return-object
-                    single-line
-                    multiple
-                  ></v-select>
-                </v-col>
-                <v-col xs="12" md="6" lg="2">
-                  <p class="subtitle-1 font-weight-bold  py-0 my-0">Gender:</p>
-                  <v-select
-                    v-model="searchDefault.gender"
-                    :items="searchItems.gender"
-                    item-text="value"
-                    item-value="value"
-                    return-object
-                    single-line
-                    multiple
-                  ></v-select>
-                </v-col>
-                <v-col xs="12" md="6" lg="2">
+                <v-col xs="12" md="6" lg="4">
                   <p class="subtitle-1 font-weight-bold  py-0 my-0">
                     Comparison type:
                   </p>
@@ -100,6 +76,61 @@
                     single-line
                     multiple
                   ></v-select>
+                </v-col>
+
+                <v-col xs="12" md="6" lg="4">
+                  <p class="subtitle-1 font-weight-bold  py-0 my-0">Gender:</p>
+                  <v-select
+                    v-model="searchDefault.gender"
+                    :items="searchItems.gender"
+                    item-text="value"
+                    item-value="value"
+                    return-object
+                    single-line
+                    multiple
+                  ></v-select>
+                </v-col>
+                <v-col xs="12" md="6" lg="4">
+                  <p class="subtitle-1 font-weight-bold  py-0 my-0">
+                    Cell type:
+                  </p>
+                  <v-select
+                    v-model="searchDefault.cellType"
+                    :items="searchItems.cellType"
+                    item-text="value"
+                    item-value="value"
+                    return-object
+                    single-line
+                    multiple
+                  >
+                    <template v-slot:selection="{ item, index }">
+                      <v-chip v-if="index === 0">
+                        <span>{{ item }}</span>
+                      </v-chip>
+                      <span v-if="index === 1" class="grey--text caption">
+                        (+{{ searchDefault.cellType.length - 1 }} others)
+                      </span>
+                    </template>
+                  </v-select> </v-col
+                ><v-col xs="12" md="6" lg="4">
+                  <p class="subtitle-1 font-weight-bold py-0 my-0">Region:</p>
+                  <v-select
+                    v-model="searchDefault.region"
+                    :items="searchItems.region"
+                    item-text="value"
+                    item-value="value"
+                    return-object
+                    single-line
+                    multiple
+                    ><template v-slot:selection="{ item, index }">
+                      <v-chip v-if="index === 0">
+                        <span>{{ item }}</span>
+                      </v-chip>
+                      <span v-if="index === 1" class="grey--text caption">
+                        (+{{ searchDefault.region.length - 1 }} others)
+                      </span>
+                    </template></v-select
+                  >
                 </v-col>
               </v-row>
               <v-card-actions>
@@ -118,7 +149,7 @@
             >
             <v-data-table
               dense
-              :headers="headers"
+              :headers="searchGeneHeaders"
               :items="filterResults"
               :items-per-page="10"
               class="elevation-1"
@@ -132,7 +163,7 @@
 
 <script>
 import { mapState } from 'vuex' // <--- To map data from Vuex
-
+import _ from 'lodash'
 export default {
   name: 'SearchGene',
   components: {},
@@ -140,20 +171,20 @@ export default {
   data() {
     return {
       searchGene: '',
-      headers: [
+      searchGeneHeaders: [
         { text: 'Gene', value: 'gene' },
         { text: 'logFC', value: 'avg_logFC' },
         { text: 'Adj.Pval', value: 'p_val_adj' },
-
-        { text: 'Comparison type', value: 'type' },
+        { text: 'Pct.1', value: 'pct_1' },
+        { text: 'Pct.2', value: 'pct_2' },
         { text: 'Cell type', value: 'ct' },
         { text: 'Cluster', value: 'cluster' },
         { text: 'Species', value: 'species' },
         { text: 'Region', value: 'region' },
         { text: 'Gender', value: 'gender' },
         { text: 'Condition', value: 'condition' },
-        { text: 'Compared Data 1', value: 'a_data_id' },
-        { text: 'Compared data 2', value: 'b_data_id' }
+        { text: 'Comparison', value: 'description' },
+        { text: 'Compared Data ', value: 'value' }
       ],
       searchDefault: {
         species: ['Human', 'Mouse'],
@@ -162,16 +193,31 @@ export default {
           'Cerebellum',
           'Cerebral cortex',
           'Cortex',
+          'Cortex and hippocampus',
           'Entorhinal Cortex',
           'Hippocampus',
           'Prefrontal cortex',
+          'Subventricular zone and hippocampus',
           'Superior frontal gyrus (BA8)',
-          'Cortex_and_hippocampus',
-          'subventricular zone_and_hippocampus',
           'Superior parietal lobe'
         ],
         gender: ['Female', 'Male'],
-        comparisonType: ['cell_type_specific', 'subcluster_specific', 'a_vs_b']
+        cellType: [
+          'Astrocytes',
+          'Microglia',
+          'Endothelial cells',
+          'Excitatory neurons',
+          'Inhibitory neurons',
+          'Oligodendrocytes',
+          'Oligodendrocyte precursor cells',
+          'Pericytes',
+          'NK cells'
+        ],
+        comparisonType: [
+          'Cell type specific',
+          'Subcluster specific',
+          'Cross dataset comparison'
+        ]
       },
       searchItems: {
         species: ['Human', 'Mouse'],
@@ -180,16 +226,31 @@ export default {
           'Cerebellum',
           'Cerebral cortex',
           'Cortex',
+          'Cortex and hippocampus',
           'Entorhinal Cortex',
           'Hippocampus',
           'Prefrontal cortex',
+          'Subventricular zone and hippocampus',
           'Superior frontal gyrus (BA8)',
-          'Cortex_and_hippocampus',
-          'subventricular zone_and_hippocampus',
           'Superior parietal lobe'
         ],
         gender: ['Female', 'Male'],
-        comparisonType: ['cell_type_specific', 'subcluster_specific', 'a_vs_b']
+        cellType: [
+          'Astrocytes',
+          'Microglia',
+          'Endothelial cells',
+          'Excitatory neurons',
+          'Inhibitory neurons',
+          'Oligodendrocytes',
+          'Oligodendrocyte precursor cells',
+          'Pericytes',
+          'NK cells'
+        ],
+        comparisonType: [
+          'Cell type specific',
+          'Subcluster specific',
+          'Cross dataset comparison'
+        ]
       }
     }
   },
@@ -204,16 +265,68 @@ export default {
         .map((row) => {
           const thisData = this.dataset.filter(
             (element) => element.data_id === row.a_data_id
-          )
+          )[0]
+
           const thisDeMeta = this.deMeta.filter(
             (meta) =>
-              meta.data_id === row.a_data_id && meta.b_data_id === row.b_data_id
-          )
+              meta.data_id === row.b_data_id && meta.b_data_id === row.a_data_id
+          )[0]
+          const desc = _.pick(thisDeMeta, ['description', 'hint', 'value'])
+          const datasetInfo = _.pick(thisData, [
+            'species',
+            'condition',
+            'region',
+            'gender'
+          ])
           return {
             ...row,
-            ...thisDeMeta[0],
-            ...thisData[0]
+            ...datasetInfo,
+            ...desc
           }
+        })
+        .map((row) => {
+          // Some text conversion for display
+          row.p_val_adj = row.p_val_adj.toExponential(2)
+          if (row.type === 'subcluster_specific') {
+            row.description = 'Subcluster specific'
+          }
+          if (row.ct === 'exc') {
+            row.ct = 'Excitatory neurons'
+            row.cluster = 'Excitatory neurons'
+          }
+          if (row.ct === 'opc') {
+            row.ct = 'Oligodendrocyte precursor cells'
+            row.cluster = 'Oligodendrocyte precursor cells'
+          }
+          if (row.ct === 'inh') {
+            row.cluster = 'Inhibitory neurons'
+            row.ct = 'Inhibitory neurons'
+          }
+          if (row.ct === 'oli') {
+            row.cluster = 'Oligodendrocytes'
+            row.ct = 'Oligodendrocytes'
+          }
+          if (row.ct === 'mic') {
+            row.cluster = 'Microglia'
+            row.ct = 'Microglia'
+          }
+          if (row.ct === 'ast') {
+            row.cluster = 'Astrocytes'
+            row.ct = 'Astrocytes'
+          }
+          if (row.ct === 'end') {
+            row.cluster = 'Endothelial cells'
+            row.ct = 'Endothelial cells'
+          }
+          if (row.ct === 'nk ') {
+            row.cluster = 'NK cells'
+            row.ct = 'NK cells'
+          }
+          if (row.ct === 'per') {
+            row.cluster = 'Pericytes'
+            row.ct = 'Pericytes'
+          }
+          return row
         })
         .filter((row) => {
           for (const species of this.searchDefault.species) {
@@ -237,7 +350,23 @@ export default {
           }
         })
         .filter((row) => {
-          for (const comparisonType of this.searchDefault.comparisonType) {
+          for (const cellType of this.searchDefault.cellType) {
+            if (cellType === row.ct) {
+              return true
+            }
+          }
+        })
+        .filter((row) => {
+          for (let comparisonType of this.searchDefault.comparisonType) {
+            if (comparisonType === 'Cell type specific') {
+              comparisonType = 'cell_type_specific'
+            }
+            if (comparisonType === 'Subcluster specific') {
+              comparisonType = 'subcluster_specific'
+            }
+            if (comparisonType === 'Cross dataset comparison') {
+              comparisonType = 'a_vs_b'
+            }
             if (comparisonType === row.type) {
               return true
             }
@@ -269,16 +398,31 @@ export default {
           'Cerebellum',
           'Cerebral cortex',
           'Cortex',
+          'Cortex and hippocampus',
           'Entorhinal Cortex',
           'Hippocampus',
           'Prefrontal cortex',
+          'Subventricular zone and hippocampus',
           'Superior frontal gyrus (BA8)',
-          'Cortex_and_hippocampus',
-          'subventricular zone_and_hippocampus',
           'Superior parietal lobe'
         ],
         gender: ['Female', 'Male'],
-        comparisonType: ['cell_type_specific', 'subcluster_specific', 'a_vs_b']
+        cellType: [
+          'Astrocytes',
+          'Microglia',
+          'Endothelial cells',
+          'Excitatory neurons',
+          'Inhibitory neurons',
+          'Oligodendrocytes',
+          'Oligodendrocyte precursor cells',
+          'Pericytes',
+          'NK cells'
+        ],
+        comparisonType: [
+          'Cell type specific',
+          'Subcluster specific',
+          'Cross dataset comparison'
+        ]
       }
     }
   }
