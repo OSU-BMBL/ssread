@@ -20,6 +20,9 @@ export default {
     base: '/scread',
     linkActiveClass: 'active-link'
   },
+  publicRuntimeConfig: {
+    apiURL: process.env.API_URL
+  },
   /*
    ** Customize the progress-bar color
    */
