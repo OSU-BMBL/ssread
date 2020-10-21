@@ -111,6 +111,27 @@
                         (+{{ searchDefault.cellType.length - 1 }} others)
                       </span>
                     </template>
+                    <template v-slot:prepend-item>
+                      <v-list-item ripple @click="toggleSelectCellType">
+                        <v-list-item-action>
+                          <v-icon
+                            :color="
+                              searchDefault.cellType.length > 0
+                                ? 'indigo darken-4'
+                                : ''
+                            "
+                          >
+                            {{ iconSelectCellType }}
+                          </v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            Select All
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-divider class="mt-2"></v-divider>
+                    </template>
                   </v-select> </v-col
                 ><v-col xs="12" md="6" lg="4">
                   <p class="subtitle-1 font-weight-bold py-0 my-0">Region:</p>
@@ -129,8 +150,28 @@
                       <span v-if="index === 1" class="grey--text caption">
                         (+{{ searchDefault.region.length - 1 }} others)
                       </span>
-                    </template></v-select
-                  >
+                    </template>
+                    <template v-slot:prepend-item>
+                      <v-list-item ripple @click="toggleSelectRegion">
+                        <v-list-item-action>
+                          <v-icon
+                            :color="
+                              searchDefault.region.length > 0
+                                ? 'indigo darken-4'
+                                : ''
+                            "
+                          >
+                            {{ iconSelectRegion }}
+                          </v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            Select All
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-divider class="mt-2"></v-divider> </template
+                  ></v-select>
                 </v-col>
               </v-row>
               <v-card-actions>
@@ -287,45 +328,37 @@ export default {
         .map((row) => {
           // Some text conversion for display
           row.p_val_adj = row.p_val_adj.toExponential(2)
-          if (row.type === 'subcluster_specific') {
+          if (row.type === 'subcluster') {
             row.description = 'Subcluster specific'
           }
           if (row.ct === 'exc') {
             row.ct = 'Excitatory neurons'
-            row.cluster = 'Excitatory neurons'
           }
           if (row.ct === 'opc') {
             row.ct = 'Oligodendrocyte precursor cells'
-            row.cluster = 'Oligodendrocyte precursor cells'
           }
           if (row.ct === 'inh') {
-            row.cluster = 'Inhibitory neurons'
             row.ct = 'Inhibitory neurons'
           }
           if (row.ct === 'oli') {
-            row.cluster = 'Oligodendrocytes'
             row.ct = 'Oligodendrocytes'
           }
           if (row.ct === 'mic') {
-            row.cluster = 'Microglia'
             row.ct = 'Microglia'
           }
           if (row.ct === 'ast') {
-            row.cluster = 'Astrocytes'
             row.ct = 'Astrocytes'
           }
           if (row.ct === 'end') {
-            row.cluster = 'Endothelial cells'
             row.ct = 'Endothelial cells'
           }
           if (row.ct === 'nk ') {
-            row.cluster = 'NK cells'
             row.ct = 'NK cells'
           }
           if (row.ct === 'per') {
-            row.cluster = 'Pericytes'
             row.ct = 'Pericytes'
           }
+
           return row
         })
         .filter((row) => {
@@ -358,12 +391,13 @@ export default {
         })
         .filter((row) => {
           for (let comparisonType of this.searchDefault.comparisonType) {
+            if (comparisonType === 'Subcluster specific') {
+              comparisonType = 'subcluster'
+            }
             if (comparisonType === 'Cell type specific') {
               comparisonType = 'cell_type_specific'
             }
-            if (comparisonType === 'Subcluster specific') {
-              comparisonType = 'subcluster_specific'
-            }
+
             if (comparisonType === 'Cross dataset comparison') {
               comparisonType = 'a_vs_b'
             }
@@ -384,6 +418,30 @@ export default {
     },
     displayResetFilter() {
       return 1
+    },
+    selectAllCellType() {
+      return (
+        this.searchDefault.cellType.length === this.searchItems.cellType.length
+      )
+    },
+    selectSomeCellType() {
+      return this.searchDefault.cellType.length > 0 && !this.selectAllCellType
+    },
+    selectAllRegion() {
+      return this.searchDefault.region.length === this.searchItems.region.length
+    },
+    selectSomeRegion() {
+      return this.searchDefault.region.length > 0 && !this.selectAllRegion
+    },
+    iconSelectCellType() {
+      if (this.selectAllCellType) return 'mdi-close-box'
+      if (this.selectSomeCellType) return 'mdi-minus-box'
+      return 'mdi-checkbox-blank-outline'
+    },
+    iconSelectRegion() {
+      if (this.selectAllRegion) return 'mdi-close-box'
+      if (this.selectSomeRegion) return 'mdi-minus-box'
+      return 'mdi-checkbox-blank-outline'
     }
   },
   methods: {
@@ -391,39 +449,26 @@ export default {
       await this.$store.dispatch('ad/fetchDeGene', gene)
     },
     resetFilter() {
-      this.searchDefault = {
-        species: ['Human', 'Mouse'],
-        condition: ['Control', 'Disease'],
-        region: [
-          'Cerebellum',
-          'Cerebral cortex',
-          'Cortex',
-          'Cortex and hippocampus',
-          'Entorhinal Cortex',
-          'Hippocampus',
-          'Prefrontal cortex',
-          'Subventricular zone and hippocampus',
-          'Superior frontal gyrus (BA8)',
-          'Superior parietal lobe'
-        ],
-        gender: ['Female', 'Male'],
-        cellType: [
-          'Astrocytes',
-          'Microglia',
-          'Endothelial cells',
-          'Excitatory neurons',
-          'Inhibitory neurons',
-          'Oligodendrocytes',
-          'Oligodendrocyte precursor cells',
-          'Pericytes',
-          'NK cells'
-        ],
-        comparisonType: [
-          'Cell type specific',
-          'Subcluster specific',
-          'Cross dataset comparison'
-        ]
-      }
+      // Prevent copy reference
+      this.searchDefault = { ...this.searchItems }
+    },
+    toggleSelectCellType() {
+      this.$nextTick(() => {
+        if (this.selectAllCellType) {
+          this.searchDefault.cellType = []
+        } else {
+          this.searchDefault.cellType = this.searchItems.cellType
+        }
+      })
+    },
+    toggleSelectRegion() {
+      this.$nextTick(() => {
+        if (this.selectAllRegion) {
+          this.searchDefault.region = []
+        } else {
+          this.searchDefault.region = this.searchItems.region
+        }
+      })
     }
   }
 }
