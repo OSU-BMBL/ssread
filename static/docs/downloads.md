@@ -99,6 +99,11 @@ The workflow in R can be found in https://github.com/OSU-BMBL/scread/tree/master
 5.	run_analysis.R: run analysis workflow, and export tables in scREAD database format.
 
 ## Build control atlas 
+
+Note: You may skip this process if you want to use control atlas from scREAD, simply download the processed control atlas from: https://bmbls.bmi.osumc.edu/scread/downloads
+
+If you wish to build from own controls:
+
 1.	Goal: Build the control atlas file from raw gene expression matrix.
 2.	Prepare your control gene expression data in fst format (https://www.fstpackage.org/), we used fst package to store raw data in scREAD since it provides a fast, easy and flexible way to serialize data frames. In the data frame, the first column should be gene symbols, and other columns as cell labels. Put all code and data in a working directory. (e.g PATH_TO_WD), in this tutorial, we will run example_control.fst.
 3.	build_control_atlas.R takes three parameters: 1. Working directory path; 2. Control data path. 3. Output data ID
