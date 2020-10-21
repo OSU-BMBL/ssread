@@ -16,8 +16,6 @@
     "@nuxtjs/markdownit": "^1.2.10",
     "@statnett/vue-plotly": "^0.3.2",
     "@vue/reactivity": "^3.0.0",
-    "ag-grid-community": "^24.1.0",
-    "ag-grid-vue": "^24.1.0",
     "form-data": "^3.0.0",
     "github-markdown-css": "^4.0.0",
     "image-size": "^0.9.1",

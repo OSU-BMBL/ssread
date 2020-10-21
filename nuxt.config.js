@@ -36,12 +36,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [
-    'github-markdown-css',
-    '~/assets/css/main.css',
-    '../node_modules/ag-grid-community/dist/styles/ag-grid.css',
-    '../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css'
-  ],
+  css: ['github-markdown-css', '~/assets/css/main.css'],
   /*
    ** Plugins to load before mounting the App
    */
