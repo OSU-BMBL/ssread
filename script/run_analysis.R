@@ -1,6 +1,8 @@
 # Goal
 # This document aims to run Seurat analysis workflow, and export tables in scREAD database format.
 
+# Important!! Install MAST first
+#BiocManager::install("MAST")
 
 options(future.globals.maxSize = 8000 * 1024^2)
 suppressPackageStartupMessages(library(fst))
@@ -12,6 +14,7 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(harmony))
 suppressPackageStartupMessages(library(cowplot))
 suppressPackageStartupMessages(library(future))
+suppressPackageStartupMessages(library(MAST))
 
 ## Do not use it, not working in OSC clusters
 ## Set multi-thread for Seurat
@@ -24,18 +27,14 @@ a_data_id <- args[2] # raw user filename
 b_data_id <- args[3] # raw user filename
 
 load_test_data <- function(){
+  # This function is used for testing, set wd to your working directory
   rm(list = ls(all = TRUE))
-  #setwd("C:/Users/flyku/Desktop/ad/new/")
-  wd <- "/fs/scratch/PAS1475/ad/input"
-  #B is usually disease object, A is healthy object
-  a_data_id <- "AD00601"
-  b_data_id <- "AD00603"
+  wd <- 'C:/Users/flyku/Desktop/script'
+  #A is usually disease object, B is healthy (control) object
+  a_data_id <- "disease_example"
+  b_data_id <- "control_example"
   
-  # control, early age, female on the left side, A column
-  # disease, late age, male groups are on the right side, B column
 }
-
-#source("C:/Users/flyku/Desktop/ad/code/functions.R")
 
 setwd(wd)
 a_expr_file <- paste0(a_data_id,".rds")
@@ -44,6 +43,10 @@ b_expr_file <- paste0(b_data_id,".rds")
 ####### Load raw files
 a.obj <- readRDS(a_expr_file)
 b.obj <- readRDS(b_expr_file)
+
+# Altough all objects should have already been normalized
+a.obj <- NormalizeData(a.obj)
+b.obj <- NormalizeData(b.obj)
 
 a_total_ct <- length(levels(as.factor(a.obj$predicted.id)))
 b_total_ct <- length(levels(as.factor(b.obj$predicted.id)))
@@ -224,9 +227,8 @@ for(i in 1:b_total_ct){
 }
 
 
-
 ####### Compare A data cell type with B data cell type
-# Compare healthy vs. disease
+# Compare disease vs. control,
 for(i in 1:b_total_ct){
   # this_ct is the cell type name
   this_ct <- levels(as.factor(b.obj$predicted.id))[i]
@@ -236,6 +238,8 @@ for(i in 1:b_total_ct){
     abbr_this_ct <- tolower(substr(this_ct, 1, 3))
   }
   this_out_name <- paste0("de/",a_data_id,"_vs_",b_data_id,"_de_",abbr_this_ct,".csv")
+  
+  # Make sure both datasets have same cell type
   if(!file.exists(this_out_name) && this_ct %in% levels(as.factor(a.obj$predicted.id))) {
     this_a_obj <- subset(a.obj, subset = predicted.id == this_ct)
     this_a_obj[['condition']] <- 1
@@ -244,19 +248,16 @@ for(i in 1:b_total_ct){
     if(ncol(this_a_obj) > 3 && ncol(this_b_obj) > 3) {
       this_combined <- merge(this_a_obj, y = this_b_obj, add.cell.ids = c("a", "b"), project = "combined")
       this_combined <- NormalizeData(this_combined)
-      #expr <- GetAssayData(this_b_obj)
-      #colnames(expr) <-  gsub('([[:punct:]])|\\s+','_',colnames(expr))
-      #this_b_obj <- CreateSeuratObject(expr)
+      
       Idents(this_combined) <- this_combined$condition
       this_markers <- FindMarkers(this_combined, ident.1 = 1, ident.2 = 2, test.use = "MAST", latent.vars = 'condition')
-
+      
       this_markers["cluster"] <- this_ct
       this_markers["gene"] <- rownames(this_markers)
       this_markers["a_data_id"] <- a_data_id
       this_markers["b_data_id"] <- b_data_id
       this_markers["ct"] <- abbr_this_ct
       this_markers["type"] <- "a_vs_b"
-      
       write.csv(this_markers,this_out_name, row.names = F,quote = F)
     }
   }

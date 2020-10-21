@@ -1,5 +1,5 @@
 # Goal
-# This document aims to filter out control-likecells in disease stage dataset 
+# This document aims to filter out control-like cells in disease stage dataset 
 
 # Why use Harmony for integration? 
 # 1. Fast and best performances among 14 tools: A benchmark of batch-effect correction methods for single-cell RNA sequencing data
@@ -37,21 +37,20 @@ args <- commandArgs(TRUE)
 wd <- args[1] # working directory
 control_filename <- args[2] # rds seurat object
 disease_filename <- args[3] # raw filename
-disease_data_id <- args[4] # 
+disease_data_id <- args[4] # disease data ID
 
 load_test_data <- function(){
-  # This function is used for testing
+  # This function is used for testing, set wd to your working directory
   rm(list = ls(all = TRUE))
-  #setwd("C:/Users/flyku/Desktop/script")
-  wd <- "/fs/scratch/PAS1475/ad/input"
-  control_filename <- "AD01001.rds"
-  disease_filename <- "M-AD-subventricular_zone_and_hippocampus-Female-7m_001.fst"
-  disease_data_id <- "AD01003"
+  wd <- 'C:/Users/flyku/Desktop/script'
+  control_filename <- "control_example.rds"
+  disease_filename <- "example_disease.fst"
+  disease_data_id <- "disease_example"
 }
-current_working_dir <- ""
+
 
 setwd(wd)
-source("/fs/scratch/PAS1475/ad/code/functions.R")
+source("functions.R")
 
 ####### Load raw files
 health.obj <- read_rds(control_filename)
@@ -71,6 +70,7 @@ get_rowname_type <- function (l, db){
 
 disease_gene_type <- get_rowname_type(disease_matrix$X1, org.Mm.eg.db)[1]
 
+# Detect gene ID type, most dataset use gene symbols, in case some dataset use Ensembl IDs
 if(disease_gene_type == "ENSEMBL") {
   all_match <- bitr(disease_matrix$X1, fromType="ENSEMBL", toType="SYMBOL", OrgDb="org.Mm.eg.db")
   expFile <- merge(disease_matrix,all_match,by.x=1,by.y=1)
@@ -85,7 +85,7 @@ if(disease_gene_type == "ENSEMBL") {
   disease.obj <- CreateSeuratObject(disease_matrix, project = "all", min.cells = 5)
 }
 
-
+# Preview control object cell types
 #Idents(health.obj) <- health.obj$predicted.id
 #Plot.cluster2D(health.obj,reduction.method = "umap",pt_size = 0.1, txt = "Predicted.id")
 
@@ -108,14 +108,13 @@ all.obj <- FindClusters(all.obj, resolution = 4)
 #p2 <- VlnPlot(object = all.obj, features = "PC_1", group.by = "group", pt.size = .1)
 #plot_grid(p1,p2)
 
-
 ####### Preview after integration
 #options(repr.plot.height = 5, repr.plot.width = 12)
 #p1 <- DimPlot(object = all.obj, reduction = "harmony", pt.size = .1, group.by = "group")
 #p2 <- VlnPlot(object = all.obj, features = "harmony_1", group.by = "group", pt.size = .1)
 #plot_grid(p1,p2)
 
-####### Identify control atlas, control-like, disease like cells
+####### Identify control atlas, control-like cells, and disease like cells (hypergeometric test)
 clusters <- as.data.frame(all.obj$seurat_clusters)
 clusters <- rownames_to_column(clusters, "cell")
 colnames(clusters) <- c("cell","cluster")
@@ -170,19 +169,47 @@ all.obj <- AddMetaData(all.obj,combine_group_pathlogy, col.name = "combine_group
 
 ####### Annotate control-like, disease-like cells
 associate_cells <- combine_group_pathlogy
-levels(associate_cells) <- c("disease-like cells","control cells atlas","control-like cells","control cells atlas")
+
+#In most cases the cells split to these four groups:
+#levels(associate_cells) <- c("control cells atlas","control cells atlas","control-like cells","control cells atlas")
+
+# Sometimes the output don't have four levels, i.e, no cells are control-like, thus we need to iterate every case
+new_levels <- vector()
+for (i in levels(associate_cells)) {
+  this_level <- ''
+  if(i == "control_cluster control") {
+    this_level <- "control cells atlas"
+    new_levels <- append(new_levels, this_level)
+    
+  } else if (i == "control_cluster disease") {
+    this_level <- "control-like cells"
+    new_levels <- append(new_levels, this_level)
+    
+  } else if (i == "disease_cluster control") {
+    this_level <- "control cells atlas"
+    new_levels <- append(new_levels, this_level)
+    
+  } else if (i == "disease_cluster disease") {
+    this_level <- "disease-like cells"
+    new_levels <- append(new_levels, this_level)
+    
+  }
+}
+
+levels(associate_cells) <- new_levels
+
 all.obj <- AddMetaData(all.obj,associate_cells, col.name = "associate_cells")
 
 #Idents(all.obj) <- all.obj$group
 #Plot.cluster2D(all.obj,reduction.method = "umap",pt_size = 0.1, txt = "orig.ident")
-
+#
 ####### Visualize disease-like cells
 #Idents(all.obj) <- all.obj$cell_type
 #p1 <- Plot.cluster2D(all.obj,reduction.method = "umap",pt_size = 0.1, txt = "Provided cell type")
 #
 #Idents(all.obj) <- all.obj$seurat_clusters
 #p2 <- Plot.cluster2D(all.obj,reduction.method = "umap",pt_size = 0.1, txt = "Seurat cluster")
-
+#
 #
 #Idents(all.obj) <- all.obj$healhy_cells_percent
 #p3 <- Plot.cluster2D(all.obj,reduction.method = "umap",pt_size = 0.1, txt = "control cells percentage-pvalue")
@@ -196,7 +223,7 @@ all.obj <- AddMetaData(all.obj,associate_cells, col.name = "associate_cells")
 #
 #Idents(all.obj) <- all.obj$associate_cells
 #Plot.cluster2D(all.obj,reduction.method = "umap",pt_size = 0.1, txt = "Associated cells")
-#
+
 
 Idents(all.obj) <- all.obj$associate_cells
 dstage.obj <- subset(all.obj,subset = associate_cells == "disease-like cells")
@@ -211,13 +238,17 @@ dstage.obj <- RunUMAP(dstage.obj, reduction = "pca", dims = 1:25)
 #gc()
 ## FindTransferAnchors: We recommend using PCA when reference and query datasets are from scRNA-seq
 transfer.anchors <- FindTransferAnchors(reference = health.obj, query = dstage.obj, features = VariableFeatures(object = health.obj), reduction = "pcaproject",verbose = TRUE)
-#transfer.anchors <- FindTransferAnchors(reference = health.obj, query = dstage.obj, features = VariableFeatures(object = health.obj), reduction = "cca",verbose = TRUE)
 
 if(nrow(transfer.anchors@anchors) > 30) {
   celltype.predictions <- TransferData(anchorset = transfer.anchors, refdata = health.obj$predicted.id, weight.reduction = dstage.obj[["pca"]],l2.norm = FALSE,dims = 1:25, k.weight = 30)
 } else{
   celltype.predictions <- TransferData(anchorset = transfer.anchors, refdata = health.obj$predicted.id, weight.reduction = dstage.obj[["pca"]],l2.norm = FALSE,dims = 1:25, k.weight = (nrow(transfer.anchors@anchors)-1))
 }
+
+#celltype.predictions <- as.factor(dstage.obj$orig.ident)
+#levels(celltype.predictions) <- 'Excitatory neurons'
+#dstage.obj <- AddMetaData(dstage.obj, metadata = celltype.predictions, col.name = 'predicted.id')
+
 dstage.obj <- AddMetaData(dstage.obj, metadata = celltype.predictions)
 
 ####### Visualize LSI predicted cell types (works for Mathy's data)
@@ -240,13 +271,16 @@ png(paste(disease_data_id,"_transfer_umap.png",sep = ""),width=4000, height=2000
 plot_grid(p1,p2)
 dev.off()
 
+# Save Seurat object
 Idents(dstage.obj) <- dstage.obj$predicted.id
 saveRDS(dstage.obj, paste0(disease_data_id,".rds"))
 
-exp_data <- GetAssayData(object = dstage.obj,slot = "data")
+# Save raw counts rather than normalized values
+exp_data <- GetAssayData(object = dstage.obj,slot = "counts")
 
 write.table(data.frame("Gene"=rownames(exp_data),exp_data,check.names = F),paste(disease_data_id,"_expr.txt",sep = ""), row.names = F,sep="\t",quote=FALSE)
 
+# Save cell type labels
 cell_info <- dstage.obj$predicted.id
 cell_label <- cbind(colnames(dstage.obj),as.character(cell_info))
 colnames(cell_label) <- c("cell_name","label")
@@ -254,16 +288,6 @@ cell_label <- cell_label[order(cell_label[,1]),]
 write.table(cell_label,paste(disease_data_id,"_cell_label.txt",sep = ""),quote = F,row.names = F,sep = "\t")
 
 
-####### Export data to txt format
-
-#exp_data <- GetAssayData(object = dstage.obj,slot = "data")
-#write.table(data.frame("Gene"=rownames(exp_data),exp_data,check.names = F),paste(out_name,"_expr.txt",sep = ""), row.names = F,sep="\t",quote=FALSE)
-#
-#cell_info <- dstage.obj$predicted.id
-#cell_label <- cbind(colnames(exp_data),cell_info)
-#colnames(cell_label) <- c("cell_name","label")
-#cell_label <- cell_label[order(cell_label[,1]),]
-#write.table(cell_label,paste(out_name,"_label.txt",sep = ""),quote = F,row.names = F,sep = "\t")
-
 # Session Infomation
 #sessionInfo()
+

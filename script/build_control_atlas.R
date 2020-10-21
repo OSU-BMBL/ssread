@@ -1,5 +1,5 @@
 # Goal
-# This document aims to build healthy cells atlas Seurat object from count matrix file, 
+# This document aims to build control (healthy) cells atlas Seurat object from count matrix file, 
 options(check.names=FALSE)
 options(future.globals.maxSize = 8000 * 1024^2)
 suppressPackageStartupMessages(library(fst))
@@ -26,19 +26,19 @@ expr_file <- args[2] # raw user filename
 data_id <- args[3] # unique data id
 
 load_test_data <- function(){
-  # This function is used for testing
+  # This function is used for testing, set wd to your working directory
   rm(list = ls(all = TRUE))
-  wd <- "/fs/scratch/PAS1475/ad/input"
-  expr_file = "M-H-subventricular_zone_and_hippocampus-Female-7m_001.fst"
-  data_id <- 'AD01001'
+  wd <- "C:/Users/flyku/Desktop/script"
+  expr_file = "example_control.fst"
+  data_id <- 'control_example'
 }
 
-source("/fs/scratch/PAS1475/ad/code/functions.R")
-signatures  <- preprocess.signatures('/fs/scratch/PAS1475/ad/code/custom_marker.csv')
+setwd(wd)
+source("functions.R")
+signatures  <- preprocess.signatures('custom_marker.csv')
 cell_type_name <- c('Astrocytes', 'Endothelial cells','Excitatory neurons','Inhibitory neurons','Microglia','Oligodendrocytes','Oligodendrocyte precursor cells','Pericytes')
 names(signatures) <- cell_type_name
 
-setwd(wd)
 expr_matrix <- read.fst(expr_file)
 rownames(expr_matrix) <- NULL
 expr_matrix <- column_to_rownames(expr_matrix, var = "X1")
@@ -46,9 +46,9 @@ expr_matrix <- column_to_rownames(expr_matrix, var = "X1")
 health.obj <- CreateSeuratObject(counts = expr_matrix, project = "healthy", min.cells = 3, min.features = 200)
 health.obj <- FindVariableFeatures(health.obj, selection.method = "vst", nfeatures = 2000)
 health.all.genes <- rownames(health.obj)
+health.obj <- NormalizeData(health.obj)
 health.obj <- ScaleData(health.obj, features = health.all.genes)
 health.obj <- RunPCA(health.obj, features = VariableFeatures(object = health.obj))
-
 health.obj <- FindNeighbors(health.obj, dims = 1:25)
 health.obj <- Seurat::RunUMAP(health.obj, dims = 1:25)
 if(ncol(health.obj) < 2000){
@@ -59,6 +59,7 @@ if(ncol(health.obj) < 2000){
   health.obj <- Seurat::FindClusters(health.obj, resolution = 0.8)
 }
 
+# The clustering is used for comparison with cell type predictions results
 Idents(health.obj) <- health.obj$seurat_clusters
 health_markers <- FindAllMarkers(health.obj, return.thresh = 0.05, only.pos = T)
 
@@ -131,11 +132,15 @@ png(paste(data_id,"_umap.png",sep = ""),width=3000, height=1500,res = 300)
 plot_grid(p4)
 dev.off()
 
+# Save Seurat object
 saveRDS(health.obj, file = paste0(data_id,'.rds'))
-exp_data <- GetAssayData(object = health.obj,slot = "data")
+
+# Save raw counts rather than normalized values
+exp_data <- GetAssayData(object = health.obj,slot = "counts")
 
 write.table(data.frame("Gene"=rownames(exp_data),exp_data,check.names = F),paste(data_id,"_expr.txt",sep = ""), row.names = F,sep="\t",quote=FALSE)
 
+# Save cell type labels
 cell_info <- health.obj$predicted.id
 cell_label <- cbind(colnames(health.obj),as.character(cell_info))
 colnames(cell_label) <- c("cell_name","label")
@@ -144,24 +149,4 @@ write.table(cell_label,paste(data_id,"_cell_label.txt",sep = ""),quote = F,row.n
 
 # Session Infomation
 sessionInfo()
-
-################# Visualize results
-
-#Idents(health.obj) <- health.obj$annotate_cell_type
-#p3 <- Plot.cluster2D(health.obj,reduction.method = "umap",pt_size = 0.1, txt = "predicted.id")
-
-#meta_file <- read.fst(label_file)
-#rownames(meta_file) <- NULL
-#meta_file <- column_to_rownames(meta_file, var = "cell")
-#this_meta <- meta_file[colnames(health.obj),]
-#healthy_meta <- meta_file[colnames(health.obj),]
-#
-#sub.obj <- health.obj[,rownames(na.omit(this_meta))]
-#Idents(sub.obj) <- sub.obj$annotate_cell_type
-#pr2 <- Plot.cluster2D(sub.obj,reduction.method = "umap",pt_size = 0.1, txt = "annotate_cell_type")
-#sub.obj <- AddMetaData(sub.obj, as.factor(this_meta[colnames(sub.obj),1]), col.name = 'ref_cell_type')
-#Idents(sub.obj) <- sub.obj$ref_cell_type
-#pr1 <- Plot.cluster2D(sub.obj,reduction.method = "umap",pt_size = 0.1, txt = "reference_cell_type")
-#plot_grid(pr1,pr2)
-
 
