@@ -269,7 +269,9 @@
                   >
                 </td>
                 <td>{{ row.item.avg_logFC }}</td>
-                <td>{{ row.item.p_val_adj }}</td>
+                <td>{{ row.item.pct_1 }}</td>
+                <td>{{ row.item.pct_2 }}</td>
+                <td>{{ row.item.p_val_adj.toExponential(2) }}</td>
               </tr>
             </template>
           </v-data-table>
@@ -574,10 +576,9 @@ export default {
       headers: [
         { text: 'Gene name', value: 'gene' },
         { text: 'Log fold-change', value: 'avg_logFC' },
+        { text: 'Pct.2', value: 'pct_1' },
+        { text: 'Pct.1', value: 'pct_2' },
         { text: 'Adjusted p-value', value: 'p_val_adj' }
-        /* ,
-        { text: 'Cell type', value: 'ct' },
-        { text: 'Comparison type', value: 'type' } */
       ],
       enrichHeaders: [
         { text: 'Index', value: 'index' },
@@ -605,9 +606,9 @@ export default {
           type: 'cell_type_specific'
         },
         {
-          groupText: 'Control vs disease (same region)',
+          groupText: 'Disease vs control (same region)',
           hint:
-            'Compare control with disease dataset in the same species, region, gender and age.',
+            'Compare disease with control  dataset in the same species, region, gender and age.',
           bDataId: 'AD00106',
           type: 'a_vs_b'
         },
@@ -729,7 +730,7 @@ export default {
     },
     deErrorMsg() {
       if (
-        this.groupSelect.groupText === 'Control vs disease (same region)' &&
+        this.groupSelect.groupText === 'Disease vs control (same region)' &&
         !this.comparisonItems.includes(this.comparisonSelect)
       ) {
         return 'Please select comparison group from the left.'
