@@ -57,8 +57,8 @@ export default {
         `M-H-cortex_and_hippocampus-Female-7m_002`,
         `M-H-subventricular_zone_and_hippocampus-Female-7m_001`,
         `M-H-subventricular_zone_and_hippocampus-Female-7m_002`,
-        `H-H-Prefrontal_cortex-Male_BA9`
-        // `H-H-Prefrontal_cortex-Female_BA9`
+        `H-H-Prefrontal_cortex-Male_BA9`,
+        `H-H-Prefrontal_cortex-Female_BA9`
       ],
       atlasId: [
         `AD00101`,
@@ -80,8 +80,8 @@ export default {
         `AD00902`,
         `AD01001`,
         `AD01002`,
-        `AD01101`
-        // `AD01102`
+        `AD01101`,
+        `AD01102`
       ]
     }
   },
