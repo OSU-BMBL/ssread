@@ -611,8 +611,8 @@ export default {
       headers: [
         { text: 'Gene name', value: 'gene' },
         { text: 'Log fold-change', value: 'avg_logFC' },
-        { text: 'Pct.2', value: 'pct_1' },
-        { text: 'Pct.1', value: 'pct_2' },
+        { text: 'Pct.1', value: 'pct_1' },
+        { text: 'Pct.2', value: 'pct_2' },
         { text: 'Adjusted p-value', value: 'p_val_adj' }
       ],
       enrichHeaders: [
