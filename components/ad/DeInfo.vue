@@ -2,7 +2,7 @@
   <v-hover v-slot:default="{ hover }" open-delay="0">
     <v-card
       class="mx-auto"
-      :elevation="hover ? 10 : 2"
+      :elevation="hover ? 6 : 2"
       :class="{ 'on-hover': hover }"
     >
       <v-card-title class="primary white--text title-1"
