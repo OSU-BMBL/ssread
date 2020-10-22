@@ -3,8 +3,7 @@
 
 
 # Usage
-----
-The scREAD database includes six parts
+
 
 - Home
   - Pie charts that reflect ratio distribution in 73 datasets for each of the four factors (species, condition, region, and gender)
@@ -29,7 +28,7 @@ The scREAD database includes six parts
 
 
 ## Home page
-----
+
 
 ![Home](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/Home6.jpg)
  
@@ -42,13 +41,13 @@ The scREAD database includes six parts
 7. scREAD will return all differential gene expression results queries for a gene.
 
 ## Example result illustration
--------
+
 We used [AD00103](https://bmbls.bmi.osumc.edu/scread/AD00103) this dataset to showcase, it consists of 6,629 cells comes from the human AD female prefrontal cortex region in [Mathys, et al.](https://pubmed.ncbi.nlm.nih.gov/31042697/) research.
 
 This tutorial will guide you through the analysis result page of scREAD in detail.
 
 ### General information
-----
+
 The general information of this dataset is shown in the first section of the analysis result page. This section includes four parts: Overview, Dataset information, Dataset source, and Datasets from the same experiment.
 
 ![General information](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/General_information2.jpg)
@@ -61,7 +60,7 @@ The general information of this dataset is shown in the first section of the ana
 
 
 ### Cell clustering
-----
+
 Two high-resolution UMAP plots show the predicted cell types and the expression distribution of all genes in this dataset, respectively.
 
 ![Cell clustering](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/Cell_clustering4.jpg)
@@ -76,7 +75,7 @@ Two high-resolution UMAP plots show the predicted cell types and the expression 
 
 
 ### Differential expression (DE) / Gene set enrichment
------
+
 ![DE1](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/DE1022.jpg)
 
 1. DE testing groups for browsing cell type specific genes, subcluster specific genes, and DE genes from the cross-dataset comparison.
@@ -95,10 +94,10 @@ Two high-resolution UMAP plots show the predicted cell types and the expression 
  ![DE2](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/DE3.jpg)
 ![KEGG](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/KEGG.jpg)
 
-11.   GO biological process analysis result of the DEGs. Please see entry 10 to know how to use it. 
-12.   GO molecular function analysis result of the DEGs. Please see entry 10 to know how to use it. 
-13.   GO cellular component analysis result of the DEGs. Please see entry 10 to know how to use it. 
-14.   Cell-type-specific regulon analysis result table of this dataset will appear when users click the inverted triangle, and this result only shows up when they choose the 'Cell type specific genes' in the 'Group' drop-down bar.
+1.    GO biological process analysis result of the DEGs. Please see entry 10 to know how to use it. 
+2.    GO molecular function analysis result of the DEGs. Please see entry 10 to know how to use it. 
+3.    GO cellular component analysis result of the DEGs. Please see entry 10 to know how to use it. 
+4.    Cell-type-specific regulon analysis result table of this dataset will appear when users click the inverted triangle, and this result only shows up when they choose the 'Cell type specific genes' in the 'Group' drop-down bar.
  ![DE3](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/DE4.png)
     This is the cell-type-specific regulon result table for each cell type, and this table can be downloaded when you click the 'Download' button.
   
@@ -108,7 +107,7 @@ Two high-resolution UMAP plots show the predicted cell types and the expression 
 
 
 ## Browse control atlas page
-----
+
 The 'Browse control atlas' page contains all the 23 control atlases that were stored in the scREAD based on different brain regions for different species and different mice ages.
 
 ![Healthy atlas](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/B1.jpg)
@@ -116,7 +115,7 @@ The 'Browse control atlas' page contains all the 23 control atlases that were st
 These are 23 control atlases entries. The default pattern is all the UMAP of control atlases are folded, however, users can click the reverses triangle to unfold the UMAP of each control atlas. The top five control and bottom five atlases are human control atlases, and the rest control atlases are mouse control atlases. 
 
 ## Submit page
--------
+
 The submission of a new entry is welcome, and it can be done on the “submit” page. One scRNA-Seq file of AD disease should be uploaded, and one scRNA-Seq file of control can be uploaded or not.
 
 ![Submit](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/submit3.jpg)
@@ -139,7 +138,7 @@ Note: The format of your uploaded file should be a text format.
 
 
 ## Download page
------
+
 Not all the datasets in scREAD are available to download for users.  On the “Download” page, datasets that downloaded from the GEO database are available to download, but datasets downloaded from Synapse are not available to download.
 
 ![Download](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/Download1.jpg)
