@@ -635,7 +635,7 @@ export default {
       subclusterSelect: '',
       comparisonSelect: {},
       lfc_slider: 0.05,
-      lfc_range: 1,
+      lfc_range: 0.5,
       p_slider: 0.001,
       p_range: '6',
       ticksLabels: [
@@ -654,6 +654,7 @@ export default {
       mfResult: [],
       ccResult: [],
       noRegulonJob: [
+        '20201021225212',
         '20200615211954',
         '20200615212123',
         '20200615213156',
@@ -698,7 +699,12 @@ export default {
       }
     },
     subclusterItems() {
-      return [0, 1, 2]
+      return this.ct
+        .filter(
+          (item) =>
+            item.cell_type === this.cellTypeSelect && item.subcluster !== 'all'
+        )
+        .map((item) => item.subcluster)
     },
     comparisonItems() {
       return this.de_meta.filter(
@@ -747,7 +753,12 @@ export default {
         return 'Please select comparison group from the left.'
       } else if (
         this.groupSelect.groupText === 'Subcluster specific genes' &&
-        !this.comparisonItems.includes(this.comparisonSelect)
+        this.subclusterItems.length < 2
+      ) {
+        return 'Not enough subclusters in this cell type, DE results not available.'
+      } else if (
+        this.groupSelect.groupText === 'Subcluster specific genes' &&
+        !this.subclusterSelect
       ) {
         return 'Please select comparison group from the left.'
       }
@@ -777,7 +788,10 @@ export default {
   },
   methods: {
     async sendKegg(genes) {
-      const geneSetLibrary = 'KEGG_2019_Human'
+      let geneSetLibrary = 'KEGG_2019_Human'
+      if (this.dataset[0].species === 'Mouse') {
+        geneSetLibrary = 'KEGG_2019_Mouse'
+      }
       const formData = new FormData()
       formData.append('method', 'post')
       formData.append('name', 'list')
@@ -799,16 +813,30 @@ export default {
         .then(function(response) {
           return response.data
         })
-      this.keggResult = enrichrResult.KEGG_2019_Human.map((value) => ({
-        index: value[0],
-        name: value[1],
-        pvalue: value[2],
-        odd: value[3].toFixed(2),
-        score: value[4].toFixed(2),
-        genes: value[5],
-        adjPvalue: value[6].toExponential(4),
-        key8: value[7]
-      }))
+      if (this.dataset[0].species === 'Human') {
+        this.keggResult = enrichrResult.KEGG_2019_Human.map((value) => ({
+          index: value[0],
+          name: value[1],
+          pvalue: value[2],
+          odd: value[3].toFixed(2),
+          score: value[4].toFixed(2),
+          genes: value[5],
+          adjPvalue: value[6].toExponential(4),
+          key8: value[7]
+        }))
+      } else {
+        this.keggResult = enrichrResult.KEGG_2019_Mouse.map((value) => ({
+          index: value[0],
+          name: value[1],
+          pvalue: value[2],
+          odd: value[3].toFixed(2),
+          score: value[4].toFixed(2),
+          genes: value[5],
+          adjPvalue: value[6].toExponential(4),
+          key8: value[7]
+        }))
+      }
+
       return enrichrResult
     },
     async sendBp(genes) {
@@ -941,8 +969,8 @@ export default {
         }
       } else if (this.comparisonItems.includes(this.comparisonSelect)) {
         const params = {
-          aDataId: this.comparisonSelect.data_id,
-          bDataId: this.comparisonSelect.b_data_id,
+          bDataId: this.comparisonSelect.data_id,
+          aDataId: this.comparisonSelect.b_data_id,
           type: this.groupSelect.type,
           ct: this.cellTypeSelect
         }
