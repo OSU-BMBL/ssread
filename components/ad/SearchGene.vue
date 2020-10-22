@@ -194,8 +194,32 @@
                     dark
                     @click="resetFilter"
                     >RESET FILTER</v-btn
-                  ></v-card-actions
-                ></v-card-text
+                  >
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                        >mdi-help-circle-outline</v-icon
+                      >
+                    </template>
+                    <p>
+                      Log fold-change : log fold-chage of the average expression
+                      between the two groups. Positive values indicate that the
+                      feature is more highly expressed in the first group.
+                    </p>
+                    <p>
+                      Pct.1 : The percentage of cells where the feature is
+                      detected in the first group
+                    </p>
+                    <p>
+                      Pct.2 : The percentage of cells where the feature is
+                      detected in the second group
+                    </p>
+                    <p>
+                      Adjusted p-value : Adjusted p-value, based on bonferroni
+                      correction using all features in the dataset.
+                    </p>
+                  </v-tooltip>
+                </v-card-actions></v-card-text
               >
               <v-data-table
                 dense
