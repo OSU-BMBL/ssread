@@ -8,7 +8,9 @@
       <v-card-text>
         <v-row>
           <v-col xs="12" md="12" lg="12">
-            <p class="headline">Search differentially expressed genes</p>
+            <p class="headline">
+              Search differentially expressed genes
+            </p>
             <v-row>
               <v-col cols="3"
                 ><v-text-field
@@ -254,12 +256,12 @@ export default {
         { text: 'Pct.2', value: 'pct_2' },
         { text: 'Cell type', value: 'ct' },
         { text: 'Cluster', value: 'cluster' },
-        { text: 'Species', value: 'species' },
-        { text: 'Region', value: 'region' },
-        { text: 'Gender', value: 'gender' },
-        { text: 'Condition', value: 'condition' },
+        { text: 'Species', value: 'b_species' },
+        { text: 'Region', value: 'b_region' },
+        { text: 'Gender', value: 'b_gender' },
+        { text: 'Condition', value: 'b_condition' },
         { text: 'Comparison', value: 'description' },
-        { text: 'Compared Data ', value: 'value' }
+        { text: 'Description', value: 'desc' }
       ],
       searchDefault: {
         species: ['Human', 'Mouse'],
@@ -338,24 +340,33 @@ export default {
     filterResults() {
       const res = this.results.rows
         .map((row) => {
-          const thisData = this.dataset.filter(
-            (element) => element.data_id === row.a_data_id
-          )[0]
-
           const thisDeMeta = this.deMeta.filter(
             (meta) =>
               meta.data_id === row.b_data_id && meta.b_data_id === row.a_data_id
           )[0]
           const desc = _.pick(thisDeMeta, ['description', 'hint', 'value'])
-          const datasetInfo = _.pick(thisData, [
-            'species',
-            'condition',
-            'region',
-            'gender'
-          ])
+
+          const aInfo = this.dataset
+            .filter((element) => element.data_id === row.a_data_id)
+            .map(({ species, condition, region, gender }) => ({
+              a_species: species,
+              a_condition: condition,
+              a_region: region,
+              a_gender: gender
+            }))[0]
+          const bInfo = this.dataset
+            .filter((element) => element.data_id === row.b_data_id)
+            .map(({ species, condition, region, gender }) => ({
+              b_species: species,
+              b_condition: condition,
+              b_region: region,
+              b_gender: gender
+            }))[0]
+          // console.log(aInfo)
           return {
             ...row,
-            ...datasetInfo,
+            ...aInfo,
+            ...bInfo,
             ...desc
           }
         })
@@ -397,21 +408,21 @@ export default {
         })
         .filter((row) => {
           for (const species of this.searchDefault.species) {
-            if (species === row.species) {
+            if (species === row.b_species) {
               return true
             }
           }
         })
         .filter((row) => {
           for (const region of this.searchDefault.region) {
-            if (region === row.region) {
+            if (region === row.b_region) {
               return true
             }
           }
         })
         .filter((row) => {
           for (const gender of this.searchDefault.gender) {
-            if (gender === row.gender) {
+            if (gender === row.b_gender) {
               return true
             }
           }
@@ -442,12 +453,26 @@ export default {
         })
         .filter((row) => {
           for (const condition of this.searchDefault.condition) {
-            if (condition === row.condition) {
+            if (condition === row.b_condition) {
               return true
             }
           }
         })
-
+        .map((row) =>
+          // Custom description example: AD00101(Male, Disease) vs  AD00103(Male, control)
+          {
+            if (row.type === 'subcluster') {
+              row.desc = `${row.a_data_id} ${row.ct} (subcluster ${row.cluster} vs other subclusters) `
+            }
+            if (row.type === 'cell_type_specific') {
+              row.desc = `${row.a_data_id}(${row.ct} vs others)`
+            }
+            if (row.type === 'a_vs_b') {
+              row.desc = `${row.a_data_id}(${row.a_gender},${row.a_condition},${row.a_region}) vs ${row.b_data_id}(${row.b_gender},${row.b_condition},${row.b_region}) `
+            }
+            return row
+          }
+        )
       return res
     },
     displayResetFilter() {
