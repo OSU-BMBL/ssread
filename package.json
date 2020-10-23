@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.2",
+    "@nuxtjs/google-gtag": "^1.0.4",
     "@nuxtjs/markdownit": "^1.2.10",
     "@statnett/vue-plotly": "^0.3.2",
     "@vue/reactivity": "^3.0.0",

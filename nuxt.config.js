@@ -59,8 +59,13 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/markdownit'
+    '@nuxtjs/markdownit',
+    '@nuxtjs/google-gtag'
   ],
+  'google-gtag': {
+    id: 'G-JV49C34BHG',
+    debug: true
+  },
   markdownit: {
     preset: 'default',
     linkify: true,
@@ -115,6 +120,7 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
+
   axios: {},
   /*
    ** Build configuration
@@ -123,9 +129,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-
-    transpile: ['vue-instantsearch', 'instantsearch.js/es'],
-    extend(config, ctx) {}
   }
 
   /*
