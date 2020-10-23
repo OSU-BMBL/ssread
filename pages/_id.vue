@@ -107,9 +107,12 @@ export default {
       title: 'Details',
       meta: [
         {
-          hid: 'description',
-          name: 'description',
-          content: 'What you need to know about motif #'
+          hid: 'scREAD details page',
+          name: 'scREAD details page',
+          content: `scREAD details page, cell type specific regulon, Alzheimers disease, Differential expression and Gene set enrichment analysis,
+            control atlases from different brain regions of human and mouse species,
+            Interactive UMAP plot for cell types, subclusters, and specific gene expression,
+             AD scRNA-Seq, snRNA-Seq datasets, single-cell RNA-seq, single-nucleus RNA-seq`
         }
       ]
     }

@@ -94,8 +94,12 @@ export default {
       title: 'Downloads',
       meta: [
         {
-          name: 'Downloads',
-          content: 'Download dataset from scREAD.'
+          hid: 'scREAD download',
+          name: 'scREAD download',
+          content: `Download Alzheimers disease analysis workflow pipeline, Differential expression and Gene set enrichment analysis,
+            control atlases from different brain regions of human and mouse species,
+            Interactive UMAP plot for cell types, subclusters, and specific gene expression,
+            AD scRNA-Seq, snRNA-Seq datasets, single-cell RNA-seq, single-nucleus RNA-seq`
         }
       ]
     }

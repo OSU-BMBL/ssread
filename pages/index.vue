@@ -614,13 +614,15 @@ export default {
   },
   head() {
     return {
-      title: 'Home',
+      title: 'Details',
       meta: [
         {
-          hid: 'description',
-          name: 'description',
-          content:
-            'scREAD (single-cell RNA-Seq database for Alzheimer’s Disease), as far as we know, is the first database dedicated to the management of all existing scRNA-Seq and single-nucleus RNA-sequencing (snRNA-Seq) datasets from human postmortem brain tissue with AD and mouse models with AD pathology. What you need to know'
+          hid: 'scREAD details page',
+          name: 'scREAD details page',
+          content: `Details Alzheimers disease dataset database analysis workflow pipeline, Differential expression and Gene set enrichment analysis,
+            control atlases from different brain regions of human and mouse species,
+            Interactive UMAP plot for cell types, subclusters, and specific gene expression,
+            AD scRNA-Seq, snRNA-Seq datasets, single-cell RNA-seq, single-nucleus RNA-seq`
         }
       ]
     }

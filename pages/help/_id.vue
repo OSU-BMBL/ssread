@@ -7,14 +7,14 @@
       <v-card class="mx-auto overflow-hidden"> </v-card>
       <div v-html="post"></div>
       <toc :content="navContent"></toc>
-      <client-only placeholder="Loading...">
+      <no-ssr placeholder="Loading...">
         <div v-show="dataId === 'contact'" style="width:100%;">
           <a href="https://clustrmaps.com/site/1ba7j" title="Visit tracker"
             ><img
               src="//www.clustrmaps.com/map_v2.png?d=lo_dyJKzzEyHLmqSLO7k38JNTEzZg7BQaNQuc3EyqgM&cl=ffffff"
           /></a>
         </div>
-      </client-only>
+      </no-ssr>
       <Fab></Fab>
     </v-container>
   </v-responsive>
@@ -103,8 +103,12 @@ export default {
       ],
       meta: [
         {
-          name: 'name',
-          content: 'content'
+          hid: 'scREAD help',
+          name: 'scREAD help',
+          content: `Download Alzheimers disease dataset database analysis workflow pipeline, Differential expression and Gene set enrichment analysis,
+            control atlases from different brain regions of human and mouse species,
+            Interactive UMAP plot for cell types, subclusters, and specific gene expression,
+            AD scRNA-Seq, snRNA-Seq datasets, single-cell RNA-seq, single-nucleus RNA-seq`
         }
       ]
     }
