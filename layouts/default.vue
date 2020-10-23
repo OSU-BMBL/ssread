@@ -67,11 +67,11 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-content>
+    <v-main>
       <v-container class="px-6" fluid>
         <nuxt />
       </v-container>
-    </v-content>
+    </v-main>
 
     <v-footer
       app
