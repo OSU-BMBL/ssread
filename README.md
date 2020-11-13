@@ -6,6 +6,10 @@ This repository serves as the front end part of scREAD, it also contains scREAD 
 
 If you have any questions, suggestions, or found a new AD paper generated scRNA-seq datasets, please let us know through [google form](https://docs.google.com/forms/d/e/1FAIpQLSereTkpOfJ4LJLe9Ke5dZq78SnX3D7qXjQWY0ofDut0kIfDPg/viewform), or email: [qin.ma@osumc.edu](qin.ma@osumc.edu).
 
+## Citation
+
+Jiang, Jing, Cankun Wang, Ren Qi, Hongjun Fu, and Qin Ma. “ScREAD: A Single-Cell RNA-Seq Database for Alzheimer’s Disease.” IScience 23, no. 11 (November 20, 2020): 101769. https://doi.org/10.1016/j.isci.2020.101769.
+
 
 ## How to run scREAD backend workflow locally
 
