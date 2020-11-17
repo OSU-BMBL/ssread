@@ -130,6 +130,11 @@ export default {
               icon: 'mdi-account-box',
               text: 'Contact us',
               url: '/help/contact'
+            },
+            {
+              icon: 'mdi-newspaper',
+              text: 'News',
+              url: '/help/news'
             }
           ]
         },
