@@ -65,6 +65,38 @@
           </v-list-group>
         </template>
       </v-list>
+
+      <template v-slot:append>
+        <v-card class="grey lighten-4 my-0 ">
+          <v-card-title class="subtitle-1 black--text font-weight-bold"
+            >Cite Us</v-card-title
+          >
+          <v-card-text
+            >Jiang, Jing, Cankun Wang, Ren Qi, Hongjun Fu, and Qin Ma. “ScREAD:
+            A Single-Cell RNA-Seq Database for Alzheimer’s Disease.” IScience
+            23, no. 11 (November 20, 2020): 101769.
+            <a
+              class="text-decoration-none"
+              href="https://doi.org/10.1016/j.isci.2020.101769"
+              >https://doi.org/10.1016/j.isci.2020.101769</a
+            >
+          </v-card-text>
+        </v-card>
+        <client-only>
+          <v-card class="grey lighten-4 my-0">
+            <v-card-title class="subtitle-1 black--text font-weight-bold"
+              >Visitors</v-card-title
+            >
+            <v-card-text
+              ><script
+                type="text/javascript"
+                id="clustrmaps"
+                src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=a&t=n&d=lo_dyJKzzEyHLmqSLO7k38JNTEzZg7BQaNQuc3EyqgM"
+              ></script>
+            </v-card-text>
+          </v-card>
+        </client-only>
+      </template>
     </v-navigation-drawer>
 
     <v-main>
