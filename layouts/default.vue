@@ -88,11 +88,11 @@
               >Visitors</v-card-title
             >
             <v-card-text
-              ><script
-                type="text/javascript"
-                id="clustrmaps"
-                src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=a&t=n&d=lo_dyJKzzEyHLmqSLO7k38JNTEzZg7BQaNQuc3EyqgM"
-              ></script>
+              ><a href="https://clustrmaps.com/site/1ba7j" title="Visit tracker"
+                ><img
+                  width="100%"
+                  src="//clustrmaps.com/map_v2.png?cl=ffffff&w=600&t=n&d=lo_dyJKzzEyHLmqSLO7k38JNTEzZg7BQaNQuc3EyqgM"
+              /></a>
             </v-card-text>
           </v-card>
         </client-only>
