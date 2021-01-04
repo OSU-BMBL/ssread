@@ -1,9 +1,17 @@
-# SCRIPT
+# Important update
 
+We have created a new repository for all code tutorials, please use the new GitHub link below for full tutorials, including: 
+1. Calculating overlapping DEGs from the same cell type across datasets
+2. Running scREAD backend analysis workflow locally
+
+https://github.com/OSU-BMBL/scread-protocol 
+
+
+# Archived version
 
 ## How to run scREAD backend workflow locally
 
-The workflow in R can be found in https://github.com/OSU-BMBL/scread/tree/master/script, the folder contains the following files:
+The workflow in R can be found in https://github.com/OSU-BMBL/scread-protocol/tree/master/workflow, the folder contains the following files:
 1.	custom_marker.csv. A manually created marker gene list file used for identified cell types.
 2.	functions.R. Visualization functions used in R.
 3.	build_control_atlas.R: build control cells atlas Seurat object from count matrix file.
@@ -12,11 +20,11 @@ The workflow in R can be found in https://github.com/OSU-BMBL/scread/tree/master
 
 ### Build control atlas 
 1.	Goal: Build the control atlas file from raw gene expression matrix.
-2.	Prepare your control gene expression data in fst format (https://www.fstpackage.org/), we used fst package to store raw data in scREAD since it provides a fast, easy and flexible way to serialize data frames. In the data frame, the first column should be gene symbols, and other columns as cell labels. Put all code and data in a working directory. (e.g PATH_TO_WD), in this tutorial, we will run example_control.fst.
+2.	Prepare your control gene expression data in csv format In the data frame, the first column should be gene symbols, and other columns as cell labels. Put all code and data in a working directory. (e.g PATH_TO_WD), in this tutorial, we will run example_control.csv.
 3.	build_control_atlas.R takes three parameters: 1. Working directory path; 2. Control data path. 3. Output data ID
 ```{R}
 cd PATH_TO_WD  
-Rscript build_control_atlas.R PATH_TO_WD example_control.fst control_example 
+Rscript build_control_atlas.R PATH_TO_WD example_control.csv control_example 
 ```
 
 4.	The output should contain four files:
@@ -33,7 +41,7 @@ Rscript build_control_atlas.R PATH_TO_WD example_control.fst control_example
 
 ```{r}
 cd PATH_TO_WD  
-Rscript transfer_cell_type.R PATH_TO_WD control_example.rds example_disease.fst disease_example 
+Rscript transfer_cell_type.R PATH_TO_WD control_example.rds example_disease.csv disease_example 
 ```
 4.	The output should contain four files:
 -	disease_example.rds. The Seurat R object storing example disease data.
