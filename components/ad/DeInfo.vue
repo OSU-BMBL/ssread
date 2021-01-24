@@ -287,6 +287,9 @@
                     correction using all features in the dataset.
                   </p>
                 </v-tooltip>
+                <v-btn color="primary" @click="copyGenes(genes)"
+                  >Copy DEG</v-btn
+                >
                 <v-spacer></v-spacer>
               </v-toolbar>
             </template>
@@ -319,6 +322,25 @@
             >KEGG pathway
           </v-expansion-panel-header>
           <v-expansion-panel-content>
+            <p>
+              Note: The functional gene set analysis results are calculated in
+              real-time by sending the DEGs to the
+              <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
+                Enrichr</a
+              >.
+            </p>
+            <p>
+              Enrichr does not allow uploading custom background gene sets, and
+              the results could be potentially misleading (<a
+                href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0761-7"
+                target="_blank"
+                >Timmons et al.,2015</a
+              >). Please click "COPY DEG" and use
+              <a href="https://biit.cs.ut.ee/gprofiler/" target="_blank">
+                g:Profier</a
+              >
+              if you would like to upload a custom background set.
+            </p>
             <v-text-field
               v-model="keggSearch"
               prepend-icon="mdi-magnify"
@@ -339,7 +361,7 @@
             >
               <template v-slot:top>
                 <v-toolbar flat>
-                  <v-toolbar-title>
+                  <v-toolbar-title class="d-flex align-start">
                     <download-excel :data="keggResult" type="csv">
                       <v-btn color="primary"> Download</v-btn
                       ><v-tooltip top>
@@ -353,8 +375,10 @@
                           above. The results are calculated real-time using
                           Enrichr.</span
                         >
-                      </v-tooltip>
-                    </download-excel></v-toolbar-title
+                      </v-tooltip> </download-excel
+                    ><v-btn color="primary" @click="copyGenes(genes)"
+                      >Copy DEG</v-btn
+                    ></v-toolbar-title
                   >
                   <v-spacer></v-spacer>
                 </v-toolbar>
@@ -372,7 +396,27 @@
           <v-expansion-panel-header @click="submitEnrichr('bp')"
             >GO: Biological Process</v-expansion-panel-header
           >
+
           <v-expansion-panel-content>
+            <p>
+              Note: The functional gene set analysis results are calculated in
+              real-time by sending the DEGs to the
+              <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
+                Enrichr</a
+              >.
+            </p>
+            <p>
+              Enrichr does not allow uploading custom background gene sets, and
+              the results could be potentially misleading (<a
+                href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0761-7"
+                target="_blank"
+                >Timmons et al.,2015</a
+              >). Please click "COPY DEG" and use
+              <a href="https://biit.cs.ut.ee/gprofiler/" target="_blank">
+                g:Profier</a
+              >
+              if you would like to upload a custom background set.
+            </p>
             <v-text-field
               v-model="bpSearch"
               prepend-icon="mdi-magnify"
@@ -380,6 +424,7 @@
               single-line
               hide-details
             ></v-text-field>
+
             <v-data-table
               dense
               :search="bpSearch"
@@ -393,22 +438,25 @@
             >
               <template v-slot:top>
                 <v-toolbar flat>
-                  <v-toolbar-title
-                    ><download-excel :data="bpResult" type="csv">
-                      <v-btn color="primary"> Download</v-btn
-                      ><v-tooltip top>
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                            >mdi-help-circle-outline</v-icon
-                          >
-                        </template>
-                        <span
-                          >GO: Biological Process enrichment analysis using the
-                          DE genes above. The results are calculated real-time
-                          using Enrichr.</span
+                  <v-toolbar-title class="d-flex align-start">
+                    <download-excel :data="bpResult" type="csv">
+                      <v-btn color="primary"> Download</v-btn></download-excel
+                    ><v-tooltip top>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                          >mdi-help-circle-outline</v-icon
                         >
-                      </v-tooltip>
-                    </download-excel>
+                      </template>
+                      <span
+                        >GO: Biological Process enrichment analysis using the DE
+                        genes above. The results are calculated real-time using
+                        Enrichr.</span
+                      >
+                    </v-tooltip>
+
+                    <v-btn color="primary" @click="copyGenes(genes)"
+                      >Copy DEG</v-btn
+                    >
                   </v-toolbar-title>
                   <v-spacer></v-spacer>
                 </v-toolbar>
@@ -427,6 +475,25 @@
             >GO: Molecular Function</v-expansion-panel-header
           >
           <v-expansion-panel-content>
+            <p>
+              Note: The functional gene set analysis results are calculated in
+              real-time by sending the DEGs to the
+              <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
+                Enrichr</a
+              >.
+            </p>
+            <p>
+              Enrichr does not allow uploading custom background gene sets, and
+              the results could be potentially misleading (<a
+                href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0761-7"
+                target="_blank"
+                >Timmons et al.,2015</a
+              >). Please click "COPY DEG" and use
+              <a href="https://biit.cs.ut.ee/gprofiler/" target="_blank">
+                g:Profier</a
+              >
+              if you would like to upload a custom background set.
+            </p>
             <v-text-field
               v-model="mfSearch"
               prepend-icon="mdi-magnify"
@@ -447,7 +514,7 @@
             >
               <template v-slot:top>
                 <v-toolbar flat>
-                  <v-toolbar-title
+                  <v-toolbar-title class="d-flex align-start"
                     ><download-excel :data="mfResult" type="csv">
                       <v-btn color="primary"> Download</v-btn
                       ><v-tooltip top>
@@ -461,8 +528,10 @@
                           DE genes above. The results are calculated real-time
                           using Enrichr.</span
                         >
-                      </v-tooltip>
-                    </download-excel></v-toolbar-title
+                      </v-tooltip> </download-excel
+                    ><v-btn color="primary" @click="copyGenes(genes)"
+                      >Copy DEG</v-btn
+                    ></v-toolbar-title
                   >
                   <v-spacer></v-spacer>
                 </v-toolbar>
@@ -480,6 +549,25 @@
             >GO: Cellular Component</v-expansion-panel-header
           >
           <v-expansion-panel-content>
+            <p>
+              Note: The functional gene set analysis results are calculated in
+              real-time by sending the DEGs to the
+              <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
+                Enrichr</a
+              >.
+            </p>
+            <p>
+              Enrichr does not allow uploading custom background gene sets, and
+              the results could be potentially misleading (<a
+                href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0761-7"
+                target="_blank"
+                >Timmons et al.,2015</a
+              >). Please click "COPY DEG" and use
+              <a href="https://biit.cs.ut.ee/gprofiler/" target="_blank">
+                g:Profier</a
+              >
+              if you would like to upload a custom background set.
+            </p>
             <v-text-field
               v-model="ccSearch"
               prepend-icon="mdi-magnify"
@@ -500,7 +588,7 @@
             >
               <template v-slot:top>
                 <v-toolbar flat>
-                  <v-toolbar-title>
+                  <v-toolbar-title class="d-flex align-start">
                     <download-excel :data="ccResult" type="csv">
                       <v-btn color="primary"> Download</v-btn
                       ><v-tooltip top>
@@ -514,8 +602,10 @@
                           DE genes above. The results are calculated real-time
                           using Enrichr.</span
                         >
-                      </v-tooltip>
-                    </download-excel>
+                      </v-tooltip> </download-excel
+                    ><v-btn color="primary" @click="copyGenes(genes)"
+                      >Copy DEG</v-btn
+                    >
                   </v-toolbar-title>
                   <v-spacer></v-spacer>
                 </v-toolbar>
@@ -1035,6 +1125,13 @@ export default {
             this.sendCc(this.genes)
             break
         }
+      }
+    },
+    async copyGenes(genes) {
+      try {
+        await this.$copyText(genes.join('\n'))
+      } catch (e) {
+        console.error(e)
       }
     }
   }

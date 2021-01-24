@@ -60,8 +60,12 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/markdownit',
-    '@nuxtjs/google-gtag'
+    '@nuxtjs/google-gtag',
+    'nuxt-clipboard'
   ],
+  clipboard: {
+    autoSetContainer: true
+  },
   'google-gtag': {
     id: 'G-JV49C34BHG',
     debug: true

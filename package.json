@@ -26,6 +26,7 @@
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-toc-done-right": "^4.1.0",
     "nuxt": "^2.14.6",
+    "nuxt-clipboard": "0.0.2",
     "nuxt-start": "^2.14.6",
     "plotly.js": "1.54.1",
     "query-string": "^6.13.5",
