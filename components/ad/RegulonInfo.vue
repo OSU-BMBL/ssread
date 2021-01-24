@@ -48,7 +48,8 @@
             <span class="font-weight-bold"
               ><a
                 :href="
-                  'https://bmbl.bmi.osumc.edu/iris3/results.php?jobid=' + jobid
+                  'https://bmbl.bmi.osumc.edu/iris3/results_scread.php?jobid=' +
+                    jobid
                 "
                 target="_blank"
                 style="text-decoration:none;"
