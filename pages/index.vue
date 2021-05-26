@@ -311,7 +311,7 @@ export default {
     } catch (e) {
       error({
         statusCode: 503,
-        message: 'ERROR CODE 503, using async await for single motif'
+        message: 'ERROR CODE 503'
       })
     }
   },
@@ -320,7 +320,7 @@ export default {
     return {
       dialog: false,
       selectDatasetDialog: false,
-      totalStudy: '15',
+      totalStudy: '16',
       computedDialogData: [],
       headers: [
         {

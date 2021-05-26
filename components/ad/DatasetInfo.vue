@@ -132,18 +132,16 @@
           </v-card-title>
           <v-card-text>
             <p class="my-2">
-              <span class="text--secondary"
-                >Number of AD associated cells:
-              </span>
-              <span class="text--primary">{{ dataset[0].n_cell }}</span>
+              <span class="text--secondary">Number of cells from source: </span>
+              <span class="text--primary">{{
+                dataset[0].n_original_cell
+              }}</span>
             </p>
             <p class="my-2">
               <span class="text--secondary"
-                >Number of control-like cells:
+                >Number of cells in scREAD after filtering:
               </span>
-              <span class="text--primary">{{
-                dataset[0].n_original_cell - dataset[0].n_cell
-              }}</span>
+              <span class="text--primary">{{ dataset[0].n_cell }}</span>
             </p>
             <p class="my-2">
               <span class="text--secondary"

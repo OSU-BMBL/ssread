@@ -139,11 +139,6 @@ export default {
           url: '/browse_control_atlas'
         },
         {
-          icon: 'mdi-file-find-outline',
-          text: 'Submit',
-          url: '/submit'
-        },
-        {
           icon: 'mdi-help-box',
           text: 'Help',
           to: '/help',
