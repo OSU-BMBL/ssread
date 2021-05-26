@@ -8,7 +8,9 @@
 - New design to display enriched genes, with links to UniProt and GeneCards databases
 ### Changes
 
-- In dataset information section, changed description of the number of cells 
+- In dataset information section, changed description of the number of cells
+- Temporarily disabled submit section due to server updates 
+
 ### Fixed
 
 - Download link for raw data in fst format
