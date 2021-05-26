@@ -385,7 +385,54 @@
               </template>
               <template v-slot:expanded-item="{ item }">
                 <td :colspan="headers.length">
-                  {{ item.genes.join(',') }}
+                  <v-virtual-scroll
+                    height="425"
+                    item-height="45"
+                    :items="item.genes"
+                  >
+                    <template v-slot:default="{ item }">
+                      <v-list-item :key="item">
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            {{ item }}
+                          </v-list-item-title>
+                        </v-list-item-content>
+
+                        <v-list-item-action>
+                          <v-btn
+                            depressed
+                            small
+                            :href="
+                              'https://www.uniprot.org/uniprot/?query=' + item
+                            "
+                            target="_blank"
+                          >
+                            UniProt
+                            <v-icon color="primary" right>
+                              mdi-open-in-new
+                            </v-icon>
+                          </v-btn>
+                        </v-list-item-action>
+                        <v-list-item-action>
+                          <v-btn
+                            depressed
+                            small
+                            :href="
+                              'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
+                                item
+                            "
+                            target="_blank"
+                          >
+                            GeneCards
+                            <v-icon color="primary" right>
+                              mdi-open-in-new
+                            </v-icon>
+                          </v-btn>
+                        </v-list-item-action>
+                      </v-list-item>
+                      <v-divider />
+                    </template>
+                  </v-virtual-scroll>
                 </td>
               </template>
             </v-data-table>
@@ -463,7 +510,54 @@
               </template>
               <template v-slot:expanded-item="{ item }">
                 <td :colspan="headers.length">
-                  {{ item.genes.join(',') }}
+                  <v-virtual-scroll
+                    height="425"
+                    item-height="45"
+                    :items="item.genes"
+                  >
+                    <template v-slot:default="{ item }">
+                      <v-list-item :key="item">
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            {{ item }}
+                          </v-list-item-title>
+                        </v-list-item-content>
+
+                        <v-list-item-action>
+                          <v-btn
+                            depressed
+                            small
+                            :href="
+                              'https://www.uniprot.org/uniprot/?query=' + item
+                            "
+                            target="_blank"
+                          >
+                            UniProt
+                            <v-icon color="primary" right>
+                              mdi-open-in-new
+                            </v-icon>
+                          </v-btn>
+                        </v-list-item-action>
+                        <v-list-item-action>
+                          <v-btn
+                            depressed
+                            small
+                            :href="
+                              'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
+                                item
+                            "
+                            target="_blank"
+                          >
+                            GeneCards
+                            <v-icon color="primary" right>
+                              mdi-open-in-new
+                            </v-icon>
+                          </v-btn>
+                        </v-list-item-action>
+                      </v-list-item>
+                      <v-divider />
+                    </template>
+                  </v-virtual-scroll>
                 </td>
               </template>
             </v-data-table>
@@ -538,7 +632,54 @@
               </template>
               <template v-slot:expanded-item="{ item }">
                 <td :colspan="headers.length">
-                  {{ item.genes.join(',') }}
+                  <v-virtual-scroll
+                    height="425"
+                    item-height="45"
+                    :items="item.genes"
+                  >
+                    <template v-slot:default="{ item }">
+                      <v-list-item :key="item">
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            {{ item }}
+                          </v-list-item-title>
+                        </v-list-item-content>
+
+                        <v-list-item-action>
+                          <v-btn
+                            depressed
+                            small
+                            :href="
+                              'https://www.uniprot.org/uniprot/?query=' + item
+                            "
+                            target="_blank"
+                          >
+                            UniProt
+                            <v-icon color="primary" right>
+                              mdi-open-in-new
+                            </v-icon>
+                          </v-btn>
+                        </v-list-item-action>
+                        <v-list-item-action>
+                          <v-btn
+                            depressed
+                            small
+                            :href="
+                              'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
+                                item
+                            "
+                            target="_blank"
+                          >
+                            GeneCards
+                            <v-icon color="primary" right>
+                              mdi-open-in-new
+                            </v-icon>
+                          </v-btn>
+                        </v-list-item-action>
+                      </v-list-item>
+                      <v-divider />
+                    </template>
+                  </v-virtual-scroll>
                 </td>
               </template>
             </v-data-table>
@@ -612,7 +753,54 @@
               </template>
               <template v-slot:expanded-item="{ item }">
                 <td :colspan="headers.length">
-                  {{ item.genes.join(',') }}
+                  <v-virtual-scroll
+                    height="425"
+                    item-height="45"
+                    :items="item.genes"
+                  >
+                    <template v-slot:default="{ item }">
+                      <v-list-item :key="item">
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            {{ item }}
+                          </v-list-item-title>
+                        </v-list-item-content>
+
+                        <v-list-item-action>
+                          <v-btn
+                            depressed
+                            small
+                            :href="
+                              'https://www.uniprot.org/uniprot/?query=' + item
+                            "
+                            target="_blank"
+                          >
+                            UniProt
+                            <v-icon color="primary" right>
+                              mdi-open-in-new
+                            </v-icon>
+                          </v-btn>
+                        </v-list-item-action>
+                        <v-list-item-action>
+                          <v-btn
+                            depressed
+                            small
+                            :href="
+                              'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
+                                item
+                            "
+                            target="_blank"
+                          >
+                            GeneCards
+                            <v-icon color="primary" right>
+                              mdi-open-in-new
+                            </v-icon>
+                          </v-btn>
+                        </v-list-item-action>
+                      </v-list-item>
+                      <v-divider />
+                    </template>
+                  </v-virtual-scroll>
                 </td>
               </template>
             </v-data-table>
