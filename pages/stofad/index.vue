@@ -530,9 +530,14 @@ export default {
           tiffLink: `${this.baseUrl}/module/151674-WM.tiff`
         },
         {
+          name: '151674-Layer.1',
+          pngLink: `${this.baseUrl}/module/151674-Layer.1.png`,
+          tiffLink: `${this.baseUrl}/module/151674-Layer.1.tiff`
+        },
+        {
           name: '151674-Layer.2',
           pngLink: `${this.baseUrl}/module/151674-Layer.2.png`,
-          tiffLink: `${this.baseUrl}/module/151674-Layer.2tiff`
+          tiffLink: `${this.baseUrl}/module/151674-Layer.2.tiff`
         },
         {
           name: '151674-Layer.3',
@@ -558,6 +563,11 @@ export default {
           name: '151673-WM',
           pngLink: `${this.baseUrl}/module/151673-WM.png`,
           tiffLink: `${this.baseUrl}/module/151673-WM.tiff`
+        },
+        {
+          name: '151673-Layer.1',
+          pngLink: `${this.baseUrl}/module/151673-Layer.1.png`,
+          tiffLink: `${this.baseUrl}/module/151673-Layer.1.tiff`
         },
         {
           name: '151673-Layer.2',
@@ -590,6 +600,11 @@ export default {
           tiffLink: `${this.baseUrl}/module/Adult Human Brain 1-WM.tiff`
         },
         {
+          name: 'Adult Human Brain 1-Layer.1',
+          pngLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.1.png`,
+          tiffLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.1.tiff`
+        },
+        {
           name: 'Adult Human Brain 1-Layer.2',
           pngLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.2.png`,
           tiffLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.2tiff`
@@ -618,6 +633,11 @@ export default {
           name: 'Adult Human Brain 2-WM',
           pngLink: `${this.baseUrl}/module/Adult Human Brain 2-WM.png`,
           tiffLink: `${this.baseUrl}/module/Adult Human Brain 2-WM.tiff`
+        },
+        {
+          name: 'Adult Human Brain 2-Layer.1',
+          pngLink: `${this.baseUrl}/module/Adult Human Brain 2-Layer.1.png`,
+          tiffLink: `${this.baseUrl}/module/Adult Human Brain 2-Layer.1.tiff`
         },
         {
           name: 'Adult Human Brain 2-Layer.2',
