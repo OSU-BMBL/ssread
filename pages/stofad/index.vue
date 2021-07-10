@@ -91,7 +91,7 @@
                       target="_blank"
                       class="text-decoration-none"
                     >
-                      Download (100 MB)
+                      Download {{ data.size }}
                       <v-icon color="primary" size="1.2em"
                         >mdi-cloud-download-outline</v-icon
                       >
@@ -429,32 +429,6 @@ export default {
         'Module score',
         'Heatmap'
       ],
-      sampleInfo: [
-        {
-          title: 'Sample 1',
-          name: 'CT-1',
-          webSummaryLink: 'https://google.com/',
-          loupeLink: `${this.baseUrl}/loupe/CT-1_cloupe.cloupe`
-        },
-        {
-          title: 'Sample 2',
-          name: 'CT-2',
-          webSummaryLink: 'https://google.com/',
-          loupeLink: `${this.baseUrl}/loupe/CT-2_cloupe.cloupe`
-        },
-        {
-          title: 'Sample 3',
-          name: 'AD-1',
-          webSummaryLink: 'https://google.com/',
-          loupeLink: `${this.baseUrl}/loupe/AD-1_cloupe.cloupe`
-        },
-        {
-          title: 'Sample 4',
-          name: 'AD-2',
-          webSummaryLink: 'https://google.com/',
-          loupeLink: `${this.baseUrl}/loupe/AD-2_cloupe.cloupe`
-        }
-      ],
 
       // Component variables
       selectedSampleClustering: '',
@@ -473,6 +447,38 @@ export default {
     }
   },
   computed: {
+    sampleInfo() {
+      return [
+        {
+          title: 'Sample 1',
+          name: 'CT-1',
+          webSummaryLink: 'https://google.com/',
+          loupeLink: `${this.baseUrl}/loupe/CT-1_cloupe.cloupe`,
+          size: '1.27 GB'
+        },
+        {
+          title: 'Sample 2',
+          name: 'CT-2',
+          webSummaryLink: 'https://google.com/',
+          loupeLink: `${this.baseUrl}/loupe/CT-2_cloupe.cloupe`,
+          size: '1.31 GB'
+        },
+        {
+          title: 'Sample 3',
+          name: 'AD-1',
+          webSummaryLink: 'https://google.com/',
+          loupeLink: `${this.baseUrl}/loupe/AD-1_cloupe.cloupe`,
+          size: '1.06 GB'
+        },
+        {
+          title: 'Sample 4',
+          name: 'AD-2',
+          webSummaryLink: 'https://google.com/',
+          loupeLink: `${this.baseUrl}/loupe/AD-2_cloupe.cloupe`,
+          size: '1.45 GB'
+        }
+      ]
+    },
     clusterData() {
       return [
         {
