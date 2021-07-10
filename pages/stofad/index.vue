@@ -171,7 +171,7 @@
 
           <v-card-title class="my-2 py-0 subtitle-1 font-weight-normal">
             Spatial maps of the eight clusters for each individual sample from
-            unsupervised clustering.
+            manual annotation.
           </v-card-title>
           <v-divider />
           <v-card-actions>
@@ -358,8 +358,8 @@
           <v-card-title class="my-2 py-0 subtitle-1 font-weight-normal">
             Heatmap of Z-scores for upregulated and downregulated differentially
             expressed genes (DEGs) specific to ST spots localized with and
-            withoutdifferent AD pathologies Aβ, AT8, Aβ/AT8, GFAP/Aβ/AT8, and
-            P2RY12/Aβ/AT8.
+            without different AD pathologies (Aβ, AT8, Aβ/AT8, GFAP/Aβ/AT8, and
+            P2RY12/Aβ/AT8).
           </v-card-title>
           <v-divider />
           <v-card-actions>
