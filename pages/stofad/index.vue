@@ -454,28 +454,28 @@ export default {
           name: 'CT-1',
           webSummaryLink: 'https://google.com/',
           loupeLink: `${this.baseUrl}/loupe/CT-1_cloupe.cloupe`,
-          size: '1.27 GB'
+          size: '(1.27 GB)'
         },
         {
           title: 'Sample 2',
           name: 'CT-2',
           webSummaryLink: 'https://google.com/',
           loupeLink: `${this.baseUrl}/loupe/CT-2_cloupe.cloupe`,
-          size: '1.31 GB'
+          size: '(1.31 GB)'
         },
         {
           title: 'Sample 3',
           name: 'AD-1',
           webSummaryLink: 'https://google.com/',
           loupeLink: `${this.baseUrl}/loupe/AD-1_cloupe.cloupe`,
-          size: '1.06 GB'
+          size: '(1.06 GB)'
         },
         {
           title: 'Sample 4',
           name: 'AD-2',
           webSummaryLink: 'https://google.com/',
           loupeLink: `${this.baseUrl}/loupe/AD-2_cloupe.cloupe`,
-          size: '1.45 GB'
+          size: '(1.45 GB)'
         }
       ]
     },
