@@ -476,6 +476,11 @@ export default {
     clusterData() {
       return [
         {
+          name: 'UMAP',
+          pngLink: `${this.baseUrl}/cluster/Seurat-Figue-unsupervised-clustering.png`,
+          tiffLink: `${this.baseUrl}/cluster/Seurat-Figue-unsupervised-clustering.tiff`
+        },
+        {
           name: 'CT-1',
           pngLink: `${this.baseUrl}/cluster/CT-1.png`,
           tiffLink: `${this.baseUrl}/cluster/CT-1.tiff`
@@ -499,6 +504,11 @@ export default {
     },
     annoData() {
       return [
+        {
+          name: 'UMAP',
+          pngLink: `${this.baseUrl}/annotation/mannually-annotated-layer-Figue.png`,
+          tiffLink: `${this.baseUrl}/annotation/mannually-annotated-layer-Figue.tiff`
+        },
         {
           name: 'CT-1',
           pngLink: `${this.baseUrl}/annotation/CT-1.png`,
