@@ -434,25 +434,25 @@ export default {
           title: 'Sample 1',
           name: 'CT-1',
           webSummaryLink: 'https://google.com/',
-          loupeLink: 'https://google.com/'
+          loupeLink: `${this.baseUrl}/loupe/CT-1_cloupe.cloupe`
         },
         {
           title: 'Sample 2',
           name: 'CT-2',
           webSummaryLink: 'https://google.com/',
-          loupeLink: 'https://google.com/'
+          loupeLink: `${this.baseUrl}/loupe/CT-2_cloupe.cloupe`
         },
         {
           title: 'Sample 3',
           name: 'AD-1',
           webSummaryLink: 'https://google.com/',
-          loupeLink: 'https://google.com/'
+          loupeLink: `${this.baseUrl}/loupe/AD-1_cloupe.cloupe`
         },
         {
           title: 'Sample 4',
           name: 'AD-2',
           webSummaryLink: 'https://google.com/',
-          loupeLink: 'https://google.com/'
+          loupeLink: `${this.baseUrl}/loupe/AD-2_cloupe.cloupe`
         }
       ],
 
