@@ -46,6 +46,21 @@
                     </a></span
                   >
                 </p>
+                <p class="my-2">
+                  <span class="text--secondary">Code: </span>
+                  <span class="text--primary"
+                    ><a
+                      href="script"
+                      target="_blank"
+                      class="text-decoration-none"
+                    >
+                      Download
+                      <v-icon color="primary" size="1.2em"
+                        >mdi-open-in-new</v-icon
+                      >
+                    </a></span
+                  >
+                </p>
               </v-card-text></v-col
             >
             <v-col
