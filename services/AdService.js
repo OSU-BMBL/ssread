@@ -46,14 +46,12 @@ export default {
   },
   getDe(params) {
     return apiClient.get(
-      '/de/' +
-        params.aDataId +
-        '?second_id=' +
-        params.bDataId +
-        '&ct=' +
-        params.ct +
-        '&type=' +
-        params.type
+      `/de/${params.aDataId}?second_id=${params.bDataId}&ct=${params.ct}&type=${params.type}`
+    )
+  },
+  getOverlap(params) {
+    return apiClient.get(
+      `/overlap?region=${params.region}&species=${params.species}&top=${params.top}&overlapthreshold=${params.threshold}&direction=${params.direction}`
     )
   },
   getRegulon(id) {

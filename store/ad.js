@@ -15,7 +15,9 @@ export const state = () => ({
   dimension: [],
   expression: [],
   expressionGenes: [],
-  regulon: []
+  regulon: [],
+  overlapmap: [],
+  overlaptable: []
 })
 export const mutations = {
   SET_DATASETS(state, datasets) {
@@ -69,6 +71,10 @@ export const mutations = {
   },
   SET_DIALOG(state, dialog) {
     state.dialog = dialog
+  },
+  SET_OVERLAP(state, overlap) {
+    state.overlaptable = overlap.table
+    state.overlapmap = overlap.map
   }
 }
 export const actions = {
@@ -93,22 +99,22 @@ export const actions = {
     })
   },
   fetchDeMeta({ commit }, id) {
-    return AdService.getDeMeta(id).then(function(response) {
+    return AdService.getDeMeta(id).then((response) => {
       commit('SET_DE_META', response.data)
     })
   },
   fetchAllDeMeta({ commit }) {
-    return AdService.getAllDeMeta().then(function(response) {
+    return AdService.getAllDeMeta().then((response) => {
       commit('SET_ALL_DE_META', response.data)
     })
   },
   fetchDeGene({ commit }, id) {
-    return AdService.getDeGene(id).then(function(response) {
+    return AdService.getDeGene(id).then((response) => {
       commit('SET_DE_GENE', response.data)
     })
   },
   fetchDe({ commit }, params) {
-    return AdService.getDe(params).then(function(response) {
+    return AdService.getDe(params).then((response) => {
       commit('SET_DE', response.data)
     })
   },
@@ -116,14 +122,12 @@ export const actions = {
     return commit('RESET_DE')
   },
   fetchRegulon({ commit }, id) {
-    return AdService.getRegulon(id).then(function(response) {
+    return AdService.getRegulon(id).then((response) => {
       commit('SET_REGULON', response.data)
     })
   },
   fetchDimension({ commit }, params) {
-    return AdService.getDimension(params.id, params.type).then(function(
-      response
-    ) {
+    return AdService.getDimension(params.id, params.type).then((response) => {
       commit('SET_DIMENSION', response.data)
     })
   },
@@ -134,14 +138,18 @@ export const actions = {
     return commit('RESET_EXPRESSION')
   },
   fetchExpression({ commit }, params) {
-    return AdService.getExpression(params.gene, params.id).then(function(
-      response
-    ) {
+    return AdService.getExpression(params.gene, params.id).then((response) => {
       commit('SET_EXPRESSION', response.data)
     })
   },
+  fetchOverlapGene({ commit }, params) {
+    return AdService.getOverlap(params).then((response) => {
+      commit('SET_OVERLAP', response.data)
+    })
+  },
+
   fetchExpressionGenes({ commit }, id) {
-    return AdService.getExpressionGenes(id).then(function(response) {
+    return AdService.getExpressionGenes(id).then((response) => {
       commit('SET_EXPRESSION_GENES', _.map(response.data, 'gene'))
     })
   },
