@@ -51,7 +51,7 @@ export default {
   },
   getOverlap(params) {
     return apiClient.get(
-      `/overlap?region=${params.region}&species=${params.species}&top=${params.top}&overlapthreshold=${params.threshold}&direction=${params.direction}`
+      `/overlap?region=${params.region}&species=${params.species}&top=${params.top}&threshold=${params.threshold}&direction=${params.direction}`
     )
   },
   getRegulon(id) {

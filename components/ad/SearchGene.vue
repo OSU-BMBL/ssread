@@ -5,12 +5,15 @@
       :elevation="hover ? 6 : 2"
       :class="{ 'on-hover': hover }"
     >
+      <v-card-title>
+        <p class="title">
+          Search differentially expressed genes
+        </p>
+        <v-spacer></v-spacer>
+      </v-card-title>
       <v-card-text>
         <v-row>
           <v-col xs="12" md="12" lg="12">
-            <p class="headline">
-              Search differentially expressed genes
-            </p>
             <v-row>
               <v-col cols="3"
                 ><v-text-field
