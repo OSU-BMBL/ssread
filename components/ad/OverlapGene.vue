@@ -73,78 +73,12 @@
           <p>Found {{ dataset.length }} records</p>
           <v-row>
             <v-col xs="4" md="4" lg="2">
-              <p class="subtitle-1 font-weight-bold py-0 my-0">Cell Type:</p>
-              <v-select
-                v-model="celltypes"
-                :items="sub_cts"
-                item-text="value"
-                item-value="value"
-                return-object
-                multiple
+              <v-text-field
+                v-model="filter"
+                append-icon="mdi-magnify"
                 single-line
-                ><template v-slot:selection="{ item, index }">
-                  <v-chip v-if="index === 0">
-                    <span>{{ item }}</span>
-                  </v-chip>
-                  <span v-if="index === 1" class="grey--text caption">
-                    (+{{ sub_cts.length - 1 }} others)
-                  </span>
-                </template>
-                <template v-slot:prepend-item>
-                  <v-list-item ripple @click="toggleSelectedCTs">
-                    <v-list-item-action>
-                      <v-icon
-                        :color="sub_cts.length > 0 ? 'indigo darken-4' : ''"
-                      >
-                        {{ iconSelectedCTs }}
-                      </v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        Select All
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-divider class="mt-2"></v-divider>
-                </template>
-              </v-select>
-            </v-col>
-            <v-col xs="4" md="4" lg="2">
-              <p class="subtitle-1 font-weight-bold py-0 my-0">Gene:</p>
-              <v-select
-                v-model="genes"
-                :items="sub_genes"
-                item-text="value"
-                item-value="value"
-                return-object
-                single-line
-                multiple
-                ><template v-slot:selection="{ item, index }">
-                  <v-chip v-if="index === 0">
-                    <span>{{ item }}</span>
-                  </v-chip>
-                  <span v-if="index === 1" class="grey--text caption">
-                    (+{{ sub_genes.length - 1 }} others)
-                  </span>
-                </template>
-                <template v-slot:prepend-item>
-                  <v-list-item ripple @click="toggleSelectedGenes">
-                    <v-list-item-action>
-                      <v-icon
-                        :color="sub_genes.length > 0 ? 'indigo darken-4' : ''"
-                      >
-                        {{ iconSelectedGenes }}
-                      </v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        Select All
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-divider class="mt-2"></v-divider>
-                </template>
-              </v-select>
+                hide-details
+              ></v-text-field>
             </v-col>
             <v-col xs="4" md="2" lg="1">
               <download-excel class="mr-4" :data="filterResults" type="csv">
@@ -156,6 +90,7 @@
             dense
             :headers="headers"
             :items="filterResults"
+            :search="filter"
             :items-per-page="10"
             class="elevation-1"
           >
@@ -219,10 +154,7 @@ export default {
         },
         { text: 'Mean Rank', value: 'mean_rank', filterable: false }
       ],
-      sub_genes: [],
-      sub_cts: [],
-      genes: [],
-      celltypes: []
+      filter: ''
     }
   },
   computed: {
@@ -231,52 +163,15 @@ export default {
       gctMaps: (state) => _.cloneDeep(state.ad.overlapmap)
     }),
     filterResults() {
-      const res = this.dataset
-        .map((row) => {
-          const clone = {
-            ...row,
-            p_val_adj: row.p_val_adj.toExponential(2),
-            mean_rank: row.mean_rank.toFixed(1)
-          }
-          return clone
-        })
-        .filter((row) => {
-          for (const g of this.sub_genes) {
-            if (g === row.gene) {
-              return true
-            }
-          }
-        })
-      // res.forEach((row) => {
-      //   row.mean_rank = row.mean_rank.toFixed(1)
-      // })
-      // let res2 = res
-      // res2 = res.filter((row) => {
-      //   return this.sub_genes.includes(row.gene)
-      // })
+      const res = this.dataset.map((row) => {
+        const clone = {
+          ...row,
+          p_val_adj: row.p_val_adj.toExponential(2),
+          mean_rank: row.mean_rank.toFixed(1)
+        }
+        return clone
+      })
       return res
-    },
-    selectedAllCTs() {
-      return this.celltypes.length === this.sub_cts.length
-    },
-    selectedSomeCTs() {
-      return this.sub_cts.length > 0 && !this.selectedAllCTs
-    },
-    iconSelectedCTs() {
-      if (this.selectedAllCTs) return 'mdi-close-box'
-      if (this.selectedSomeCTs) return 'mdi-minus-box'
-      return 'mdi-checkbox-blank-outline'
-    },
-    selectedAllGenes() {
-      return this.genes.length === this.sub_genes.length
-    },
-    selectedSomeGenes() {
-      return this.sub_genes.length > 0 && !this.selectedAllGenes
-    },
-    iconSelectedGenes() {
-      if (this.selectedAllGenes) return 'mdi-close-box'
-      if (this.selectedSomeGenes) return 'mdi-minus-box'
-      return 'mdi-checkbox-blank-outline'
     }
   },
   methods: {
@@ -289,31 +184,6 @@ export default {
         direction
       }
       await this.$store.dispatch('ad/fetchOverlapGene', params)
-      this.genes = Object.keys(this.gctMaps)
-      this.sub_genes = _.cloneDeep(this.genes)
-      const cts = Object.values(this.gctMaps).reduce((ret, curr) => {
-        return new Set([...ret, ...curr])
-      }, new Set())
-      this.celltypes = [...cts]
-      this.sub_cts = _.cloneDeep(this.celltypes)
-    },
-    toggleSelectedGenes() {
-      this.$nextTick(() => {
-        if (this.selectedAllGenes) {
-          this.sub_genes = []
-        } else {
-          this.sub_genes = [...this.genes]
-        }
-      })
-    },
-    toggleSelectedCTs() {
-      this.$nextTick(() => {
-        if (this.selectedAllCTs) {
-          this.sub_cts = []
-        } else {
-          this.sub_cts = [...this.celltypes]
-        }
-      })
     }
   }
 }
