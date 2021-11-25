@@ -41,6 +41,7 @@
               v-model="threshold"
               type="number"
               label="Number"
+              min="1"
             ></v-text-field>
           </v-col>
           <v-col xs="4" md="2" lg="1">
@@ -72,9 +73,10 @@
         <div v-if="dataset.length > 0">
           <p>Found {{ dataset.length }} records</p>
           <v-row>
-            <v-col xs="4" md="4" lg="2">
+            <v-col xs="6" md="6" lg="4">
               <v-text-field
                 v-model="filter"
+                placeholder="Search cell type or gene or id in results"
                 append-icon="mdi-magnify"
                 single-line
                 hide-details
@@ -139,8 +141,8 @@ export default {
         { text: 'Adj P-Value', value: 'p_val_adj', filterable: false },
         { text: 'Pct 1', value: 'pct_1', filterable: false },
         { text: 'Pct 2', value: 'pct_2', filterable: false },
-        { text: 'Disease ID', value: 'disease_id', filterable: false },
-        { text: 'Control ID', value: 'control_id', filterable: false },
+        { text: 'Disease ID', value: 'disease_id' },
+        { text: 'Control ID', value: 'control_id' },
         { text: 'Rank', value: 'rank', filterable: false },
         {
           text: 'Total Comparison',
