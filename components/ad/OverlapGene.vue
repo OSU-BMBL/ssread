@@ -2,9 +2,19 @@
   <v-hover v-slot:default="{ hover }" open-delay="0">
     <v-card
       class="mx-auto"
+      :loading="loading"
       :elevation="hover ? 6 : 2"
       :class="{ 'on-hover': hover }"
     >
+      <template slot="progress">
+        <v-progress-linear
+          :active="loading"
+          :indeterminate="loading"
+          absolute
+          top
+          color="deep-purple accent-4"
+        ></v-progress-linear>
+      </template>
       <v-card-title>
         <p class="title">
           Search Overlapping Genes
@@ -70,36 +80,38 @@
             </v-btn>
           </v-col>
         </v-row>
-        <div v-if="dataset.length > 0">
-          <p>Found {{ dataset.length }} records</p>
-          <v-row>
-            <v-col xs="6" md="6" lg="4">
-              <v-text-field
-                v-model="filter"
-                placeholder="Search cell type or gene or id in results"
-                append-icon="mdi-magnify"
-                single-line
-                hide-details
-              ></v-text-field>
-            </v-col>
-            <v-col xs="4" md="2" lg="1">
-              <download-excel class="mr-4" :data="filterResults" type="csv">
-                <v-btn color="primary"> Download current table</v-btn>
-              </download-excel>
-            </v-col>
-          </v-row>
-          <v-data-table
-            dense
-            :headers="headers"
-            :items="filterResults"
-            :search="filter"
-            :items-per-page="10"
-            class="elevation-1"
-          >
-          </v-data-table>
-        </div>
-        <div v-else>
-          <p>No Overlapping Found</p>
+        <div v-if="loaded">
+          <div v-if="dataset.length > 0">
+            <p>Found {{ dataset.length }} records</p>
+            <v-row>
+              <v-col xs="6" md="6" lg="4">
+                <v-text-field
+                  v-model="filter"
+                  placeholder="Search cell type or gene or id in results"
+                  append-icon="mdi-magnify"
+                  single-line
+                  hide-details
+                ></v-text-field>
+              </v-col>
+              <v-col xs="4" md="2" lg="1">
+                <download-excel class="mr-4" :data="filterResults" type="csv">
+                  <v-btn color="primary"> Download current table</v-btn>
+                </download-excel>
+              </v-col>
+            </v-row>
+            <v-data-table
+              dense
+              :headers="headers"
+              :items="filterResults"
+              :search="filter"
+              :items-per-page="10"
+              class="elevation-1"
+            >
+            </v-data-table>
+          </div>
+          <div v-else>
+            <p>No record found</p>
+          </div>
         </div>
       </v-card-text>
     </v-card>
@@ -156,7 +168,9 @@ export default {
         },
         { text: 'Mean Rank', value: 'mean_rank', filterable: false }
       ],
-      filter: ''
+      filter: '',
+      loading: false,
+      loaded: false
     }
   },
   computed: {
@@ -185,7 +199,11 @@ export default {
         threshold,
         direction
       }
+      this.loading = true
+      this.loaded = false
       await this.$store.dispatch('ad/fetchOverlapGene', params)
+      this.loading = false
+      this.loaded = true
     }
   }
 }
