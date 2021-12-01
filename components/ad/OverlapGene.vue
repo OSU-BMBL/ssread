@@ -63,7 +63,7 @@
           </v-col>
           <v-col xs="4" md="2" lg="2">
             <p class="subtitle-1 font-weight-bold py-0 my-0">
-              # comparisons:
+              # comparisons threshold:
             </p>
             <v-text-field
               v-model="threshold"
@@ -172,12 +172,12 @@ export default {
         { text: 'Control ID', value: 'control_id' },
         { text: 'Rank', value: 'rank', filterable: false },
         {
-          text: 'Total Comparison',
+          text: 'Total Comparisons',
           value: 'total_comparison',
           filterable: false
         },
         {
-          text: 'Overlapping Comparison',
+          text: 'Overlapping Comparisons',
           value: 'overlapping_comparison',
           filterable: false
         },
