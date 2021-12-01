@@ -17,7 +17,22 @@
       </template>
       <v-card-title>
         <p class="title">
-          Search Overlapping Genes
+          Find overlapping DEGs from multiple comparisons
+          <v-tooltip top max-width="500px">
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                >mdi-help-circle-outline</v-icon
+              >
+            </template>
+            <span
+              >Suppose we have AD vs control comparisons from a cell type of
+              interest in a specific brain region. For each comparison, we
+              select top t DEGs based on the ranked log FC. We define an
+              "overlapping gene" as the gene that appears at least n times in m
+              comparisons. The Species, brain regions, t, n are the parameters
+              set by the users.</span
+            >
+          </v-tooltip>
         </p>
         <v-spacer></v-spacer>
       </v-card-title>
@@ -128,7 +143,7 @@ export default {
     return {
       species: '',
       region: '',
-      threshold: 1,
+      threshold: 3,
       top: 100,
       direction: 'up',
       browseItems: {
