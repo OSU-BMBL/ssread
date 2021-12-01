@@ -119,11 +119,13 @@
         {{ new Date().getFullYear() }}
       </v-col>
     </v-footer>
+    <snackbar></snackbar>
   </v-app>
 </template>
 <script>
+import Snackbar from '../components/utils/SnackBar'
 export default {
-  components: {},
+  components: { snackbar: Snackbar },
   data() {
     return {
       drawer: null,
@@ -133,11 +135,7 @@ export default {
       appBarTextColor: '#ccccd6', // 远山紫
       items: [
         { icon: 'mdi-home', text: 'Home', url: '/' },
-        {
-          icon: 'mdi-dev-to',
-          text: 'Version 2 (in development)',
-          url: '/v2'
-        },
+
         {
           icon: 'mdi-table',
           text: 'Browse control atlas',
@@ -170,7 +168,12 @@ export default {
             }
           ]
         },
-        { icon: 'mdi-download', text: 'Downloads', url: '/downloads' }
+        { icon: 'mdi-download', text: 'Downloads', url: '/downloads' },
+        {
+          icon: 'mdi-dev-to',
+          text: 'Version 2 (in development)',
+          url: '/v2'
+        }
       ]
     }
   },

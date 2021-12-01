@@ -2,7 +2,7 @@
   <div>
     <v-layout column justify-center align-center>
       <p class="display-3 font-weight-regular" align-center>
-        scREAD (v2 dev)
+        scREAD (dev)
       </p>
       <v-flex xs="12" md="6" lg="12">
         <p class="display-1">
@@ -587,6 +587,13 @@ export default {
     totalCells() {
       return _.sumBy(this.dataset, 'n_original_cell')
     }
+  },
+  mounted() {
+    this.$notifier.showMessage({
+      content: `scREAD v2 has updated the cell
+          type annotation workflow with a new marker gene list. See details at the news page.`,
+      color: 'accent'
+    })
   },
   methods: {
     async handleClick(item) {
