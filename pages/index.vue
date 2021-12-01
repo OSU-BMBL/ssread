@@ -42,6 +42,7 @@
       ></v-row>
     </client-only>
     <div class="my-5"><search-gene></search-gene></div>
+    <div class="my-5"><overlap-gene></overlap-gene></div>
     <div class="motif-header">
       <v-hover v-slot:default="{ hover }" open-delay="0">
         <v-card
@@ -95,7 +96,7 @@
                 ></v-select>
               </v-col>
               <v-col xs="12" md="6" lg="2">
-                <p class="subtitle-1 font-weight-bold  py-0 my-0">Gender:</p>
+                <p class="subtitle-1 font-weight-bold py-0 my-0">Gender:</p>
                 <v-select
                   v-model="browseDefault.gender"
                   :items="browseItems.gender"
@@ -298,10 +299,12 @@
 import { mapState } from 'vuex'
 import _ from 'lodash'
 import SearchGene from '@/components/ad/SearchGene'
+import OverlapGene from '@/components/ad/OverlapGene.vue'
 
 export default {
   components: {
-    'search-gene': SearchGene
+    'search-gene': SearchGene,
+    'overlap-gene': OverlapGene
   },
   async asyncData({ store, error, params }) {
     try {
