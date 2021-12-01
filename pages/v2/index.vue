@@ -521,10 +521,6 @@ export default {
     }
   },
   computed: {
-    bannerMessage() {
-      const ver = this.$store.getters.appVersion
-      return `We are working on scREAD (${ver}) upgrade. Please let us know if there are any bugs, issues, or suggestions via qin.ma@osumc.edu.`
-    },
     ...mapState({
       dataset: (state) => {
         const data = state.ad.datasets
@@ -590,7 +586,6 @@ export default {
       return _.sumBy(this.dataset, 'n_original_cell')
     }
   },
-
   methods: {
     async handleClick(item) {
       // this.$router.push('/browse/' + dataset.data_id)
