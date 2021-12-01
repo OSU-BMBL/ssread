@@ -1,7 +1,9 @@
 <template>
   <div>
     <v-layout column justify-center align-center>
-      <p class="display-3 font-weight-regular" align-center>scREAD</p>
+      <p class="display-3 font-weight-regular" align-center>
+        scREAD (v2 dev)
+      </p>
       <v-flex xs="12" md="6" lg="12">
         <p class="display-1">
           A single-cell RNA-Seq database for Alzheimer's Disease

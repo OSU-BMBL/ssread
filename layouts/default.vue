@@ -134,6 +134,11 @@ export default {
       items: [
         { icon: 'mdi-home', text: 'Home', url: '/' },
         {
+          icon: 'mdi-dev-to',
+          text: 'Version 2 (in development)',
+          url: '/v2'
+        },
+        {
           icon: 'mdi-table',
           text: 'Browse control atlas',
           url: '/browse_control_atlas'
