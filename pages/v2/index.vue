@@ -54,7 +54,7 @@
         >
           <v-card-title>
             <p class="title">
-              scREAD covers 92 datasets from 22 studies,
+              scREAD covers 103 datasets from 22 studies,
               {{ totalBrainRegions }} brain regions, 935,114 cells.
             </p>
             <v-spacer></v-spacer>
@@ -323,7 +323,7 @@ export default {
     return {
       dialog: false,
       selectDatasetDialog: false,
-      totalStudy: '16',
+      totalStudy: '22',
       computedDialogData: [],
       headers: [
         {
@@ -368,7 +368,7 @@ export default {
       },
       pieData1: [
         {
-          values: [26, 47],
+          values: [41, 62],
           labels: ['Human', 'Mouse'],
           type: 'pie'
         }
@@ -399,7 +399,7 @@ export default {
       },
       pieData2: [
         {
-          values: [9, 20, 14, 30],
+          values: [16, 28, 21, 38],
           labels: [
             'Human-control',
             'Human-disease',
@@ -435,7 +435,7 @@ export default {
       },
       pieData3: [
         {
-          values: [6, 14, 3, 6, 13, 2, 5, 24, 4, 4],
+          values: [9, 17, 6, 9, 16, 5, 8, 27, 8, 6],
           labels: [
             'Human_Entorhinal Cortex',
             'Human_Prefrontal cortex',
@@ -477,7 +477,7 @@ export default {
       },
       pieData4: [
         {
-          values: [17, 9, 29, 18],
+          values: [21, 14, 35, 24],
           labels: ['Human-male', 'Human-female', 'Mouse-male', 'Mouse-female'],
           type: 'pie'
         }
