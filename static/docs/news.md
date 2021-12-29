@@ -12,6 +12,19 @@
 
 - scREAD v2 has updated the cell type annotation workflow. See details at http://bmbls.bmi.osumc.edu/scread/help/faq#scread-v2-marker-genes
 
+## 12/28/2021
+
+### Added
+
+Six new publication were added to scREAD v2
+
+- Single-nucleus transcriptome analysis reveals dysregulation of angiogenic endothelial cells and neuroprotective glia in Alzheimer’s disease
+- Overexpressing low-density lipoprotein receptor reduces tau-associated neurodegeneration in relation to apoE-linked mechanisms
+- Single cell RNA sequencing of human microglia uncovers a subset associated with Alzheimer’s disease
+- Multimodal single-cell/nucleus RNA sequencing data analysis uncovers molecular networks between disease-associated microglia and astrocytes with implications for drug repurposing in Alzheimer's disease
+- Diverse human astrocyte and microglial transcriptional responses to Alzheimer's pathology
+- Prior activation state shapes the microglia response to anti-human TREM2 in a mouse model of Alzheimer's disease
+
 ## 5/26/2021
 
 ### Added
