@@ -447,10 +447,149 @@ export default {
           this.dimension,
           this.clusterCoordinatesSelect,
           '8',
-          '#7E6148FE',
+          '#631879FF',
           this.pointSize
         )
-        return [sub0, sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8]
+        const sub9 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '9',
+          '#3C5488FF',
+          this.pointSize
+        )
+        const sub10 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '10',
+          '#EE0000FF',
+          this.pointSize
+        )
+        const sub11 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '11',
+          '#008B45FF',
+          this.pointSize
+        )
+        const sub12 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '12',
+          '#008280FF',
+          this.pointSize
+        )
+        const sub13 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '13',
+          '#BB0021FF',
+          this.pointSize
+        )
+        const sub14 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '14',
+          '#5F559BFF',
+          this.pointSize
+        )
+        const sub15 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '15',
+          '#A20056FF',
+          this.pointSize
+        )
+        const sub16 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '16',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub17 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '17',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub18 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '18',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub19 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '19',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub20 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '20',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub21 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '21',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub22 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '22',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub23 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '23',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub24 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '24',
+          '#808180FF',
+          this.pointSize
+        )
+        const result = [
+          sub0,
+          sub1,
+          sub2,
+          sub3,
+          sub4,
+          sub5,
+          sub6,
+          sub7,
+          sub8,
+          sub9,
+          sub10,
+          sub11,
+          sub12,
+          sub13,
+          sub14,
+          sub15,
+          sub16,
+          sub17,
+          sub18,
+          sub19,
+          sub20,
+          sub21,
+          sub22,
+          sub23,
+          sub24
+        ]
+        return result
       }
     },
     expressionDim() {
