@@ -53,7 +53,7 @@
             lg="10"
             class="px-4 py-0 my-2"
           >
-            <p class="subtitle-1 font-weight-bold py-0 my-2">
+            <p class="subtitle-1 font-weight-bold py-0 my-1">
               Dataset:
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
@@ -81,7 +81,7 @@
             ></v-select>
           </v-col>
 
-          <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-2">
+          <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-1">
             <p class="subtitle-1 font-weight-bold py-0 my-2">
               Cell type of interest:
               <v-tooltip top>
@@ -110,9 +110,9 @@
             xs="12"
             md="10"
             lg="10"
-            class="px-4 py-0 my-2"
+            class="px-4 py-0 my-1"
           >
-            <p class="subtitle-1 font-weight-bold py-0 my-2">
+            <p class="subtitle-1 font-weight-bold py-0 my-1">
               Subcluster:
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
@@ -137,7 +137,7 @@
           </v-col>
 
           <v-row>
-            <v-col xs="12" md="12" lg="12" class="px-7 py-0 my-2">
+            <v-col xs="12" md="12" lg="12" class="px-4 py-0 my-1">
               <p class="subtitle-1 font-weight-bold">
                 Log2 fold-change cutoff:
                 <v-tooltip top>
@@ -177,7 +177,7 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col xs="12" md="12" lg="12" class="px-7 py-0 my-2">
+            <v-col xs="12" md="12" lg="12" class="px-4 py-0 my-1">
               <p class="subtitle-1 font-weight-bold">
                 Adjusted p-value cutoff:<v-tooltip top>
                   <template v-slot:activator="{ on, attrs }">
