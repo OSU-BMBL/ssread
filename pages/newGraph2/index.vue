@@ -40,42 +40,27 @@ export default {
           type: 'parcats',
           dimensions: [
             {
-              label: 'Type1',
-              values: [
-                'Oligodendrocyte precursor cells',
-                'Microglia',
-                'Endothelial cells',
-                'Astrocytes',
-                'Oligodendrocytes'
-              ]
+              label: 'Dataset',
+              values: ['Data1', 'Data1', 'Data1', 'Data2', 'Data2', 'Data3']
             },
             {
-              label: 'Type2',
+              label: 'Cell Type',
               values: [
                 'Endothelial cells',
                 'Astrocytes',
                 'Oligodendrocytes',
                 'Inhibitory neurons',
-                'Excitatory neurons'
-              ]
-            },
-            {
-              label: 'Type3',
-              values: [
-                'Oligodendrocyte precursor cells',
-                'Microglia',
-                'Oligodendrocytes',
-                'Inhibitory neurons',
-                'Excitatory neurons'
+                'Excitatory neurons',
+                'Microglia'
               ]
             }
           ],
-          counts: [8, 19, 47, 5, 25]
+          counts: [8, 19, 2, 5, 25]
         }
       ],
       layout1: {
         title: {
-          text: 'Cell Type',
+          text: 'Sankey Diagram',
           font: {
             size: 20
           }
@@ -130,8 +115,8 @@ export default {
       heatmapData: [
         {
           z: [
-            [1, null, 30, 50, 1, 20, 11],
-            [20, 1, 60, 80, 30, 92, 7],
+            [1, null, 30, 45, 65, 78, 11],
+            [20, 1, 36, 50, 30, 92, 7],
             [30, 60, 1, -10, 20, -8, 52]
           ],
           x: [
@@ -143,14 +128,14 @@ export default {
             'Inhibitory neurons',
             'Excitatory neurons'
           ],
-          y: ['High', 'Midium', 'Low'],
+          y: ['GPR98', 'SLC1A2', 'AQP4'],
           type: 'heatmap',
           hoverongaps: false
         }
       ],
       layout3: {
         title: {
-          text: 'Cell Type',
+          text: 'HeatMap',
           font: {
             size: 20
           }

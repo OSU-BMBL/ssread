@@ -171,6 +171,7 @@ export default {
         { icon: 'mdi-download', text: 'Downloads', url: '/downloads' },
         { icon: 'mdi-home', text: 'newGraph', url: '/newGraph' },
         { icon: 'mdi-home', text: 'newGraph2', url: '/newGraph2' },
+        { icon: 'mdi-home', text: 'newGraphTest', url: '/newGraphTest' },
         {
           icon: 'mdi-dev-to',
           text: 'Version 2 (in development)',
