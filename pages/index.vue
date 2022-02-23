@@ -531,6 +531,9 @@ export default {
       dialogData: (state) => state.ad.dialogDataset,
       selectDatasetDialogData: (state) => state.ad.SelectDatasetDialogData
     }),
+    bannerMessage() {
+      return `scREAD main server is currently in maintenance and you are visiting scREAD's alternative server. Please let us know for any issues or suggestions via qin.ma@osumc.edu.`
+    },
     currentBrowseItems() {
       return this.browseItems.species
     },
@@ -585,6 +588,9 @@ export default {
     totalCells() {
       return _.sumBy(this.dataset, 'n_original_cell')
     }
+  },
+  mounted() {
+    this.$notifier.showAlert({ content: this.bannerMessage, color: 'accent' })
   },
   methods: {
     async handleClick(item) {

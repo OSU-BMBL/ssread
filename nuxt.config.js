@@ -39,6 +39,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    '@/plugins/notifier.js',
     '@/plugins/plugin.js',
     { src: '@/plugins/highcharts.js', mode: 'client' }
   ],
