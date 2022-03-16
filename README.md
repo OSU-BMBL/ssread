@@ -1,5 +1,10 @@
 # scREAD
 
+##IMPORTANT
+
+scREAD is available on our alternative server at http://osubmi.com/scread. Please visit the link as the main server is still in maintenance. Thank you for your support!
+
+---
 This repository serves as the front end part of scREAD, it also contains scREAD workflow in the /script folder.
 
 [scREAD](https://bmbls.bmi.osumc.edu/scread/) (A Single-Cell Rna-sEq database for Alzheimer’s Disease) is the first database dedicated to collect all existing Human and Mouse Alzheimer's Disease scRNA-Seq data, and provide comprehensive interpretations.
