@@ -9,7 +9,7 @@ This repository serves as the front end part of scREAD, it also contains scREAD 
 
 [scREAD](https://bmbls.bmi.osumc.edu/scread/) (A Single-Cell Rna-sEq database for Alzheimer’s Disease) is the first database dedicated to collect all existing Human and Mouse Alzheimer's Disease scRNA-Seq data, and provide comprehensive interpretations.
 
-If you have any questions, suggestions, or found a new AD paper generated scRNA-seq datasets, please let us know through [google form](https://docs.google.com/forms/d/e/1FAIpQLSereTkpOfJ4LJLe9Ke5dZq78SnX3D7qXjQWY0ofDut0kIfDPg/viewform), or email: [qin.ma@osumc.edu](qin.ma@osumc.edu).
+If you have any questions, suggestions, or found a new AD paper generated scRNA-seq datasets, please let us know via email: [qin.ma@osumc.edu](qin.ma@osumc.edu).
 
 ## Citation
 
