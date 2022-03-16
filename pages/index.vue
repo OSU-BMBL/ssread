@@ -4,7 +4,7 @@
       <p class="display-3 font-weight-regular" align-center>scREAD</p>
       <v-flex xs="12" md="6" lg="12">
         <p class="display-1">
-          A single-cell RNA-Seq database for Alzheimer's Disease
+          A single-cell and Spatial RNA-Seq database for Alzheimer's Disease
         </p>
       </v-flex>
     </v-layout>

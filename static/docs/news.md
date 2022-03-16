@@ -6,7 +6,14 @@
 
 ### Added
 
-- Visualization: added cell type barplots at dimension section
+- Visualization: added frequency barplots at cell clustering section
+- scroll to top button
+
+## 3/11/2022
+
+### Added
+
+- Data query: added search function for finding overlapping DEGs from multiple comparisons
 
 ## 3/10/2022
 
