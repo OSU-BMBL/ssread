@@ -1,6 +1,6 @@
 # scREAD
 
-##IMPORTANT
+## IMPORTANT
 
 scREAD is available on our alternative server at http://osubmi.com/scread. Please visit the link as the main server is still in maintenance. Thank you for your support!
 
