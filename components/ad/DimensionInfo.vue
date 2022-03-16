@@ -155,6 +155,9 @@
               />
             </div>
           </v-col>
+          <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0"
+            ><dataset-barplot :freq="dimensionFreq"></dataset-barplot>
+          </v-col>
         </v-row>
       </v-card-text>
     </v-card>
@@ -164,10 +167,10 @@
 <script>
 import _ from 'lodash'
 import { mapState } from 'vuex' // <--- To map data from Vuex
-
+import DatasetBarplot from '../figures/DimensionBarplot.vue'
 export default {
   name: 'DimensionInfo',
-  components: {},
+  components: { 'dataset-barplot': DatasetBarplot },
   props: {
     dataId: {
       type: String,
@@ -265,6 +268,22 @@ export default {
       expression: (state) => state.ad.expression,
       allGenes: (state) => state.ad.expressionGenes
     }),
+    dimensionFreq() {
+      const names = this.dimension
+        .map((item) => {
+          if (item.subcluster !== 'all') {
+            return `${item.cell_type}_${item.subcluster}`
+          } else {
+            return item.cell_type
+          }
+        })
+        .sort()
+      const counts = {}
+      for (const num of names) {
+        counts[num] = counts[num] ? counts[num] + 1 : 1
+      }
+      return counts
+    },
     clusterCoordinatesItems() {
       const cellTypeList = _.map(this.ct, 'cell_type')
       cellTypeList.unshift('All cell types')

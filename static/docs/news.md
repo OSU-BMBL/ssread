@@ -2,15 +2,25 @@
 
 # News
 
-## 12/1/2021
+## 3/16/2022
 
 ### Added
 
-- scREAD v2 can be accessed from http://bmbls.bmi.osumc.edu/scread/v2
+- Visualization: added cell type barplots at dimension section
+
+## 3/10/2022
+
+scREAD main server is currently in maintenance and scREAD has been migrated to the alternative server at http://osubmi.com/scread/.
+
+## 3/1/2022
+
+### Added
+
+- scREAD v2 can be accessed from http://osubmi.com/scread/v2
 
 ### Changes
 
-- scREAD v2 has updated the cell type annotation workflow. See details at http://bmbls.bmi.osumc.edu/scread/help/faq#scread-v2-marker-genes
+- scREAD v2 has updated the cell type annotation workflow. See details at http://osubmi.com/scread/help/faq#scread-v2-marker-genes
 
 ## 12/28/2021
 
