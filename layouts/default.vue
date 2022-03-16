@@ -134,11 +134,20 @@ export default {
     return {
       drawer: null,
       title: 'scREAD',
-      fullTitle: "A Single-cell RNA-Seq Database for Alzheimer's Disease",
+      fullTitle:
+        "A single-cell and spatial RNA-Seq database for Alzheimer's disease",
       appBarColor: 'primary',
       appBarTextColor: '#ccccd6', // 远山紫
       items: [
         { icon: 'mdi-home', text: 'Home', url: '/' },
+
+        { icon: 'mdi-database-search', text: 'scRNA-seq', url: '/singlecell' },
+        {
+          icon: 'mdi-database-search',
+          text: 'spatial RNA-seq',
+          url: '/spatial'
+        },
+        { icon: 'mdi-database-search', text: 'Query', url: '/query' },
         {
           icon: 'mdi-table',
           text: 'Browse control atlas',
