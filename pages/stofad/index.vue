@@ -435,7 +435,7 @@ export default {
   },
   data() {
     return {
-      baseUrl: 'https://bmbl.bmi.osumc.edu/downloadFiles/stofad',
+      baseUrl: 'http://cloud.osubmi.com/downloadFiles/stofad',
       titles: [
         'Summary',
         'Unsupervised clustering',

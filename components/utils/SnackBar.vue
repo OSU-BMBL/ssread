@@ -22,7 +22,7 @@ export default {
       show: false,
       message: '',
       color: '',
-      timeout: 5000
+      timeout: 3000
     }
   },
   created() {

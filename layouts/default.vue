@@ -101,6 +101,7 @@
 
     <v-main>
       <v-container class="px-6" fluid>
+        <alert top></alert>
         <nuxt />
       </v-container>
     </v-main>
@@ -119,13 +120,16 @@
         {{ new Date().getFullYear() }}
       </v-col>
     </v-footer>
+    <fab></fab>
     <snackbar></snackbar>
   </v-app>
 </template>
 <script>
+import fab from '../components/utils/Fab'
 import Snackbar from '../components/utils/SnackBar'
+import Alert from '../components/utils/Alert'
 export default {
-  components: { snackbar: Snackbar },
+  components: { alert: Alert, snackbar: Snackbar, fab },
   data() {
     return {
       drawer: null,

@@ -23,9 +23,7 @@ export default {
   publicRuntimeConfig: {
     apiURL: process.env.API_URL
   },
-  /*
-   ** Customize the progress-bar color
-   */
+
   // loading: { color: '#5698c3', height: '5px' },
   loadingIndicator: {
     name: 'circle',
