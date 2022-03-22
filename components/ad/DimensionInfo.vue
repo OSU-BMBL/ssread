@@ -5,6 +5,8 @@
       :elevation="hover ? 6 : 2"
       :class="{ 'on-hover': hover }"
     >
+      <!-- {{ dimensionViolin }} -->
+      <!-- {{ dimensionFreq }} -->
       <v-card-title class="primary white--text title-1"
         >Cell clustering</v-card-title
       >
@@ -155,8 +157,13 @@
               />
             </div>
           </v-col>
+          <!-- BarPlot -->
           <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0"
             ><dataset-barplot :freq="dimensionFreq"></dataset-barplot>
+          </v-col>
+          <!-- ViolinPlot -->
+          <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0"
+            ><dataset-violin :result="dimensionViolin"></dataset-violin>
           </v-col>
         </v-row>
       </v-card-text>
@@ -168,9 +175,13 @@
 import _ from 'lodash'
 import { mapState } from 'vuex' // <--- To map data from Vuex
 import DatasetBarplot from '../figures/DimensionBarplot.vue'
+import DatasetViolinplot from '../figures/DimensionViolinplot.vue'
 export default {
   name: 'DimensionInfo',
-  components: { 'dataset-barplot': DatasetBarplot },
+  components: {
+    'dataset-barplot': DatasetBarplot,
+    'dataset-violin': DatasetViolinplot
+  },
   props: {
     dataId: {
       type: String,
@@ -283,6 +294,21 @@ export default {
         counts[num] = counts[num] ? counts[num] + 1 : 1
       }
       return counts
+    },
+    dimensionViolin() {
+      const names = this.dimension.map((itemV) => {
+        if (itemV.subcluster !== 'all') {
+          // return `${itemV.cell_type}_${itemV.subcluster}`
+          return '' + itemV.cell_type + itemV.subcluster
+        } else {
+          return itemV.cell_type
+        }
+      })
+      // .sort()
+      const expression = this.expression
+      const geneName = this.gene
+      const clusterName = this.clusterCoordinatesSelect
+      return { names, expression, geneName, clusterName }
     },
     clusterCoordinatesItems() {
       const cellTypeList = _.map(this.ct, 'cell_type')
