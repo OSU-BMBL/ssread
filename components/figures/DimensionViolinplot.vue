@@ -928,7 +928,7 @@ export default {
       return [
         {
           type: 'violin',
-          x: this.result.name,
+          x: this.result.names,
           y: this.result.expression,
           legendgroup: 'F',
           scalegroup: 'F',
@@ -948,7 +948,7 @@ export default {
     layout() {
       return {
         title: {
-          text: this.result.gene + ' : ' + this.result.clusterName,
+          text: this.result.geneName + ' : ' + this.result.clusterName,
           font: {
             size: 20
           }
