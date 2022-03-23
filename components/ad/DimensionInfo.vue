@@ -149,12 +149,15 @@
             </div>
           </v-col>
           <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0">
-            <div>
+            <div v-if="showPlot">
               <vue-plotly
                 :data="expressionDim"
                 :layout="layout"
                 :options="options"
               />
+            </div>
+            <div v-else>
+              Please enter a gene symbol.
             </div>
           </v-col>
           <!-- BarPlot -->
@@ -163,7 +166,9 @@
           </v-col>
           <!-- ViolinPlot -->
           <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0"
-            ><dataset-violin :result="dimensionViolin"></dataset-violin>
+            ><div v-if="showPlot">
+              <dataset-violin :result="dimensionViolin"></dataset-violin>
+            </div>
           </v-col>
         </v-row>
       </v-card-text>
@@ -294,6 +299,9 @@ export default {
         counts[num] = counts[num] ? counts[num] + 1 : 1
       }
       return counts
+    },
+    showPlot() {
+      return this.gene != null
     },
     dimensionViolin() {
       const names = this.dimension.map((itemV) => {
