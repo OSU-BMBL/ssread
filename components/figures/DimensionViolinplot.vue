@@ -1,6 +1,6 @@
 <template>
   <client-only>
-    <vue-plotly :data="violinData" :layout="layout" :display-mode-bar="false" />
+    <vue-plotly :data="violinData" :layout="layout" :display-mode-bar="true" />
   </client-only>
 </template>
 
@@ -374,7 +374,7 @@ export default {
     layout() {
       return {
         title: {
-          text: this.result.geneName + ' : ' + this.result.clusterName,
+          text: this.result.gene + ' : ' + this.result.clusterName,
           font: {
             size: 20
           }
