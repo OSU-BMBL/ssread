@@ -10,6 +10,21 @@
 export default {
   name: 'DatasetViolinplot',
   props: {
+    colors: {
+      type: Array,
+      required: true,
+      default: () => [
+        '#E64B35FF',
+        '#4DBBD5FF',
+        '#00A087FF',
+        '#3C5488FF',
+        '#F39B7FFF',
+        '#8491B499',
+        '#91D1C2FF',
+        '#7E6148FF',
+        '#7E6148FE'
+      ]
+    },
     result: {
       type: Object,
       required: true,
@@ -362,9 +377,18 @@ export default {
           box: {
             visible: true
           },
-          line: {
-            color: 'pink'
-          },
+          transforms: [
+            {
+              type: 'groupby',
+              styles: [
+                { target: 'Astrocytes', value: { line: { color: 'blue' } } },
+                {
+                  target: 'Endothelial cells',
+                  value: { line: { color: 'orange' } }
+                }
+              ]
+            }
+          ],
           meanline: {
             visible: true
           }
@@ -374,7 +398,7 @@ export default {
     layout() {
       return {
         title: {
-          text: this.result.gene + ' : ' + this.result.clusterName,
+          text: this.result.geneName + ': ' + this.result.clusterName,
           font: {
             size: 20
           }
@@ -383,7 +407,9 @@ export default {
         yaxis: {
           zeroline: false
         },
-        violinmode: 'group'
+        violingap: 0,
+        violingroupgap: 0,
+        violinmode: 'overlay'
       }
     }
   },
