@@ -377,18 +377,9 @@ export default {
           box: {
             visible: true
           },
-          transforms: [
-            {
-              type: 'groupby',
-              styles: [
-                { target: 'Astrocytes', value: { line: { color: 'blue' } } },
-                {
-                  target: 'Endothelial cells',
-                  value: { line: { color: 'orange' } }
-                }
-              ]
-            }
-          ],
+          line: {
+            color: 'grey'
+          },
           meanline: {
             visible: true
           }
