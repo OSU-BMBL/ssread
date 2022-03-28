@@ -320,17 +320,18 @@ export default {
       return this.gene !== null
     },
     dimensionViolin() {
-      const names = this.dimension.map((item) => {
-        if (item.subcluster !== 'all') {
-          return `${item.cell_type}_${item.subcluster}`
-        } else {
-          if (item.cell_type === 'Oligodendrocyte precursor cells') {
-            return 'Oligodendrocyte <br>precursor cells'
+      const names = this.dimension
+        .map((item) => {
+          if (item.subcluster !== 'all') {
+            return `${item.cell_type}_${item.subcluster}`
+          } else {
+            if (item.cell_type === 'Oligodendrocyte precursor cells') {
+              return 'Oligodendrocyte <br>precursor cells'
+            }
+            return item.cell_type
           }
-          return item.cell_type
-        }
-      })
-      // .sort()
+        })
+        .sort()
       const expression = this.expression
       const geneName = this.gene
       const clusterName = this.clusterCoordinatesSelect
