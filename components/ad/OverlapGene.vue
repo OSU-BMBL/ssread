@@ -29,8 +29,9 @@
               interest in a specific brain region. For each comparison, we
               select top t DEGs based on the ranked log FC. We define an
               "overlapping gene" as the gene that appears at least n times in m
-              comparisons. The Species, brain regions, t, n are the parameters
-              set by the users.</span
+              comparisons. The Species, brain regions, minimal number of
+              comparisons, number of top DEGs are the parameters set by the
+              users.</span
             >
           </v-tooltip>
         </p>
@@ -60,22 +61,21 @@
               single-line
             ></v-select>
           </v-col>
-          <v-col xs="4" md="2" lg="1">
-            <p class="subtitle-1 font-weight-bold py-0 my-0">Threshold:</p>
+          <v-col xs="4" md="2" lg="2">
+            <p class="subtitle-1 font-weight-bold py-0 my-0">
+              # comparisons threshold:
+            </p>
             <v-text-field
               v-model="threshold"
               type="number"
-              label="Number"
               min="1"
             ></v-text-field>
           </v-col>
-          <v-col xs="4" md="2" lg="1">
-            <p class="subtitle-1 font-weight-bold py-0 my-0">Top:</p>
-            <v-text-field
-              v-model="top"
-              type="number"
-              label="Number"
-            ></v-text-field>
+          <v-col xs="4" md="2" lg="2">
+            <p class="subtitle-1 font-weight-bold py-0 my-0">
+              # top DEGs:
+            </p>
+            <v-text-field v-model="top" type="number"></v-text-field>
           </v-col>
           <v-col xs="4" md="4" lg="2">
             <p class="subtitle-1 font-weight-bold py-0 my-0">Direction:</p>
@@ -172,12 +172,12 @@ export default {
         { text: 'Control ID', value: 'control_id' },
         { text: 'Rank', value: 'rank', filterable: false },
         {
-          text: 'Total Comparison',
+          text: 'Total Comparisons',
           value: 'total_comparison',
           filterable: false
         },
         {
-          text: 'Overlapping Comparison',
+          text: 'Overlapping Comparisons',
           value: 'overlapping_comparison',
           filterable: false
         },

@@ -180,7 +180,12 @@ export default {
             }
           ]
         },
-        { icon: 'mdi-download', text: 'Downloads', url: '/downloads' }
+        { icon: 'mdi-download', text: 'Downloads', url: '/downloads' },
+        {
+          icon: 'mdi-dev-to',
+          text: 'Version 2 (in development)',
+          url: '/v2'
+        }
       ]
     }
   },

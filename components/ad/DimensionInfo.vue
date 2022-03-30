@@ -6,8 +6,8 @@
       :class="{ 'on-hover': hover }"
     >
       <v-card-title class="primary white--text title-1"
-        >Cell clustering</v-card-title
-      >
+        >Cell clustering
+      </v-card-title>
       <v-card-text>
         <p class="my-3 text--primary"></p>
         <p class="display-1 text--primary"></p>
@@ -139,20 +139,41 @@
         <v-row>
           <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0">
             <div>
-              <vue-plotly
-                :data="allCellDim"
-                :layout="layout"
-                :options="options"
-              />
+              <client-only>
+                <vue-plotly
+                  :data="allCellDim"
+                  :layout="layout"
+                  :options="options"
+                />
+              </client-only>
             </div>
           </v-col>
           <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0">
-            <div>
-              <vue-plotly
-                :data="expressionDim"
-                :layout="layout"
-                :options="options"
-              />
+            <div v-if="showPlot">
+              <client-only>
+                <vue-plotly
+                  :data="expressionDim"
+                  :layout="layout"
+                  :options="options"
+                />
+              </client-only>
+            </div>
+            <div v-else>
+              <p>Please enter a gene symbol.</p>
+            </div>
+          </v-col>
+          <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0"
+            ><dataset-barplot
+              :freq="dimensionFreq"
+              :colors="allColors"
+            ></dataset-barplot>
+          </v-col>
+          <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0"
+            ><div v-if="showPlot">
+              <dataset-violin
+                :result="dimensionViolin"
+                :colors="allColors"
+              ></dataset-violin>
             </div>
           </v-col>
         </v-row>
@@ -164,10 +185,14 @@
 <script>
 import _ from 'lodash'
 import { mapState } from 'vuex' // <--- To map data from Vuex
-
+import DatasetBarplot from '../figures/DimensionBarplot.vue'
+import DatasetViolinplot from '../figures/DimensionViolinplot.vue'
 export default {
   name: 'DimensionInfo',
-  components: {},
+  components: {
+    'dataset-barplot': DatasetBarplot,
+    'dataset-violin': DatasetViolinplot
+  },
   props: {
     dataId: {
       type: String,
@@ -203,8 +228,8 @@ export default {
         autosize: true,
         height: 800,
         margin: {
-          l: 50,
-          r: 50,
+          l: 10,
+          r: 10,
           b: 210,
           t: 20,
           pad: 0
@@ -265,6 +290,53 @@ export default {
       expression: (state) => state.ad.expression,
       allGenes: (state) => state.ad.expressionGenes
     }),
+    allColors() {
+      const result = this.allCellDim.map((i) => {
+        // return { ct: i.name, color: i.marker.color }
+        return i.marker.color
+      })
+      return result
+    },
+    dimensionFreq() {
+      const names = this.dimension
+        .map((item) => {
+          if (item.subcluster !== 'all') {
+            return `${item.cell_type}_${item.subcluster}`
+          } else {
+            if (item.cell_type === 'Oligodendrocyte precursor cells') {
+              return 'Oligodendrocyte <br>precursor cells'
+            }
+            return item.cell_type
+          }
+        })
+        .sort()
+      const counts = {}
+      for (const num of names) {
+        counts[num] = counts[num] ? counts[num] + 1 : 1
+      }
+      return counts
+    },
+    showPlot() {
+      return this.gene !== null
+    },
+    dimensionViolin() {
+      const names = this.dimension
+        .map((item) => {
+          if (item.subcluster !== 'all') {
+            return `${item.cell_type}_${item.subcluster}`
+          } else {
+            if (item.cell_type === 'Oligodendrocyte precursor cells') {
+              return 'Oligodendrocyte <br>precursor cells'
+            }
+            return item.cell_type
+          }
+        })
+        .sort()
+      const expression = this.expression
+      const geneName = this.gene
+      const clusterName = this.clusterCoordinatesSelect
+      return { names, expression, geneName, clusterName }
+    },
     clusterCoordinatesItems() {
       const cellTypeList = _.map(this.ct, 'cell_type')
       cellTypeList.unshift('All cell types')
@@ -281,7 +353,8 @@ export default {
           y: Y,
           marker: {
             size: markerSize,
-            symbol: 'circle'
+            symbol: 'circle',
+            color: customColor
           },
           mode: 'markers',
           type: 'scatter',
@@ -309,7 +382,8 @@ export default {
           y: Y,
           marker: {
             size: markerSize,
-            symbol: 'circle'
+            symbol: 'circle',
+            color: customColor
           },
           mode: 'markers',
           type: 'scatter',
@@ -328,28 +402,29 @@ export default {
         )
         const trace2 = getTrace(
           this.dimension,
-          'Microglia',
-          '#4DBBD5FF',
-          this.pointSize
-        )
-        const trace3 = getTrace(
-          this.dimension,
           'Endothelial cells',
           '#00A087FF',
           this.pointSize
         )
-        const trace4 = getTrace(
+        const trace3 = getTrace(
           this.dimension,
           'Excitatory neurons',
           '#3C5488FF',
           this.pointSize
         )
-        const trace5 = getTrace(
+        const trace4 = getTrace(
           this.dimension,
           'Inhibitory neurons',
           '#F39B7FFF',
           this.pointSize
         )
+        const trace5 = getTrace(
+          this.dimension,
+          'Microglia',
+          '#4DBBD5FF',
+          this.pointSize
+        )
+
         const trace6 = getTrace(
           this.dimension,
           'Oligodendrocytes',
@@ -447,10 +522,149 @@ export default {
           this.dimension,
           this.clusterCoordinatesSelect,
           '8',
-          '#7E6148FE',
+          '#631879FF',
           this.pointSize
         )
-        return [sub0, sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8]
+        const sub9 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '9',
+          '#3C5488FF',
+          this.pointSize
+        )
+        const sub10 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '10',
+          '#EE0000FF',
+          this.pointSize
+        )
+        const sub11 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '11',
+          '#008B45FF',
+          this.pointSize
+        )
+        const sub12 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '12',
+          '#008280FF',
+          this.pointSize
+        )
+        const sub13 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '13',
+          '#BB0021FF',
+          this.pointSize
+        )
+        const sub14 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '14',
+          '#5F559BFF',
+          this.pointSize
+        )
+        const sub15 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '15',
+          '#A20056FF',
+          this.pointSize
+        )
+        const sub16 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '16',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub17 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '17',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub18 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '18',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub19 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '19',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub20 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '20',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub21 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '21',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub22 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '22',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub23 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '23',
+          '#808180FF',
+          this.pointSize
+        )
+        const sub24 = getSubclusterTrace(
+          this.dimension,
+          this.clusterCoordinatesSelect,
+          '24',
+          '#808180FF',
+          this.pointSize
+        )
+        const result = [
+          sub0,
+          sub1,
+          sub2,
+          sub3,
+          sub4,
+          sub5,
+          sub6,
+          sub7,
+          sub8,
+          sub9,
+          sub10,
+          sub11,
+          sub12,
+          sub13,
+          sub14,
+          sub15,
+          sub16,
+          sub17,
+          sub18,
+          sub19,
+          sub20,
+          sub21,
+          sub22,
+          sub23,
+          sub24
+        ]
+        return result
       }
     },
     expressionDim() {
