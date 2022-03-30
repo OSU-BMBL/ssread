@@ -2,12 +2,18 @@
 
 # News
 
+## 3/30/2022
+
+### Added
+
+- violin plots for selectedgene expression
+- Visualization: automatically set color scale of cell types in violin plots
+
 ## 3/24/2022
 
 ### Added
 
-- Visualization: violin plots for selectedgene expression
-- Visualization: automatically set color scale of cell types
+- Visualization: automatically set color scale of cell types in barplot
 - Visualization: volcano plot to visualize differentially expressed genes
 
 ## 3/16/2022
