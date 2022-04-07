@@ -2,6 +2,16 @@
 
 # News
 
+## 4/7/2022
+
+### Added
+
+scREAD now has multiple instances:
+
+- Main server: https://bmbls.bmi.osumc.edu/scread/
+- Alternative server: http://osubmi.com/scread/
+- scREAD v2 (in development)https://bmblx.bmi.osumc.edu/scread/
+
 ## 3/24/2022
 
 ### Added
@@ -26,12 +36,6 @@
 ## 3/10/2022
 
 scREAD main server is currently in maintenance and scREAD has been migrated to the alternative server at http://osubmi.com/scread/.
-
-## 3/1/2022
-
-### Added
-
-- scREAD v2 can be accessed from http://osubmi.com/scread/v2
 
 ### Changes
 
