@@ -2,18 +2,22 @@
 
 # News
 
-## 3/30/2022
+## 4/7/2022
 
 ### Added
 
-- violin plots for selectedgene expression
-- Visualization: automatically set color scale of cell types in violin plots
+scREAD now has multiple instances:
+
+- Main server: https://bmbls.bmi.osumc.edu/scread/
+- Alternative server: http://osubmi.com/scread/
+- scREAD v2 (in development)https://bmblx.bmi.osumc.edu/scread/
 
 ## 3/24/2022
 
 ### Added
 
-- Visualization: automatically set color scale of cell types in barplot
+- Visualization: violin plots for selectedgene expression
+- Visualization: automatically set color scale of cell types
 - Visualization: volcano plot to visualize differentially expressed genes
 
 ## 3/16/2022
@@ -32,12 +36,6 @@
 ## 3/10/2022
 
 scREAD main server is currently in maintenance and scREAD has been migrated to the alternative server at http://osubmi.com/scread/.
-
-## 3/1/2022
-
-### Added
-
-- scREAD v2 can be accessed from http://osubmi.com/scread/v2
 
 ### Changes
 
