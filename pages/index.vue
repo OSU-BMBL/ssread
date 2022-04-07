@@ -590,7 +590,7 @@ export default {
     }
   },
   mounted() {
-    this.$notifier.showAlert({ content: this.bannerMessage, color: 'accent' })
+    // this.$notifier.showAlert({ content: this.bannerMessage, color: 'accent' })
   },
   methods: {
     async handleClick(item) {
