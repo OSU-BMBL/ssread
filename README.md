@@ -1,6 +1,7 @@
 # scREAD
 
 Main server: https://bmbls.bmi.osumc.edu/scread
+
 Alternative server: http://osubmi.com/scread
 
 ---
