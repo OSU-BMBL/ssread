@@ -3,13 +3,13 @@
     <v-layout column justify-center align-center>
       <v-flex xs="12" md="6" lg="12">
         <p class="display-1">
-          spatial RNA-seq datasets
+          Spatial RNA-seq datasets
         </p>
       </v-flex>
     </v-layout>
 
     <client-only>
-      <v-row>
+      <v-row v-show="false">
         <v-col ref="pie" xs="6" md="6" lg="3">
           <vue-plotly
             :data="pieData1"
@@ -49,7 +49,7 @@
         >
           <v-card-title>
             <p class="title">
-              scREAD covers 1 datasets from 1 studies, 1 brain regions.
+              scREAD covers 1 spatial datasets from 1 studies, 1 brain regions.
             </p>
             <v-spacer></v-spacer>
           </v-card-title>
@@ -68,17 +68,6 @@
                 ></v-select>
               </v-col>
               <v-col xs="12" md="6" lg="2">
-                <p class="subtitle-1 font-weight-bold py-0 my-0">Condition:</p>
-                <v-select
-                  v-model="browseDefault.condition"
-                  :items="browseItems.condition"
-                  item-text="value"
-                  item-value="value"
-                  return-object
-                  single-line
-                ></v-select>
-              </v-col>
-              <v-col xs="12" md="6" lg="2">
                 <p class="subtitle-1 font-weight-bold py-0 my-0">Region:</p>
                 <v-select
                   v-model="browseDefault.region"
@@ -89,16 +78,19 @@
                   single-line
                 ></v-select>
               </v-col>
-              <v-col xs="12" md="6" lg="2">
-                <p class="subtitle-1 font-weight-bold py-0 my-0">Gender:</p>
-                <v-select
-                  v-model="browseDefault.gender"
-                  :items="browseItems.gender"
+              <v-col xs="12" md="6" lg="6">
+                <p class="subtitle-1 font-weight-bold py-0 my-0">
+                  Experimental factors:
+                </p>
+                <v-autocomplete
+                  v-model="factor"
+                  :items="factors"
                   item-text="value"
                   item-value="value"
                   return-object
                   single-line
-                ></v-select>
+                  multiple
+                ></v-autocomplete>
               </v-col>
             </v-row>
             <v-card-actions>
@@ -115,16 +107,14 @@
               ></v-card-actions
             ></v-card-text
           >
-          <v-dialog v-model="dialog" max-width="300">
+          <v-dialog v-model="dialog" max-width="600">
             <v-card>
               <v-card-title>Dataset overview</v-card-title>
               <v-divider class="my-2 py-2"></v-divider>
               <v-card-text>
                 <p class="my-2">
-                  <span class="text--secondary">scREAD Data ID: </span>
-                  <span class="text--primary">{{
-                    computedDialogData.data_id
-                  }}</span>
+                  <span class="text--secondary">scREAD ID: </span>
+                  <span class="text--primary">ST001</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Species: </span>
@@ -134,33 +124,26 @@
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Region: </span>
-                  <span class="text--primary">{{
-                    computedDialogData.region
-                  }}</span>
+                  <span class="text--primary">
+                    Dorsolateral prefrontal cortex</span
+                  >
                 </p>
                 <p class="my-2">
-                  <span class="text--secondary">Condition: </span>
-                  <span class="text--primary">{{
-                    computedDialogData.condition
-                  }}</span>
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Braak stage: </span>
-                  <span class="text--primary">{{
-                    computedDialogData.stage
-                  }}</span>
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Gender: </span>
-                  <span class="text--primary">{{
-                    computedDialogData.gender
-                  }}</span>
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Age: </span>
+                  <span class="text--secondary">Experimental factors: </span>
                   <span class="text--primary">{{
                     computedDialogData.age
                   }}</span>
+                </p>
+                <p class="my-2">
+                  <span class="text--secondary">Publication: </span>
+                  <span class="text--primary"
+                    ><a
+                      href="https://www.nature.com/articles/s41593-020-00787-0"
+                      target="_blank"
+                      >Transcriptome-scale spatial gene expression in the human
+                      dorsolateral prefrontal cortex</a
+                    >
+                  </span>
                 </p>
               </v-card-text>
               <v-card-actions>
@@ -268,16 +251,25 @@
             <template v-slot:item="row">
               <tr @click="handleClick(row.item)">
                 <td>
-                  <nuxt-link :to="'/ST00101'">ST00101</nuxt-link>
+                  <nuxt-link :to="'/spatial/ST001'">ST001</nuxt-link>
                 </td>
                 <td>Human</td>
-                <td>Male</td>
-                <td>Control</td>
-                <td>Entorhinal Cortex</td>
-                <td>1-3</td>
-                <td>75 years</td>
-                <td>NA</td>
+                <td>Dorsolateral prefrontal cortex</td>
+                <td>
+                  Transcriptome-scale spatial gene expression in the human
+                  dorsolateral prefrontal cortex
+                </td>
                 <td>GSE152506</td>
+                <td>
+                  <ul>
+                    <li>Disease</li>
+                    <li>Brain disorder</li>
+                    <li>Age</li>
+                    <li>Sex</li>
+                    <li>inferred cell type - authors labels</li>
+                  </ul>
+                </td>
+                <td>12</td>
               </tr>
             </template>
           </v-data-table>
@@ -310,21 +302,21 @@ export default {
       selectDatasetDialog: false,
       totalStudy: '1',
       computedDialogData: [],
+      factor: '',
+      factors: ['Disease', 'Brain disorder', 'Age'],
       headers: [
         {
-          text: 'scREAD data ID',
+          text: 'scREAD ID',
           align: 'start',
           sortable: false,
           value: 'data_id'
         },
         { text: 'Species', value: 'species' },
-        { text: 'Gender', value: 'gender' },
-        { text: 'Condition', value: 'condition' },
-        { text: 'Region', value: 'region' },
-        { text: 'Braak stage', value: 'stage' },
-        { text: 'Age', value: 'age' },
-        { text: 'Mice model', value: 'mice_model' },
-        { text: 'GEO/synapse ID', value: 'public_id' }
+        { text: 'Region', value: 'gender' },
+        { text: 'Publication', value: 'condition' },
+        { text: 'GEO/synapse ID', value: 'public_id' },
+        { text: 'Experimental factors', value: 'public_id' },
+        { text: 'Number of samples', value: 'public_id' }
       ],
       browseDefault: {
         species: 'All',
@@ -587,7 +579,7 @@ export default {
       this.browseDefault.gender = 'All'
     },
     openDetailsPage() {
-      this.$router.push(this.computedDialogData.data_id)
+      this.$router.push('/spatial/ST001')
     }
   },
   head() {
@@ -597,7 +589,7 @@ export default {
         {
           hid: 'scREAD homepage',
           name: 'scREAD home page',
-          content: `Alzheimers disease single-cell RNA-seq database, 
+          content: `Alzheimers disease single-cell RNA-seq database,
             Alzheimers disease AD single-cell datasets database analysis workflow pipeline,
             Search gene expression, DEG, , Differential expression and Gene set enrichment analysis,
             control atlases from different brain regions of human and mouse species,
