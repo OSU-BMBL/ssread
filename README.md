@@ -1,8 +1,7 @@
 # scREAD
 
-## IMPORTANT
-
-scREAD is available on our alternative server at http://osubmi.com/scread. Please visit the link as the main server is still in maintenance. Thank you for your support!
+Main server: https://bmbls.bmi.osumc.edu/scread
+Alternative server: http://osubmi.com/scread
 
 ---
 This repository serves as the front end part of scREAD, it also contains scREAD workflow in the /script folder.
