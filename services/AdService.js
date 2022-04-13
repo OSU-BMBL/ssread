@@ -60,6 +60,9 @@ export default {
   getDimension(id, type) {
     return apiClient.get('/dimension/' + id + '/type/' + type)
   },
+  getSpatialDimension(id) {
+    return apiClient.get('/spatial-dimension/' + id)
+  },
   getExpression(gene, id) {
     return apiClient.get('/expression/' + gene + '/id/' + id)
   },

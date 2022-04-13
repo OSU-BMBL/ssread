@@ -7,7 +7,6 @@
           <v-card-title class="primary white--text text-no-wrap py-2">{{
             titles[0]
           }}</v-card-title>
-
           <v-row>
             <v-col cols="12" class="py-0 my-0">
               <v-card-title class="my-2 py-0 subtitle-1 font-weight-medium"
@@ -120,7 +119,10 @@
                   >
                 </p>
                 <p class="my-2">
-                  <span class="text--secondary">Figure: </span>
+                  <span class="text--secondary"
+                    >Figure: Spatial transcriptomics in DLPFC using
+                    Visium.</span
+                  >
                   <span class="text--primary"
                     ><v-img
                       src="http://research.libd.org/spatialLIBD/reference/figures/paper_figure1.jpg"
@@ -130,24 +132,8 @@
                     >
                     </v-img
                   ></span>
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Data: </span>
-                  <span class="text--primary"
-                    ><a
-                      href="http://research.libd.org/spatialLIBD/"
-                      target="_blank"
-                      class="text-decoration-none"
-                    >
-                      Download
-                      <v-icon color="primary" size="1.2em"
-                        >mdi-open-in-new</v-icon
-                      >
-                    </a></span
-                  >
-                </p>
-              </v-card-text></v-col
-            >
+                </p> </v-card-text
+            ></v-col>
           </v-row>
         </v-card>
       </v-col>
@@ -167,7 +153,7 @@
             <v-col cols="6">
               <v-select
                 v-model="selectedSampleClustering"
-                label="Sample image"
+                label="Sample"
                 :items="clusterData"
                 item-text="name"
                 item-value="name"
@@ -181,8 +167,8 @@
                 class="text-decoration-none"
                 target="_blank"
               >
-                <v-btn small>
-                  Download (low-resolution)
+                <v-btn small class="mb-2">
+                  Download image (low-resolution)
                   <v-icon color="primary" size="1.5em"
                     >mdi-cloud-download-outline</v-icon
                   ></v-btn
@@ -194,7 +180,7 @@
                 download
               >
                 <v-btn small>
-                  Download (high-resolution)<v-icon
+                  Download image (high-resolution)<v-icon
                     color="primary "
                     size="1.5em"
                     >mdi-cloud-download-outline</v-icon
@@ -204,9 +190,30 @@
             </v-col>
           </v-card-actions>
           <v-row>
-            <v-col class="ma-4" xl="6" lg="8" md="10" sm="11" xs="11">
-              <v-img contain :src="selectedSampleClustering.pngLink"></v-img>
-            </v-col>
+            <v-col class="mx-4" cols="12">
+              <dimension-info
+                :dimension="spatialDimension"
+                :image="selectedSampleClustering.pngLink"
+              ></dimension-info
+            ></v-col>
+          </v-row>
+          <v-row>
+            <v-col class="mx-4" cols="12">
+              <svg-info
+                :data-id="dataId"
+                :dataset="dataset"
+                :ct="cellType"
+              ></svg-info
+            ></v-col>
+          </v-row>
+          <v-row>
+            <v-col class="mx-4" cols="12">
+              <de-info
+                :data-id="dataId"
+                :dataset="dataset"
+                :ct="cellType"
+              ></de-info
+            ></v-col>
           </v-row>
         </v-card>
       </v-col>
@@ -216,10 +223,46 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Fab from '@/components/utils/Fab'
+import DimensionInfo from '@/components/spatial/DimensionInfo'
+import DeInfo from '@/components/spatial/DeInfo'
+import SvgInfo from '@/components/spatial/SvgInfo'
+
 export default {
   components: {
-    Fab
+    Fab,
+    'dimension-info': DimensionInfo,
+    'de-info': DeInfo,
+    'svg-info': SvgInfo
+  },
+  async asyncData({ store, error, params }) {
+    const tmpId = 'AD00102'
+    const defaultDeParams = {
+      aDataId: tmpId,
+      bDataId: tmpId,
+      type: 'cell_type_specific',
+      ct: 'Astrocytes'
+    }
+    try {
+      await store.dispatch('ad/fetchSpatialDimension', {
+        id: params.id
+      })
+
+      await store.dispatch('ad/fetchExpressionGenes', params.id)
+      await store.dispatch('ad/fetchDatasets')
+      await store.dispatch('ad/fetchDataset', tmpId)
+      await store.dispatch('ad/fetchCellType', tmpId)
+      await store.dispatch('ad/fetchPublication', tmpId)
+      await store.dispatch('ad/fetchDe', defaultDeParams)
+      await store.dispatch('ad/fetchDeMeta', tmpId)
+      await store.dispatch('ad/fetchRegulon', tmpId)
+    } catch (e) {
+      error({
+        statusCode: 503,
+        message: 'ERROR CODE 503,' + params.id
+      })
+    }
   },
   data() {
     return {
@@ -250,6 +293,16 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      spatialDimension: (state) => state.ad.spatialDimension,
+      dataset: (state) => state.ad.dataset,
+      datasets: (state) => state.ad.datasets,
+      publication: (state) => state.ad.publication,
+      cellType: (state) => state.ad.cellType
+    }),
+    dataId() {
+      return 'AD00102'
+    },
     sampleInfo() {
       return [
         {
@@ -285,29 +338,14 @@ export default {
     clusterData() {
       return [
         {
-          name: '151507',
-          pngLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_lowres_image.png`,
+          name: '151673',
+          pngLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_lowres_image.png`,
           tiffLink: `${this.baseUrl}/cluster/Seurat-Figue-unsupervised-clustering.tiff`
         },
         {
           name: '151508',
           pngLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_lowres_image.png`,
           tiffLink: `${this.baseUrl}/cluster/CT-1.tiff`
-        },
-        {
-          name: '151509',
-          pngLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_tissue_lowres_image.png`,
-          tiffLink: `${this.baseUrl}/cluster/CT-2.tiff`
-        },
-        {
-          name: '151510',
-          pngLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_tissue_lowres_image.png`,
-          tiffLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_tissue_lowres_image.png`
-        },
-        {
-          name: '151669',
-          pngLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_tissue_lowres_image.png`,
-          tiffLink: `${this.baseUrl}/cluster/AD-2.tiff`
         }
       ]
     },

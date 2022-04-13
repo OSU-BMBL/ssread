@@ -382,52 +382,7 @@ export default {
           },
           meanline: {
             visible: true
-          },
-          transforms: [
-            {
-              type: 'groupby',
-              groups: this.result.names,
-              styles: [
-                {
-                  target: 'Astrocytes',
-                  value: { line: { color: '#E64B35FF' } }
-                },
-                {
-                  target: 'Endothelial cells',
-                  value: { line: { color: '#00A087FF' } }
-                },
-                {
-                  target: 'Excitatory neurons',
-                  value: { line: { color: '#3C5488FF' } }
-                },
-                {
-                  target: 'Inhibitory neurons',
-                  value: { line: { color: '#F39B7FFF' } }
-                },
-                {
-                  target: 'Microglia',
-                  value: { line: { color: '#4DBBD5FF' } }
-                },
-                {
-                  target: 'Oligodendrocytes',
-                  value: { line: { color: '#91D1C2FF' } }
-                },
-                {
-                  target: 'Pericytes',
-                  value: { line: { color: '#7E6148FF' } }
-                },
-                {
-                  target: 'Oligodendrocyte precursor cells',
-                  value: { line: { color: '#8491B499' } }
-                },
-
-                {
-                  target: 'unknown',
-                  value: { line: { color: '#7E6148FE' } }
-                }
-              ]
-            }
-          ]
+          }
         }
       ]
     },

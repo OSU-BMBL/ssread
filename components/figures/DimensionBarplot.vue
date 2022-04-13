@@ -57,7 +57,7 @@ export default {
     layout() {
       return {
         title: {
-          text: 'Number of Cells',
+          text: 'Number of Spots',
           font: {
             size: 20
           }
