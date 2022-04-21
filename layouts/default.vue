@@ -150,8 +150,8 @@ export default {
         { icon: 'mdi-database-search', text: 'Query', url: '/query' },
         {
           icon: 'mdi-table',
-          text: 'Browse control atlas',
-          url: '/browse_control_atlas'
+          text: 'Version 1 (archived)',
+          url: '/v1'
         },
         {
           icon: 'mdi-help-box',

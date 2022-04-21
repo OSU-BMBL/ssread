@@ -2,6 +2,14 @@
 
 # News
 
+## 4/21/2022
+
+### Added
+
+- Spatial RNA-seq example page
+- Archived v1 page
+-
+
 ## 4/7/2022
 
 ### Added

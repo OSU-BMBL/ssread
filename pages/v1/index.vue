@@ -2,7 +2,7 @@
   <div>
     <v-layout column justify-center align-center>
       <p class="display-3 font-weight-regular" align-center>
-        scREAD (dev)
+        scREAD (v1)
       </p>
       <v-flex xs="12" md="6" lg="12">
         <p class="display-1">

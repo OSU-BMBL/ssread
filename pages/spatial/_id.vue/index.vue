@@ -32,8 +32,12 @@
                   >
                 </p>
                 <p class="my-2">
-                  <span class="text--secondary">Publish date: </span>
+                  <span class="text--secondary">Date published: </span>
                   <span class="text--primary">2-21-2021</span>
+                </p>
+                <p class="my-2">
+                  <span class="text--secondary">Date added to scREAD:</span>
+                  <span class="text--primary"> 4-14-2022</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Abstract: </span>
@@ -49,6 +53,10 @@
                       >
                     </a></span
                   >
+                </p>
+                <p class="my-2">
+                  <span class="text--secondary">Protocol: </span>
+                  <span class="text--primary">10x Genomics Visium</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Data: </span>
@@ -167,7 +175,7 @@
                 class="text-decoration-none"
                 target="_blank"
               >
-                <v-btn small class="mb-2">
+                <v-btn small>
                   Download image (low-resolution)
                   <v-icon color="primary" size="1.5em"
                     >mdi-cloud-download-outline</v-icon
@@ -341,11 +349,6 @@ export default {
           name: '151673',
           pngLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_lowres_image.png`,
           tiffLink: `${this.baseUrl}/cluster/Seurat-Figue-unsupervised-clustering.tiff`
-        },
-        {
-          name: '151508',
-          pngLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_lowres_image.png`,
-          tiffLink: `${this.baseUrl}/cluster/CT-1.tiff`
         }
       ]
     },

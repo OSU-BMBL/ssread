@@ -17,7 +17,7 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   router: {
-    base: '/scread',
+    base: '/scread2',
     linkActiveClass: 'active-link'
   },
   publicRuntimeConfig: {
