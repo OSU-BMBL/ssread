@@ -1,53 +1,74 @@
 <template>
-  <v-hover v-slot:default="{ hover }" open-delay="0">
-    <v-card
-      class="mx-auto"
-      :elevation="hover ? 6 : 2"
-      :class="{ 'on-hover': hover }"
-    >
-      <v-card-title class="primary white--text title-1"
-        >Differential expression (DE) / Gene set enrichment
-      </v-card-title>
-      <v-card-text>
-        <p class="display-1 text--primary"></p>
-      </v-card-text>
-      <v-row xs="12" md="8" lg="12">
-        <v-col cols="md-6 lg-7">
-          <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-2">
-            <p class="subtitle-1 font-weight-bold py-0 my-2">
-              Group:
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                    >mdi-help-circle-outline</v-icon
-                  >
-                </template>
-                <span
-                  >Select differential expression test group between two
-                  specific set of cells.
-                </span>
-              </v-tooltip>
-            </p>
-            <v-select
-              v-model="groupSelect"
-              :hint="` ${groupSelect.hint}`"
-              :items="groupItems"
-              item-text="groupText"
-              item-value="hint"
-              label="DE Comparison type:"
-              return-object
-              single-line
-              persistent-hint
-              @change="
-                updateDe()
-                clearDeSelection()
-              "
-            ></v-select>
-          </v-col>
+  <v-card class="mx-auto">
+    <v-card-title class="primary white--text title-1"
+      >Differential expression (DE) / Gene set enrichment
+    </v-card-title>
+    <v-card-text>
+      <p class="display-1 text--primary"></p>
+    </v-card-text>
+    <v-row xs="12" md="8" lg="12">
+      <v-col cols="md-6 lg-7">
+        <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-2">
+          <p class="subtitle-1 font-weight-bold py-0 my-2">
+            Group:
+            <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                  >mdi-help-circle-outline</v-icon
+                >
+              </template>
+              <span
+                >Select differential expression test group between two specific
+                set of cells.
+              </span>
+            </v-tooltip>
+          </p>
+          <v-select
+            v-model="groupSelect"
+            :hint="` ${groupSelect.hint}`"
+            :items="groupItems"
+            item-text="groupText"
+            item-value="hint"
+            label="DE Comparison type:"
+            return-object
+            single-line
+            persistent-hint
+            @change="
+              updateDe()
+              clearDeSelection()
+            "
+          ></v-select>
+        </v-col>
 
-          <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-1">
-            <p class="subtitle-1 font-weight-bold py-0 my-2">
-              Cluster:
+        <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-1">
+          <p class="subtitle-1 font-weight-bold py-0 my-2">
+            Cluster:
+            <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                  >mdi-help-circle-outline</v-icon
+                >
+              </template>
+              <span
+                >Select the cell type of interest to perform differential
+                expresison analysis.</span
+              >
+            </v-tooltip>
+          </p>
+          <v-select
+            v-model="cellTypeSelect"
+            :items="clusterItems"
+            label="Cluster"
+            return-object
+            single-line
+            @change="updateDe()"
+          ></v-select>
+        </v-col>
+
+        <v-row>
+          <v-col xs="12" md="12" lg="12" class="px-4 py-0 my-1">
+            <p class="subtitle-1 font-weight-bold">
+              Log2 fold-change cutoff:
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon color="primary" dark v-bind="attrs" v-on="on"
@@ -55,373 +76,221 @@
                   >
                 </template>
                 <span
-                  >Select the cell type of interest to perform differential
-                  expresison analysis.</span
+                  >Limit testing to genes which show, on average, at least
+                  X-fold difference (log-scale) between the two groups of
+                  cells.</span
                 >
               </v-tooltip>
             </p>
-            <v-select
-              v-model="cellTypeSelect"
-              :items="clusterItems"
-              label="Cluster"
-              return-object
-              single-line
-              @change="updateDe()"
-            ></v-select>
+            <v-slider
+              v-model="lfc_range"
+              max="5"
+              min="0"
+              hide-details
+              :thumb-size="24"
+              thumb-label="always"
+              class="align-center"
+              :step="lfc_slider"
+            >
+              <template v-slot:append>
+                <v-text-field
+                  v-model="lfc_range"
+                  class="mt-0 pt-0"
+                  hide-details
+                  single-line
+                  type="number"
+                  style="width: 70px"
+                ></v-text-field>
+              </template>
+            </v-slider>
           </v-col>
-
-          <v-row>
-            <v-col xs="12" md="12" lg="12" class="px-4 py-0 my-1">
-              <p class="subtitle-1 font-weight-bold">
-                Log2 fold-change cutoff:
-                <v-tooltip top>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                      >mdi-help-circle-outline</v-icon
-                    >
-                  </template>
-                  <span
-                    >Limit testing to genes which show, on average, at least
-                    X-fold difference (log-scale) between the two groups of
-                    cells.</span
+        </v-row>
+        <v-row>
+          <v-col xs="12" md="12" lg="12" class="px-4 py-0 my-1">
+            <p class="subtitle-1 font-weight-bold">
+              Adjusted p-value cutoff:<v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                    >mdi-help-circle-outline</v-icon
                   >
-                </v-tooltip>
-              </p>
-              <v-slider
-                v-model="lfc_range"
-                max="5"
-                min="0"
-                hide-details
-                :thumb-size="24"
-                thumb-label="always"
-                class="align-center"
-                :step="lfc_slider"
-              >
-                <template v-slot:append>
-                  <v-text-field
-                    v-model="lfc_range"
-                    class="mt-0 pt-0"
-                    hide-details
-                    single-line
-                    type="number"
-                    style="width: 70px"
-                  ></v-text-field>
                 </template>
-              </v-slider>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col xs="12" md="12" lg="12" class="px-4 py-0 my-1">
-              <p class="subtitle-1 font-weight-bold">
-                Adjusted p-value cutoff:<v-tooltip top>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                      >mdi-help-circle-outline</v-icon
-                    >
-                  </template>
-                  <span
-                    >The adjusted p-value is calculated from differentially
-                    expressed genes between two groups of cells using a Wilcoxon
-                    Rank Sum test in Seurat R package.</span
-                  >
-                </v-tooltip>
-              </p>
-              <v-slider
-                v-model="p_range"
-                :tick-labels="ticksLabels"
-                max="8"
-                min="1"
-                step="1"
-                ticks="always"
-                tick-size="4"
-              >
-                <template v-slot:append>
-                  <v-text-field
-                    v-model="pSliderValue"
-                    class="mt-0 pt-0"
-                    center
-                    hide-details
-                    single-line
-                    type="number"
-                    style="width: 70px"
-                  ></v-text-field> </template
-              ></v-slider>
-            </v-col>
-          </v-row>
-          <v-col cols="12" md="12" lg="12">
-            <v-radio-group v-model="deDirection" row>
-              <span class="subtitle-1 font-weight-bold">DE direction: </span>
-              <v-radio label="All" value="all"></v-radio>
-              <v-radio label="UP" value="up"></v-radio>
-              <v-radio label="Down" value="down"></v-radio>
-            </v-radio-group>
+                <span
+                  >The adjusted p-value is calculated from differentially
+                  expressed genes between two groups of cells using a Wilcoxon
+                  Rank Sum test in Seurat R package.</span
+                >
+              </v-tooltip>
+            </p>
+            <v-slider
+              v-model="p_range"
+              :tick-labels="ticksLabels"
+              max="8"
+              min="1"
+              step="1"
+              ticks="always"
+              tick-size="4"
+            >
+              <template v-slot:append>
+                <v-text-field
+                  v-model="pSliderValue"
+                  class="mt-0 pt-0"
+                  center
+                  hide-details
+                  single-line
+                  type="number"
+                  style="width: 70px"
+                ></v-text-field> </template
+            ></v-slider>
           </v-col>
+        </v-row>
+        <v-col cols="12" md="12" lg="12">
+          <v-radio-group v-model="deDirection" row>
+            <span class="subtitle-1 font-weight-bold">DE direction: </span>
+            <v-radio label="All" value="all"></v-radio>
+            <v-radio label="UP" value="up"></v-radio>
+            <v-radio label="Down" value="down"></v-radio>
+          </v-radio-group>
         </v-col>
+      </v-col>
 
-        <v-col cols="md-5 lg-5">
+      <v-col cols="md-5 lg-5">
+        <v-text-field
+          v-model="searchDe"
+          prepend-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field
+        ><v-data-table
+          dense
+          :search="searchDe"
+          :headers="headers"
+          :items="filterDe"
+          :items-per-page="15"
+          class="elevation-1"
+        >
+          <template slot="no-data">
+            <v-alert :value="true">
+              {{ deErrorMsg }}
+            </v-alert>
+          </template>
+          <template v-slot:top>
+            <v-toolbar flat>
+              <v-toolbar-title>
+                <download-excel :data="filterDe" type="csv">
+                  <v-btn color="primary"> Download</v-btn>
+                </download-excel></v-toolbar-title
+              >
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                    >mdi-help-circle-outline</v-icon
+                  >
+                </template>
+                <p>
+                  Note: The DEGs table will be automatically updated using the
+                  option panel on the left, and the functional gene set
+                  enrichment analysis will be performed real-time based on
+                  current DEGs list.
+                </p>
+                <p>
+                  Note: Be careful about fold-change direction when browsing
+                  cross datasets DE comparisons, i.e., check current dataset's
+                  position in the 'A vs B' group comparison.
+                </p>
+                <p>
+                  Log fold-change : log fold-chage of the average expression
+                  between the two groups. Positive values indicate that the
+                  feature is more highly expressed in the first group.
+                </p>
+                <p>
+                  Pct.1 : The percentage of cells where the feature is detected
+                  in the first group
+                </p>
+                <p>
+                  Pct.2 : The percentage of cells where the feature is detected
+                  in the second group
+                </p>
+                <p>
+                  Adjusted p-value : Adjusted p-value, based on bonferroni
+                  correction using all features in the dataset.
+                </p>
+              </v-tooltip>
+              <v-btn color="primary" @click="copyGenes(genes)">Copy DEG</v-btn>
+              <v-spacer></v-spacer>
+            </v-toolbar>
+          </template>
+          <template v-slot:item="row">
+            <tr>
+              <td>
+                <a
+                  :href="
+                    'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
+                      row.item.gene
+                  "
+                  target="_blank"
+                  style="text-decoration:none;"
+                  >{{ row.item.gene }}</a
+                >
+              </td>
+              <td>{{ row.item.avg_logFC }}</td>
+              <td>{{ row.item.pct_1 }}</td>
+              <td>{{ row.item.pct_2 }}</td>
+              <td>{{ row.item.p_val_adj.toExponential(2) }}</td>
+            </tr>
+          </template>
+        </v-data-table>
+      </v-col>
+    </v-row>
+    <v-divider></v-divider>
+    <v-expansion-panels v-model="panel" hover multiple>
+      <v-expansion-panel>
+        <v-expansion-panel-header @click="submitEnrichr('kegg')"
+          >KEGG pathway
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <p>
+            Note: The functional gene set analysis results are calculated in
+            real-time by sending the DEGs to the
+            <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
+              Enrichr</a
+            >.
+          </p>
+          <p>
+            Enrichr does not allow uploading custom background gene sets, and
+            the results could be potentially misleading (<a
+              href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0761-7"
+              target="_blank"
+              >Timmons et al.,2015</a
+            >). Please click "COPY DEG" and use
+            <a href="https://biit.cs.ut.ee/gprofiler/" target="_blank">
+              g:Profier</a
+            >
+            if you would like to upload a custom background set.
+          </p>
           <v-text-field
-            v-model="searchDe"
+            v-model="keggSearch"
             prepend-icon="mdi-magnify"
             label="Search"
             single-line
             hide-details
-          ></v-text-field
-          ><v-data-table
+          ></v-text-field>
+          <v-data-table
             dense
-            :search="searchDe"
-            :headers="headers"
-            :items="filterDe"
-            :items-per-page="15"
+            :search="keggSearch"
+            :headers="enrichHeaders"
+            :items="keggResult"
+            :items-per-page="10"
+            item-key="index"
             class="elevation-1"
+            :expanded.sync="expandedKegg"
+            show-expand
           >
-            <template slot="no-data">
-              <v-alert :value="true">
-                {{ deErrorMsg }}
-              </v-alert>
-            </template>
             <template v-slot:top>
               <v-toolbar flat>
-                <v-toolbar-title>
-                  <download-excel :data="filterDe" type="csv">
-                    <v-btn color="primary"> Download</v-btn>
-                  </download-excel></v-toolbar-title
-                >
-                <v-tooltip top>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                      >mdi-help-circle-outline</v-icon
-                    >
-                  </template>
-                  <p>
-                    Note: The DEGs table will be automatically updated using the
-                    option panel on the left, and the functional gene set
-                    enrichment analysis will be performed real-time based on
-                    current DEGs list.
-                  </p>
-                  <p>
-                    Note: Be careful about fold-change direction when browsing
-                    cross datasets DE comparisons, i.e., check current dataset's
-                    position in the 'A vs B' group comparison.
-                  </p>
-                  <p>
-                    Log fold-change : log fold-chage of the average expression
-                    between the two groups. Positive values indicate that the
-                    feature is more highly expressed in the first group.
-                  </p>
-                  <p>
-                    Pct.1 : The percentage of cells where the feature is
-                    detected in the first group
-                  </p>
-                  <p>
-                    Pct.2 : The percentage of cells where the feature is
-                    detected in the second group
-                  </p>
-                  <p>
-                    Adjusted p-value : Adjusted p-value, based on bonferroni
-                    correction using all features in the dataset.
-                  </p>
-                </v-tooltip>
-                <v-btn color="primary" @click="copyGenes(genes)"
-                  >Copy DEG</v-btn
-                >
-                <v-spacer></v-spacer>
-              </v-toolbar>
-            </template>
-            <template v-slot:item="row">
-              <tr>
-                <td>
-                  <a
-                    :href="
-                      'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
-                        row.item.gene
-                    "
-                    target="_blank"
-                    style="text-decoration:none;"
-                    >{{ row.item.gene }}</a
-                  >
-                </td>
-                <td>{{ row.item.avg_logFC }}</td>
-                <td>{{ row.item.pct_1 }}</td>
-                <td>{{ row.item.pct_2 }}</td>
-                <td>{{ row.item.p_val_adj.toExponential(2) }}</td>
-              </tr>
-            </template>
-          </v-data-table>
-        </v-col>
-      </v-row>
-      <v-divider></v-divider>
-      <v-expansion-panels v-model="panel" hover multiple>
-        <v-expansion-panel>
-          <v-expansion-panel-header @click="submitEnrichr('kegg')"
-            >KEGG pathway
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <p>
-              Note: The functional gene set analysis results are calculated in
-              real-time by sending the DEGs to the
-              <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
-                Enrichr</a
-              >.
-            </p>
-            <p>
-              Enrichr does not allow uploading custom background gene sets, and
-              the results could be potentially misleading (<a
-                href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0761-7"
-                target="_blank"
-                >Timmons et al.,2015</a
-              >). Please click "COPY DEG" and use
-              <a href="https://biit.cs.ut.ee/gprofiler/" target="_blank">
-                g:Profier</a
-              >
-              if you would like to upload a custom background set.
-            </p>
-            <v-text-field
-              v-model="keggSearch"
-              prepend-icon="mdi-magnify"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field>
-            <v-data-table
-              dense
-              :search="keggSearch"
-              :headers="enrichHeaders"
-              :items="keggResult"
-              :items-per-page="10"
-              item-key="index"
-              class="elevation-1"
-              :expanded.sync="expandedKegg"
-              show-expand
-            >
-              <template v-slot:top>
-                <v-toolbar flat>
-                  <v-toolbar-title class="d-flex align-start">
-                    <download-excel :data="keggResult" type="csv">
-                      <v-btn color="primary"> Download</v-btn
-                      ><v-tooltip top>
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                            >mdi-help-circle-outline</v-icon
-                          >
-                        </template>
-                        <span
-                          >KEGG Pathway enrichment analysis using the DE genes
-                          above. The results are calculated real-time using
-                          Enrichr.</span
-                        >
-                      </v-tooltip> </download-excel
-                    ><v-btn color="primary" @click="copyGenes(genes)"
-                      >Copy DEG</v-btn
-                    ></v-toolbar-title
-                  >
-                  <v-spacer></v-spacer>
-                </v-toolbar>
-              </template>
-              <template v-slot:expanded-item="{ item }">
-                <td :colspan="headers.length">
-                  <v-virtual-scroll
-                    height="425"
-                    item-height="45"
-                    :items="item.genes"
-                  >
-                    <template v-slot:default="{ item }">
-                      <v-list-item :key="item">
-                        <v-list-item-content>
-                          <v-list-item-title>
-                            {{ item }}
-                          </v-list-item-title>
-                        </v-list-item-content>
-
-                        <v-list-item-action>
-                          <v-btn
-                            depressed
-                            small
-                            :href="
-                              'https://www.uniprot.org/uniprot/?query=' + item
-                            "
-                            target="_blank"
-                          >
-                            UniProt
-                            <v-icon color="primary" right>
-                              mdi-open-in-new
-                            </v-icon>
-                          </v-btn>
-                        </v-list-item-action>
-                        <v-list-item-action>
-                          <v-btn
-                            depressed
-                            small
-                            :href="
-                              'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
-                                item
-                            "
-                            target="_blank"
-                          >
-                            GeneCards
-                            <v-icon color="primary" right>
-                              mdi-open-in-new
-                            </v-icon>
-                          </v-btn>
-                        </v-list-item-action>
-                      </v-list-item>
-                      <v-divider />
-                    </template>
-                  </v-virtual-scroll>
-                </td>
-              </template>
-            </v-data-table>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-expansion-panel>
-          <v-expansion-panel-header @click="submitEnrichr('bp')"
-            >GO: Biological Process</v-expansion-panel-header
-          >
-
-          <v-expansion-panel-content>
-            <p>
-              Note: The functional gene set analysis results are calculated in
-              real-time by sending the DEGs to the
-              <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
-                Enrichr</a
-              >.
-            </p>
-            <p>
-              Enrichr does not allow uploading custom background gene sets, and
-              the results could be potentially misleading (<a
-                href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0761-7"
-                target="_blank"
-                >Timmons et al.,2015</a
-              >). Please click "COPY DEG" and use
-              <a href="https://biit.cs.ut.ee/gprofiler/" target="_blank">
-                g:Profier</a
-              >
-              if you would like to upload a custom background set.
-            </p>
-            <v-text-field
-              v-model="bpSearch"
-              prepend-icon="mdi-magnify"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field>
-
-            <v-data-table
-              dense
-              :search="bpSearch"
-              :headers="enrichHeaders"
-              :items="bpResult"
-              :items-per-page="10"
-              item-key="index"
-              class="elevation-1"
-              :expanded.sync="expandedBp"
-              show-expand
-            >
-              <template v-slot:top>
-                <v-toolbar flat>
-                  <v-toolbar-title class="d-flex align-start">
-                    <download-excel :data="bpResult" type="csv">
-                      <v-btn color="primary"> Download</v-btn></download-excel
+                <v-toolbar-title class="d-flex align-start">
+                  <download-excel :data="keggResult" type="csv">
+                    <v-btn color="primary"> Download</v-btn
                     ><v-tooltip top>
                       <template v-slot:activator="{ on, attrs }">
                         <v-icon color="primary" dark v-bind="attrs" v-on="on"
@@ -429,323 +298,446 @@
                         >
                       </template>
                       <span
-                        >GO: Biological Process enrichment analysis using the DE
+                        >KEGG Pathway enrichment analysis using the DE genes
+                        above. The results are calculated real-time using
+                        Enrichr.</span
+                      >
+                    </v-tooltip> </download-excel
+                  ><v-btn color="primary" @click="copyGenes(genes)"
+                    >Copy DEG</v-btn
+                  ></v-toolbar-title
+                >
+                <v-spacer></v-spacer>
+              </v-toolbar>
+            </template>
+            <template v-slot:expanded-item="{ item }">
+              <td :colspan="headers.length">
+                <v-virtual-scroll
+                  height="425"
+                  item-height="45"
+                  :items="item.genes"
+                >
+                  <template v-slot:default="{ item }">
+                    <v-list-item :key="item">
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{ item }}
+                        </v-list-item-title>
+                      </v-list-item-content>
+
+                      <v-list-item-action>
+                        <v-btn
+                          depressed
+                          small
+                          :href="
+                            'https://www.uniprot.org/uniprot/?query=' + item
+                          "
+                          target="_blank"
+                        >
+                          UniProt
+                          <v-icon color="primary" right>
+                            mdi-open-in-new
+                          </v-icon>
+                        </v-btn>
+                      </v-list-item-action>
+                      <v-list-item-action>
+                        <v-btn
+                          depressed
+                          small
+                          :href="
+                            'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
+                              item
+                          "
+                          target="_blank"
+                        >
+                          GeneCards
+                          <v-icon color="primary" right>
+                            mdi-open-in-new
+                          </v-icon>
+                        </v-btn>
+                      </v-list-item-action>
+                    </v-list-item>
+                    <v-divider />
+                  </template>
+                </v-virtual-scroll>
+              </td>
+            </template>
+          </v-data-table>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+      <v-expansion-panel>
+        <v-expansion-panel-header @click="submitEnrichr('bp')"
+          >GO: Biological Process</v-expansion-panel-header
+        >
+
+        <v-expansion-panel-content>
+          <p>
+            Note: The functional gene set analysis results are calculated in
+            real-time by sending the DEGs to the
+            <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
+              Enrichr</a
+            >.
+          </p>
+          <p>
+            Enrichr does not allow uploading custom background gene sets, and
+            the results could be potentially misleading (<a
+              href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0761-7"
+              target="_blank"
+              >Timmons et al.,2015</a
+            >). Please click "COPY DEG" and use
+            <a href="https://biit.cs.ut.ee/gprofiler/" target="_blank">
+              g:Profier</a
+            >
+            if you would like to upload a custom background set.
+          </p>
+          <v-text-field
+            v-model="bpSearch"
+            prepend-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+
+          <v-data-table
+            dense
+            :search="bpSearch"
+            :headers="enrichHeaders"
+            :items="bpResult"
+            :items-per-page="10"
+            item-key="index"
+            class="elevation-1"
+            :expanded.sync="expandedBp"
+            show-expand
+          >
+            <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title class="d-flex align-start">
+                  <download-excel :data="bpResult" type="csv">
+                    <v-btn color="primary"> Download</v-btn></download-excel
+                  ><v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                        >mdi-help-circle-outline</v-icon
+                      >
+                    </template>
+                    <span
+                      >GO: Biological Process enrichment analysis using the DE
+                      genes above. The results are calculated real-time using
+                      Enrichr.</span
+                    >
+                  </v-tooltip>
+
+                  <v-btn color="primary" @click="copyGenes(genes)"
+                    >Copy DEG</v-btn
+                  >
+                </v-toolbar-title>
+                <v-spacer></v-spacer>
+              </v-toolbar>
+            </template>
+            <template v-slot:expanded-item="{ item }">
+              <td :colspan="headers.length">
+                <v-virtual-scroll
+                  height="425"
+                  item-height="45"
+                  :items="item.genes"
+                >
+                  <template v-slot:default="{ item }">
+                    <v-list-item :key="item">
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{ item }}
+                        </v-list-item-title>
+                      </v-list-item-content>
+
+                      <v-list-item-action>
+                        <v-btn
+                          depressed
+                          small
+                          :href="
+                            'https://www.uniprot.org/uniprot/?query=' + item
+                          "
+                          target="_blank"
+                        >
+                          UniProt
+                          <v-icon color="primary" right>
+                            mdi-open-in-new
+                          </v-icon>
+                        </v-btn>
+                      </v-list-item-action>
+                      <v-list-item-action>
+                        <v-btn
+                          depressed
+                          small
+                          :href="
+                            'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
+                              item
+                          "
+                          target="_blank"
+                        >
+                          GeneCards
+                          <v-icon color="primary" right>
+                            mdi-open-in-new
+                          </v-icon>
+                        </v-btn>
+                      </v-list-item-action>
+                    </v-list-item>
+                    <v-divider />
+                  </template>
+                </v-virtual-scroll>
+              </td>
+            </template>
+          </v-data-table>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+      <v-expansion-panel>
+        <v-expansion-panel-header @click="submitEnrichr('mf')"
+          >GO: Molecular Function</v-expansion-panel-header
+        >
+        <v-expansion-panel-content>
+          <p>
+            Note: The functional gene set analysis results are calculated in
+            real-time by sending the DEGs to the
+            <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
+              Enrichr</a
+            >.
+          </p>
+          <p>
+            Enrichr does not allow uploading custom background gene sets, and
+            the results could be potentially misleading (<a
+              href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0761-7"
+              target="_blank"
+              >Timmons et al.,2015</a
+            >). Please click "COPY DEG" and use
+            <a href="https://biit.cs.ut.ee/gprofiler/" target="_blank">
+              g:Profier</a
+            >
+            if you would like to upload a custom background set.
+          </p>
+          <v-text-field
+            v-model="mfSearch"
+            prepend-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+          <v-data-table
+            dense
+            :search="mfSearch"
+            :headers="enrichHeaders"
+            :items="mfResult"
+            :items-per-page="10"
+            item-key="index"
+            class="elevation-1"
+            :expanded.sync="expandedMf"
+            show-expand
+          >
+            <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title class="d-flex align-start"
+                  ><download-excel :data="mfResult" type="csv">
+                    <v-btn color="primary"> Download</v-btn
+                    ><v-tooltip top>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                          >mdi-help-circle-outline</v-icon
+                        >
+                      </template>
+                      <span
+                        >GO: Molecular Function enrichment analysis using the DE
                         genes above. The results are calculated real-time using
                         Enrichr.</span
                       >
-                    </v-tooltip>
+                    </v-tooltip> </download-excel
+                  ><v-btn color="primary" @click="copyGenes(genes)"
+                    >Copy DEG</v-btn
+                  ></v-toolbar-title
+                >
+                <v-spacer></v-spacer>
+              </v-toolbar>
+            </template>
+            <template v-slot:expanded-item="{ item }">
+              <td :colspan="headers.length">
+                <v-virtual-scroll
+                  height="425"
+                  item-height="45"
+                  :items="item.genes"
+                >
+                  <template v-slot:default="{ item }">
+                    <v-list-item :key="item">
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{ item }}
+                        </v-list-item-title>
+                      </v-list-item-content>
 
-                    <v-btn color="primary" @click="copyGenes(genes)"
-                      >Copy DEG</v-btn
-                    >
-                  </v-toolbar-title>
-                  <v-spacer></v-spacer>
-                </v-toolbar>
-              </template>
-              <template v-slot:expanded-item="{ item }">
-                <td :colspan="headers.length">
-                  <v-virtual-scroll
-                    height="425"
-                    item-height="45"
-                    :items="item.genes"
-                  >
-                    <template v-slot:default="{ item }">
-                      <v-list-item :key="item">
-                        <v-list-item-content>
-                          <v-list-item-title>
-                            {{ item }}
-                          </v-list-item-title>
-                        </v-list-item-content>
-
-                        <v-list-item-action>
-                          <v-btn
-                            depressed
-                            small
-                            :href="
-                              'https://www.uniprot.org/uniprot/?query=' + item
-                            "
-                            target="_blank"
-                          >
-                            UniProt
-                            <v-icon color="primary" right>
-                              mdi-open-in-new
-                            </v-icon>
-                          </v-btn>
-                        </v-list-item-action>
-                        <v-list-item-action>
-                          <v-btn
-                            depressed
-                            small
-                            :href="
-                              'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
-                                item
-                            "
-                            target="_blank"
-                          >
-                            GeneCards
-                            <v-icon color="primary" right>
-                              mdi-open-in-new
-                            </v-icon>
-                          </v-btn>
-                        </v-list-item-action>
-                      </v-list-item>
-                      <v-divider />
-                    </template>
-                  </v-virtual-scroll>
-                </td>
-              </template>
-            </v-data-table>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-expansion-panel>
-          <v-expansion-panel-header @click="submitEnrichr('mf')"
-            >GO: Molecular Function</v-expansion-panel-header
-          >
-          <v-expansion-panel-content>
-            <p>
-              Note: The functional gene set analysis results are calculated in
-              real-time by sending the DEGs to the
-              <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
-                Enrichr</a
-              >.
-            </p>
-            <p>
-              Enrichr does not allow uploading custom background gene sets, and
-              the results could be potentially misleading (<a
-                href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0761-7"
-                target="_blank"
-                >Timmons et al.,2015</a
-              >). Please click "COPY DEG" and use
-              <a href="https://biit.cs.ut.ee/gprofiler/" target="_blank">
-                g:Profier</a
-              >
-              if you would like to upload a custom background set.
-            </p>
-            <v-text-field
-              v-model="mfSearch"
-              prepend-icon="mdi-magnify"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field>
-            <v-data-table
-              dense
-              :search="mfSearch"
-              :headers="enrichHeaders"
-              :items="mfResult"
-              :items-per-page="10"
-              item-key="index"
-              class="elevation-1"
-              :expanded.sync="expandedMf"
-              show-expand
-            >
-              <template v-slot:top>
-                <v-toolbar flat>
-                  <v-toolbar-title class="d-flex align-start"
-                    ><download-excel :data="mfResult" type="csv">
-                      <v-btn color="primary"> Download</v-btn
-                      ><v-tooltip top>
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                            >mdi-help-circle-outline</v-icon
-                          >
-                        </template>
-                        <span
-                          >GO: Molecular Function enrichment analysis using the
-                          DE genes above. The results are calculated real-time
-                          using Enrichr.</span
+                      <v-list-item-action>
+                        <v-btn
+                          depressed
+                          small
+                          :href="
+                            'https://www.uniprot.org/uniprot/?query=' + item
+                          "
+                          target="_blank"
                         >
-                      </v-tooltip> </download-excel
-                    ><v-btn color="primary" @click="copyGenes(genes)"
-                      >Copy DEG</v-btn
-                    ></v-toolbar-title
-                  >
-                  <v-spacer></v-spacer>
-                </v-toolbar>
-              </template>
-              <template v-slot:expanded-item="{ item }">
-                <td :colspan="headers.length">
-                  <v-virtual-scroll
-                    height="425"
-                    item-height="45"
-                    :items="item.genes"
-                  >
-                    <template v-slot:default="{ item }">
-                      <v-list-item :key="item">
-                        <v-list-item-content>
-                          <v-list-item-title>
-                            {{ item }}
-                          </v-list-item-title>
-                        </v-list-item-content>
-
-                        <v-list-item-action>
-                          <v-btn
-                            depressed
-                            small
-                            :href="
-                              'https://www.uniprot.org/uniprot/?query=' + item
-                            "
-                            target="_blank"
-                          >
-                            UniProt
-                            <v-icon color="primary" right>
-                              mdi-open-in-new
-                            </v-icon>
-                          </v-btn>
-                        </v-list-item-action>
-                        <v-list-item-action>
-                          <v-btn
-                            depressed
-                            small
-                            :href="
-                              'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
-                                item
-                            "
-                            target="_blank"
-                          >
-                            GeneCards
-                            <v-icon color="primary" right>
-                              mdi-open-in-new
-                            </v-icon>
-                          </v-btn>
-                        </v-list-item-action>
-                      </v-list-item>
-                      <v-divider />
-                    </template>
-                  </v-virtual-scroll>
-                </td>
-              </template>
-            </v-data-table>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-        <v-expansion-panel>
-          <v-expansion-panel-header @click="submitEnrichr('cc')"
-            >GO: Cellular Component</v-expansion-panel-header
-          >
-          <v-expansion-panel-content>
-            <p>
-              Note: The functional gene set analysis results are calculated in
-              real-time by sending the DEGs to the
-              <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
-                Enrichr</a
-              >.
-            </p>
-            <p>
-              Enrichr does not allow uploading custom background gene sets, and
-              the results could be potentially misleading (<a
-                href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0761-7"
-                target="_blank"
-                >Timmons et al.,2015</a
-              >). Please click "COPY DEG" and use
-              <a href="https://biit.cs.ut.ee/gprofiler/" target="_blank">
-                g:Profier</a
-              >
-              if you would like to upload a custom background set.
-            </p>
-            <v-text-field
-              v-model="ccSearch"
-              prepend-icon="mdi-magnify"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field>
-            <v-data-table
-              dense
-              :search="ccSearch"
-              :headers="enrichHeaders"
-              :items="ccResult"
-              :items-per-page="10"
-              item-key="index"
-              class="elevation-1"
-              :expanded.sync="expandedCc"
-              show-expand
-            >
-              <template v-slot:top>
-                <v-toolbar flat>
-                  <v-toolbar-title class="d-flex align-start">
-                    <download-excel :data="ccResult" type="csv">
-                      <v-btn color="primary"> Download</v-btn
-                      ><v-tooltip top>
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                            >mdi-help-circle-outline</v-icon
-                          >
-                        </template>
-                        <span
-                          >GO: Cellular Component enrichment analysis using the
-                          DE genes above. The results are calculated real-time
-                          using Enrichr.</span
+                          UniProt
+                          <v-icon color="primary" right>
+                            mdi-open-in-new
+                          </v-icon>
+                        </v-btn>
+                      </v-list-item-action>
+                      <v-list-item-action>
+                        <v-btn
+                          depressed
+                          small
+                          :href="
+                            'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
+                              item
+                          "
+                          target="_blank"
                         >
-                      </v-tooltip> </download-excel
-                    ><v-btn color="primary" @click="copyGenes(genes)"
-                      >Copy DEG</v-btn
-                    >
-                  </v-toolbar-title>
-                  <v-spacer></v-spacer>
-                </v-toolbar>
-              </template>
-              <template v-slot:expanded-item="{ item }">
-                <td :colspan="headers.length">
-                  <v-virtual-scroll
-                    height="425"
-                    item-height="45"
-                    :items="item.genes"
+                          GeneCards
+                          <v-icon color="primary" right>
+                            mdi-open-in-new
+                          </v-icon>
+                        </v-btn>
+                      </v-list-item-action>
+                    </v-list-item>
+                    <v-divider />
+                  </template>
+                </v-virtual-scroll>
+              </td>
+            </template>
+          </v-data-table>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+      <v-expansion-panel>
+        <v-expansion-panel-header @click="submitEnrichr('cc')"
+          >GO: Cellular Component</v-expansion-panel-header
+        >
+        <v-expansion-panel-content>
+          <p>
+            Note: The functional gene set analysis results are calculated in
+            real-time by sending the DEGs to the
+            <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
+              Enrichr</a
+            >.
+          </p>
+          <p>
+            Enrichr does not allow uploading custom background gene sets, and
+            the results could be potentially misleading (<a
+              href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0761-7"
+              target="_blank"
+              >Timmons et al.,2015</a
+            >). Please click "COPY DEG" and use
+            <a href="https://biit.cs.ut.ee/gprofiler/" target="_blank">
+              g:Profier</a
+            >
+            if you would like to upload a custom background set.
+          </p>
+          <v-text-field
+            v-model="ccSearch"
+            prepend-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+          <v-data-table
+            dense
+            :search="ccSearch"
+            :headers="enrichHeaders"
+            :items="ccResult"
+            :items-per-page="10"
+            item-key="index"
+            class="elevation-1"
+            :expanded.sync="expandedCc"
+            show-expand
+          >
+            <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title class="d-flex align-start">
+                  <download-excel :data="ccResult" type="csv">
+                    <v-btn color="primary"> Download</v-btn
+                    ><v-tooltip top>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                          >mdi-help-circle-outline</v-icon
+                        >
+                      </template>
+                      <span
+                        >GO: Cellular Component enrichment analysis using the DE
+                        genes above. The results are calculated real-time using
+                        Enrichr.</span
+                      >
+                    </v-tooltip> </download-excel
+                  ><v-btn color="primary" @click="copyGenes(genes)"
+                    >Copy DEG</v-btn
                   >
-                    <template v-slot:default="{ item }">
-                      <v-list-item :key="item">
-                        <v-list-item-content>
-                          <v-list-item-title>
-                            {{ item }}
-                          </v-list-item-title>
-                        </v-list-item-content>
+                </v-toolbar-title>
+                <v-spacer></v-spacer>
+              </v-toolbar>
+            </template>
+            <template v-slot:expanded-item="{ item }">
+              <td :colspan="headers.length">
+                <v-virtual-scroll
+                  height="425"
+                  item-height="45"
+                  :items="item.genes"
+                >
+                  <template v-slot:default="{ item }">
+                    <v-list-item :key="item">
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{ item }}
+                        </v-list-item-title>
+                      </v-list-item-content>
 
-                        <v-list-item-action>
-                          <v-btn
-                            depressed
-                            small
-                            :href="
-                              'https://www.uniprot.org/uniprot/?query=' + item
-                            "
-                            target="_blank"
-                          >
-                            UniProt
-                            <v-icon color="primary" right>
-                              mdi-open-in-new
-                            </v-icon>
-                          </v-btn>
-                        </v-list-item-action>
-                        <v-list-item-action>
-                          <v-btn
-                            depressed
-                            small
-                            :href="
-                              'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
-                                item
-                            "
-                            target="_blank"
-                          >
-                            GeneCards
-                            <v-icon color="primary" right>
-                              mdi-open-in-new
-                            </v-icon>
-                          </v-btn>
-                        </v-list-item-action>
-                      </v-list-item>
-                      <v-divider />
-                    </template>
-                  </v-virtual-scroll>
-                </td>
-              </template>
-            </v-data-table>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-      <v-row>
-        <v-col xs="12" md="6" lg="6"> </v-col>
-      </v-row>
-    </v-card>
-  </v-hover>
+                      <v-list-item-action>
+                        <v-btn
+                          depressed
+                          small
+                          :href="
+                            'https://www.uniprot.org/uniprot/?query=' + item
+                          "
+                          target="_blank"
+                        >
+                          UniProt
+                          <v-icon color="primary" right>
+                            mdi-open-in-new
+                          </v-icon>
+                        </v-btn>
+                      </v-list-item-action>
+                      <v-list-item-action>
+                        <v-btn
+                          depressed
+                          small
+                          :href="
+                            'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
+                              item
+                          "
+                          target="_blank"
+                        >
+                          GeneCards
+                          <v-icon color="primary" right>
+                            mdi-open-in-new
+                          </v-icon>
+                        </v-btn>
+                      </v-list-item-action>
+                    </v-list-item>
+                    <v-divider />
+                  </template>
+                </v-virtual-scroll>
+              </td>
+            </template>
+          </v-data-table>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+    <v-row>
+      <v-col xs="12" md="6" lg="6"> </v-col>
+    </v-row>
+  </v-card>
 </template>
 
 <script>

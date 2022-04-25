@@ -1,206 +1,200 @@
 <template>
-  <v-hover v-slot:default="{ hover }" open-delay="0">
-    <v-card
-      class="mx-auto"
-      :elevation="hover ? 6 : 2"
-      :class="{ 'on-hover': hover }"
-    >
-      <v-card-title class="primary white--text title-1"
-        >Spatially variable genes
-      </v-card-title>
-      <v-card-text>
-        <p class="display-1 text--primary"></p>
-      </v-card-text>
-      <v-row xs="12" md="8" lg="12">
-        <v-col cols="lg-6">
-          <v-row>
-            <v-col xs="12" md="12" lg="12" class="px-4 py-0 my-1">
-              <p class="subtitle-1 font-weight-bold">
-                Log2 fold-change cutoff:
-                <v-tooltip top>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                      >mdi-help-circle-outline</v-icon
-                    >
-                  </template>
-                  <span
-                    >Limit testing to genes which show, on average, at least
-                    X-fold difference (log-scale) between the two groups of
-                    cells.</span
+  <v-card class="mx-auto">
+    <v-card-title class="primary white--text title-1"
+      >Spatially variable genes
+    </v-card-title>
+    <v-card-text>
+      <p class="display-1 text--primary"></p>
+    </v-card-text>
+    <v-row xs="12" md="8" lg="12">
+      <v-col cols="lg-6">
+        <v-row>
+          <v-col xs="12" md="12" lg="12" class="px-4 py-0 my-1">
+            <p class="subtitle-1 font-weight-bold">
+              Log2 fold-change cutoff:
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                    >mdi-help-circle-outline</v-icon
                   >
-                </v-tooltip>
-              </p>
-              <v-slider
-                v-model="lfc_range"
-                max="5"
-                min="0"
-                hide-details
-                :thumb-size="24"
-                thumb-label="always"
-                class="align-center"
-                :step="lfc_slider"
-              >
-                <template v-slot:append>
-                  <v-text-field
-                    v-model="lfc_range"
-                    class="mt-0 pt-0"
-                    hide-details
-                    single-line
-                    type="number"
-                    style="width: 70px"
-                  ></v-text-field>
                 </template>
-              </v-slider>
-            </v-col>
-            <v-col xs="12" md="12" lg="12" class="px-4 py-0 my-1">
-              <p class="subtitle-1 font-weight-bold">
-                Adjusted p-value cutoff:<v-tooltip top>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                      >mdi-help-circle-outline</v-icon
-                    >
-                  </template>
-                  <span
-                    >The adjusted p-value is calculated from differentially
-                    expressed genes between two groups of cells using a Wilcoxon
-                    Rank Sum test in Seurat R package.</span
-                  >
-                </v-tooltip>
-              </p>
-              <v-slider
-                v-model="p_range"
-                :tick-labels="ticksLabels"
-                max="8"
-                min="1"
-                step="1"
-                ticks="always"
-                tick-size="4"
-              >
-                <template v-slot:append>
-                  <v-text-field
-                    v-model="pSliderValue"
-                    class="mt-0 pt-0"
-                    center
-                    hide-details
-                    single-line
-                    type="number"
-                    style="width: 70px"
-                  ></v-text-field> </template
-              ></v-slider>
-            </v-col>
-          </v-row>
-          <v-col cols="12" md="12" lg="12">
-            <v-radio-group v-model="deDirection" row>
-              <span class="subtitle-1 font-weight-bold"
-                >Foldchange direction:
-              </span>
-              <v-radio label="All" value="all"></v-radio>
-              <v-radio label="UP" value="up"></v-radio>
-              <v-radio label="Down" value="down"></v-radio>
-            </v-radio-group>
+                <span
+                  >Limit testing to genes which show, on average, at least
+                  X-fold difference (log-scale) between the two groups of
+                  cells.</span
+                >
+              </v-tooltip>
+            </p>
+            <v-slider
+              v-model="lfc_range"
+              max="5"
+              min="0"
+              hide-details
+              :thumb-size="24"
+              thumb-label="always"
+              class="align-center"
+              :step="lfc_slider"
+            >
+              <template v-slot:append>
+                <v-text-field
+                  v-model="lfc_range"
+                  class="mt-0 pt-0"
+                  hide-details
+                  single-line
+                  type="number"
+                  style="width: 70px"
+                ></v-text-field>
+              </template>
+            </v-slider>
           </v-col>
-        </v-col>
-
-        <v-col cols="md-12 lg-12">
-          <v-text-field
-            v-model="searchDe"
-            prepend-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field
-          ><v-data-table
-            dense
-            :search="searchDe"
-            :headers="headers"
-            :items="filterDe"
-            :items-per-page="15"
-            class="elevation-1"
-          >
-            <template slot="no-data">
-              <v-alert :value="true">
-                {{ deErrorMsg }}
-              </v-alert>
-            </template>
-            <template v-slot:top>
-              <v-toolbar flat>
-                <v-toolbar-title>
-                  <download-excel :data="filterDe" type="csv">
-                    <v-btn color="primary"> Download</v-btn>
-                  </download-excel></v-toolbar-title
-                >
-                <v-tooltip top>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                      >mdi-help-circle-outline</v-icon
-                    >
-                  </template>
-                  <p>
-                    Note: The DEGs table will be automatically updated using the
-                    option panel on the left, and the functional gene set
-                    enrichment analysis will be performed real-time based on
-                    current DEGs list.
-                  </p>
-                  <p>
-                    Note: Be careful about fold-change direction when browsing
-                    cross datasets DE comparisons, i.e., check current dataset's
-                    position in the 'A vs B' group comparison.
-                  </p>
-                  <p>
-                    Log fold-change : log fold-chage of the average expression
-                    between the two groups. Positive values indicate that the
-                    feature is more highly expressed in the first group.
-                  </p>
-                  <p>
-                    Pct.1 : The percentage of cells where the feature is
-                    detected in the first group
-                  </p>
-                  <p>
-                    Pct.2 : The percentage of cells where the feature is
-                    detected in the second group
-                  </p>
-                  <p>
-                    Adjusted p-value : Adjusted p-value, based on bonferroni
-                    correction using all features in the dataset.
-                  </p>
-                </v-tooltip>
-                <v-btn color="primary" @click="copyGenes(genes)"
-                  >Copy Genes</v-btn
-                >
-                <v-spacer></v-spacer>
-              </v-toolbar>
-            </template>
-            <template v-slot:item="row">
-              <tr>
-                <td>
-                  <a
-                    :href="
-                      'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
-                        row.item.gene
-                    "
-                    target="_blank"
-                    style="text-decoration:none;"
-                    >{{ row.item.gene }}</a
+          <v-col xs="12" md="12" lg="12" class="px-4 py-0 my-1">
+            <p class="subtitle-1 font-weight-bold">
+              Adjusted p-value cutoff:<v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                    >mdi-help-circle-outline</v-icon
                   >
-                </td>
-
-                <td>{{ row.item.avg_logFC }}</td>
-                <td>0</td>
-                <td>[3,2]</td>
-                <td>{{ row.item.p_val_adj.toExponential(2) }}</td>
-                <td>{{ row.item.pct_1 }}</td>
-                <td>{{ row.item.pct_2 }}</td>
-                <td>{{ row.item.pct_2.toExponential(1) * 0.5 }}</td>
-                <td>{{ row.item.pct_1.toExponential(1) * 2 }}</td>
-                <td>{{ row.item.pct_2.toExponential(1) * 3 }}</td>
-              </tr>
-            </template>
-          </v-data-table>
+                </template>
+                <span
+                  >The adjusted p-value is calculated from differentially
+                  expressed genes between two groups of cells using a Wilcoxon
+                  Rank Sum test in Seurat R package.</span
+                >
+              </v-tooltip>
+            </p>
+            <v-slider
+              v-model="p_range"
+              :tick-labels="ticksLabels"
+              max="8"
+              min="1"
+              step="1"
+              ticks="always"
+              tick-size="4"
+            >
+              <template v-slot:append>
+                <v-text-field
+                  v-model="pSliderValue"
+                  class="mt-0 pt-0"
+                  center
+                  hide-details
+                  single-line
+                  type="number"
+                  style="width: 70px"
+                ></v-text-field> </template
+            ></v-slider>
+          </v-col>
+        </v-row>
+        <v-col cols="12" md="12" lg="12">
+          <v-radio-group v-model="deDirection" row>
+            <span class="subtitle-1 font-weight-bold"
+              >Foldchange direction:
+            </span>
+            <v-radio label="All" value="all"></v-radio>
+            <v-radio label="UP" value="up"></v-radio>
+            <v-radio label="Down" value="down"></v-radio>
+          </v-radio-group>
         </v-col>
-      </v-row>
-      <v-divider></v-divider>
-    </v-card>
-  </v-hover>
+      </v-col>
+
+      <v-col cols="md-12 lg-12">
+        <v-text-field
+          v-model="searchDe"
+          prepend-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field
+        ><v-data-table
+          dense
+          :search="searchDe"
+          :headers="headers"
+          :items="filterDe"
+          :items-per-page="15"
+          class="elevation-1"
+        >
+          <template slot="no-data">
+            <v-alert :value="true">
+              {{ deErrorMsg }}
+            </v-alert>
+          </template>
+          <template v-slot:top>
+            <v-toolbar flat>
+              <v-toolbar-title>
+                <download-excel :data="filterDe" type="csv">
+                  <v-btn color="primary"> Download</v-btn>
+                </download-excel></v-toolbar-title
+              >
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                    >mdi-help-circle-outline</v-icon
+                  >
+                </template>
+                <p>
+                  Note: The DEGs table will be automatically updated using the
+                  option panel on the left, and the functional gene set
+                  enrichment analysis will be performed real-time based on
+                  current DEGs list.
+                </p>
+                <p>
+                  Note: Be careful about fold-change direction when browsing
+                  cross datasets DE comparisons, i.e., check current dataset's
+                  position in the 'A vs B' group comparison.
+                </p>
+                <p>
+                  Log fold-change : log fold-chage of the average expression
+                  between the two groups. Positive values indicate that the
+                  feature is more highly expressed in the first group.
+                </p>
+                <p>
+                  Pct.1 : The percentage of cells where the feature is detected
+                  in the first group
+                </p>
+                <p>
+                  Pct.2 : The percentage of cells where the feature is detected
+                  in the second group
+                </p>
+                <p>
+                  Adjusted p-value : Adjusted p-value, based on bonferroni
+                  correction using all features in the dataset.
+                </p>
+              </v-tooltip>
+              <v-btn color="primary" @click="copyGenes(genes)"
+                >Copy Genes</v-btn
+              >
+              <v-spacer></v-spacer>
+            </v-toolbar>
+          </template>
+          <template v-slot:item="row">
+            <tr>
+              <td>
+                <a
+                  :href="
+                    'https://www.genecards.org/cgi-bin/carddisp.pl?gene=' +
+                      row.item.gene
+                  "
+                  target="_blank"
+                  style="text-decoration:none;"
+                  >{{ row.item.gene }}</a
+                >
+              </td>
+
+              <td>{{ row.item.avg_logFC }}</td>
+              <td>0</td>
+              <td>[3,2]</td>
+              <td>{{ row.item.p_val_adj.toExponential(2) }}</td>
+              <td>{{ row.item.pct_1 }}</td>
+              <td>{{ row.item.pct_2 }}</td>
+              <td>{{ row.item.pct_2.toExponential(1) * 0.5 }}</td>
+              <td>{{ row.item.pct_1.toExponential(1) * 2 }}</td>
+              <td>{{ row.item.pct_2.toExponential(1) * 3 }}</td>
+            </tr>
+          </template>
+        </v-data-table>
+      </v-col>
+    </v-row>
+    <v-divider></v-divider>
+  </v-card>
 </template>
 
 <script>
