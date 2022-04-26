@@ -1,6 +1,6 @@
 [[toc]]
 
-# News (version 1 archive)
+# News
 
 ## 4/1/2022
 
