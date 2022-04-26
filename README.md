@@ -38,7 +38,9 @@ cd scread
 Create a `.env` file in project root and put API URL in the env file:
 
 ```env
-API_URL=http://osubmi.com/api/scread
+API_URL=https://bmbls.bmi.osumc.edu/api/scread
+#Alternatively use:
+#API_URL=http://osubmi.com/api/scread
 ```
 
 Next,
