@@ -40,8 +40,7 @@ export default {
    */
   plugins: [
     '@/plugins/notifier.js',
-    '@/plugins/plugin.js',
-    { src: '@/plugins/highcharts.js', mode: 'client' }
+    { src: '@/plugins/plugin.js', mode: 'client' }
   ],
   /*
    ** Nuxt.js dev-modules
