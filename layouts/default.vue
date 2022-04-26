@@ -279,6 +279,11 @@ export default {
       v1Menu: [
         { icon: 'mdi-home', text: 'Home', path: '/v1/home' },
         {
+          icon: 'mdi-table',
+          text: 'Browse control atlas',
+          path: '/v1/browse_control_atlas'
+        },
+        {
           icon: 'mdi-account-question',
           text: 'Usage',
           path: '/v1/help/usage'

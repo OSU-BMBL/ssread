@@ -588,7 +588,7 @@ export default {
   },
   mounted() {
     this.$notifier.showAlert({
-      content: 'You are visiting scREAD v1 archive.',
+      content: 'You are visiting scREAD v1 archive (as of 4-1-2022).',
       color: 'accent'
     })
   },
