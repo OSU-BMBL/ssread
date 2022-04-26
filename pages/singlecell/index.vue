@@ -522,9 +522,7 @@ export default {
       dialogData: (state) => state.ad.dialogDataset,
       selectDatasetDialogData: (state) => state.ad.SelectDatasetDialogData
     }),
-    bannerMessage() {
-      return `You are visiting scREAD's dev version. Please let us know for any issues or suggestions via qin.ma@osumc.edu.`
-    },
+
     currentBrowseItems() {
       return this.browseItems.species
     },
@@ -579,9 +577,6 @@ export default {
     totalCells() {
       return _.sumBy(this.dataset, 'n_original_cell')
     }
-  },
-  mounted() {
-    this.$notifier.showAlert({ content: this.bannerMessage, color: 'accent' })
   },
   methods: {
     async handleClick(item) {

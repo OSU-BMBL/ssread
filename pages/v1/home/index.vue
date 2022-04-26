@@ -2,7 +2,7 @@
   <div>
     <v-layout column justify-center align-center>
       <p class="display-3 font-weight-regular" align-center>
-        scREAD (v1)
+        scREAD (version 1 archive)
       </p>
       <v-flex xs="12" md="6" lg="12">
         <p class="display-1">
@@ -298,8 +298,8 @@
 <script>
 import { mapState } from 'vuex'
 import _ from 'lodash'
-import SearchGene from '@/components/ad/SearchGene'
-import OverlapGene from '@/components/ad/OverlapGene.vue'
+import SearchGene from '@/components/v1/ad/SearchGene'
+import OverlapGene from '@/components/v1/ad/OverlapGene.vue'
 
 export default {
   components: {
@@ -587,9 +587,8 @@ export default {
     }
   },
   mounted() {
-    this.$notifier.showMessage({
-      content: `scREAD v2 has updated the cell
-          type annotation workflow with a new marker gene list. See details at the news page.`,
+    this.$notifier.showAlert({
+      content: 'You are visiting scREAD v1 archive.',
       color: 'accent'
     })
   },

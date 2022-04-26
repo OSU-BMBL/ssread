@@ -29,14 +29,8 @@ export default {
   data() {
     return {}
   },
-  computed: {
-    bannerMessage() {
-      return `You are visiting scREAD's dev version. Please let us know for any issues or suggestions via qin.ma@osumc.edu.`
-    }
-  },
-  mounted() {
-    this.$notifier.showAlert({ content: this.bannerMessage, color: 'accent' })
-  },
+  computed: {},
+  mounted() {},
   methods: {},
   head() {
     return {

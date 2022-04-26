@@ -41,240 +41,232 @@
       ></v-row>
     </client-only>
     <div class="motif-header">
-      <v-hover v-slot:default="{ hover }" open-delay="0">
-        <v-card
-          class="mx-auto"
-          :elevation="hover ? 6 : 2"
-          :class="{ 'on-hover': hover }"
+      <v-card class="mx-auto">
+        <v-card-title>
+          <p class="title">
+            scREAD covers 1 spatial datasets from 1 studies, 1 brain regions.
+          </p>
+          <v-spacer></v-spacer>
+        </v-card-title>
+        <v-card-text
+          ><p class="title">Select filters:</p>
+          <v-row>
+            <v-col xs="12" md="6" lg="2">
+              <p class="subtitle-1 font-weight-bold py-0 my-0">Species:</p>
+              <v-select
+                v-model="browseDefault.species"
+                :items="browseItems.species"
+                item-text="value"
+                item-value="value"
+                return-object
+                single-line
+              ></v-select>
+            </v-col>
+            <v-col xs="12" md="6" lg="2">
+              <p class="subtitle-1 font-weight-bold py-0 my-0">Region:</p>
+              <v-select
+                v-model="browseDefault.region"
+                :items="browseItems.region"
+                item-text="value"
+                item-value="value"
+                return-object
+                single-line
+              ></v-select>
+            </v-col>
+            <v-col xs="12" md="6" lg="6">
+              <p class="subtitle-1 font-weight-bold py-0 my-0">
+                Experimental factors:
+              </p>
+              <v-autocomplete
+                v-model="factor"
+                :items="factors"
+                item-text="value"
+                item-value="value"
+                return-object
+                single-line
+                multiple
+              ></v-autocomplete>
+            </v-col>
+          </v-row>
+          <v-card-actions>
+            <download-excel class="mr-4" :data="filterDataset" type="csv">
+              <v-btn color="primary"> Download current table</v-btn>
+            </download-excel>
+
+            <v-btn
+              v-show="displayResetFilter"
+              color="primary"
+              dark
+              @click="resetFilter"
+              >RESET FILTER</v-btn
+            ></v-card-actions
+          ></v-card-text
         >
-          <v-card-title>
-            <p class="title">
-              scREAD covers 1 spatial datasets from 1 studies, 1 brain regions.
-            </p>
-            <v-spacer></v-spacer>
-          </v-card-title>
-          <v-card-text
-            ><p class="title">Select filters:</p>
-            <v-row>
-              <v-col xs="12" md="6" lg="2">
-                <p class="subtitle-1 font-weight-bold py-0 my-0">Species:</p>
+        <v-dialog v-model="dialog" max-width="600">
+          <v-card>
+            <v-card-title>Dataset overview</v-card-title>
+            <v-divider class="my-2 py-2"></v-divider>
+            <v-card-text>
+              <p class="my-2">
+                <span class="text--secondary">scREAD ID: </span>
+                <span class="text--primary">ST001</span>
+              </p>
+              <p class="my-2">
+                <span class="text--secondary">Species: </span>
+                <span class="text--primary">{{
+                  computedDialogData.species
+                }}</span>
+              </p>
+              <p class="my-2">
+                <span class="text--secondary">Region: </span>
+                <span class="text--primary">
+                  Dorsolateral prefrontal cortex</span
+                >
+              </p>
+              <p class="my-2">
+                <span class="text--secondary">Experimental factors: </span>
+                <span class="text--primary">{{ computedDialogData.age }}</span>
+              </p>
+              <p class="my-2">
+                <span class="text--secondary">Publication: </span>
+                <span class="text--primary"
+                  ><a
+                    href="https://www.nature.com/articles/s41593-020-00787-0"
+                    target="_blank"
+                    >Transcriptome-scale spatial gene expression in the human
+                    dorsolateral prefrontal cortex</a
+                  >
+                </span>
+              </p>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn
+                class="mx-2"
+                color="primary"
+                dark
+                @click="openDetailsPage()"
+              >
+                details </v-btn
+              ><v-btn color="grey darken-1" text @click="dialog = false">
+                cancel
+              </v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="selectDatasetDialog" max-width="800">
+          <v-card>
+            <v-card-title>Dataset selection</v-card-title>
+            <v-divider class="my-2 py-2"></v-divider>
+            <v-card-text>
+              <p class="my-2">
                 <v-select
                   v-model="browseDefault.species"
                   :items="browseItems.species"
                   item-text="value"
                   item-value="value"
+                  label="Species"
                   return-object
-                  single-line
+                  outlined
                 ></v-select>
-              </v-col>
-              <v-col xs="12" md="6" lg="2">
-                <p class="subtitle-1 font-weight-bold py-0 my-0">Region:</p>
+              </p>
+              <p class="my-2">
+                <v-select
+                  v-model="browseDefault.condition"
+                  :items="browseItems.condition"
+                  item-text="value"
+                  item-value="value"
+                  label="Condition"
+                  return-object
+                  outlined
+                ></v-select>
+              </p>
+              <p class="my-2">
+                <v-select
+                  v-model="browseDefault.gender"
+                  :items="browseItems.gender"
+                  item-text="value"
+                  item-value="value"
+                  label="Gender"
+                  return-object
+                  outlined
+                ></v-select>
+              </p>
+              <p class="my-2">
                 <v-select
                   v-model="browseDefault.region"
                   :items="browseItems.region"
                   item-text="value"
                   item-value="value"
+                  label="Brain region"
                   return-object
-                  single-line
+                  outlined
                 ></v-select>
-              </v-col>
-              <v-col xs="12" md="6" lg="6">
-                <p class="subtitle-1 font-weight-bold py-0 my-0">
-                  Experimental factors:
-                </p>
-                <v-autocomplete
-                  v-model="factor"
-                  :items="factors"
-                  item-text="value"
-                  item-value="value"
-                  return-object
-                  single-line
-                  multiple
-                ></v-autocomplete>
-              </v-col>
-            </v-row>
+              </p>
+            </v-card-text>
             <v-card-actions>
-              <download-excel class="mr-4" :data="filterDataset" type="csv">
-                <v-btn color="primary"> Download current table</v-btn>
-              </download-excel>
-
+              <v-btn
+                class="mx-2"
+                color="primary"
+                dark
+                @click="updateSelectDataset()"
+              >
+                apply
+              </v-btn>
               <v-btn
                 v-show="displayResetFilter"
                 color="primary"
                 dark
                 @click="resetFilter"
                 >RESET FILTER</v-btn
-              ></v-card-actions
-            ></v-card-text
-          >
-          <v-dialog v-model="dialog" max-width="600">
-            <v-card>
-              <v-card-title>Dataset overview</v-card-title>
-              <v-divider class="my-2 py-2"></v-divider>
-              <v-card-text>
-                <p class="my-2">
-                  <span class="text--secondary">scREAD ID: </span>
-                  <span class="text--primary">ST001</span>
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Species: </span>
-                  <span class="text--primary">{{
-                    computedDialogData.species
-                  }}</span>
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Region: </span>
-                  <span class="text--primary">
-                    Dorsolateral prefrontal cortex</span
-                  >
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Experimental factors: </span>
-                  <span class="text--primary">{{
-                    computedDialogData.age
-                  }}</span>
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Publication: </span>
-                  <span class="text--primary"
-                    ><a
-                      href="https://www.nature.com/articles/s41593-020-00787-0"
-                      target="_blank"
-                      >Transcriptome-scale spatial gene expression in the human
-                      dorsolateral prefrontal cortex</a
-                    >
-                  </span>
-                </p>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn
-                  class="mx-2"
-                  color="primary"
-                  dark
-                  @click="openDetailsPage()"
-                >
-                  details </v-btn
-                ><v-btn color="grey darken-1" text @click="dialog = false">
-                  cancel
-                </v-btn>
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+              >
+              <v-btn
+                color="grey darken-1"
+                text
+                @click="selectDatasetDialog = false"
+              >
+                cancel
+              </v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
 
-          <v-dialog v-model="selectDatasetDialog" max-width="800">
-            <v-card>
-              <v-card-title>Dataset selection</v-card-title>
-              <v-divider class="my-2 py-2"></v-divider>
-              <v-card-text>
-                <p class="my-2">
-                  <v-select
-                    v-model="browseDefault.species"
-                    :items="browseItems.species"
-                    item-text="value"
-                    item-value="value"
-                    label="Species"
-                    return-object
-                    outlined
-                  ></v-select>
-                </p>
-                <p class="my-2">
-                  <v-select
-                    v-model="browseDefault.condition"
-                    :items="browseItems.condition"
-                    item-text="value"
-                    item-value="value"
-                    label="Condition"
-                    return-object
-                    outlined
-                  ></v-select>
-                </p>
-                <p class="my-2">
-                  <v-select
-                    v-model="browseDefault.gender"
-                    :items="browseItems.gender"
-                    item-text="value"
-                    item-value="value"
-                    label="Gender"
-                    return-object
-                    outlined
-                  ></v-select>
-                </p>
-                <p class="my-2">
-                  <v-select
-                    v-model="browseDefault.region"
-                    :items="browseItems.region"
-                    item-text="value"
-                    item-value="value"
-                    label="Brain region"
-                    return-object
-                    outlined
-                  ></v-select>
-                </p>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn
-                  class="mx-2"
-                  color="primary"
-                  dark
-                  @click="updateSelectDataset()"
-                >
-                  apply
-                </v-btn>
-                <v-btn
-                  v-show="displayResetFilter"
-                  color="primary"
-                  dark
-                  @click="resetFilter"
-                  >RESET FILTER</v-btn
-                >
-                <v-btn
-                  color="grey darken-1"
-                  text
-                  @click="selectDatasetDialog = false"
-                >
-                  cancel
-                </v-btn>
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-
-          <v-data-table
-            id="datasetTable"
-            :headers="headers"
-            :items="filterDataset"
-            :items-per-page="15"
-            sort-by="species"
-            class="elevation-1"
-          >
-            <template v-slot:item="row">
-              <tr @click="handleClick(row.item)">
-                <td>
-                  <nuxt-link :to="'/spatial/ST001'">ST001</nuxt-link>
-                </td>
-                <td>Human</td>
-                <td>Dorsolateral prefrontal cortex</td>
-                <td>
-                  Transcriptome-scale spatial gene expression in the human
-                  dorsolateral prefrontal cortex
-                </td>
-                <td>GSE152506</td>
-                <td>
-                  <ul>
-                    <li>Disease</li>
-                    <li>Brain disorder</li>
-                    <li>Age</li>
-                    <li>Sex</li>
-                    <li>inferred cell type - authors labels</li>
-                  </ul>
-                </td>
-                <td>12</td>
-              </tr>
-            </template>
-          </v-data-table>
-        </v-card>
-      </v-hover>
+        <v-data-table
+          id="datasetTable"
+          :headers="headers"
+          :items="filterDataset"
+          :items-per-page="15"
+          sort-by="species"
+          class="elevation-1"
+        >
+          <template v-slot:item="row">
+            <tr @click="handleClick(row.item)">
+              <td>
+                <nuxt-link :to="'/spatial/ST001'">ST001</nuxt-link>
+              </td>
+              <td>Human</td>
+              <td>Dorsolateral prefrontal cortex</td>
+              <td>
+                Transcriptome-scale spatial gene expression in the human
+                dorsolateral prefrontal cortex
+              </td>
+              <td>GSE152506</td>
+              <td>
+                <ul>
+                  <li>Disease</li>
+                  <li>Brain disorder</li>
+                  <li>Age</li>
+                  <li>Sex</li>
+                  <li>inferred cell type - authors labels</li>
+                </ul>
+              </td>
+              <td>12</td>
+            </tr>
+          </template>
+        </v-data-table>
+      </v-card>
     </div>
   </div>
 </template>
@@ -491,9 +483,6 @@ export default {
       dialogData: (state) => state.ad.dialogDataset,
       selectDatasetDialogData: (state) => state.ad.SelectDatasetDialogData
     }),
-    bannerMessage() {
-      return `You are visiting scREAD's dev version. Please let us know for any issues or suggestions via qin.ma@osumc.edu.`
-    },
     currentBrowseItems() {
       return this.browseItems.species
     },
@@ -549,9 +538,6 @@ export default {
     totalCells() {
       return _.sumBy(this.dataset, 'n_original_cell')
     }
-  },
-  mounted() {
-    this.$notifier.showAlert({ content: this.bannerMessage, color: 'accent' })
   },
   methods: {
     async handleClick(item) {

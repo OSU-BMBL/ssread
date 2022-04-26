@@ -40,8 +40,7 @@ export default {
    */
   plugins: [
     '@/plugins/notifier.js',
-    '@/plugins/plugin.js',
-    { src: '@/plugins/highcharts.js', mode: 'client' }
+    { src: '@/plugins/plugin.js', mode: 'client' }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -133,16 +132,4 @@ export default {
      ** You can extend webpack config here
      */
   }
-
-  /*
-  generate: {
-    routes: () => {
-      return EventService.getEvents().then((response) => {
-        return response.data.map((event) => {
-          return '/event/' + event.id
-        })
-      })
-    }
-  }
-  */
 }

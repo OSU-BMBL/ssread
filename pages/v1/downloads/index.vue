@@ -30,13 +30,13 @@ export default {
   },
   async asyncData({ store, error, params }) {
     try {
-      const post = await import(`~/static/docs/downloads.md`)
+      const post = await import(`~/static/docs/v1/downloads.md`)
       const navStart = post.default.lastIndexOf('<nav')
       const navEnd = post.default.lastIndexOf('nav>') + 4
       const navContent = post.default
         .substring(navStart, navEnd)
         .replace(/href="([^\\'\\"]+)/g, function(m, s) {
-          return 'href="/scread/downloads/' + s + '"'
+          return 'href="/scread/v1/downloads/' + s + '"'
         })
       // await store.dispatch('docs/commitToc', navContent)
       return {

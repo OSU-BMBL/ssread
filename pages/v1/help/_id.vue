@@ -30,13 +30,13 @@ export default {
   },
   async asyncData({ store, error, params }) {
     try {
-      const post = await import(`~/static/docs/${params.id}.md`)
+      const post = await import(`~/static/docs/v1/${params.id}.md`)
       const navStart = post.default.lastIndexOf('<nav')
       const navEnd = post.default.lastIndexOf('nav>') + 4
       const navContent = post.default
         .substring(navStart, navEnd)
         .replace(/href="([^\\'\\"]+)/g, function(m, s) {
-          return 'href="/scread/help/' + params.id + s + '"'
+          return 'href="/scread/v1/help/' + params.id + s + '"'
         })
       // await store.dispatch('docs/commitToc', navContent)
       return {

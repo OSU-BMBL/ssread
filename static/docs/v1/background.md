@@ -1,6 +1,6 @@
 [[toc]]
 
-# The Basics of scREAD
+# The Basics of scREAD (version 1 archive)
 
 ## Pipeline Overview
 

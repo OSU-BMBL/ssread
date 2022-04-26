@@ -1,22 +1,14 @@
 [[toc]]
 
-# News
+# News (version 1 archive)
 
-## 4/21/2022
-
-### Added
-
-- Spatial RNA-seq example page
-- Archived v1 page
--
-
-## 4/7/2022
+## 4/1/2022
 
 ### Added
 
 scREAD now has multiple instances:
 
-- Main server: https://bmbls.bmi.osumc.edu/scread/
+- Main server (v1): https://bmbls.bmi.osumc.edu/scread/
 - Alternative server: http://osubmi.com/scread/
 - scREAD v2 (in development)https://bmblx.bmi.osumc.edu/scread/
 

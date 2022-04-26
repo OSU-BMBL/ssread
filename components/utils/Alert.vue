@@ -19,7 +19,7 @@ export default {
       show: false,
       message: '',
       color: '',
-      timeout: 50000
+      timeout: 5000
     }
   },
   created() {
