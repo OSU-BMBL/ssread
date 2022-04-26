@@ -10,7 +10,7 @@
 
       <v-toolbar-items class="hidden-xs-only mx-1">
         <v-btn to="/" text> Home </v-btn>
-        <v-menu open-on-hover bottom offset-y>
+        <v-menu open-on-hover bottom offset-y rounded="0">
           <template v-slot:activator="{ on, attrs }">
             <v-btn v-bind="attrs" text v-on="on">Browse</v-btn>
           </template>
@@ -29,7 +29,7 @@
           </v-list>
         </v-menu>
         <v-btn to="/query" text> Query </v-btn>
-        <v-menu open-on-hover bottom offset-y>
+        <v-menu open-on-hover bottom offset-y rounded="0">
           <template v-slot:activator="{ on, attrs }">
             <v-btn v-bind="attrs" text v-on="on">Help</v-btn>
           </template>
@@ -48,7 +48,7 @@
           </v-list>
         </v-menu>
         <v-btn to="/downloads" text> Download </v-btn>
-        <v-menu open-on-hover bottom offset-y>
+        <v-menu open-on-hover bottom offset-y rounded="0">
           <template v-slot:activator="{ on, attrs }">
             <v-btn v-bind="attrs" text v-on="on">Version 1 (archived)</v-btn>
           </template>
