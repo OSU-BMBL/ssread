@@ -1,267 +1,257 @@
 <template>
-  <v-hover v-slot:default="{ hover }" open-delay="0">
-    <v-card
-      class="mx-auto"
-      :loading="loading"
-      :elevation="hover ? 6 : 2"
-      :class="{ 'on-hover': hover }"
-    >
-      <template slot="progress">
-        <v-progress-linear
-          :active="loading"
-          :indeterminate="loading"
-          absolute
-          top
-          color="deep-purple accent-4"
-        ></v-progress-linear>
-      </template>
-      <v-card-title>
-        <p class="title">
-          Search differentially expressed genes
-        </p>
-        <v-spacer></v-spacer>
-      </v-card-title>
-      <v-card-text>
-        <v-row>
-          <v-col xs="12" md="12" lg="12">
-            <v-row>
-              <v-col cols="3"
-                ><v-text-field
-                  v-model="searchGene"
-                  class=""
-                  type="search"
-                  clearable
-                  solo
-                  hide-details
-                  autofocus
-                  label="Search"
-                  height="50"
-                  style="font-size:1.6em !important"
-                  prepend-inner-icon="mdi-magnify"
-              /></v-col>
-              <v-col cols="3">
-                <v-btn
-                  x-large
-                  class="mx-2"
-                  color="primary"
-                  height="50"
-                  @click="searchDeByGene(searchGene)"
-                >
-                  Search</v-btn
-                ></v-col
+  <v-card class="mx-auto" :loading="loading">
+    <template slot="progress">
+      <v-progress-linear
+        :active="loading"
+        :indeterminate="loading"
+        absolute
+        top
+        color="primary"
+      ></v-progress-linear>
+    </template>
+    <v-card-title>
+      <p class="title">
+        Search differentially expressed genes
+      </p>
+      <v-spacer></v-spacer>
+    </v-card-title>
+    <v-card-text>
+      <v-row>
+        <v-col xs="12" md="12" lg="12">
+          <v-row>
+            <v-col cols="3"
+              ><v-text-field
+                v-model="searchGene"
+                class=""
+                type="search"
+                clearable
+                solo
+                hide-details
+                autofocus
+                label="Search"
+                height="50"
+                style="font-size:1.6em !important"
+                prepend-inner-icon="mdi-magnify"
+            /></v-col>
+            <v-col cols="3">
+              <v-btn
+                x-large
+                class="mx-2"
+                color="primary"
+                height="50"
+                @click="searchDeByGene(searchGene)"
               >
-            </v-row>
+                Search</v-btn
+              ></v-col
+            >
+          </v-row>
 
-            <div v-if="loaded">
-              <div v-if="results.count > 0">
-                <p>Found {{ results.count }} records</p>
-                <v-card-text
-                  ><p class="title">Select filters:</p>
-                  <v-row>
-                    <v-col xs="12" md="6" lg="4">
-                      <p class="subtitle-1 font-weight-bold py-0 my-0">
-                        Species:
-                      </p>
-                      <v-select
-                        v-model="searchDefault.species"
-                        :items="searchItems.species"
-                        item-text="value"
-                        item-value="value"
-                        return-object
-                        single-line
-                        multiple
-                      ></v-select>
-                    </v-col>
-                    <v-col xs="12" md="6" lg="4">
-                      <p class="subtitle-1 font-weight-bold py-0 my-0">
-                        Condition:
-                      </p>
-                      <v-select
-                        v-model="searchDefault.condition"
-                        :items="searchItems.condition"
-                        item-text="value"
-                        item-value="value"
-                        return-object
-                        single-line
-                        multiple
-                      ></v-select>
-                    </v-col>
-                    <v-col xs="12" md="6" lg="4">
-                      <p class="subtitle-1 font-weight-bold  py-0 my-0">
-                        Comparison type:
-                      </p>
-                      <v-select
-                        v-model="searchDefault.comparisonType"
-                        :items="searchItems.comparisonType"
-                        item-text="value"
-                        item-value="value"
-                        return-object
-                        single-line
-                        multiple
-                      ></v-select>
-                    </v-col>
+          <div v-if="loaded">
+            <div v-if="results.count > 0">
+              <p>Found {{ results.count }} records</p>
+              <v-card-text
+                ><p class="title">Select filters:</p>
+                <v-row>
+                  <v-col xs="12" md="6" lg="4">
+                    <p class="subtitle-1 font-weight-bold py-0 my-0">
+                      Species:
+                    </p>
+                    <v-select
+                      v-model="searchDefault.species"
+                      :items="searchItems.species"
+                      item-text="value"
+                      item-value="value"
+                      return-object
+                      single-line
+                      multiple
+                    ></v-select>
+                  </v-col>
+                  <v-col xs="12" md="6" lg="4">
+                    <p class="subtitle-1 font-weight-bold py-0 my-0">
+                      Condition:
+                    </p>
+                    <v-select
+                      v-model="searchDefault.condition"
+                      :items="searchItems.condition"
+                      item-text="value"
+                      item-value="value"
+                      return-object
+                      single-line
+                      multiple
+                    ></v-select>
+                  </v-col>
+                  <v-col xs="12" md="6" lg="4">
+                    <p class="subtitle-1 font-weight-bold  py-0 my-0">
+                      Comparison type:
+                    </p>
+                    <v-select
+                      v-model="searchDefault.comparisonType"
+                      :items="searchItems.comparisonType"
+                      item-text="value"
+                      item-value="value"
+                      return-object
+                      single-line
+                      multiple
+                    ></v-select>
+                  </v-col>
 
-                    <v-col xs="12" md="6" lg="4">
-                      <p class="subtitle-1 font-weight-bold  py-0 my-0">
-                        Gender:
-                      </p>
-                      <v-select
-                        v-model="searchDefault.gender"
-                        :items="searchItems.gender"
-                        item-text="value"
-                        item-value="value"
-                        return-object
-                        single-line
-                        multiple
-                      ></v-select>
-                    </v-col>
-                    <v-col xs="12" md="6" lg="4">
-                      <p class="subtitle-1 font-weight-bold  py-0 my-0">
-                        Cell type:
-                      </p>
-                      <v-select
-                        v-model="searchDefault.cellType"
-                        :items="searchItems.cellType"
-                        item-text="value"
-                        item-value="value"
-                        return-object
-                        single-line
-                        multiple
-                      >
-                        <template v-slot:selection="{ item, index }">
-                          <v-chip v-if="index === 0">
-                            <span>{{ item }}</span>
-                          </v-chip>
-                          <span v-if="index === 1" class="grey--text caption">
-                            (+{{ searchDefault.cellType.length - 1 }} others)
-                          </span>
-                        </template>
-                        <template v-slot:prepend-item>
-                          <v-list-item ripple @click="toggleSelectCellType">
-                            <v-list-item-action>
-                              <v-icon
-                                :color="
-                                  searchDefault.cellType.length > 0
-                                    ? 'indigo darken-4'
-                                    : ''
-                                "
-                              >
-                                {{ iconSelectCellType }}
-                              </v-icon>
-                            </v-list-item-action>
-                            <v-list-item-content>
-                              <v-list-item-title>
-                                Select All
-                              </v-list-item-title>
-                            </v-list-item-content>
-                          </v-list-item>
-                          <v-divider class="mt-2"></v-divider>
-                        </template>
-                      </v-select> </v-col
-                    ><v-col xs="12" md="6" lg="4">
-                      <p class="subtitle-1 font-weight-bold py-0 my-0">
-                        Region:
-                      </p>
-                      <v-select
-                        v-model="searchDefault.region"
-                        :items="searchItems.region"
-                        item-text="value"
-                        item-value="value"
-                        return-object
-                        single-line
-                        multiple
-                        ><template v-slot:selection="{ item, index }">
-                          <v-chip v-if="index === 0">
-                            <span>{{ item }}</span>
-                          </v-chip>
-                          <span v-if="index === 1" class="grey--text caption">
-                            (+{{ searchDefault.region.length - 1 }} others)
-                          </span>
-                        </template>
-                        <template v-slot:prepend-item>
-                          <v-list-item ripple @click="toggleSelectRegion">
-                            <v-list-item-action>
-                              <v-icon
-                                :color="
-                                  searchDefault.region.length > 0
-                                    ? 'indigo darken-4'
-                                    : ''
-                                "
-                              >
-                                {{ iconSelectRegion }}
-                              </v-icon>
-                            </v-list-item-action>
-                            <v-list-item-content>
-                              <v-list-item-title>
-                                Select All
-                              </v-list-item-title>
-                            </v-list-item-content>
-                          </v-list-item>
-                          <v-divider class="mt-2"></v-divider> </template
-                      ></v-select>
-                    </v-col>
-                  </v-row>
-                  <v-card-actions>
-                    <download-excel
-                      class="mr-4"
-                      :data="filterResults"
-                      type="csv"
+                  <v-col xs="12" md="6" lg="4">
+                    <p class="subtitle-1 font-weight-bold  py-0 my-0">
+                      Gender:
+                    </p>
+                    <v-select
+                      v-model="searchDefault.gender"
+                      :items="searchItems.gender"
+                      item-text="value"
+                      item-value="value"
+                      return-object
+                      single-line
+                      multiple
+                    ></v-select>
+                  </v-col>
+                  <v-col xs="12" md="6" lg="4">
+                    <p class="subtitle-1 font-weight-bold  py-0 my-0">
+                      Cell type:
+                    </p>
+                    <v-select
+                      v-model="searchDefault.cellType"
+                      :items="searchItems.cellType"
+                      item-text="value"
+                      item-value="value"
+                      return-object
+                      single-line
+                      multiple
                     >
-                      <v-btn color="primary"> Download current table</v-btn>
-                    </download-excel>
-
-                    <v-btn
-                      v-show="displayResetFilter"
-                      color="primary"
-                      dark
-                      @click="resetFilter"
-                      >RESET FILTER</v-btn
-                    >
-                    <v-tooltip top>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                          >mdi-help-circle-outline</v-icon
-                        >
+                      <template v-slot:selection="{ item, index }">
+                        <v-chip v-if="index === 0">
+                          <span>{{ item }}</span>
+                        </v-chip>
+                        <span v-if="index === 1" class="grey--text caption">
+                          (+{{ searchDefault.cellType.length - 1 }} others)
+                        </span>
                       </template>
-                      <p>
-                        Log fold-change : log fold-chage of the average
-                        expression between the two groups. Positive values
-                        indicate that the feature is more highly expressed in
-                        the first group.
-                      </p>
-                      <p>
-                        Pct.1 : The percentage of cells where the feature is
-                        detected in the first group
-                      </p>
-                      <p>
-                        Pct.2 : The percentage of cells where the feature is
-                        detected in the second group
-                      </p>
-                      <p>
-                        Adjusted p-value : Adjusted p-value, based on bonferroni
-                        correction using all features in the dataset.
-                      </p>
-                    </v-tooltip>
-                  </v-card-actions></v-card-text
-                >
-                <v-data-table
-                  dense
-                  :headers="searchGeneHeaders"
-                  :items="filterResults"
-                  :items-per-page="10"
-                  class="elevation-1"
-                >
-                </v-data-table>
-              </div>
-              <div v-else>
-                <p>No record found</p>
-              </div>
+                      <template v-slot:prepend-item>
+                        <v-list-item ripple @click="toggleSelectCellType">
+                          <v-list-item-action>
+                            <v-icon
+                              :color="
+                                searchDefault.cellType.length > 0
+                                  ? 'indigo darken-4'
+                                  : ''
+                              "
+                            >
+                              {{ iconSelectCellType }}
+                            </v-icon>
+                          </v-list-item-action>
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              Select All
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </v-list-item>
+                        <v-divider class="mt-2"></v-divider>
+                      </template>
+                    </v-select> </v-col
+                  ><v-col xs="12" md="6" lg="4">
+                    <p class="subtitle-1 font-weight-bold py-0 my-0">
+                      Region:
+                    </p>
+                    <v-select
+                      v-model="searchDefault.region"
+                      :items="searchItems.region"
+                      item-text="value"
+                      item-value="value"
+                      return-object
+                      single-line
+                      multiple
+                      ><template v-slot:selection="{ item, index }">
+                        <v-chip v-if="index === 0">
+                          <span>{{ item }}</span>
+                        </v-chip>
+                        <span v-if="index === 1" class="grey--text caption">
+                          (+{{ searchDefault.region.length - 1 }} others)
+                        </span>
+                      </template>
+                      <template v-slot:prepend-item>
+                        <v-list-item ripple @click="toggleSelectRegion">
+                          <v-list-item-action>
+                            <v-icon
+                              :color="
+                                searchDefault.region.length > 0
+                                  ? 'indigo darken-4'
+                                  : ''
+                              "
+                            >
+                              {{ iconSelectRegion }}
+                            </v-icon>
+                          </v-list-item-action>
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              Select All
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </v-list-item>
+                        <v-divider class="mt-2"></v-divider> </template
+                    ></v-select>
+                  </v-col>
+                </v-row>
+                <v-card-actions>
+                  <download-excel class="mr-4" :data="filterResults" type="csv">
+                    <v-btn color="primary"> Download current table</v-btn>
+                  </download-excel>
+
+                  <v-btn
+                    v-show="displayResetFilter"
+                    color="primary"
+                    dark
+                    @click="resetFilter"
+                    >RESET FILTER</v-btn
+                  >
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                        >mdi-help-circle-outline</v-icon
+                      >
+                    </template>
+                    <p>
+                      Log fold-change : log fold-chage of the average expression
+                      between the two groups. Positive values indicate that the
+                      feature is more highly expressed in the first group.
+                    </p>
+                    <p>
+                      Pct.1 : The percentage of cells where the feature is
+                      detected in the first group
+                    </p>
+                    <p>
+                      Pct.2 : The percentage of cells where the feature is
+                      detected in the second group
+                    </p>
+                    <p>
+                      Adjusted p-value : Adjusted p-value, based on bonferroni
+                      correction using all features in the dataset.
+                    </p>
+                  </v-tooltip>
+                </v-card-actions></v-card-text
+              >
+              <v-data-table
+                dense
+                :headers="searchGeneHeaders"
+                :items="filterResults"
+                :items-per-page="10"
+                class="elevation-1"
+              >
+              </v-data-table>
             </div>
-          </v-col></v-row
-        >
-      </v-card-text>
-    </v-card>
-  </v-hover>
+            <div v-else>
+              <p class="mt-2 font-weight-bold text-body-1">
+                No record found
+              </p>
+            </div>
+          </div>
+        </v-col></v-row
+      >
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>

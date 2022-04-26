@@ -38,9 +38,9 @@
 <script>
 import { mapState } from 'vuex' // <--- To map data from Vuex
 import Fab from '@/components/utils/Fab'
-import DeInfo from '@/components/v1/ad/DeInfo'
-import DimensionInfo from '@/components/v1/ad/DimensionInfo'
-import DatasetInfo from '@/components/v1/ad/DatasetInfo'
+import DeInfo from '@/components/ad/DeInfo'
+import DimensionInfo from '@/components/ad/DimensionInfo'
+import DatasetInfo from '@/components/ad/DatasetInfo'
 export default {
   components: {
     'de-info': DeInfo,

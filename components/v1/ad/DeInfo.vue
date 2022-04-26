@@ -357,6 +357,8 @@
               item-key="index"
               class="elevation-1"
               :expanded.sync="expandedKegg"
+              :loading="loading"
+              loading-text="Loading... Please wait"
               show-expand
             >
               <template v-slot:top>
@@ -482,6 +484,8 @@
               class="elevation-1"
               :expanded.sync="expandedBp"
               show-expand
+              :loading="loading"
+              loading-text="Loading... Please wait"
             >
               <template v-slot:top>
                 <v-toolbar flat>
@@ -605,6 +609,8 @@
               class="elevation-1"
               :expanded.sync="expandedMf"
               show-expand
+              :loading="loading"
+              loading-text="Loading... Please wait"
             >
               <template v-slot:top>
                 <v-toolbar flat>
@@ -726,6 +732,8 @@
               class="elevation-1"
               :expanded.sync="expandedCc"
               show-expand
+              :loading="loading"
+              loading-text="Loading... Please wait"
             >
               <template v-slot:top>
                 <v-toolbar flat>
@@ -836,7 +844,8 @@ import { mapState } from 'vuex'
 import axios from 'axios'
 import FormData from 'form-data'
 import _ from 'lodash'
-import RegulonInfo from '@/components/v1/ad/RegulonInfo'
+import { debounce } from '~/services/helper.js'
+import RegulonInfo from '@/components/ad/RegulonInfo'
 
 export default {
   name: 'DeInfo',
@@ -886,6 +895,7 @@ export default {
       bpSearch: '',
       mfSearch: '',
       ccSearch: '',
+      loading: false,
       headers: [
         { text: 'Gene name', value: 'gene' },
         { text: 'Log fold-change', value: 'avg_logFC' },
@@ -973,7 +983,8 @@ export default {
         '20200616120129',
         '20200616115909',
         '20200616120507'
-      ]
+      ],
+      debouncedFilterDe: ''
     }
   },
   computed: {
@@ -983,7 +994,7 @@ export default {
       de_meta: (state) => state.ad.deMeta
     }),
     genes() {
-      return _.map(this.filterDe, 'gene')
+      return _.map(this.debouncedFilterDe, 'gene')
     },
     cellTypeItems() {
       return _.map(this.ct, 'cell_type')
@@ -1078,8 +1089,12 @@ export default {
     }
   },
   watch: {
-    filterDe() {
-      if (this.filterDe.length) {
+    filterDe: debounce(function(newVal) {
+      this.debouncedFilterDe = newVal
+    }, 500),
+    debouncedFilterDe() {
+      console.log('watch changed')
+      if (this.debouncedFilterDe.length) {
         if (this.panel.includes(0)) {
           this.sendKegg(this.genes)
         }
@@ -1100,6 +1115,7 @@ export default {
   },
   methods: {
     async sendKegg(genes) {
+      this.loading = true
       let geneSetLibrary = 'KEGG_2019_Human'
       if (this.dataset[0].species === 'Mouse') {
         geneSetLibrary = 'KEGG_2019_Mouse'
@@ -1148,10 +1164,11 @@ export default {
           key8: value[7]
         }))
       }
-
+      this.loading = false
       return enrichrResult
     },
     async sendBp(genes) {
+      this.loading = true
       const geneSetLibrary = 'GO_Biological_Process_2018'
       const formData = new FormData()
       formData.append('method', 'post')
@@ -1187,9 +1204,11 @@ export default {
         adjPvalue: value[6].toExponential(4),
         key8: value[7]
       }))
+      this.loading = false
       return enrichrResult
     },
     async sendMf(genes) {
+      this.loading = true
       const geneSetLibrary = 'GO_Molecular_Function_2018'
       const formData = new FormData()
       formData.append('method', 'post')
@@ -1222,9 +1241,11 @@ export default {
         adjPvalue: value[6].toExponential(4),
         key8: value[7]
       }))
+      this.loading = false
       return enrichrResult
     },
     async sendCc(genes) {
+      this.loading = true
       const geneSetLibrary = 'GO_Cellular_Component_2018'
       const formData = new FormData()
       formData.append('method', 'post')
@@ -1257,6 +1278,7 @@ export default {
         adjPvalue: value[6].toExponential(4),
         key8: value[7]
       }))
+      this.loading = false
       return enrichrResult
     },
 
