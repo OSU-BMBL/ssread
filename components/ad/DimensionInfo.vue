@@ -164,6 +164,7 @@
           </v-col>
           <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0"
             ><dataset-barplot
+              source="single-cell"
               :freq="dimensionFreq"
               :colors="allColors"
             ></dataset-barplot>
@@ -292,7 +293,6 @@ export default {
     }),
     allColors() {
       const result = this.allCellDim.map((i) => {
-        // return { ct: i.name, color: i.marker.color }
         return i.marker.color
       })
       return result
@@ -320,19 +320,20 @@ export default {
       return this.gene !== null
     },
     dimensionViolin() {
-      const names = this.dimension
-        .map((item) => {
-          if (item.subcluster !== 'all') {
-            return `${item.cell_type}_${item.subcluster}`
-          } else {
-            if (item.cell_type === 'Oligodendrocyte precursor cells') {
-              return 'Oligodendrocyte <br>precursor cells'
-            }
-            return item.cell_type
+      const rawNames = this.dimension.map((item) => {
+        if (item.subcluster !== 'all') {
+          return `${item.cell_type}_${item.subcluster}`
+        } else {
+          if (item.cell_type === 'Oligodendrocyte precursor cells') {
+            return 'Oligodendrocyte <br>precursor cells'
           }
-        })
-        .sort()
-      const expression = this.expression
+          return item.cell_type
+        }
+      })
+      const indices = Array.from(rawNames.keys())
+      indices.sort((a, b) => rawNames[a].localeCompare(rawNames[b]))
+      const names = indices.map((i) => rawNames[i])
+      const expression = indices.map((i) => this.expression[i])
       const geneName = this.gene
       const clusterName = this.clusterCoordinatesSelect
       return { names, expression, geneName, clusterName }

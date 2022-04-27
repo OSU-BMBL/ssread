@@ -141,6 +141,7 @@
         <div v-if="showPlot">
           <client-only>
             <vue-plotly
+              source="spatial"
               :data="expressionSpatialDim"
               :layout="spatialLayout"
               :options="options"
