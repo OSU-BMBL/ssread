@@ -10,6 +10,11 @@
 export default {
   name: 'DatasetBarplot',
   props: {
+    source: {
+      type: String,
+      required: true,
+      default: () => 'single-cell'
+    },
     freq: {
       type: Object,
       required: true,
@@ -55,14 +60,14 @@ export default {
       ]
     },
     layout() {
+      const datasetType = this.source === 'spatial' ? 'Spots' : 'Cells'
       return {
         title: {
-          text: 'Number of Spots',
+          text: 'Number of ' + datasetType,
           font: {
             size: 20
           }
         },
-
         autosize: true,
         barmode: 'stack'
       }
