@@ -2,6 +2,14 @@
 
 # News
 
+## 4/27/2022
+
+### Fixed
+
+- Violin plot cell types order
+- Violin plot color scale
+- Violin plot data display error
+
 ## 4/1/2022
 
 ### Added
