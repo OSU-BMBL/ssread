@@ -72,7 +72,15 @@ export default {
 
   computed: {
     violinData() {
-      const violinWidth = [...new Set(this.result.names)].length > 3 ? 0 : 0.2
+      const violinNames = [...new Set(this.result.names)]
+      const violinWidth = violinNames.length > 3 ? 0 : 0.2
+      const transformStyle = []
+      for (const [idx, val] of violinNames.entries()) {
+        transformStyle.push({
+          target: val,
+          value: { line: { color: this.colors[idx] } }
+        })
+      }
       return [
         {
           type: 'violin',
@@ -94,44 +102,7 @@ export default {
             {
               type: 'groupby',
               groups: this.result.names,
-              styles: [
-                {
-                  target: 'Astrocytes',
-                  value: { line: { color: '#E64B35FF' } }
-                },
-                {
-                  target: 'Endothelial cells',
-                  value: { line: { color: '#00A087FF' } }
-                },
-                {
-                  target: 'Excitatory neurons',
-                  value: { line: { color: '#3C5488FF' } }
-                },
-                {
-                  target: 'Inhibitory neurons',
-                  value: { line: { color: '#F39B7FFF' } }
-                },
-                {
-                  target: 'Microglia',
-                  value: { line: { color: '#4DBBD5FF' } }
-                },
-                {
-                  target: 'Oligodendrocytes',
-                  value: { line: { color: '#91D1C2FF' } }
-                },
-                {
-                  target: 'Pericytes',
-                  value: { line: { color: '#7E6148FF' } }
-                },
-                {
-                  target: 'Oligodendrocyte <br>precursor cells',
-                  value: { line: { color: '#8491B499' } }
-                },
-                {
-                  target: 'unknown',
-                  value: { line: { color: '#7E6148FE' } }
-                }
-              ]
+              styles: transformStyle
             }
           ],
           meanline: {
