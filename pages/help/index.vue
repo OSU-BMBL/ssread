@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Default v2 help page</h1>
+    <h1>Default help page</h1>
   </div>
 </template>
 

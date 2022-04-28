@@ -86,6 +86,7 @@
       </v-col>
       <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0"
         ><dataset-barplot
+          source="spatial"
           :freq="dimensionFreq"
           :colors="allColors"
         ></dataset-barplot>

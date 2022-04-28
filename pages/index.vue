@@ -9,54 +9,7 @@
       </v-flex>
     </v-layout>
     <v-row>
-      <v-col cols="12">
-        <v-card
-          ><v-card-title>scRNA-seq</v-card-title>
-
-          <v-row>
-            <v-col cols="6"
-              ><v-card-text
-                ><p>Datasets: X</p>
-                <p>Studies: X</p>
-                <p>Brain regions: X</p>
-                <p>Cells: X</p></v-card-text
-              ></v-col
-            >
-            <v-col cols="6"
-              ><v-card-text
-                ><p>Figure 1</p>
-                <p>Figure 2</p>
-              </v-card-text></v-col
-            >
-          </v-row>
-
-          <v-card-actions
-            ><v-btn color="primary">Browse all</v-btn></v-card-actions
-          ></v-card
-        >
-      </v-col>
-      <v-col cols="12"
-        ><v-card
-          ><v-card-title>spatial RNA-seq</v-card-title
-          ><v-row>
-            <v-col cols="6"
-              ><v-card-text
-                ><p>Datasets: X</p>
-                <p>Studies: X</p>
-                <p>Brain regions: X</p>
-              </v-card-text></v-col
-            >
-            <v-col cols="6"
-              ><v-card-text
-                ><p>Figure 1</p>
-                <p>Figure 2</p>
-              </v-card-text></v-col
-            > </v-row
-          ><v-card-actions
-            ><v-btn color="primary">Browse all</v-btn></v-card-actions
-          ></v-card
-        ></v-col
-      >
+      Work in progress
     </v-row>
   </div>
 </template>
