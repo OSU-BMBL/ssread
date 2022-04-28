@@ -3,16 +3,48 @@
     <v-layout column justify-center align-center>
       <v-flex xs="12" md="6" lg="12">
         <p class="display-1">
-          Spatial transcriptomics datasets
+          Spatial RNA-seq datasets
         </p>
       </v-flex>
     </v-layout>
+
+    <client-only>
+      <v-row v-show="false">
+        <v-col ref="pie" xs="6" md="6" lg="3">
+          <vue-plotly
+            :data="pieData1"
+            :layout="layout1"
+            :options="options"
+            @click="clickSelectDatasetDialog()"
+          /> </v-col
+        ><v-col xs="6" md="6" lg="3">
+          <vue-plotly
+            :data="pieData2"
+            :layout="layout2"
+            :options="options"
+            @click="clickSelectDatasetDialog()"
+          /> </v-col
+        ><v-col xs="6" md="6" lg="3">
+          <vue-plotly
+            :data="pieData3"
+            :layout="layout3"
+            :options="options"
+            @click="clickSelectDatasetDialog()"
+          /> </v-col
+        ><v-col xs="6" md="6" lg="3">
+          <vue-plotly
+            :data="pieData4"
+            :layout="layout4"
+            :options="options"
+            @click="clickSelectDatasetDialog()"
+          /> </v-col
+      ></v-row>
+    </client-only>
     <div class="motif-header">
       <v-card class="mx-auto">
         <v-card-title>
           <p class="title">
-            scREAD covers 281 spatial transcriptomics datasets from 10 studies,
-            12 brain regions.
+            scREAD covers 1 spatial datasets from 1 studies, 1 brain regions.
           </p>
           <v-spacer></v-spacer>
         </v-card-title>
@@ -87,7 +119,9 @@
               </p>
               <p class="my-2">
                 <span class="text--secondary">Region: </span>
-                <span class="text--primary"> </span>
+                <span class="text--primary">
+                  Dorsolateral prefrontal cortex</span
+                >
               </p>
               <p class="my-2">
                 <span class="text--secondary">Experimental factors: </span>
@@ -100,7 +134,8 @@
                     href="https://www.nature.com/articles/s41593-020-00787-0"
                     target="_blank"
                     >Transcriptome-scale spatial gene expression in the human
-                  </a>
+                    dorsolateral prefrontal cortex</a
+                  >
                 </span>
               </p>
             </v-card-text>
@@ -113,6 +148,84 @@
               >
                 details </v-btn
               ><v-btn color="grey darken-1" text @click="dialog = false">
+                cancel
+              </v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="selectDatasetDialog" max-width="800">
+          <v-card>
+            <v-card-title>Dataset selection</v-card-title>
+            <v-divider class="my-2 py-2"></v-divider>
+            <v-card-text>
+              <p class="my-2">
+                <v-select
+                  v-model="browseDefault.species"
+                  :items="browseItems.species"
+                  item-text="value"
+                  item-value="value"
+                  label="Species"
+                  return-object
+                  outlined
+                ></v-select>
+              </p>
+              <p class="my-2">
+                <v-select
+                  v-model="browseDefault.condition"
+                  :items="browseItems.condition"
+                  item-text="value"
+                  item-value="value"
+                  label="Condition"
+                  return-object
+                  outlined
+                ></v-select>
+              </p>
+              <p class="my-2">
+                <v-select
+                  v-model="browseDefault.gender"
+                  :items="browseItems.gender"
+                  item-text="value"
+                  item-value="value"
+                  label="Gender"
+                  return-object
+                  outlined
+                ></v-select>
+              </p>
+              <p class="my-2">
+                <v-select
+                  v-model="browseDefault.region"
+                  :items="browseItems.region"
+                  item-text="value"
+                  item-value="value"
+                  label="Brain region"
+                  return-object
+                  outlined
+                ></v-select>
+              </p>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn
+                class="mx-2"
+                color="primary"
+                dark
+                @click="updateSelectDataset()"
+              >
+                apply
+              </v-btn>
+              <v-btn
+                v-show="displayResetFilter"
+                color="primary"
+                dark
+                @click="resetFilter"
+                >RESET FILTER</v-btn
+              >
+              <v-btn
+                color="grey darken-1"
+                text
+                @click="selectDatasetDialog = false"
+              >
                 cancel
               </v-btn>
               <v-spacer></v-spacer>
@@ -134,11 +247,12 @@
                 <nuxt-link :to="'/spatial/ST001'">ST001</nuxt-link>
               </td>
               <td>Human</td>
-              <td></td>
+              <td>Dorsolateral prefrontal cortex</td>
               <td>
                 Transcriptome-scale spatial gene expression in the human
+                dorsolateral prefrontal cortex
               </td>
-              <td>https://github.com/LieberInstitute/HumanPilot</td>
+              <td>GSE152506</td>
               <td>
                 <ul>
                   <li>Disease</li>
@@ -149,196 +263,6 @@
                 </ul>
               </td>
               <td>12</td>
-            </tr>
-            <tr>
-              <td>
-                ST002
-              </td>
-              <td>Human, Mouse</td>
-              <td></td>
-              <td>
-                Spatial Transcriptomics and In Situ Sequencing to Study
-                Alzheimer's Disease
-              </td>
-              <td>GSE152506</td>
-              <td>
-                <ul>
-                  <li>Disease</li>
-                  <li>Brain disorder</li>
-                  <li>Alzheimer's disease</li>
-                  <li>Age</li>
-                  <li>Sex</li>
-                  <li>inferred cell type - authors labels</li>
-                </ul>
-              </td>
-              <td>20</td>
-            </tr>
-            <tr>
-              <td>
-                ST003
-              </td>
-              <td>Mouse</td>
-              <td></td>
-              <td>
-                Spatial Transcriptomics Reveals Genes Associated with
-                Dysregulated Mitochondrial Functions and Stress Signaling in
-                Alzheimer Disease
-              </td>
-              <td>10.17632/6s959w2zyr.1</td>
-              <td>
-                <ul>
-                  <li>Disease</li>
-                  <li>Brain disorder</li>
-                  <li>Alzheimer's disease</li>
-                  <li>Age</li>
-                  <li>Sex</li>
-                  <li>inferred cell type - authors labels</li>
-                </ul>
-              </td>
-              <td>48</td>
-            </tr>
-            <tr>
-              <td>
-                ST004
-              </td>
-              <td>Human, Mouse</td>
-              <td>Main olfactory bulb</td>
-              <td>
-                High-definition spatial transcriptomics for in situ tissue
-                profiling
-              </td>
-              <td>GSE130682</td>
-              <td>
-                <ul>
-                  <li>Brain disorder</li>
-                  <li>Age</li>
-                  <li>Sex</li>
-                  <li>inferred cell type - authors labels</li>
-                </ul>
-              </td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>
-                ST005
-              </td>
-              <td>Mouse</td>
-              <td></td>
-              <td>
-                Slide-seq: A scalable technology for measuring genome-wide
-                expression at high spatial resolution
-              </td>
-              <td>
-                10.5281/zenodo.2571615
-              </td>
-              <td>
-                <ul>
-                  <li>Brain</li>
-                  <li>Age</li>
-                  <li>Sex</li>
-                  <li>inferred cell type - authors labels</li>
-                </ul>
-              </td>
-              <td>106</td>
-            </tr>
-            <tr>
-              <td>
-                ST006
-              </td>
-              <td>Mouse</td>
-              <td>Neocortex</td>
-              <td>
-                Highly sensitive spatial transcriptomics at near-cellular
-                resolution with Slide-seqV2
-              </td>
-              <td>
-                NA
-              </td>
-              <td>
-                <ul>
-                  <li>Brain</li>
-                  <li>Age</li>
-                  <li>inferred cell type - authors labels</li>
-                </ul>
-              </td>
-              <td>11</td>
-            </tr>
-            <tr>
-              <td>
-                ST007
-              </td>
-              <td>Mouse</td>
-              <td></td>
-              <td>
-                Molecular atlas of the adult mouse brain
-              </td>
-              <td>GSE147747</td>
-              <td>
-                <ul>
-                  <li>Brain</li>
-                  <li>Age</li>
-                </ul>
-              </td>
-              <td>75</td>
-            </tr>
-            <tr>
-              <td>
-                ST008
-              </td>
-              <td>Mouse</td>
-              <td></td>
-              <td>
-                Neuroinflammatory astrocyte subtypes in the mouse brain
-              </td>
-              <td>GSE147747</td>
-              <td>
-                <ul>
-                  <li>Brain disorder</li>
-                  <li>Age</li>
-                  <li>inferred cell type - authors labels</li>
-                </ul>
-              </td>
-              <td>6</td>
-            </tr>
-            <tr>
-              <td>
-                ST009
-              </td>
-              <td>Mouse</td>
-              <td>Forebrain</td>
-              <td>
-                Clonal relations in the mouse brain revealed by single-cell and
-                spatial transcriptomics
-              </td>
-              <td>GSE15342</td>
-              <td>
-                <ul>
-                  <li>Brain disorder</li>
-                  <li>Age</li>
-                  <li>inferred cell type - authors labels</li>
-                </ul>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                ST010
-              </td>
-              <td>Mouse</td>
-              <td>Forebrain</td>
-              <td>
-                A spatially resolved brain region- and cell type-specific
-                isoform atlas of the postnatal mouse brain
-              </td>
-              <td>GSE158450</td>
-              <td>
-                <ul>
-                  <li>Brain disorder</li>
-                  <li>Age</li>
-                  <li>inferred cell type - authors labels</li>
-                </ul>
-              </td>
-              <td>11</td>
             </tr>
           </template>
         </v-data-table>
@@ -382,7 +306,7 @@ export default {
         { text: 'Species', value: 'species' },
         { text: 'Region', value: 'gender' },
         { text: 'Publication', value: 'condition' },
-        { text: 'Public data ID', value: 'public_id' },
+        { text: 'GEO/synapse ID', value: 'public_id' },
         { text: 'Experimental factors', value: 'public_id' },
         { text: 'Number of samples', value: 'public_id' }
       ],
