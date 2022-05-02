@@ -10,25 +10,27 @@
 
           <v-row>
             <v-col cols="12" class="py-0 my-0">
-              <v-card-title class="my-2 py-0 subtitle-1 font-weight-medium"
+              <v-card-title class="my-2 py-2 subtitle-1 font-weight-medium"
                 >Manuscript<v-divider class="my-2 py-0"></v-divider
               ></v-card-title>
               <v-card-text>
                 <p class="my-2">
                   <span class="text--secondary">Title: </span>
                   <span class="text--primary font-weight-medium"
-                    >Spatially resolved transcriptomics reveals unique gene
-                    signatures associated with human temporal cortical
-                    architecture and Alzheimer's pathology.</span
+                    >Spatially resolved transcriptomics reveals gene signatures
+                    underlying the vulnerability of 2 human middle temporal
+                    gyrus in Alzheimer’s disease</span
                   >
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Authors: </span>
                   <span class="text--primary"
                     >Shuo Chen<sup>†</sup>, Yuzhou Chang<sup>†</sup>, Liangping
-                    Li, Diana Acosta, Cody Morrison, Cankun Wang, Dominic
-                    Julian, Mark E. Hester, Geidy E. Serrano, Thomas G. Beach,
-                    Qin Ma<sup>$</sup>, Hongjun Fu<sup>$</sup></span
+                    Li, Diana Acosta, Yang Li, Qi Guo, Cankun Wang, Cody
+                    Morrison, Dominic Julian, Mark E. Hester, Douglas W.
+                    Scharre, Chintda Santiskulvong, Sarah XueYing Song, Jasmine
+                    T. Plummer, Geidy E. Serrano, Thomas G. Beach, Qin
+                    Ma<sup>$</sup>, Hongjun Fu<sup>$</sup></span
                   >
                 </p>
                 <p class="my-2">
@@ -66,8 +68,8 @@
             <v-col
               v-for="(data, key) in sampleInfo"
               :key="key"
-              xl="3"
-              lg="3"
+              xl="4"
+              lg="4"
               md="6"
               sm="6"
               xs="12"
@@ -81,23 +83,6 @@
                   <span class="text--secondary">Name: </span>
                   <span class="text--primary">{{ data.name }}</span>
                 </p>
-                <!--<p class="my-2">
-                  <span class="text--secondary"
-                    >Space Ranger web summary:
-                  </span>
-                  <span class="text--primary"
-                    ><a
-                      :href="data.webSummaryLink"
-                      target="_blank"
-                      class="text-decoration-none"
-                    >
-                      Open
-                      <v-icon color="primary" size="1.2em"
-                        >mdi-open-in-new</v-icon
-                      >
-                    </a></span
-                  >
-                </p>-->
                 <p class="my-2">
                   <span class="text--secondary">Loupe file: </span>
                   <span class="text--primary"
@@ -127,15 +112,12 @@
           }}</v-card-title>
 
           <v-card-title class="my-2 py-0 subtitle-1 font-weight-normal">
-            Clustering results for four samples are displayed based on Seurat
-            integration method.
           </v-card-title>
-          <v-divider />
           <v-card-actions>
             <v-col cols="6">
               <v-select
                 v-model="selectedSampleClustering"
-                label="Unsupervised clustering figures"
+                label="Spatial map"
                 :items="clusterData"
                 item-text="name"
                 item-value="name"
@@ -438,11 +420,11 @@ export default {
       baseUrl: 'http://cloud.osubmi.com/downloadFiles/stofad-2',
       titles: [
         'Summary',
-        'Unsupervised clustering',
+        'Spatial map (gene modules)',
         'Manual annotation',
         'Circos plot',
-        'Module score',
-        'Heatmap'
+        'RNA scope',
+        'Deconvolution table'
       ],
 
       // Component variables
@@ -467,30 +449,38 @@ export default {
         {
           title: 'Sample 1',
           name: 'CT-1',
-          webSummaryLink: 'https://google.com/',
-          loupeLink: `${this.baseUrl}/loupe/CT-1_cloupe.cloupe`,
-          size: '(1.27 GB)'
+          loupeLink: `${this.baseUrl}/1.Cloupe files/CT-1_cloupe.cloupe`,
+          size: '(0.82 GB)'
         },
         {
           title: 'Sample 2',
           name: 'CT-2',
-          webSummaryLink: 'https://google.com/',
-          loupeLink: `${this.baseUrl}/loupe/CT-2_cloupe.cloupe`,
-          size: '(1.31 GB)'
+          loupeLink: `${this.baseUrl}/1.Cloupe files/CT-2_cloupe.cloupe`,
+          size: '(1.4 GB)'
         },
         {
           title: 'Sample 3',
-          name: 'AD-1',
-          webSummaryLink: 'https://google.com/',
-          loupeLink: `${this.baseUrl}/loupe/AD-1_cloupe.cloupe`,
-          size: '(1.06 GB)'
+          name: 'CT-3',
+          loupeLink: `${this.baseUrl}/1.Cloupe files/CT-3_cloupe.cloupe`,
+          size: '(1.3 GB)'
         },
         {
           title: 'Sample 4',
+          name: 'AD-1',
+          loupeLink: `${this.baseUrl}/1.Cloupe files/AD-1_cloupe.cloupe`,
+          size: '(1.02 GB)'
+        },
+        {
+          title: 'Sample 5',
           name: 'AD-2',
-          webSummaryLink: 'https://google.com/',
-          loupeLink: `${this.baseUrl}/loupe/AD-2_cloupe.cloupe`,
-          size: '(1.45 GB)'
+          loupeLink: `${this.baseUrl}/1.Cloupe files/AD-2_cloupe.cloupe`,
+          size: '(1.1 GB)'
+        },
+        {
+          title: 'Sample 6',
+          name: 'AD-3',
+          loupeLink: `${this.baseUrl}/1.Cloupe files/AD-3_cloupe.cloupe`,
+          size: '(1.5 GB)'
         }
       ]
     },
