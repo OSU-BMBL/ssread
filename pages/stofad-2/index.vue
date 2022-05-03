@@ -313,7 +313,7 @@ export default {
   },
   data() {
     return {
-      baseUrl: 'http://cloud.osubmi.com/downloadFiles/stofad-2',
+      baseUrl: 'https://cloud.osubmi.com/downloadFiles/stofad-2',
       titles: [
         'Summary',
         'Spatial map (gene modules)',
