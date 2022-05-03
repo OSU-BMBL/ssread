@@ -25,7 +25,7 @@ ENV NUXT_HOST=0.0.0.0
 # set app port
 ENV NUXT_PORT=9003
 
-ENV PORT=9003
+#ENV PORT=9003
 
 # start the app
 CMD [ "npm", "start" ]
