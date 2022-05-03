@@ -19,7 +19,7 @@
                   <span class="text--primary font-weight-medium"
                     >Spatially resolved transcriptomics reveals gene signatures
                     underlying the vulnerability of 2 human middle temporal
-                    gyrus in Alzheimer’s disease</span
+                    gyrus in Alzheimer's disease</span
                   >
                 </p>
                 <p class="my-2">
@@ -163,79 +163,9 @@
       <v-col cols="12">
         <v-card>
           <v-card-title class="primary white--text text-no-wrap  py-2">{{
-            titles[2]
-          }}</v-card-title>
-
-          <v-card-title class="my-2 py-0 subtitle-1 font-weight-normal">
-            Spatial maps of the eight clusters for each individual sample from
-            manual annotation.
-          </v-card-title>
-          <v-divider />
-          <v-card-actions>
-            <v-col cols="6">
-              <v-select
-                v-model="selectedSampleAnnotation"
-                label="Manual annotation figures"
-                :items="annoData"
-                item-text="name"
-                item-value="name"
-                return-object
-                placeholder="Name"
-              ></v-select>
-            </v-col>
-            <v-col cols="6">
-              <a
-                :href="selectedSampleAnnotation.pngLink"
-                class="text-decoration-none"
-                target="_blank"
-              >
-                <v-btn small>
-                  Download (PNG)
-                  <v-icon color="primary" size="1.5em"
-                    >mdi-cloud-download-outline</v-icon
-                  ></v-btn
-                >
-              </a>
-              <a
-                :href="selectedSampleAnnotation.tiffLink"
-                class="text-decoration-none"
-                download
-              >
-                <v-btn small>
-                  Download (TIFF)<v-icon color="primary " size="1.5em"
-                    >mdi-cloud-download-outline</v-icon
-                  ></v-btn
-                >
-              </a>
-            </v-col>
-          </v-card-actions>
-          <v-row>
-            <v-col class="ma-4" xl="6" lg="8" md="10" sm="11" xs="11">
-              <v-img contain :src="selectedSampleAnnotation.pngLink"></v-img>
-            </v-col>
-          </v-row>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row class="mb-4">
-      <v-col cols="12">
-        <v-card>
-          <v-card-title class="primary white--text text-no-wrap  py-2">{{
             titles[3]
           }}</v-card-title>
 
-          <v-card-title class="mt-2 mb-0 py-0 subtitle-1 font-weight-normal">
-            Circos plots of the connectivity strength within and across modules
-            for ST spots in control (CT) human MTG, and with specific AD
-            pathologies (Aβ, AT8, Aβ/AT8, GFAP/Aβ/AT8, and P2RY12/Aβ/AT8).
-          </v-card-title>
-          <v-card-title class="mb-0 py-0 subtitle-1 font-weight-normal">
-            Circos plots are composed of four different modules M1-4 (top 15 hub
-            genes each module); nodes which represent highly deregulated genes
-            from each module; and edges (green lines) which indicate degrees of
-            co-expression (high: dark green, low: light green).
-          </v-card-title>
-          <v-divider />
           <v-card-actions>
             <v-col cols="4">
               <v-select
@@ -278,6 +208,7 @@
         </v-card>
       </v-col>
     </v-row>
+
     <v-row class="mb-4">
       <v-col cols="12">
         <v-card>
@@ -285,20 +216,6 @@
             titles[4]
           }}</v-card-title>
 
-          <v-card-title class="my-2 py-0 subtitle-1 font-weight-normal">
-            Public available 10x Visium ST data and Kristen R. Maynard' paper
-            (PMID:
-            <a
-              href="https://pubmed.ncbi.nlm.nih.gov/33558695/"
-              target="_blank"
-              class="text-decoration-none"
-            >
-              33558695
-              <v-icon color="primary" size="1.2em">mdi-open-in-new</v-icon> </a
-            >) of the human frontal cortex is annotated by our layer-specific
-            marker genes.
-          </v-card-title>
-          <v-divider />
           <v-card-actions>
             <v-col cols="6">
               <v-select
@@ -352,59 +269,38 @@
             titles[5]
           }}</v-card-title>
 
-          <v-card-title class="my-2 py-0 subtitle-1 font-weight-normal">
-            Heatmap of Z-scores for upregulated and downregulated differentially
-            expressed genes (DEGs) specific to ST spots localized with and
-            without different AD pathologies (Aβ, AT8, Aβ/AT8, GFAP/Aβ/AT8, and
-            P2RY12/Aβ/AT8).
-          </v-card-title>
-          <v-divider />
-          <v-card-actions>
-            <v-col cols="6">
-              <v-select
-                v-model="selectedSampleHeatmap"
-                label="Heatmap figures"
-                :items="heatmapData"
-                item-text="name"
-                item-value="name"
-                return-object
-                placeholder="Name"
-              ></v-select>
-            </v-col>
-            <v-col cols="6">
+          <v-card-actions
+            ><v-col cols="2">
               <a
-                :href="selectedSampleHeatmap.pngLink"
+                :href="tableData[0].link"
                 class="text-decoration-none"
                 target="_blank"
               >
-                <v-btn small>
-                  Download (PNG)
+                <v-btn small class="my-2">
+                  {{ tableData[0].name }}
                   <v-icon color="primary" size="1.5em"
                     >mdi-cloud-download-outline</v-icon
                   ></v-btn
                 >
               </a>
               <a
-                :href="selectedSampleHeatmap.tiffLink"
-                class="text-decoration-none"
-                download
+                :href="tableData[1].link"
+                class="text-decoration-none "
+                target="_blank"
               >
-                <v-btn small>
-                  Download (TIFF)<v-icon color="primary " size="1.5em"
+                <v-btn small class="my-2">
+                  {{ tableData[1].name }}
+                  <v-icon color="primary" size="1.5em"
                     >mdi-cloud-download-outline</v-icon
                   ></v-btn
                 >
               </a>
-            </v-col>
-          </v-card-actions>
-          <v-row>
-            <v-col class="ma-4" xl="6" lg="8" md="10" sm="11" xs="11">
-              <v-img contain :src="selectedSampleHeatmap.pngLink"></v-img>
-            </v-col>
-          </v-row>
+            </v-col></v-card-actions
+          >
         </v-card>
       </v-col>
     </v-row>
+
     <Fab></Fab>
   </div>
 </template>
@@ -421,7 +317,7 @@ export default {
       titles: [
         'Summary',
         'Spatial map (gene modules)',
-        'Manual annotation',
+        '',
         'Circos plot',
         'RNA scope',
         'Deconvolution table'
@@ -433,14 +329,8 @@ export default {
       selectedSampleModule: '',
       selectedSampleCircos: '',
       selectedSampleHeatmap: '',
-      selectedPathology: 'Abeta',
-      allPathology: [
-        'Abeta',
-        'AT8',
-        'AT8 Abeta',
-        'GFAP AT8 Abeta',
-        'P2RY12_AT8_Ab'
-      ]
+      selectedPathology: 'Ab',
+      allPathology: ['Ab', 'AT8', 'Ab_AT8']
     }
   },
   computed: {
@@ -485,363 +375,157 @@ export default {
       ]
     },
     clusterData() {
-      return [
-        {
-          name: 'UMAP',
-          pngLink: `${this.baseUrl}/cluster/Seurat-Figue-unsupervised-clustering.png`,
-          tiffLink: `${this.baseUrl}/cluster/Seurat-Figue-unsupervised-clustering.tiff`
-        },
-        {
-          name: 'CT-1',
-          pngLink: `${this.baseUrl}/cluster/CT-1.png`,
-          tiffLink: `${this.baseUrl}/cluster/CT-1.tiff`
-        },
-        {
-          name: 'CT-2',
-          pngLink: `${this.baseUrl}/cluster/CT-2.png`,
-          tiffLink: `${this.baseUrl}/cluster/CT-2.tiff`
-        },
-        {
-          name: 'AD-1',
-          pngLink: `${this.baseUrl}/cluster/AD-1.png`,
-          tiffLink: `${this.baseUrl}/cluster/AD-1.tiff`
-        },
-        {
-          name: 'AD-2',
-          pngLink: `${this.baseUrl}/cluster/AD-2.png`,
-          tiffLink: `${this.baseUrl}/cluster/AD-2.tiff`
-        }
+      const names = [
+        '151673_Layer 1',
+        '151673_Layer 2',
+        '151673_Layer 4',
+        '151673_Layer 5',
+        '151673_Layer 6',
+        '151673_White Matter',
+        '151674_Layer 1',
+        '151674_Layer 2',
+        '151674_Layer 4',
+        '151674_Layer 5',
+        '151674_Layer 6',
+        '151674_White Matter',
+        'AdultHumanBrain_1_Layer 1',
+        'AdultHumanBrain_1_Layer 2',
+        'AdultHumanBrain_1_Layer 4',
+        'AdultHumanBrain_1_Layer 5',
+        'AdultHumanBrain_1_Layer 6',
+        'AdultHumanBrain_1_White Matter',
+        'AdultHumanBrain_2_Layer 1',
+        'AdultHumanBrain_2_Layer 2',
+        'AdultHumanBrain_2_Layer 4',
+        'AdultHumanBrain_2_Layer 5',
+        'AdultHumanBrain_2_Layer 6',
+        'AdultHumanBrain_2_White Matter'
       ]
-    },
-    annoData() {
-      return [
-        {
-          name: 'UMAP',
-          pngLink: `${this.baseUrl}/annotation/mannually-annotated-layer-Figue.png`,
-          tiffLink: `${this.baseUrl}/annotation/mannually-annotated-layer-Figue.tiff`
-        },
-        {
-          name: 'CT-1',
-          pngLink: `${this.baseUrl}/annotation/CT-1.png`,
-          tiffLink: `${this.baseUrl}/annotation/CT-1.tiff`
-        },
-        {
-          name: 'CT-2',
-          pngLink: `${this.baseUrl}/annotation/CT-2.png`,
-          tiffLink: `${this.baseUrl}/annotation/CT-2.tiff`
-        },
-        {
-          name: 'AD-1',
-          pngLink: `${this.baseUrl}/annotation/AD-1.png`,
-          tiffLink: `${this.baseUrl}/annotation/AD-1.tiff`
-        },
-        {
-          name: 'AD-2',
-          pngLink: `${this.baseUrl}/annotation/AD-2.png`,
-          tiffLink: `${this.baseUrl}/annotation/AD-2.tiff`
-        }
-      ]
+      const result = []
+      for (const i of names) {
+        result.push({
+          name: i,
+          pngLink: `${this.baseUrl}/2.Spatial map/${i}.png`,
+          tiffLink: `${this.baseUrl}/2.Spatial map/${i}.tiff`
+        })
+      }
+      return result
     },
 
     moduleData() {
-      return [
-        {
-          name: '151674-WM',
-          pngLink: `${this.baseUrl}/module/151674-WM.png`,
-          tiffLink: `${this.baseUrl}/module/151674-WM.tiff`
-        },
-        {
-          name: '151674-Layer.1',
-          pngLink: `${this.baseUrl}/module/151674-Layer.1.png`,
-          tiffLink: `${this.baseUrl}/module/151674-Layer.1.tiff`
-        },
-        {
-          name: '151674-Layer.2',
-          pngLink: `${this.baseUrl}/module/151674-Layer.2.png`,
-          tiffLink: `${this.baseUrl}/module/151674-Layer.2.tiff`
-        },
-        {
-          name: '151674-Layer.3',
-          pngLink: `${this.baseUrl}/module/151674-Layer.3.png`,
-          tiffLink: `${this.baseUrl}/module/151674-Layer.3.tiff`
-        },
-        {
-          name: '151674-Layer.4',
-          pngLink: `${this.baseUrl}/module/151674-Layer.4.png`,
-          tiffLink: `${this.baseUrl}/module/151674-Layer.4.tiff`
-        },
-        {
-          name: '151674-Layer.5',
-          pngLink: `${this.baseUrl}/module/151674-Layer.5.png`,
-          tiffLink: `${this.baseUrl}/module/151674-Layer.5.tiff`
-        },
-        {
-          name: '151674-Layer.6',
-          pngLink: `${this.baseUrl}/module/151674-Layer.6.png`,
-          tiffLink: `${this.baseUrl}/module/151674-Layer.6.tiff`
-        },
-        {
-          name: '151673-WM',
-          pngLink: `${this.baseUrl}/module/151673-WM.png`,
-          tiffLink: `${this.baseUrl}/module/151673-WM.tiff`
-        },
-        {
-          name: '151673-Layer.1',
-          pngLink: `${this.baseUrl}/module/151673-Layer.1.png`,
-          tiffLink: `${this.baseUrl}/module/151673-Layer.1.tiff`
-        },
-        {
-          name: '151673-Layer.2',
-          pngLink: `${this.baseUrl}/module/151673-Layer.2.png`,
-          tiffLink: `${this.baseUrl}/module/151673-Layer.2tiff`
-        },
-        {
-          name: '151673-Layer.3',
-          pngLink: `${this.baseUrl}/module/151673-Layer.3.png`,
-          tiffLink: `${this.baseUrl}/module/151673-Layer.3.tiff`
-        },
-        {
-          name: '151673-Layer.4',
-          pngLink: `${this.baseUrl}/module/151673-Layer.4.png`,
-          tiffLink: `${this.baseUrl}/module/151673-Layer.4.tiff`
-        },
-        {
-          name: '151673-Layer.5',
-          pngLink: `${this.baseUrl}/module/151673-Layer.5.png`,
-          tiffLink: `${this.baseUrl}/module/151673-Layer.5.tiff`
-        },
-        {
-          name: '151673-Layer.6',
-          pngLink: `${this.baseUrl}/module/151673-Layer.6.png`,
-          tiffLink: `${this.baseUrl}/module/151673-Layer.6.tiff`
-        },
-        {
-          name: 'Adult Human Brain 1-WM',
-          pngLink: `${this.baseUrl}/module/Adult Human Brain 1-WM.png`,
-          tiffLink: `${this.baseUrl}/module/Adult Human Brain 1-WM.tiff`
-        },
-        {
-          name: 'Adult Human Brain 1-Layer.1',
-          pngLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.1.png`,
-          tiffLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.1.tiff`
-        },
-        {
-          name: 'Adult Human Brain 1-Layer.2',
-          pngLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.2.png`,
-          tiffLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.2tiff`
-        },
-        {
-          name: 'Adult Human Brain 1-Layer.3',
-          pngLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.3.png`,
-          tiffLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.3.tiff`
-        },
-        {
-          name: 'Adult Human Brain 1-Layer.4',
-          pngLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.4.png`,
-          tiffLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.4.tiff`
-        },
-        {
-          name: 'Adult Human Brain 1-Layer.5',
-          pngLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.5.png`,
-          tiffLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.5.tiff`
-        },
-        {
-          name: 'Adult Human Brain 1-Layer.6',
-          pngLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.6.png`,
-          tiffLink: `${this.baseUrl}/module/Adult Human Brain 1-Layer.6.tiff`
-        },
-        {
-          name: 'Adult Human Brain 2-WM',
-          pngLink: `${this.baseUrl}/module/Adult Human Brain 2-WM.png`,
-          tiffLink: `${this.baseUrl}/module/Adult Human Brain 2-WM.tiff`
-        },
-        {
-          name: 'Adult Human Brain 2-Layer.1',
-          pngLink: `${this.baseUrl}/module/Adult Human Brain 2-Layer.1.png`,
-          tiffLink: `${this.baseUrl}/module/Adult Human Brain 2-Layer.1.tiff`
-        },
-        {
-          name: 'Adult Human Brain 2-Layer.2',
-          pngLink: `${this.baseUrl}/module/Adult Human Brain 2-Layer.2.png`,
-          tiffLink: `${this.baseUrl}/module/Adult Human Brain 2-Layer.2tiff`
-        },
-        {
-          name: 'Adult Human Brain 2-Layer.3',
-          pngLink: `${this.baseUrl}/module/Adult Human Brain 2-Layer.3.png`,
-          tiffLink: `${this.baseUrl}/module/Adult Human Brain 2-Layer.3.tiff`
-        },
-        {
-          name: 'Adult Human Brain 2-Layer.4',
-          pngLink: `${this.baseUrl}/module/Adult Human Brain 2-Layer.4.png`,
-          tiffLink: `${this.baseUrl}/module/Adult Human Brain 2-Layer.4.tiff`
-        },
-        {
-          name: 'Adult Human Brain 2-Layer.5',
-          pngLink: `${this.baseUrl}/module/Adult Human Brain 2-Layer.5.png`,
-          tiffLink: `${this.baseUrl}/module/Adult Human Brain 2-Layer.5.tiff`
-        },
-        {
-          name: 'Adult Human Brain 2-Layer.6',
-          pngLink: `${this.baseUrl}/module/Adult Human Brain 2-Layer.6.png`,
-          tiffLink: `${this.baseUrl}/module/Adult Human Brain 2-Layer.6.tiff`
-        }
+      const names = [
+        'AD WM CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'AD WM SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'AD layer 1 CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'AD layer 1 SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'AD layer 2 CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'AD layer 2 SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'AD layer 3 CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'AD layer 3 SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'AD layer 4 CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'AD layer 4 SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'AD layer 5 CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'AD layer 5 SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'AD layer 6 CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'AD layer 6 SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'CT WM CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'CT WM SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'CT layer 1 CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'CT layer 1 SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'CT layer 2 CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'CT layer 2 SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'CT layer 3 CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'CT layer 3 SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'CT layer 4 CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'CT layer 4 SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'CT layer 5 CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'CT layer 5 SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'CT layer 6 CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'CT layer 6 SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP'
       ]
-    },
-    heatmapData() {
-      return [
-        {
-          name: 'Layer_heatmap',
-          pngLink: `${this.baseUrl}/heatmap/Layer_heatmap.png`,
-          tiffLink: `${this.baseUrl}/heatmap/Layer_heatmap.tiff`
-        },
-        {
-          name: 'level2-distance-pathway-for-upregualted-genes',
-          pngLink: `${this.baseUrl}/heatmap/level2-distance-pathway-for-upregualted-genes.png`,
-          tiffLink: `${this.baseUrl}/heatmap/level2-distance-pathway-for-upregualted-genes.tiff`
-        },
-        {
-          name: 'level2-distance-pathway-for-downregualted-genes',
-          pngLink: `${this.baseUrl}/heatmap/level2-distance-pathway-for-downregualted-genes.png`,
-          tiffLink: `${this.baseUrl}/heatmap/level2-distance-pathway-for-downregualted-genes.tiff`
-        },
-        {
-          name: 'level3-distance-pathway-for-upregualted-genes',
-          pngLink: `${this.baseUrl}/heatmap/level3-distance-pathway-for-upregualted-genes.png`,
-          tiffLink: `${this.baseUrl}/heatmap/level3-distance-pathway-for-upregualted-genes.tiff`
-        },
-        {
-          name: 'level3-distance-pathway-for-downregualted-genes',
-          pngLink: `${this.baseUrl}/heatmap/level3-distance-pathway-for-downregualted-genes.png`,
-          tiffLink: `${this.baseUrl}/heatmap/level3-distance-pathway-for-downregualted-genes.tiff`
-        }
-      ]
+      const result = []
+      for (const i of names) {
+        result.push({
+          name: i,
+          pngLink: `${this.baseUrl}/5.RNAscope/${i}.png`,
+          tiffLink: `${this.baseUrl}/5.RNAscope/${i}.tiff`
+        })
+      }
+      return result
     },
     circosData() {
       return [
         {
-          pathology: 'Abeta',
-          name: 'Abeta',
-          pngLink: `${this.baseUrl}/circos/Abeta/Abeta.png`
+          pathology: 'Ab',
+          name: 'Ab_sp_Ab',
+          pngLink: `${this.baseUrl}/3.Ciros plot/Ab/Ab_sp_Ab.png`
         },
         {
-          pathology: 'Abeta',
-          name: 'Abeta-lvl1',
-          pngLink: `${this.baseUrl}/circos/Abeta/Abeta-lvl1.png`
+          pathology: 'Ab',
+          name: 'Ab_sp_level1',
+          pngLink: `${this.baseUrl}/3.Ciros plot/Ab/Ab_sp_level1.png`
         },
         {
-          pathology: 'Abeta',
-          name: 'Abeta-lvl2',
-          pngLink: `${this.baseUrl}/circos/Abeta/Abeta-lvl2.png`
+          pathology: 'Ab',
+          name: 'Ab_sp_level2',
+          pngLink: `${this.baseUrl}/3.Ciros plot/Ab/Ab_sp_level2.png`
         },
         {
-          pathology: 'Abeta',
-          name: 'Abeta-lvl3',
-          pngLink: `${this.baseUrl}/circos/Abeta/Abeta-lvl3.png`
-        },
-        {
-          pathology: 'Abeta',
-          name: 'Abeta-negative-control',
-          pngLink: `${this.baseUrl}/circos/Abeta/Abeta-negative-control.png`
+          pathology: 'Ab',
+          name: 'Ab_sp_level3',
+          pngLink: `${this.baseUrl}/3.Ciros plot/Ab/Ab_sp_level3.png`
         },
         {
           pathology: 'AT8',
-          name: 'AT8',
-          pngLink: `${this.baseUrl}/circos/AT8/AT8.png`
+          name: 'AT8_sp_AT8',
+          pngLink: `${this.baseUrl}/3.Ciros plot/AT8/AT8_sp_AT8.png`
         },
         {
           pathology: 'AT8',
-          name: 'AT8-lvl1',
-          pngLink: `${this.baseUrl}/circos/AT8/AT8-lvl1.png`
+          name: 'AT8_sp_level1',
+          pngLink: `${this.baseUrl}/3.Ciros plot/AT8/AT8_sp_level1.png`
         },
         {
           pathology: 'AT8',
-          name: 'AT8-lvl2',
-          pngLink: `${this.baseUrl}/circos/AT8/AT8-lvl2.png`
+          name: 'AT8_sp_level2',
+          pngLink: `${this.baseUrl}/3.Ciros plot/AT8/AT8_sp_level2.png`
         },
         {
           pathology: 'AT8',
-          name: 'AT8-lvl3',
-          pngLink: `${this.baseUrl}/circos/AT8/AT8-lvl3.png`
+          name: 'AT8_sp_level3',
+          pngLink: `${this.baseUrl}/3.Ciros plot/AT8/AT8_sp_level3.png`
         },
         {
-          pathology: 'AT8',
-          name: 'AT8-negative-control',
-          pngLink: `${this.baseUrl}/circos/AT8/AT8-negative-control.png`
+          pathology: 'Ab_AT8',
+          name: 'AT8_Ab_sp_Ab_AT8',
+          pngLink: `${this.baseUrl}/3.Ciros plot/Ab_AT8/AT8_Ab_sp_Ab_AT8.png`
         },
         {
-          pathology: 'AT8 Abeta',
-          name: 'AT8 Abeta',
-          pngLink: `${this.baseUrl}/circos/AT8 Abeta/AT8_Abeta.png`
+          pathology: 'Ab_AT8',
+          name: 'AT8_Ab_sp_level1',
+          pngLink: `${this.baseUrl}/3.Ciros plot/Ab_AT8/AT8_Ab_sp_level1.png`
         },
         {
-          pathology: 'AT8 Abeta',
-          name: 'AT8 Abeta-lvl1',
-          pngLink: `${this.baseUrl}/circos/AT8 Abeta/AT8_Abeta-lvl1.png`
+          pathology: 'Ab_AT8',
+          name: 'AT8_Ab_sp_level2',
+          pngLink: `${this.baseUrl}/3.Ciros plot/Ab_AT8/AT8_Ab_sp_level2.png`
         },
         {
-          pathology: 'AT8 Abeta',
-          name: 'AT8 Abeta-lvl2',
-          pngLink: `${this.baseUrl}/circos/AT8 Abeta/AT8_Abeta-lvl2.png`
+          pathology: 'Ab_AT8',
+          name: 'AT8_Ab_sp_level3',
+          pngLink: `${this.baseUrl}/3.Ciros plot/Ab_AT8/AT8_Ab_sp_level3.png`
+        }
+      ]
+    },
+    tableData() {
+      return [
+        {
+          name: 'Deconvolution statistics (xlsx)',
+          link: `${this.baseUrl}/4.Deconvolution Table/Deconvolution statistics.xlsx`
         },
         {
-          pathology: 'AT8 Abeta',
-          name: 'AT8 Abeta-lvl3',
-          pngLink: `${this.baseUrl}/circos/AT8 Abeta/AT8_Abeta-lvl3.png`
-        },
-        {
-          pathology: 'AT8 Abeta',
-          name: 'AT8 Abeta-negative-control',
-          pngLink: `${this.baseUrl}/circos/AT8 Abeta/AT8_Abeta-negative-control.png`
-        },
-        {
-          pathology: 'GFAP AT8 Abeta',
-          name: 'GFAP AT8 Abeta',
-          pngLink: `${this.baseUrl}/circos/GFAP AT8 Abeta/GFAP_AT8_Ab.png`
-        },
-        {
-          pathology: 'GFAP AT8 Abeta',
-          name: 'GFAP AT8 Abeta-lvl1',
-          pngLink: `${this.baseUrl}/circos/GFAP AT8 Abeta/GFAP_AT8_Ab-lvl1.png`
-        },
-        {
-          pathology: 'GFAP AT8 Abeta',
-          name: 'GFAP AT8 Abeta-lvl2',
-          pngLink: `${this.baseUrl}/circos/GFAP AT8 Abeta/GFAP_AT8_Ab-lvl2.png`
-        },
-        {
-          pathology: 'GFAP AT8 Abeta',
-          name: 'GFAP AT8 Abeta-lvl3',
-          pngLink: `${this.baseUrl}/circos/GFAP AT8 Abeta/GFAP_AT8_Ab-lvl3.png`
-        },
-        {
-          pathology: 'GFAP AT8 Abeta',
-          name: 'GFAP AT8 Abeta-negative-control',
-          pngLink: `${this.baseUrl}/circos/GFAP AT8 Abeta/GFAP_AT8_Ab-negative-control.png`
-        },
-        {
-          pathology: 'P2RY12_AT8_Ab',
-          name: 'P2RY12_AT8_Ab',
-          pngLink: `${this.baseUrl}/circos/P2RY12_AT8_Ab/P2RY12_AT8_Ab.png`
-        },
-        {
-          pathology: 'P2RY12_AT8_Ab',
-          name: 'P2RY12_AT8_Ab-lvl1',
-          pngLink: `${this.baseUrl}/circos/P2RY12_AT8_Ab/P2RY12_AT8_Ab-lvl1.png`
-        },
-        {
-          pathology: 'P2RY12_AT8_Ab',
-          name: 'P2RY12_AT8_Ab-lvl2',
-          pngLink: `${this.baseUrl}/circos/P2RY12_AT8_Ab/P2RY12_AT8_Ab-lvl2.png`
-        },
-        {
-          pathology: 'P2RY12_AT8_Ab',
-          name: 'P2RY12_AT8_Ab-lvl3',
-          pngLink: `${this.baseUrl}/circos/P2RY12_AT8_Ab/P2RY12_AT8_Ab-lvl3.png`
-        },
-        {
-          pathology: 'P2RY12_AT8_Ab',
-          name: 'P2RY12_AT8_Ab-negative-control',
-          pngLink: `${this.baseUrl}/circos/P2RY12_AT8_Ab/P2RY12_AT8_Ab-negative-control.png`
+          name: 'Deconvolution celly type probability (xlsx)',
+          link: `${this.baseUrl}/4.Deconvolution Table/Deconvolution celly type probability.xlsx`
         }
       ]
     },
@@ -858,10 +542,8 @@ export default {
   },
   mounted() {
     this.selectedSampleClustering = this.clusterData[0]
-    this.selectedSampleAnnotation = this.annoData[0]
     this.selectedSampleModule = this.moduleData[0]
     this.selectedSampleCircos = this.circosDataDisplay[0]
-    this.selectedSampleHeatmap = this.heatmapData[0]
   },
   methods: {
     downloadPNG(src) {
