@@ -52,7 +52,7 @@
                   <span class="text--secondary">Code: </span>
                   <span class="text--primary"
                     ><a
-                      href="script"
+                      href="https://github.com/OSU-BMBL/AD-spatial-code"
                       target="_blank"
                       class="text-decoration-none"
                     >
@@ -448,7 +448,7 @@ export default {
         result.push({
           name: i,
           pngLink: `${this.baseUrl}/5.RNAscope/${i}.png`,
-          tiffLink: `${this.baseUrl}/5.RNAscope/${i}.tiff`
+          tiffLink: `${this.baseUrl}/5.RNAscope/${i}.tif`
         })
       }
       return result
