@@ -10,6 +10,8 @@ steps:
       - Dockerfile
       - '--build-arg'
       - 'API_URL=$$API_URL'
+      - '--build-arg'
+      - 'TEST_URL=https://osubmi.com/api/scread'
     id: Build
     secretEnv: ['API_URL']
   - name: gcr.io/cloud-builders/docker
