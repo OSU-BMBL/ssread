@@ -11,6 +11,7 @@ steps:
       - '--build-arg'
       - 'API_URL=$$API_URL'
     id: Build
+    secretEnv: ['API_URL']
   - name: gcr.io/cloud-builders/docker
     args:
       - push
