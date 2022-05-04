@@ -1,7 +1,5 @@
 steps:
   - name: gcr.io/cloud-builders/docker
-    env:
-      - 'API_URL=${_API_URL}'
     args:
       - build
       - '--no-cache'
@@ -10,6 +8,8 @@ steps:
       - .
       - '-f'
       - Dockerfile
+      - '--build-arg'
+      - 'API_URL=$$API_URL'
     id: Build
   - name: gcr.io/cloud-builders/docker
     args:
@@ -46,3 +46,7 @@ tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
   - scread
+availableSecrets:
+  secretManager:
+    - versionName: projects/187015930044/secrets/scread-1/versions/latest
+      env: 'API_URL'
