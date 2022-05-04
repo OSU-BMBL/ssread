@@ -9,7 +9,7 @@ EXPOSE 9003
 
 ENV HOST=0.0.0.0
 ENV PORT=9003
-
+RUN echo $API_URL
 RUN npm run build
 
 CMD [ "npm", "run", "start" ]
