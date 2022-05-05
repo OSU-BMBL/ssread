@@ -72,7 +72,7 @@
           </client-only>
         </div>
         <div v-show="toggleImage" class="mx-6 mt-16">
-          <v-img contain :src="image"></v-img>
+          <v-img contain :src="image" max-height="600px"></v-img>
         </div>
       </v-col>
       <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0">

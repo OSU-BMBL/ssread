@@ -44,7 +44,8 @@
       <v-card class="mx-auto">
         <v-card-title>
           <p class="title">
-            scREAD covers 1 spatial datasets from 1 studies, 1 brain regions.
+            scREAD covers 300 spatial datasets from 10 studies, 21 brain
+            regions.
           </p>
           <v-spacer></v-spacer>
         </v-card-title>
@@ -250,9 +251,8 @@
               <td>Dorsolateral prefrontal cortex</td>
               <td>
                 Transcriptome-scale spatial gene expression in the human
-                dorsolateral prefrontal cortex
               </td>
-              <td>GSE152506</td>
+              <td>https://github.com/LieberInstitute/HumanPilot</td>
               <td>
                 <ul>
                   <li>Disease</li>
@@ -263,6 +263,195 @@
                 </ul>
               </td>
               <td>12</td>
+            </tr>
+            <tr>
+              <td>
+                <nuxt-link :to="'/spatial/ST002'">ST002</nuxt-link>
+              </td>
+              <td>Human, Mouse</td>
+              <td>ventral cortex, thalamus, and hippocampus</td>
+              <td>
+                Spatial Transcriptomics and In Situ Sequencing to Study
+                Alzheimer's Disease
+              </td>
+              <td>GSE152506</td>
+              <td>
+                <ul>
+                  <li>Disease</li>
+                  <li>Brain disorder</li>
+                  <li>Alzheimer's disease</li>
+                  <li>Age</li>
+                  <li>Sex</li>
+                  <li>inferred cell type - authors labels</li>
+                </ul>
+              </td>
+              <td>20</td>
+            </tr>
+            <tr>
+              <td>
+                <nuxt-link :to="'/spatial/ST003'">ST003</nuxt-link>
+              </td>
+              <td>Mouse</td>
+              <td>hippocampi and olfactory bulbs</td>
+              <td>
+                Spatial Transcriptomics Reveals Genes Associated with
+                Dysregulated Mitochondrial Functions and Stress Signaling in
+                Alzheimer Disease
+              </td>
+              <td>10.17632/6s959w2zyr.1</td>
+              <td>
+                <ul>
+                  <li>Disease</li>
+                  <li>Brain disorder</li>
+                  <li>Alzheimer's disease</li>
+                  <li>Age</li>
+                  <li>Sex</li>
+                  <li>inferred cell type - authors labels</li>
+                </ul>
+              </td>
+              <td>48</td>
+            </tr>
+            <tr>
+              <td>
+                <nuxt-link :to="'/spatial/ST004'">ST004</nuxt-link>
+              </td>
+              <td>Mouse</td>
+              <td>Main olfactory bulb</td>
+              <td>
+                High-definition spatial transcriptomics for in situ tissue
+                profiling
+              </td>
+              <td>GSE130682</td>
+              <td>
+                <ul>
+                  <li>Brain disorder</li>
+                  <li>Age</li>
+                  <li>Sex</li>
+                </ul>
+              </td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>
+                <nuxt-link :to="'/spatial/ST005'">ST005</nuxt-link>
+              </td>
+              <td>Mouse</td>
+              <td>central ventricle and the habenula</td>
+              <td>
+                Slide-seq: A scalable technology for measuring genome-wide
+                expression at high spatial resolution
+              </td>
+              <td>
+                10.5281/zenodo.2571615
+              </td>
+              <td>
+                <ul>
+                  <li>Brain</li>
+                  <li>Age</li>
+                  <li>Sex</li>
+                  <li>inferred cell type - authors labels</li>
+                </ul>
+              </td>
+              <td>106</td>
+            </tr>
+            <tr>
+              <td>
+                <nuxt-link :to="'/spatial/ST006'">ST006</nuxt-link>
+              </td>
+              <td>Mouse</td>
+              <td>cortex and striatum</td>
+              <td>
+                Highly sensitive spatial transcriptomics at near-cellular
+                resolution with Slide-seqV2
+              </td>
+              <td>
+                NA
+              </td>
+              <td>
+                <ul>
+                  <li>Brain</li>
+                  <li>Age</li>
+                  <li>inferred cell type - authors labels</li>
+                </ul>
+              </td>
+              <td>11</td>
+            </tr>
+            <tr>
+              <td>
+                <nuxt-link :to="'/spatial/ST007'">ST007</nuxt-link>
+              </td>
+              <td>Mouse</td>
+              <td>Whole brain sections</td>
+              <td>
+                Molecular atlas of the adult mouse brain
+              </td>
+              <td>GSE147747</td>
+              <td>
+                <ul>
+                  <li>Brain</li>
+                  <li>Age</li>
+                </ul>
+              </td>
+              <td>75</td>
+            </tr>
+            <tr>
+              <td>
+                <nuxt-link :to="'/spatial/ST008'">ST008</nuxt-link>
+              </td>
+              <td>Mouse</td>
+              <td>coronal brain sections</td>
+              <td>
+                Neuroinflammatory astrocyte subtypes in the mouse brain
+              </td>
+              <td>GSE147747</td>
+              <td>
+                <ul>
+                  <li>Brain disorder</li>
+                  <li>Age</li>
+                  <li>inferred cell type - authors labels</li>
+                </ul>
+              </td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td>
+                <nuxt-link :to="'/spatial/ST009'">ST009</nuxt-link>
+              </td>
+              <td>Mouse</td>
+              <td>Forebrain</td>
+              <td>
+                Clonal relations in the mouse brain revealed by single-cell and
+                spatial transcriptomics
+              </td>
+              <td>GSE15342</td>
+              <td>
+                <ul>
+                  <li>Brain disorder</li>
+                  <li>Age</li>
+                  <li>inferred cell type - authors labels</li>
+                </ul>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <nuxt-link :to="'/spatial/ST010'">ST010</nuxt-link>
+              </td>
+              <td>Mouse</td>
+              <td>hippocampus and prefrontal cortex</td>
+              <td>
+                A spatially resolved brain region- and cell type-specific
+                isoform atlas of the postnatal mouse brain
+              </td>
+              <td>GSE158450</td>
+              <td>
+                <ul>
+                  <li>Brain disorder</li>
+                  <li>Age</li>
+                  <li>inferred cell type - authors labels</li>
+                </ul>
+              </td>
+              <td>11</td>
             </tr>
           </template>
         </v-data-table>
@@ -277,9 +466,9 @@ import _ from 'lodash'
 export default {
   async asyncData({ store, error, params }) {
     try {
-      await store.dispatch('ad/fetchDatasets')
-      await store.dispatch('ad/fetchAllDeMeta')
-      await store.dispatch('ad/clearExpression')
+      await store.dispatch('ad_v2/fetchDatasets')
+      await store.dispatch('ad_v2/fetchAllDeMeta')
+      await store.dispatch('ad_v2/clearExpression')
     } catch (e) {
       error({
         statusCode: 503,
@@ -475,13 +664,13 @@ export default {
   computed: {
     ...mapState({
       dataset: (state) => {
-        const data = state.ad.datasets
+        const data = state.ad_v2.datasets
         delete data.silhouette_score
         delete data.ari_score
         return data
       },
-      dialogData: (state) => state.ad.dialogDataset,
-      selectDatasetDialogData: (state) => state.ad.SelectDatasetDialogData
+      dialogData: (state) => state.ad_v2.dialogDataset,
+      selectDatasetDialogData: (state) => state.ad_v2.SelectDatasetDialogData
     }),
     currentBrowseItems() {
       return this.browseItems.species
@@ -542,13 +731,13 @@ export default {
   methods: {
     async handleClick(item) {
       // this.$router.push('/browse/' + dataset.data_id)
-      await this.$store.dispatch('ad/setDialog', item.data_id)
+      await this.$store.dispatch('ad_v2/setDialog', item.data_id)
       this.computedDialogData = this.dialogData[0]
       this.dialog = true
     },
 
     clickSelectDatasetDialog(item) {
-      //  await this.$store.dispatch('ad/setDialog', item.data_id)
+      //  await this.$store.dispatch('ad_v2/setDialog', item.data_id)
       //  this.computedSelectDatasetDialogData = this.selectDatasetDialogData[0]
       this.selectDatasetDialog = true
     },

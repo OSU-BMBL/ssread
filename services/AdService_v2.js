@@ -38,7 +38,6 @@ export default {
   getCellType(id) {
     const num = parseInt(id.substring(3, 5))
     const sendId = num < 13 ? id : `AD0010${(num % 5) + 1}`
-    console.log(sendId)
     return apiClient.get('/celltype/' + sendId)
   },
 
