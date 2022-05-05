@@ -54,8 +54,8 @@
         >
           <v-card-title>
             <p class="title">
-              scREAD covers 103 datasets from 22 studies,
-              {{ totalBrainRegions }} brain regions, 935,114 cells.
+              scREAD covers 73 datasets from 15 studies, 10 brain regions,
+              713,640 cells.
             </p>
             <v-spacer></v-spacer>
           </v-card-title>
