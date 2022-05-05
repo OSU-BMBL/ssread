@@ -56,18 +56,18 @@ export default {
       ct: 'Astrocytes'
     }
     try {
-      await store.dispatch('ad/fetchDatasets')
-      await store.dispatch('ad/fetchDataset', params.id)
-      await store.dispatch('ad/fetchCellType', params.id)
-      await store.dispatch('ad/fetchPublication', params.id)
-      await store.dispatch('ad/fetchDimension', {
+      await store.dispatch('ad_v2/fetchDatasets')
+      await store.dispatch('ad_v2/fetchDataset', params.id)
+      await store.dispatch('ad_v2/fetchCellType', params.id)
+      await store.dispatch('ad_v2/fetchPublication', params.id)
+      await store.dispatch('ad_v2/fetchDimension', {
         id: params.id,
         type: 'All cell types'
       })
-      await store.dispatch('ad/fetchExpressionGenes', params.id)
-      await store.dispatch('ad/fetchDe', defaultDeParams)
-      await store.dispatch('ad/fetchDeMeta', params.id)
-      await store.dispatch('ad/fetchRegulon', params.id)
+      await store.dispatch('ad_v2/fetchExpressionGenes', params.id)
+      await store.dispatch('ad_v2/fetchDe', defaultDeParams)
+      await store.dispatch('ad_v2/fetchDeMeta', params.id)
+      await store.dispatch('ad_v2/fetchRegulon', params.id)
     } catch (e) {
       error({
         statusCode: 503,
@@ -77,11 +77,11 @@ export default {
   },
   computed: {
     ...mapState({
-      dataset: (state) => state.ad.dataset,
-      datasets: (state) => state.ad.datasets,
-      dimension: (state) => state.ad.dimension,
-      publication: (state) => state.ad.publication,
-      cellType: (state) => state.ad.cellType
+      dataset: (state) => state.ad_v2.dataset,
+      datasets: (state) => state.ad_v2.datasets,
+      dimension: (state) => state.ad_v2.dimension,
+      publication: (state) => state.ad_v2.publication,
+      cellType: (state) => state.ad_v2.cellType
     }),
     dataId() {
       return this.$route.params.id

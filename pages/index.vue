@@ -20,9 +20,9 @@ import _ from 'lodash'
 export default {
   async asyncData({ store, error, params }) {
     try {
-      await store.dispatch('ad/fetchDatasets')
-      await store.dispatch('ad/fetchAllDeMeta')
-      await store.dispatch('ad/clearExpression')
+      await store.dispatch('ad_v2/fetchDatasets')
+      await store.dispatch('ad_v2/fetchAllDeMeta')
+      await store.dispatch('ad_v2/clearExpression')
     } catch (e) {
       error({
         statusCode: 503,
@@ -235,13 +235,13 @@ export default {
   computed: {
     ...mapState({
       dataset: (state) => {
-        const data = state.ad.datasets
+        const data = state.ad_v2.datasets
         delete data.silhouette_score
         delete data.ari_score
         return data
       },
-      dialogData: (state) => state.ad.dialogDataset,
-      selectDatasetDialogData: (state) => state.ad.SelectDatasetDialogData
+      dialogData: (state) => state.ad_v2.dialogDataset,
+      selectDatasetDialogData: (state) => state.ad_v2.SelectDatasetDialogData
     }),
     bannerMessage() {
       return `You are visiting scREAD's dev version. Please let us know for any issues or suggestions via qin.ma@osumc.edu.`
@@ -307,13 +307,13 @@ export default {
   methods: {
     async handleClick(item) {
       // this.$router.push('/browse/' + dataset.data_id)
-      await this.$store.dispatch('ad/setDialog', item.data_id)
+      await this.$store.dispatch('ad_v2/setDialog', item.data_id)
       this.computedDialogData = this.dialogData[0]
       this.dialog = true
     },
 
     clickSelectDatasetDialog(item) {
-      //  await this.$store.dispatch('ad/setDialog', item.data_id)
+      //  await this.$store.dispatch('ad_v2/setDialog', item.data_id)
       //  this.computedSelectDatasetDialogData = this.selectDatasetDialogData[0]
       this.selectDatasetDialog = true
     },

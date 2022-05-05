@@ -29,12 +29,12 @@ export default {
   name: 'DatasetDialog',
   computed: {
     ...mapState({
-      dialog: (state) => state.ad.dialog
+      dialog: (state) => state.ad_v2.dialog
     })
   },
   methods: {
     async removeDialog() {
-      await this.$store.dispatch('ad/setDialog', {
+      await this.$store.dispatch('ad_v2/setDialog', {
         status: true,
         id: this.dialog.data_id
       })

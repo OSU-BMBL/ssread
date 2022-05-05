@@ -269,7 +269,7 @@ export default {
   },
   computed: {
     ...mapState({
-      dialogData: (state) => state.ad.dialogDataset
+      dialogData: (state) => state.ad_v2.dialogDataset
     })
   },
   methods: {
@@ -279,7 +279,7 @@ export default {
     async handleClick(id) {
       // this.$router.push('/browse/' + dataset.data_id)
       // console.log(id)
-      await this.$store.dispatch('ad/setDialog', id)
+      await this.$store.dispatch('ad_v2/setDialog', id)
       this.computedDialogData = this.dialogData[0]
       this.dialog = true
     },

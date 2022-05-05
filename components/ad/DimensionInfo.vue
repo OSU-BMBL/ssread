@@ -288,8 +288,8 @@ export default {
   },
   computed: {
     ...mapState({
-      expression: (state) => state.ad.expression,
-      allGenes: (state) => state.ad.expressionGenes
+      expression: (state) => state.ad_v2.expression,
+      allGenes: (state) => state.ad_v2.expressionGenes
     }),
     allColors() {
       const result = this.allCellDim.map((i) => {
@@ -707,10 +707,10 @@ export default {
         id: this.$route.params.id,
         type: this.clusterCoordinatesSelect
       }
-      await this.$store.dispatch('ad/fetchDimension', params)
+      await this.$store.dispatch('ad_v2/fetchDimension', params)
     },
     async updateExpression() {
-      await this.$store.dispatch('ad/fetchExpression', {
+      await this.$store.dispatch('ad_v2/fetchExpression', {
         gene: this.gene,
         id: this.dataset[0].data_id
       })

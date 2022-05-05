@@ -226,10 +226,10 @@ export default {
       ct: 'ast'
     }
     try {
-      await store.dispatch('ad/fetchDataset', params.id)
-      await store.dispatch('ad/fetchDimension', params.id)
-      await store.dispatch('ad/fetchDe', defaultDeParams)
-      await store.dispatch('ad/fetchDeMeta', params.id)
+      await store.dispatch('ad_v2/fetchDataset', params.id)
+      await store.dispatch('ad_v2/fetchDimension', params.id)
+      await store.dispatch('ad_v2/fetchDe', defaultDeParams)
+      await store.dispatch('ad_v2/fetchDeMeta', params.id)
     } catch (e) {
       error({
         statusCode: 503,
@@ -317,9 +317,9 @@ export default {
   },
   computed: {
     ...mapState({
-      de: (state) => state.ad.de.rows,
-      n_de: (state) => state.ad.de.count,
-      de_meta: (state) => state.ad.deMeta
+      de: (state) => state.ad_v2.de.rows,
+      n_de: (state) => state.ad_v2.de.count,
+      de_meta: (state) => state.ad_v2.deMeta
     }),
     genes() {
       return _.map(this.filterDe, 'gene')
@@ -434,7 +434,7 @@ export default {
           type: this.groupSelect.type,
           ct: 'Endothelial cells'
         }
-        await this.$store.dispatch('ad/fetchDe', params)
+        await this.$store.dispatch('ad_v2/fetchDe', params)
       } else if (this.groupSelect.groupText === 'Layer specific genes') {
         const params = {
           aDataId: this.dataId,
@@ -442,7 +442,7 @@ export default {
           type: this.groupSelect.type,
           ct: 'Astrocytes'
         }
-        await this.$store.dispatch('ad/fetchDe', params)
+        await this.$store.dispatch('ad_v2/fetchDe', params)
       }
     },
     clearDeSelection() {
@@ -451,7 +451,7 @@ export default {
       this.bpResult = []
       this.mfResult = []
       this.keggResult = []
-      this.$store.dispatch('ad/clearDE')
+      this.$store.dispatch('ad_v2/clearDE')
     },
     submitEnrichr(type) {
       if (this.filterDe.length) {

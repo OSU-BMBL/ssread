@@ -8,288 +8,233 @@
       </v-flex>
     </v-layout>
 
-    <client-only>
-      <v-row>
-        <v-col ref="pie" xs="6" md="6" lg="3">
-          <vue-plotly
-            :data="pieData1"
-            :layout="layout1"
-            :options="options"
-            @click="clickSelectDatasetDialog()"
-          /> </v-col
-        ><v-col xs="6" md="6" lg="3">
-          <vue-plotly
-            :data="pieData2"
-            :layout="layout2"
-            :options="options"
-            @click="clickSelectDatasetDialog()"
-          /> </v-col
-        ><v-col xs="6" md="6" lg="3">
-          <vue-plotly
-            :data="pieData3"
-            :layout="layout3"
-            :options="options"
-            @click="clickSelectDatasetDialog()"
-          /> </v-col
-        ><v-col xs="6" md="6" lg="3">
-          <vue-plotly
-            :data="pieData4"
-            :layout="layout4"
-            :options="options"
-            @click="clickSelectDatasetDialog()"
-          /> </v-col
-      ></v-row>
-    </client-only>
-    <div class="motif-header">
-      <v-hover v-slot:default="{ hover }" open-delay="0">
-        <v-card
-          class="mx-auto"
-          :elevation="hover ? 6 : 2"
-          :class="{ 'on-hover': hover }"
-        >
-          <v-card-title>
-            <p class="title">
-              scREAD covers {{ totalDatasets }} datasets from
-              {{ totalStudy }} studies, {{ totalBrainRegions }} brain regions,
-              {{ totalCells }}
-              cells.
+    <v-card class="mx-auto">
+      <v-card-title>
+        <p class="title">
+          scREAD covers {{ totalDatasets }} datasets from 34 studies, 18 brain
+          regions, and 2,194,144 cells.
+        </p>
+        <v-spacer></v-spacer>
+      </v-card-title>
+      <v-card-text
+        ><p class="title">Select filters:</p>
+        <v-row>
+          <v-col xs="12" md="6" lg="2">
+            <p class="subtitle-1 font-weight-bold py-0 my-0">Species:</p>
+            <v-select
+              v-model="browseDefault.species"
+              :items="browseItems.species"
+              item-text="value"
+              item-value="value"
+              return-object
+              single-line
+            ></v-select>
+          </v-col>
+          <v-col xs="12" md="6" lg="2">
+            <p class="subtitle-1 font-weight-bold py-0 my-0">Condition:</p>
+            <v-select
+              v-model="browseDefault.condition"
+              :items="browseItems.condition"
+              item-text="value"
+              item-value="value"
+              return-object
+              single-line
+            ></v-select>
+          </v-col>
+          <v-col xs="12" md="6" lg="2">
+            <p class="subtitle-1 font-weight-bold py-0 my-0">Region:</p>
+            <v-select
+              v-model="browseDefault.region"
+              :items="browseItems.region"
+              item-text="value"
+              item-value="value"
+              return-object
+              single-line
+            ></v-select>
+          </v-col>
+          <v-col xs="12" md="6" lg="2">
+            <p class="subtitle-1 font-weight-bold py-0 my-0">Gender:</p>
+            <v-select
+              v-model="browseDefault.gender"
+              :items="browseItems.gender"
+              item-text="value"
+              item-value="value"
+              return-object
+              single-line
+            ></v-select>
+          </v-col>
+        </v-row>
+        <v-card-actions>
+          <download-excel class="mr-4" :data="filterDataset" type="csv">
+            <v-btn color="primary"> Download current table</v-btn>
+          </download-excel>
+
+          <v-btn
+            v-show="displayResetFilter"
+            color="primary"
+            dark
+            @click="resetFilter"
+            >RESET FILTER</v-btn
+          ></v-card-actions
+        ></v-card-text
+      >
+      <v-dialog v-model="dialog" max-width="300">
+        <v-card>
+          <v-card-title>Dataset overview</v-card-title>
+          <v-divider class="my-2 py-2"></v-divider>
+          <v-card-text>
+            <p class="my-2">
+              <span class="text--secondary">scREAD Data ID: </span>
+              <span class="text--primary">{{
+                computedDialogData.data_id
+              }}</span>
             </p>
+            <p class="my-2">
+              <span class="text--secondary">Species: </span>
+              <span class="text--primary">{{
+                computedDialogData.species
+              }}</span>
+            </p>
+            <p class="my-2">
+              <span class="text--secondary">Region: </span>
+              <span class="text--primary">{{ computedDialogData.region }}</span>
+            </p>
+            <p class="my-2">
+              <span class="text--secondary">Condition: </span>
+              <span class="text--primary">{{
+                computedDialogData.condition
+              }}</span>
+            </p>
+            <p class="my-2">
+              <span class="text--secondary">Braak stage: </span>
+              <span class="text--primary">{{ computedDialogData.stage }}</span>
+            </p>
+            <p class="my-2">
+              <span class="text--secondary">Gender: </span>
+              <span class="text--primary">{{ computedDialogData.gender }}</span>
+            </p>
+            <p class="my-2">
+              <span class="text--secondary">Age: </span>
+              <span class="text--primary">{{ computedDialogData.age }}</span>
+            </p>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn class="mx-2" color="primary" dark @click="openDetailsPage()">
+              details </v-btn
+            ><v-btn color="grey darken-1" text @click="dialog = false">
+              cancel
+            </v-btn>
             <v-spacer></v-spacer>
-          </v-card-title>
-          <v-card-text
-            ><p class="title">Select filters:</p>
-            <v-row>
-              <v-col xs="12" md="6" lg="2">
-                <p class="subtitle-1 font-weight-bold py-0 my-0">Species:</p>
-                <v-select
-                  v-model="browseDefault.species"
-                  :items="browseItems.species"
-                  item-text="value"
-                  item-value="value"
-                  return-object
-                  single-line
-                ></v-select>
-              </v-col>
-              <v-col xs="12" md="6" lg="2">
-                <p class="subtitle-1 font-weight-bold py-0 my-0">Condition:</p>
-                <v-select
-                  v-model="browseDefault.condition"
-                  :items="browseItems.condition"
-                  item-text="value"
-                  item-value="value"
-                  return-object
-                  single-line
-                ></v-select>
-              </v-col>
-              <v-col xs="12" md="6" lg="2">
-                <p class="subtitle-1 font-weight-bold py-0 my-0">Region:</p>
-                <v-select
-                  v-model="browseDefault.region"
-                  :items="browseItems.region"
-                  item-text="value"
-                  item-value="value"
-                  return-object
-                  single-line
-                ></v-select>
-              </v-col>
-              <v-col xs="12" md="6" lg="2">
-                <p class="subtitle-1 font-weight-bold py-0 my-0">Gender:</p>
-                <v-select
-                  v-model="browseDefault.gender"
-                  :items="browseItems.gender"
-                  item-text="value"
-                  item-value="value"
-                  return-object
-                  single-line
-                ></v-select>
-              </v-col>
-            </v-row>
-            <v-card-actions>
-              <download-excel class="mr-4" :data="filterDataset" type="csv">
-                <v-btn color="primary"> Download current table</v-btn>
-              </download-excel>
-
-              <v-btn
-                v-show="displayResetFilter"
-                color="primary"
-                dark
-                @click="resetFilter"
-                >RESET FILTER</v-btn
-              ></v-card-actions
-            ></v-card-text
-          >
-          <v-dialog v-model="dialog" max-width="300">
-            <v-card>
-              <v-card-title>Dataset overview</v-card-title>
-              <v-divider class="my-2 py-2"></v-divider>
-              <v-card-text>
-                <p class="my-2">
-                  <span class="text--secondary">scREAD Data ID: </span>
-                  <span class="text--primary">{{
-                    computedDialogData.data_id
-                  }}</span>
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Species: </span>
-                  <span class="text--primary">{{
-                    computedDialogData.species
-                  }}</span>
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Region: </span>
-                  <span class="text--primary">{{
-                    computedDialogData.region
-                  }}</span>
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Condition: </span>
-                  <span class="text--primary">{{
-                    computedDialogData.condition
-                  }}</span>
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Braak stage: </span>
-                  <span class="text--primary">{{
-                    computedDialogData.stage
-                  }}</span>
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Gender: </span>
-                  <span class="text--primary">{{
-                    computedDialogData.gender
-                  }}</span>
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Age: </span>
-                  <span class="text--primary">{{
-                    computedDialogData.age
-                  }}</span>
-                </p>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn
-                  class="mx-2"
-                  color="primary"
-                  dark
-                  @click="openDetailsPage()"
-                >
-                  details </v-btn
-                ><v-btn color="grey darken-1" text @click="dialog = false">
-                  cancel
-                </v-btn>
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-
-          <v-dialog v-model="selectDatasetDialog" max-width="800">
-            <v-card>
-              <v-card-title>Dataset selection</v-card-title>
-              <v-divider class="my-2 py-2"></v-divider>
-              <v-card-text>
-                <p class="my-2">
-                  <v-select
-                    v-model="browseDefault.species"
-                    :items="browseItems.species"
-                    item-text="value"
-                    item-value="value"
-                    label="Species"
-                    return-object
-                    outlined
-                  ></v-select>
-                </p>
-                <p class="my-2">
-                  <v-select
-                    v-model="browseDefault.condition"
-                    :items="browseItems.condition"
-                    item-text="value"
-                    item-value="value"
-                    label="Condition"
-                    return-object
-                    outlined
-                  ></v-select>
-                </p>
-                <p class="my-2">
-                  <v-select
-                    v-model="browseDefault.gender"
-                    :items="browseItems.gender"
-                    item-text="value"
-                    item-value="value"
-                    label="Gender"
-                    return-object
-                    outlined
-                  ></v-select>
-                </p>
-                <p class="my-2">
-                  <v-select
-                    v-model="browseDefault.region"
-                    :items="browseItems.region"
-                    item-text="value"
-                    item-value="value"
-                    label="Brain region"
-                    return-object
-                    outlined
-                  ></v-select>
-                </p>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn
-                  class="mx-2"
-                  color="primary"
-                  dark
-                  @click="updateSelectDataset()"
-                >
-                  apply
-                </v-btn>
-                <v-btn
-                  v-show="displayResetFilter"
-                  color="primary"
-                  dark
-                  @click="resetFilter"
-                  >RESET FILTER</v-btn
-                >
-                <v-btn
-                  color="grey darken-1"
-                  text
-                  @click="selectDatasetDialog = false"
-                >
-                  cancel
-                </v-btn>
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-
-          <v-data-table
-            id="datasetTable"
-            :headers="headers"
-            :items="filterDataset"
-            :items-per-page="15"
-            sort-by="species"
-            class="elevation-1"
-          >
-            <template v-slot:item="row">
-              <tr @click="handleClick(row.item)">
-                <td>
-                  <nuxt-link :to="'/' + row.item.data_id">{{
-                    row.item.data_id
-                  }}</nuxt-link>
-                </td>
-                <td>{{ row.item.species }}</td>
-                <td>{{ row.item.gender }}</td>
-                <td>{{ row.item.condition }}</td>
-                <td>{{ row.item.region }}</td>
-                <td>{{ row.item.stage }}</td>
-                <td>{{ row.item.age }}</td>
-                <td>{{ row.item.mice_model }}</td>
-                <td>{{ row.item.public_id }}</td>
-                <td>{{ row.item.n_cell }}</td>
-              </tr>
-            </template>
-          </v-data-table>
+          </v-card-actions>
         </v-card>
-      </v-hover>
-    </div>
+      </v-dialog>
+
+      <v-dialog v-model="selectDatasetDialog" max-width="800">
+        <v-card>
+          <v-card-title>Dataset selection</v-card-title>
+          <v-divider class="my-2 py-2"></v-divider>
+          <v-card-text>
+            <p class="my-2">
+              <v-select
+                v-model="browseDefault.species"
+                :items="browseItems.species"
+                item-text="value"
+                item-value="value"
+                label="Species"
+                return-object
+                outlined
+              ></v-select>
+            </p>
+            <p class="my-2">
+              <v-select
+                v-model="browseDefault.condition"
+                :items="browseItems.condition"
+                item-text="value"
+                item-value="value"
+                label="Condition"
+                return-object
+                outlined
+              ></v-select>
+            </p>
+            <p class="my-2">
+              <v-select
+                v-model="browseDefault.gender"
+                :items="browseItems.gender"
+                item-text="value"
+                item-value="value"
+                label="Gender"
+                return-object
+                outlined
+              ></v-select>
+            </p>
+            <p class="my-2">
+              <v-select
+                v-model="browseDefault.region"
+                :items="browseItems.region"
+                item-text="value"
+                item-value="value"
+                label="Brain region"
+                return-object
+                outlined
+              ></v-select>
+            </p>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              class="mx-2"
+              color="primary"
+              dark
+              @click="updateSelectDataset()"
+            >
+              apply
+            </v-btn>
+            <v-btn
+              v-show="displayResetFilter"
+              color="primary"
+              dark
+              @click="resetFilter"
+              >RESET FILTER</v-btn
+            >
+            <v-btn
+              color="grey darken-1"
+              text
+              @click="selectDatasetDialog = false"
+            >
+              cancel
+            </v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <v-data-table
+        id="datasetTable"
+        :headers="headers"
+        :items="filterDataset"
+        :items-per-page="15"
+        sort-by="species"
+        class="elevation-1"
+      >
+        <template v-slot:item="row">
+          <tr @click="handleClick(row.item)">
+            <td>
+              <nuxt-link :to="'/' + row.item.data_id">{{
+                row.item.data_id
+              }}</nuxt-link>
+            </td>
+            <td>{{ row.item.species }}</td>
+            <td>{{ row.item.gender }}</td>
+            <td>{{ row.item.condition }}</td>
+            <td>{{ row.item.region }}</td>
+            <td>{{ row.item.stage }}</td>
+            <td>{{ row.item.age }}</td>
+            <td>{{ row.item.mice_model }}</td>
+            <td>{{ row.item.public_id }}</td>
+            <td>{{ row.item.n_cell }}</td>
+          </tr>
+        </template>
+      </v-data-table>
+    </v-card>
   </div>
 </template>
 <script>
@@ -299,9 +244,9 @@ import _ from 'lodash'
 export default {
   async asyncData({ store, error, params }) {
     try {
-      await store.dispatch('ad/fetchDatasets')
-      await store.dispatch('ad/fetchAllDeMeta')
-      await store.dispatch('ad/clearExpression')
+      await store.dispatch('ad_v2/fetchDatasets')
+      await store.dispatch('ad_v2/fetchAllDeMeta')
+      await store.dispatch('ad_v2/clearExpression')
     } catch (e) {
       error({
         statusCode: 503,
@@ -514,13 +459,13 @@ export default {
   computed: {
     ...mapState({
       dataset: (state) => {
-        const data = state.ad.datasets
+        const data = state.ad_v2.datasets
         delete data.silhouette_score
         delete data.ari_score
         return data
       },
-      dialogData: (state) => state.ad.dialogDataset,
-      selectDatasetDialogData: (state) => state.ad.SelectDatasetDialogData
+      dialogData: (state) => state.ad_v2.dialogDataset,
+      selectDatasetDialogData: (state) => state.ad_v2.SelectDatasetDialogData
     }),
 
     currentBrowseItems() {
@@ -581,13 +526,13 @@ export default {
   methods: {
     async handleClick(item) {
       // this.$router.push('/browse/' + dataset.data_id)
-      await this.$store.dispatch('ad/setDialog', item.data_id)
+      await this.$store.dispatch('ad_v2/setDialog', item.data_id)
       this.computedDialogData = this.dialogData[0]
       this.dialog = true
     },
 
     clickSelectDatasetDialog(item) {
-      //  await this.$store.dispatch('ad/setDialog', item.data_id)
+      //  await this.$store.dispatch('ad_v2/setDialog', item.data_id)
       //  this.computedSelectDatasetDialogData = this.selectDatasetDialogData[0]
       this.selectDatasetDialog = true
     },
