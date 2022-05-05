@@ -431,7 +431,7 @@
                   <li>inferred cell type - authors labels</li>
                 </ul>
               </td>
-              <td></td>
+              <td>8</td>
             </tr>
             <tr>
               <td>
