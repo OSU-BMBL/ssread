@@ -13,6 +13,7 @@ export const state = () => ({
   de: [],
   deGene: [],
   dimension: [],
+  spatialDimension: [],
   expression: [],
   expressionGenes: [],
   regulon: [],
@@ -53,6 +54,9 @@ export const mutations = {
   },
   SET_DIMENSION(state, dimension) {
     state.dimension = dimension
+  },
+  SET_SPATIAL_DIMENSION(state, dimension) {
+    state.spatialDimension = dimension
   },
   RESET_DIMENSION(state) {
     state.dimension = []
@@ -129,6 +133,11 @@ export const actions = {
   fetchDimension({ commit }, params) {
     return AdService.getDimension(params.id, params.type).then((response) => {
       commit('SET_DIMENSION', response.data)
+    })
+  },
+  fetchSpatialDimension({ commit }, params) {
+    return AdService.getSpatialDimension(params.id).then((response) => {
+      commit('SET_SPATIAL_DIMENSION', response.data)
     })
   },
   clearDimension({ commit }) {

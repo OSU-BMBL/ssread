@@ -132,16 +132,4 @@ export default {
      ** You can extend webpack config here
      */
   }
-
-  /*
-  generate: {
-    routes: () => {
-      return EventService.getEvents().then((response) => {
-        return response.data.map((event) => {
-          return '/event/' + event.id
-        })
-      })
-    }
-  }
-  */
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Download page: work in progress</h1>
+    <h1>Default v1 help page</h1>
   </div>
 </template>
 
