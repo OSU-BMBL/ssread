@@ -3,7 +3,7 @@
     <v-layout column justify-center align-center>
       <v-flex xs="12" md="6" lg="12">
         <p class="display-1">
-          Spatial RNA-seq datasets
+          Spatial transcriptomics datasets
         </p>
       </v-flex>
     </v-layout>
