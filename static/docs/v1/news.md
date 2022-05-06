@@ -73,15 +73,11 @@ Enrichment analysis:
 
 scREAD main server is currently in maintenance and scREAD has been migrated to the alternative server at http://osubmi.com/scread/.
 
-### Changes
-
-- scREAD v2 has updated the cell type annotation workflow. See details at http://osubmi.com/scread/help/faq#scread-v2-marker-genes
-
 ## 12/28/2021
 
 ### Added
 
-Six new publication were added to scREAD v2
+Six new publication were added to scREAD v2 (in-development)
 
 - Single-nucleus transcriptome analysis reveals dysregulation of angiogenic endothelial cells and neuroprotective glia in Alzheimer’s disease
 - Overexpressing low-density lipoprotein receptor reduces tau-associated neurodegeneration in relation to apoE-linked mechanisms
