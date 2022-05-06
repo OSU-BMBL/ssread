@@ -283,32 +283,6 @@ SCINA is an R package that leverages prior marker genes information and simultan
 |     SLC1A3     |                       |                        |                        |     AIF-1     |                      |                                     |
 |                |                       |                        |                        |    TMEM119    |                      |
 
-#### scREAD v2 marker genes
-
-We found some of the marker genes used in v1 were not specific enough during the development of scREAD v2. To improve the cell type annotate accuracy, we filtered out several markers and used an updated workflow by performing two iterations of cell type annotation. We used the same software in scREAD v1. The differences are that only Neurons would be annotated during the first iteration. Next, the Neurons were a subset from the whole dataset and used iteration 2 marker genes to annotate the Excitatory neurons and Inhibitory neurons. Finally, the Neurons' cell labels would be replaced by Excitatory neurons or Inhibitory neurons. The new workflow can improve the annotation by taking considering the differences between cell types and subtypes. scREAD v2 can be accessed from http://bmbls.bmi.osumc.edu/scread/v2
-
-Iteration 1 marker genes:
-
-| Astrocytes | Endothelial cells | Neurons | Microglia | Oligodendrocytes | Oligodendrocyte precursor cells | Pericytes |
-| ---------- | ----------------- | ------- | --------- | ---------------- | ------------------------------- | --------- |
-| GFAP       | CLDN5             | GLS     | P2RY12    | MBP              | VCAN                            | AMBP      |
-| AQP4       | VWF               | RBFOX3  | CSF1R     | MOBP             | SOX8                            | HIGD1B    |
-| GJA1       |                   | CAMK2A  | CX3CR1    | PLP1             |                                 | PTH1R     |
-| SLC1A2     |                   |         | C3        | MYRF             |                                 |           |
-| FGFR3      |                   |         |           | MAG              |                                 |           |
-| NKAIN4     |                   |         |           |                  |                                 |           |
-| AGT        |                   |         |           |                  |                                 |           |
-| PLXNB1     |                   |         |           |                  |                                 |           |
-| SLC1A3     |                   |         |           |                  |                                 |           |
-
-Iteration 2 marker genes:
-
-| Excitatory neurons | Inhibitory neurons |
-| ------------------ | ------------------ |
-| SLC17A6            | GAD1               |
-| SLC17A7            | GAD2               |
-| SATB2              |                    |
-
 ### 2. Identification of Human and Mouse disease cell types based on the control atlas
 
 Not all cells collected from patient samples are malignant, there are heterogeneous cells within individual patients, that is, normal healthy cells are included. In Granja et al.’s research, they defined these healthy cells as control-like cells. These control-like cells maintain distinct regulatory mechanisms and gene expression patterns compared to disease cells and will disturb the accurate identification of cancer cell clusters. Thus, the removal of control-like cells from disease data is critical to identify real disease-associated cells. Granja et al. used this strategy to remove control-like cells, and we used this strategy in scREAD to identify AD-associated cells. For each of the AD datasets in scREAD, the ratio of the control-like cells out of all the cells in this dataset is about 10%. We tested at Mathys et al.’s dataset, and found out the ARI scores between with control-like cells and without control-like cells has no significant difference. However, the ARI score of without control-like cells datasets is higher than with control-like cells datasets.
