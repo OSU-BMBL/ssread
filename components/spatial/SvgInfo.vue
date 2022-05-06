@@ -6,9 +6,35 @@
     <v-card-text>
       <p class="display-1 text--primary"></p>
     </v-card-text>
-    <v-row xs="12" md="8" lg="12">
+    <v-row xs="12" md="8" lg="12" class="mx-4">
       <v-col cols="lg-6">
         <v-row>
+          <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-2">
+            <p class="subtitle-1 font-weight-bold py-0 my-2">
+              Sample:
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                    >mdi-help-circle-outline</v-icon
+                  >
+                </template>
+                <span>Select sample </span>
+              </v-tooltip>
+            </p>
+            <v-select
+              v-model="sampleSelect"
+              :items="sampleItems"
+              item-text="name"
+              item-value="value"
+              return-object
+              single-line
+              persistent-hint
+              @change="
+                updateSample()
+                clearDeSelection()
+              "
+            ></v-select>
+          </v-col>
           <v-col xs="12" md="12" lg="12" class="px-4 py-0 my-1">
             <p class="subtitle-1 font-weight-bold">
               Log2 fold-change cutoff:
@@ -181,7 +207,6 @@
 
               <td>{{ row.item.avg_logFC }}</td>
               <td>0</td>
-              <td>[3,2]</td>
               <td>{{ row.item.p_val_adj.toExponential(2) }}</td>
               <td>{{ row.item.pct_1.toFixed(3) }}</td>
               <td>{{ row.item.pct_2.toFixed(3) }}</td>
@@ -205,10 +230,6 @@ export default {
   name: 'SvgInfo',
   components: {},
   props: {
-    dataId: {
-      type: String,
-      required: true
-    },
     dataset: {
       type: Array,
       required: true
@@ -249,7 +270,6 @@ export default {
         { text: 'Gene name', value: 'gene' },
         { text: 'Log fold-change', value: 'avg_logFC' },
         { text: 'target_domain', value: 'avg_logFC' },
-        { text: 'neighbors', value: 'avg_logFC' },
         { text: 'Adjusted p-value', value: 'p_val_adj' },
         { text: 'in_group_fraction', value: 'pct_1' },
         { text: 'out_group_fraction', value: 'pct_2' },
@@ -303,17 +323,30 @@ export default {
       bpResult: [],
       mfResult: [],
       ccResult: [],
-      noRegulonJob: [
-        '20200615211954',
-        '20200615212123',
-        '20200615213156',
-        '20200616120129',
-        '20200616115909',
-        '20200616120507'
+      sampleSelect: { name: 'ST00101', value: 'AD00105' },
+      sampleItems: [
+        { name: 'ST00101', value: 'AD00105' },
+        { name: 'ST00102', value: 'AD00101' },
+        { name: 'ST00103', value: 'AD00103' },
+        { name: 'ST00104', value: 'AD00104' },
+        { name: 'ST00105', value: 'AD00105' },
+        { name: 'ST00106', value: 'AD00106' },
+        { name: 'ST00107', value: 'AD00201' },
+        { name: 'ST00108', value: 'AD00202' },
+        { name: 'ST00109', value: 'AD00203' },
+        { name: 'ST00110', value: 'AD00301' },
+        { name: 'ST00111', value: 'AD00302' },
+        { name: 'ST00112', value: 'AD00303' }
       ]
     }
   },
   computed: {
+    dataId() {
+      if (!this.sampleSelect) {
+        return 'AD00102'
+      }
+      return this.sampleSelect.value
+    },
     ...mapState({
       de: (state) => state.ad_v2.svg.rows,
       de_meta: (state) => state.ad_v2.deMeta
@@ -418,7 +451,17 @@ export default {
       }
     }
   },
-  watch: {},
+  watch: {
+    sampleSelect() {
+      const params = {
+        aDataId: this.dataId,
+        bDataId: this.dataId,
+        type: this.groupSelect.type,
+        ct: 'Endothelial cells'
+      }
+      this.$store.dispatch('ad_v2/fetchSvg', params)
+    }
+  },
   created() {
     this.cellTypeSelect = '0'
   },
@@ -474,6 +517,9 @@ export default {
       } catch (e) {
         console.error(e)
       }
+    },
+    updateSample() {
+      console.log(this.sampleSelect.value)
     }
   }
 }

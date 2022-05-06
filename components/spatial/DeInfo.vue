@@ -879,17 +879,17 @@ export default {
       sampleSelect: { name: 'ST00101', value: 'AD00102' },
       sampleItems: [
         { name: 'ST00101', value: 'AD00102' },
-        { name: 'ST00102', value: 'AD00102' },
+        { name: 'ST00102', value: 'AD00101' },
         { name: 'ST00103', value: 'AD00103' },
         { name: 'ST00104', value: 'AD00104' },
         { name: 'ST00105', value: 'AD00105' },
         { name: 'ST00106', value: 'AD00106' },
-        { name: 'ST00107', value: 'AD00102' },
-        { name: 'ST00108', value: 'AD00102' },
-        { name: 'ST00109', value: 'AD00103' },
-        { name: 'ST00110', value: 'AD00104' },
-        { name: 'ST00111', value: 'AD00105' },
-        { name: 'ST00112', value: 'AD00106' }
+        { name: 'ST00107', value: 'AD00201' },
+        { name: 'ST00108', value: 'AD00202' },
+        { name: 'ST00109', value: 'AD00203' },
+        { name: 'ST00110', value: 'AD00301' },
+        { name: 'ST00111', value: 'AD00302' },
+        { name: 'ST00112', value: 'AD00303' }
       ]
     }
   },
@@ -903,7 +903,10 @@ export default {
       return _.map(this.filterDe, 'gene')
     },
     dataId() {
-      return 'AD00102'
+      if (!this.sampleSelect) {
+        return 'AD00102'
+      }
+      return this.sampleSelect.value
     },
     pSliderValue() {
       switch (this.p_range) {
@@ -1002,9 +1005,6 @@ export default {
     }
   },
   watch: {
-    cellTypeSelect() {
-      console.log(this.cellTypeSelect)
-    },
     filterDe() {
       if (this.filterDe.length) {
         if (this.panel.includes(0)) {

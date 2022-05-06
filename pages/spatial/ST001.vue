@@ -209,15 +209,15 @@
           </v-row>
         </v-card>
         <svg-info
+          :data-id="selectedSampleClustering.id"
           class="my-2"
-          :data-id="dataId"
           :dataset="dataset"
           :ct="cellType"
         ></svg-info>
 
         <de-info
+          :data-id="selectedSampleClustering.id"
           class="my-2"
-          :data-id="dataId"
           :dataset="dataset"
           :ct="cellType"
         ></de-info>
