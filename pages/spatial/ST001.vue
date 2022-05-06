@@ -184,6 +184,7 @@
               <a
                 :href="selectedSampleClustering.tiffLink"
                 class="text-decoration-none"
+                target="_blank"
                 download
               >
                 <v-btn small>
@@ -199,33 +200,27 @@
           <v-row>
             <v-col class="mx-4" cols="12">
               <dimension-info
+                class="my-2"
+                :data-id="selectedSampleClustering.id"
                 :dimension="spatialDimension"
                 :image="selectedSampleClustering.pngLink"
               ></dimension-info
             ></v-col>
           </v-row>
         </v-card>
-        <v-row>
-          <v-col class="mx-4" cols="12">
-            <svg-info
-              :data-id="dataId"
-              :dataset="dataset"
-              :ct="cellType"
-            ></svg-info
-          ></v-col>
-        </v-row>
-        <v-row>
-          <v-col class="mx-4" cols="12">
-            <de-info
-              :data-id="dataId"
-              :dataset="dataset"
-              :ct="cellType"
-            ></de-info
-          ></v-col>
-        </v-row>
-        <v-row>
-          <v-col class="mx-4" cols="12"> <cirro-info></cirro-info></v-col>
-        </v-row>
+        <svg-info
+          class="my-2"
+          :data-id="dataId"
+          :dataset="dataset"
+          :ct="cellType"
+        ></svg-info>
+
+        <de-info
+          class="my-2"
+          :data-id="dataId"
+          :dataset="dataset"
+          :ct="cellType"
+        ></de-info>
       </v-col>
     </v-row>
     <Fab></Fab>
@@ -238,15 +233,13 @@ import Fab from '@/components/utils/Fab'
 import DimensionInfo from '@/components/spatial/DimensionInfo'
 import DeInfo from '@/components/spatial/DeInfo'
 import SvgInfo from '@/components/spatial/SvgInfo'
-import CirroInfo from '@/components/spatial/CirroInfo'
 
 export default {
   components: {
     Fab,
     'dimension-info': DimensionInfo,
     'de-info': DeInfo,
-    'svg-info': SvgInfo,
-    'cirro-info': CirroInfo
+    'svg-info': SvgInfo
   },
   async asyncData({ store, error, params }) {
     const tmpId = 'AD00102'
@@ -258,15 +251,16 @@ export default {
     }
     try {
       await store.dispatch('ad_v2/fetchSpatialDimension', {
-        id: 'ST001'
+        id: 'ST00101'
       })
 
-      await store.dispatch('ad_v2/fetchExpressionGenes', 'ST001')
+      await store.dispatch('ad_v2/fetchExpressionGenes', 'ST00101')
       await store.dispatch('ad_v2/fetchDatasets')
       await store.dispatch('ad_v2/fetchDataset', tmpId)
       await store.dispatch('ad_v2/fetchCellType', tmpId)
       await store.dispatch('ad_v2/fetchPublication', tmpId)
       await store.dispatch('ad_v2/fetchDe', defaultDeParams)
+      await store.dispatch('ad_v2/fetchSvg', defaultDeParams)
       await store.dispatch('ad_v2/fetchDeMeta', tmpId)
     } catch (e) {
       error({
@@ -287,7 +281,7 @@ export default {
       ],
 
       // Component variables
-      selectedSampleClustering: '',
+      selectedSampleClustering: 'ST00101 (original sample name: 151507)',
       selectedSampleAnnotation: '',
       selectedSampleModule: '',
       selectedSampleCircos: '',
@@ -314,16 +308,58 @@ export default {
       return 'AD00102'
     },
     clusterData() {
-      return [
-        {
-          name: '151673',
-          pngLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_lowres_image.png`,
-          tiffLink: `${this.baseUrl}/cluster/Seurat-Figue-unsupervised-clustering.tiff`
-        }
+      const names = [
+        '151507',
+        '151508',
+        '151509',
+        '151510',
+        '151669',
+        '151670',
+        '151671',
+        '151672',
+        '151673',
+        '151674',
+        '151675',
+        '151676'
       ]
+      const ids = [
+        'ST00101',
+        'ST00102',
+        'ST00103',
+        'ST00104',
+        'ST00105',
+        'ST00106',
+        'ST00107',
+        'ST00108',
+        'ST00109',
+        'ST00110',
+        'ST00111',
+        'ST00112'
+      ]
+      const result = []
+      for (const [idx, value] of names.entries()) {
+        result.push({
+          id: ids[idx],
+          name: `${ids[idx]} (original sample name: ${value})`,
+          pngLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/${value}_tissue_hires_image.png`,
+          tiffLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/${value}_tissue_lowres_image.png`
+        })
+      }
+
+      return result
     }
   },
-  watch: {},
+  watch: {
+    selectedSampleClustering() {
+      this.$store.dispatch('ad_v2/fetchSpatialDimension', {
+        id: this.selectedSampleClustering.id
+      })
+      this.$store.dispatch(
+        'ad_v2/fetchExpressionGenes',
+        this.selectedSampleClustering.id
+      )
+    }
+  },
   mounted() {},
   methods: {
     downloadPNG(src) {

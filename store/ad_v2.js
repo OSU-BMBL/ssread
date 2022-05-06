@@ -11,6 +11,7 @@ export const state = () => ({
   deAllMeta: [],
   cellType: [],
   de: [],
+  svg: [],
   deGene: [],
   dimension: [],
   spatialDimension: [],
@@ -48,6 +49,9 @@ export const mutations = {
   },
   SET_DE(state, de) {
     state.de = de
+  },
+  SET_SVG(state, svg) {
+    state.svg = svg
   },
   RESET_DE(state) {
     state.de = { count: 0, rows: [] }
@@ -120,6 +124,11 @@ export const actions = {
   fetchDe({ commit }, params) {
     return AdService.getDe(params).then((response) => {
       commit('SET_DE', response.data)
+    })
+  },
+  fetchSvg({ commit }, params) {
+    return AdService.getDe(params).then((response) => {
+      commit('SET_SVG', response.data)
     })
   },
   clearDE({ commit }) {

@@ -24,10 +24,15 @@
 export default {
   name: 'CirroInfo',
   components: {},
-  props: {},
+  props: {
+    dataId: {
+      type: String,
+      required: true,
+      default: () => 'STDS0000040'
+    }
+  },
   data() {
     return {
-      dataId: 'STDS0000040',
       link: 'https://bmblx.bmi.osumc.edu/cirro/'
     }
   },

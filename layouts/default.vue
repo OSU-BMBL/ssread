@@ -239,7 +239,7 @@ export default {
         {
           icon: 'mdi-table',
           text: 'Version 1 (archived)',
-          path: '/v1'
+          path: '/v1/home'
         }
       ],
       browseMenu: [

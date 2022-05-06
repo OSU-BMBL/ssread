@@ -10,6 +10,32 @@
       <v-col cols="md-6 lg-7">
         <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-2">
           <p class="subtitle-1 font-weight-bold py-0 my-2">
+            Sample:
+            <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                  >mdi-help-circle-outline</v-icon
+                >
+              </template>
+              <span>Select sample </span>
+            </v-tooltip>
+          </p>
+          <v-select
+            v-model="sampleSelect"
+            :items="sampleItems"
+            item-text="name"
+            item-value="value"
+            return-object
+            single-line
+            persistent-hint
+            @change="
+              updateSample()
+              clearDeSelection()
+            "
+          ></v-select>
+        </v-col>
+        <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-2">
+          <p class="subtitle-1 font-weight-bold py-0 my-2">
             Group:
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
@@ -750,10 +776,6 @@ export default {
   name: 'DeInfo',
   components: {},
   props: {
-    dataId: {
-      type: String,
-      required: true
-    },
     dataset: {
       type: Array,
       required: true
@@ -771,8 +793,6 @@ export default {
       ct: 'ast'
     }
     try {
-      await store.dispatch('ad_v2/fetchDataset', params.id)
-      await store.dispatch('ad_v2/fetchDimension', params.id)
       await store.dispatch('ad_v2/fetchDe', defaultDeParams)
       await store.dispatch('ad_v2/fetchDeMeta', params.id)
     } catch (e) {
@@ -813,24 +833,24 @@ export default {
       expandedCc: [],
       groupSelect: {
         groupText: 'Cluster specific genes',
-        hint: 'TODO.',
+        hint: '',
         type: 'cell_type_specific'
       },
       groupItems: [
         {
           groupText: 'Cluster specific genes',
-          hint: 'TODO.',
+          hint: '.',
           type: 'cell_type_specific'
         },
         {
           groupText: 'Layer specific genes',
-          hint: 'TODO',
+          hint: '',
           bDataId: 'AD00106',
           type: 'cell_type_specific'
         },
         {
           groupText: 'Spatially variable genes',
-          hint: 'TODO.',
+          hint: '.',
           type: 'cell_type_specific'
         }
       ],
@@ -856,13 +876,20 @@ export default {
       bpResult: [],
       mfResult: [],
       ccResult: [],
-      noRegulonJob: [
-        '20200615211954',
-        '20200615212123',
-        '20200615213156',
-        '20200616120129',
-        '20200616115909',
-        '20200616120507'
+      sampleSelect: { name: 'ST00101', value: 'AD00102' },
+      sampleItems: [
+        { name: 'ST00101', value: 'AD00102' },
+        { name: 'ST00102', value: 'AD00102' },
+        { name: 'ST00103', value: 'AD00103' },
+        { name: 'ST00104', value: 'AD00104' },
+        { name: 'ST00105', value: 'AD00105' },
+        { name: 'ST00106', value: 'AD00106' },
+        { name: 'ST00107', value: 'AD00102' },
+        { name: 'ST00108', value: 'AD00102' },
+        { name: 'ST00109', value: 'AD00103' },
+        { name: 'ST00110', value: 'AD00104' },
+        { name: 'ST00111', value: 'AD00105' },
+        { name: 'ST00112', value: 'AD00106' }
       ]
     }
   },
@@ -875,7 +902,9 @@ export default {
     genes() {
       return _.map(this.filterDe, 'gene')
     },
-
+    dataId() {
+      return 'AD00102'
+    },
     pSliderValue() {
       switch (this.p_range) {
         case 1:
@@ -973,6 +1002,9 @@ export default {
     }
   },
   watch: {
+    cellTypeSelect() {
+      console.log(this.cellTypeSelect)
+    },
     filterDe() {
       if (this.filterDe.length) {
         if (this.panel.includes(0)) {
@@ -1156,12 +1188,22 @@ export default {
     },
 
     async updateDe() {
+      const allCt = [
+        'Astrocytes',
+        'Endothelial cells',
+        'Excitatory neurons',
+        'Inhibitory neurons',
+        'Microglia',
+        'Oligodendrocytes',
+        'Oligodendrocyte precursor cells',
+        'Pericytes'
+      ]
       if (this.groupSelect.groupText === 'Cluster specific genes') {
         const params = {
           aDataId: this.dataId,
           bDataId: this.dataId,
           type: this.groupSelect.type,
-          ct: 'Oligodendrocytes'
+          ct: allCt[this.cellTypeSelect]
         }
         await this.$store.dispatch('ad_v2/fetchDe', params)
       } else if (this.groupSelect.groupText === 'Layer specific genes') {
@@ -1169,7 +1211,7 @@ export default {
           aDataId: this.dataId,
           bDataId: this.dataId,
           type: this.groupSelect.type,
-          ct: 'Astrocytes'
+          ct: allCt[this.clusterItems.indexOf(this.cellTypeSelect)]
         }
         await this.$store.dispatch('ad_v2/fetchDe', params)
       }
@@ -1206,6 +1248,9 @@ export default {
       } catch (e) {
         console.error(e)
       }
+    },
+    updateSample() {
+      console.log(this.sampleSelect.value)
     }
   }
 }

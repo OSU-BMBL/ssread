@@ -183,11 +183,11 @@
               <td>0</td>
               <td>[3,2]</td>
               <td>{{ row.item.p_val_adj.toExponential(2) }}</td>
-              <td>{{ row.item.pct_1 }}</td>
-              <td>{{ row.item.pct_2 }}</td>
-              <td>{{ row.item.pct_2.toExponential(1) * 0.5 }}</td>
-              <td>{{ row.item.pct_1.toExponential(1) * 2 }}</td>
-              <td>{{ row.item.pct_2.toExponential(1) * 3 }}</td>
+              <td>{{ row.item.pct_1.toFixed(3) }}</td>
+              <td>{{ row.item.pct_2.toFixed(3) }}</td>
+              <td>{{ (row.item.pct_2 * 0.35).toFixed(3) }}</td>
+              <td>{{ row.item.pct_1.toFixed(3) * 2 }}</td>
+              <td>{{ (row.item.pct_2 * 5).toFixed(3) }}</td>
             </tr>
           </template>
         </v-data-table>
@@ -223,12 +223,10 @@ export default {
       aDataId: params.id,
       bDataId: params.id,
       type: 'cell_type_specific',
-      ct: 'ast'
+      ct: 'end'
     }
     try {
-      await store.dispatch('ad_v2/fetchDataset', params.id)
-      await store.dispatch('ad_v2/fetchDimension', params.id)
-      await store.dispatch('ad_v2/fetchDe', defaultDeParams)
+      await store.dispatch('ad_v2/fetchSvg', defaultDeParams)
       await store.dispatch('ad_v2/fetchDeMeta', params.id)
     } catch (e) {
       error({
@@ -317,8 +315,7 @@ export default {
   },
   computed: {
     ...mapState({
-      de: (state) => state.ad_v2.de.rows,
-      n_de: (state) => state.ad_v2.de.count,
+      de: (state) => state.ad_v2.svg.rows,
       de_meta: (state) => state.ad_v2.deMeta
     }),
     genes() {
@@ -411,7 +408,7 @@ export default {
       ) {
         return 'Please select comparison group from the left.'
       }
-      return 'Sorry, no DE genes found in current group.'
+      return 'Sorry, no SVGs found.'
     },
     clusterItems() {
       if (this.groupSelect.groupText === 'Cluster specific genes') {
@@ -434,15 +431,15 @@ export default {
           type: this.groupSelect.type,
           ct: 'Endothelial cells'
         }
-        await this.$store.dispatch('ad_v2/fetchDe', params)
+        await this.$store.dispatch('ad_v2/fetchSvg', params)
       } else if (this.groupSelect.groupText === 'Layer specific genes') {
         const params = {
           aDataId: this.dataId,
           bDataId: this.dataId,
           type: this.groupSelect.type,
-          ct: 'Astrocytes'
+          ct: 'Microglia'
         }
-        await this.$store.dispatch('ad_v2/fetchDe', params)
+        await this.$store.dispatch('ad_v2/fetchSvg', params)
       }
     },
     clearDeSelection() {
