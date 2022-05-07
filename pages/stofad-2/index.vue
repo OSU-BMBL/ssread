@@ -257,6 +257,7 @@
           <v-row>
             <v-col class="ma-4" xl="6" lg="8" md="10" sm="11" xs="11">
               <v-img contain :src="selectedSampleModule.pngLink"></v-img>
+              <v-img contain :src="moduleLegend"></v-img>
             </v-col>
           </v-row>
         </v-card>
@@ -412,6 +413,9 @@ export default {
       return result
     },
 
+    moduleLegend() {
+      return `${this.baseUrl}/5.RNAscope/legend.png`
+    },
     moduleData() {
       const names = [
         'AD WM CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
