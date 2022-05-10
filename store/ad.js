@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import AdService from '~/services/AdService.js'
+import AdService from '~/services/AdService_v1.js'
 
 export const state = () => ({
   dialog: [],
