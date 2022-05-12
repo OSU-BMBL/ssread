@@ -142,6 +142,59 @@
                   ></span>
                 </p> </v-card-text
             ></v-col>
+            <v-col cols="12" class="py-0 my-0">
+              <v-card-title class="my-2 py-0 subtitle-1 font-weight-medium"
+                >Download<v-divider class="my-2 py-0"></v-divider
+              ></v-card-title>
+              <v-card-text>
+                <v-col cols="8"
+                  ><v-virtual-scroll
+                    :items="items"
+                    height="300"
+                    item-height="64"
+                  >
+                    <template v-slot:default="{ item }">
+                      <v-list-item :key="item">
+                        <v-list-item-action>
+                          Sample {{ item }}
+                        </v-list-item-action>
+
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            <v-btn small depressed color="primary">
+                              Raw data (Seurat)
+                              <v-icon small>
+                                mdi-download
+                              </v-icon>
+                            </v-btn>
+                            <v-btn small depressed color="primary">
+                              Raw data (Scanpy)
+                              <v-icon small>
+                                mdi-download
+                              </v-icon> </v-btn
+                            ><v-divider vertical></v-divider>
+
+                            <v-btn small depressed color="primary">
+                              Processed data (Seurat)
+                              <v-icon small>
+                                mdi-download
+                              </v-icon>
+                            </v-btn>
+                            <v-btn small depressed color="primary">
+                              Processed data (Scanpy)
+                              <v-icon small>
+                                mdi-download
+                              </v-icon>
+                            </v-btn></v-list-item-title
+                          >
+                        </v-list-item-content>
+
+                        <v-list-item-action> </v-list-item-action>
+                      </v-list-item>
+
+                      <v-divider></v-divider> </template></v-virtual-scroll
+                ></v-col> </v-card-text
+            ></v-col>
           </v-row>
         </v-card>
       </v-col>
@@ -221,6 +274,7 @@
           :dataset="dataset"
           :ct="cellType"
         ></de-info>
+        <deconv :data-id="selectedSampleClustering.id"></deconv>
       </v-col>
     </v-row>
     <Fab></Fab>
@@ -233,13 +287,15 @@ import Fab from '@/components/utils/Fab'
 import DimensionInfo from '@/components/spatial/DimensionInfo'
 import DeInfo from '@/components/spatial/DeInfo'
 import SvgInfo from '@/components/spatial/SvgInfo'
+import Deconv from '@/components/spatial/Deconv'
 
 export default {
   components: {
     Fab,
     'dimension-info': DimensionInfo,
     'de-info': DeInfo,
-    'svg-info': SvgInfo
+    'svg-info': SvgInfo,
+    deconv: Deconv
   },
   async asyncData({ store, error, params }) {
     const tmpId = 'AD00102'
@@ -307,6 +363,9 @@ export default {
     dataId() {
       return 'AD00102'
     },
+    items() {
+      return Array.from({ length: 12 }, (k, v) => v + 1)
+    },
     clusterData() {
       const names = [
         '151507',
@@ -360,7 +419,9 @@ export default {
       )
     }
   },
-  mounted() {},
+  mounted() {
+    this.selectedSampleClustering = this.clusterData[0]
+  },
   methods: {
     downloadPNG(src) {
       const link = document.createElement('a')

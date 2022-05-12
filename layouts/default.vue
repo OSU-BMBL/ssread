@@ -244,6 +244,11 @@ export default {
       ],
       browseMenu: [
         {
+          text: 'Browse',
+          icon: 'mdi-database-search',
+          path: '/browse'
+        },
+        {
           text: 'scRNA-seq',
           icon: 'mdi-database-search',
           path: '/singlecell'
