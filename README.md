@@ -26,7 +26,7 @@ https://github.com/OSU-BMBL/scread-protocol
 
 ## Local development
 
-First, install [Node.js](https://nodejs.org/en/)
+First, install [Node.js](https://nodejs.org/en/) (v12+)
 
 ### Add configuration file
 
