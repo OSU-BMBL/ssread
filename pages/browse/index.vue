@@ -25,7 +25,7 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title
-                  class="py-1 font-weight-medium"
+                  class="font-weight-medium title"
                   v-text="item.title"
                 ></v-list-item-title>
                 <v-col cols="12" class="py-0 my-0">
