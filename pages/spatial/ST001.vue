@@ -255,6 +255,7 @@
               <dimension-info
                 class="my-2"
                 :data-id="selectedSampleClustering.id"
+                :raw="selectedSampleClustering.raw"
                 :dimension="spatialDimension"
                 :image="selectedSampleClustering.pngLink"
               ></dimension-info
@@ -337,7 +338,7 @@ export default {
       ],
 
       // Component variables
-      selectedSampleClustering: 'ST00101 (original sample name: 151507)',
+      selectedSampleClustering: 'ST00109 (original sample name: 151673)',
       selectedSampleAnnotation: '',
       selectedSampleModule: '',
       selectedSampleCircos: '',
@@ -399,6 +400,7 @@ export default {
       for (const [idx, value] of names.entries()) {
         result.push({
           id: ids[idx],
+          raw: `${value}`,
           name: `${ids[idx]} (original sample name: ${value})`,
           pngLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/${value}_tissue_hires_image.png`,
           tiffLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/${value}_tissue_lowres_image.png`
@@ -420,7 +422,7 @@ export default {
     }
   },
   mounted() {
-    this.selectedSampleClustering = this.clusterData[0]
+    this.selectedSampleClustering = this.clusterData[8]
   },
   methods: {
     downloadPNG(src) {

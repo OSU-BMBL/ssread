@@ -30,38 +30,36 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col xs="12" md="6" lg="3" class="px-4 py-0 my-0">
-        <p class="subtitle-1 font-weight-bold">
-          Point size:
-          <v-tooltip top>
-            <template v-slot:activator="{ on, attrs }">
-              <v-icon color="primary" dark v-bind="attrs" v-on="on"
-                >mdi-help-circle-outline</v-icon
-              >
-            </template>
-            <span
-              >Limit testing to genes which show, on average, at least X-fold
-              difference (log-scale) between the two groups of cells.</span
-            >
-          </v-tooltip>
-        </p>
-        <v-slider
-          v-model="pointSize"
-          max="10"
-          min="1"
-          hide-details
-          :thumb-size="24"
-          thumb-label="always"
-          class="align-center"
-          step="1"
-          ticks="always"
-          tick-size="4"
-        >
-        </v-slider>
-      </v-col>
-    </v-row>
-    <v-row>
       <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0">
+        <v-col xs="12" md="6" lg="6" class="px-4 py-0 my-0">
+          <p class="subtitle-1 font-weight-bold">
+            Point size:
+            <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                  >mdi-help-circle-outline</v-icon
+                >
+              </template>
+              <span
+                >Limit testing to genes which show, on average, at least X-fold
+                difference (log-scale) between the two groups of cells.</span
+              >
+            </v-tooltip>
+          </p>
+          <v-slider
+            v-model="pointSize"
+            max="10"
+            min="1"
+            hide-details
+            :thumb-size="24"
+            thumb-label="always"
+            class="align-center"
+            step="1"
+            ticks="always"
+            tick-size="4"
+          >
+          </v-slider>
+        </v-col>
         <div v-show="!toggleImage">
           <client-only>
             <vue-plotly
@@ -75,7 +73,36 @@
           <v-img contain :src="image" max-height="600px"></v-img>
         </div>
       </v-col>
-      <v-col xs="12" md="12" lg="6" class="px-4 py-0 my-0">
+      <v-col xs="12" md="12" lg="4" class="px-4 py-0 my-0">
+        <v-col xs="12" md="12" lg="10" class="px-4 py-0 my-0"
+          ><p class="subtitle-1 font-weight-bold">
+            Opacity:
+            <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                  >mdi-help-circle-outline</v-icon
+                >
+              </template>
+              <span
+                >Limit testing to genes which show, on average, at least X-fold
+                difference (log-scale) between the two groups of cells.</span
+              >
+            </v-tooltip>
+          </p>
+          <v-slider
+            v-model="spatialOpacity"
+            max="1"
+            min="0"
+            hide-details
+            :thumb-size="24"
+            thumb-label="always"
+            class="align-center"
+            step="0.1"
+            ticks="always"
+            tick-size="4"
+          >
+          </v-slider
+        ></v-col>
         <client-only>
           <vue-plotly
             :data="allSpatialDim"
@@ -182,11 +209,16 @@ export default {
       required: false,
       default: () => 'ST00101'
     },
+    raw: {
+      type: String,
+      required: false,
+      default: () => 'ST00101'
+    },
     image: {
       type: String,
       required: false,
       default: () =>
-        'https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_hires_image.png'
+        'https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_hires_image.png'
     },
     dimension: {
       type: Array,
@@ -200,6 +232,9 @@ export default {
       toggleImage: false,
       toggleSvg: false,
       pointSize: 6,
+      spatialOpacity: 0.4,
+      spatialX: 0,
+      spatialY: 0,
       headers: [
         { text: 'Gene name', value: 'gene' },
         { text: 'Log fold-change', value: 'avg_logFC' },
@@ -263,51 +298,7 @@ export default {
           }
         }
       },
-      spatialLayout: {
-        autosize: true,
-        height: 800,
-        legend: {
-          font: {
-            size: 14
-          },
-          orientation: 'h',
-          marker: {
-            size: 20
-          }
-        },
-        xaxis: {
-          showgrid: true,
-          zeroline: false,
-          showline: false,
-          showticklabels: false,
-          tickfont: {
-            size: 16,
-            color: 'black'
-          },
-          title: {
-            text: '',
-            font: {
-              size: 18
-            }
-          }
-        },
-        yaxis: {
-          showgrid: true,
-          zeroline: false,
-          showline: false,
-          showticklabels: false,
-          tickfont: {
-            size: 16,
-            color: 'black'
-          },
-          title: {
-            text: '',
-            font: {
-              size: 18
-            }
-          }
-        }
-      },
+
       options: {
         toImageButtonOptions: {
           format: 'png', // one of png, svg, jpeg, webp
@@ -417,6 +408,67 @@ export default {
       expression: (state) => state.ad_v2.expression,
       allGenes: (state) => state.ad_v2.expressionGenes
     }),
+    spatialLayout() {
+      return {
+        images: [
+          {
+            source: `spatial/${this.raw}_tissue_lowres_image.png`,
+            xref: 'x',
+            yref: 'y',
+            x: -38,
+            y: 20,
+            sizex: 190,
+            sizey: 110,
+            sizing: 'stretch',
+            opacity: this.spatialOpacity,
+            layer: 'below'
+          }
+        ],
+        autosize: true,
+        height: 800,
+        legend: {
+          font: {
+            size: 14
+          },
+          orientation: 'h',
+          marker: {
+            size: 20
+          }
+        },
+        xaxis: {
+          showgrid: true,
+          zeroline: false,
+          showline: false,
+          showticklabels: false,
+          tickfont: {
+            size: 16,
+            color: 'black'
+          },
+          title: {
+            text: '',
+            font: {
+              size: 18
+            }
+          }
+        },
+        yaxis: {
+          showgrid: true,
+          zeroline: false,
+          showline: false,
+          showticklabels: false,
+          tickfont: {
+            size: 16,
+            color: 'black'
+          },
+          title: {
+            text: '',
+            font: {
+              size: 18
+            }
+          }
+        }
+      }
+    },
     dimensionFreq() {
       const names = _.map(this.dimension, this.clusterCoordinatesSelect).sort()
       const counts = {}
@@ -522,10 +574,10 @@ export default {
 
         const traces = new Array([])
         for (const [i, clusterName] of clusterNames.entries()) {
-          const X = this.dimension
+          const Y = this.dimension
             .filter((row) => row.cluster === clusterName)
             .map((row) => row.row * -1)
-          const Y = this.dimension
+          const X = this.dimension
             .filter((row) => row.cluster === clusterName)
             .map((row) => row.col)
           const cellNames = this.dimension
@@ -552,10 +604,10 @@ export default {
         ].sort()
         const traces = new Array([])
         for (const [i, clusterName] of clusterNames.entries()) {
-          const X = this.dimension
+          const Y = this.dimension
             .filter((row) => row.layer === clusterName)
             .map((row) => row.row * -1)
-          const Y = this.dimension
+          const X = this.dimension
             .filter((row) => row.layer === clusterName)
             .map((row) => row.col)
           const cellNames = this.dimension
@@ -597,10 +649,16 @@ export default {
       }
       return [trace]
     },
-    expressionSpatialDim() {
-      const X = this.dimension.map((row) => row.row * -1)
+    spatialImageRange() {
+      const X = this.dimension.map((row) => row.row)
 
       const Y = _.map(this.dimension, 'col')
+      return [Math.max(...X), Math.max(...Y)]
+    },
+    expressionSpatialDim() {
+      const Y = this.dimension.map((row) => row.row * -1)
+
+      const X = _.map(this.dimension, 'col')
       const cellNames = _.map(this.dimension, 'cell_name')
       // merge actualExpression and tmpExpression, overwrite 0 with actual expression values
       const trace = {

@@ -28,9 +28,9 @@
                   class="font-weight-medium title"
                   v-text="item.title"
                 ></v-list-item-title>
-                <v-col cols="12" class="py-0 my-0">
-                  <v-card-text>
-                    <p class="my-0">
+                <v-col cols="12" class="py-0 my-0 px-0">
+                  <v-card-text class="px-0">
+                    <p class="my-0 mx-0">
                       <span class="text--secondary">Authors: </span>
                       <span class="text--primary"
                         >Kristen R. Maynard, Leonardo Collado-Torres, Lukas M.

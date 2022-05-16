@@ -52,11 +52,20 @@
           ></v-select> </v-col
       ></v-col>
       <v-col xs="12" md="4" lg="10" class="px-4 py-0 my-2">
-        <v-img contain :src="`spatial/${scSelect.value}.png`"></v-img
+        <v-img
+          width="700"
+          contain
+          :src="`spatial/${scSelect.value}.png`"
+        ></v-img
         ><v-img
           contain
           width="700"
-          :src="`spatial/${scSelect.value}-seg.png`"
+          :src="`spatial/${scSelect.value}-cor.png`"
+        ></v-img
+        ><v-img
+          contain
+          width="700"
+          :src="`spatial/${scSelect.value}-enhance.png`"
         ></v-img
       ></v-col>
     </v-row>
@@ -76,8 +85,8 @@ export default {
   },
   data() {
     return {
-      stSelect: { name: 'ST00101', value: 'AD00105' },
-      stItems: [{ name: 'ST00101', value: 'AD00105' }],
+      stSelect: { name: 'ST00109', value: 'AD00105' },
+      stItems: [{ name: 'ST00109', value: 'AD00105' }],
       scSelect: { name: 'AD00103', value: 'AD00103' },
       scItems: [
         { name: 'AD00103', value: 'AD00103' },
