@@ -21,8 +21,8 @@
               :to="item.path"
               link
             >
-              <v-list-item-title>{{ item.text }}</v-list-item-title
-              ><v-list-item-action>
+              <v-list-item-title>{{ item.text }}</v-list-item-title>
+              <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-action>
             </v-list-item>
@@ -40,8 +40,8 @@
               :to="item.path"
               link
             >
-              <v-list-item-title>{{ item.text }}</v-list-item-title
-              ><v-list-item-action>
+              <v-list-item-title>{{ item.text }}</v-list-item-title>
+              <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-action>
             </v-list-item>
@@ -59,8 +59,8 @@
               :to="item.path"
               link
             >
-              <v-list-item-title>{{ item.text }}</v-list-item-title
-              ><v-list-item-action>
+              <v-list-item-title>{{ item.text }}</v-list-item-title>
+              <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-action>
             </v-list-item>
@@ -159,10 +159,8 @@
     </v-navigation-drawer>
 
     <v-main>
-      <v-container class="px-6" fluid>
-        <alert top></alert>
-        <nuxt />
-      </v-container>
+      <alert top></alert>
+      <nuxt />
     </v-main>
 
     <v-footer
@@ -335,9 +333,11 @@ export default {
 .app-bar-title {
   color: white;
 }
+
 #keep .v-navigation-drawer__border {
   display: none;
 }
+
 .v-footer a {
   text-decoration: none;
 }

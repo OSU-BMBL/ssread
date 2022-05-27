@@ -1,5 +1,5 @@
 [[toc]]
 
-# FAQ
+# Usage 
 
 In progress

@@ -1,5 +1,5 @@
 [[toc]]
 
-# FAQ
+# Contact us
 
 In progress

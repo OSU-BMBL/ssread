@@ -1,16 +1,109 @@
 <template>
   <div>
-    <v-layout column justify-center align-center>
-      <p class="display-3 font-weight-regular" align-center>scREAD</p>
-      <v-flex xs="12" md="6" lg="12">
-        <p class="display-1">
-          A Single-cell and Spatial RNA-Seq Database for Alzheimer's Disease
-        </p>
-      </v-flex>
+    <v-layout column justify-center align-center class="bg">
+      <p class="text-h1 font-weight-regular" align-center>scREAD</p>
+      <p class="text-bg display-1">
+        A Single-cell and Spatial RNA-Seq Database for Alzheimer's Disease
+      </p>
     </v-layout>
-    <v-row>
-      Work in progress
-    </v-row>
+    <div>
+      <v-container>
+        <v-row>
+          <v-col cols="6"
+            ><p class="text-h4 mt-6" align-center>Datasets</p>
+            <p class="font-weight-medium mt-6" align-center>
+              Over 2,200,000 cells and 300 Spatial Transcriptomics samples from
+              46 Human & Mouse studies.
+            </p>
+            <ul class="py-2">
+              <li>
+                Interactive visualization and filters support multiple
+                selections
+              </li>
+              <li>
+                Detailed annotations including cell types and spatial layers
+              </li>
+              <li>
+                Differential gene expressions and functional enrichment analysis
+              </li>
+              <li>
+                Spatially variable genes and deconvolution with single-cell
+                datasets
+              </li>
+            </ul>
+            <v-btn class="mt-6" large color="primary" to="/browse"
+              >Browse all</v-btn
+            >
+          </v-col>
+          <v-col class="pa-6" cols="6"
+            ><vue-plotly
+              :data="sankeyData1"
+              :layout="sankeyLayout1"
+              :options="options"
+          /></v-col>
+        </v-row>
+      </v-container>
+    </div>
+    <div class="bg-1">
+      <v-container>
+        <v-row>
+          <v-col class="pa-6" cols="6"
+            ><vue-plotly
+              :data="barData1"
+              :layout="barLayout1"
+              :options="options"
+          /></v-col>
+          <v-col cols="6"
+            ><p class="text-h4 mt-6" align-center>Search</p>
+            <p class="font-weight-medium mt-6" align-center>
+              Query results over 34 single-cell & single-nuclei RNA-seq and 12
+              spatial studies in 17 brain regions.
+            </p>
+            <ul class="py-2">
+              <li>Search differentially expressed genes</li>
+              <li>
+                Find overlapping DEGs from multiple comparisons
+              </li>
+            </ul>
+            <v-btn class="mt-6" large color="primary" to="/query">Query</v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
+    <div>
+      <v-container>
+        <v-row>
+          <v-col cols="6"
+            ><p class="text-h4 mt-6" align-center>Downloads</p>
+            <p class="font-weight-medium mt-6" align-center>
+              Download all raw & processed datasets.
+            </p>
+            <ul class="py-2">
+              <li>
+                Raw gene expression & authors' label
+              </li>
+              <li>
+                High quality processed data & metadata
+              </li>
+              <li>
+                Text format or objects can be directly loaded into Seurat /
+                Scanpy
+              </li>
+            </ul>
+            <v-btn class="mt-6" large color="primary" to="/downloads"
+              >Download</v-btn
+            >
+          </v-col>
+
+          <v-col class="pa-6" cols="3"
+            ><vue-plotly :data="pieData1" :layout="layout1" :options="options"
+          /></v-col>
+          <v-col class="pa-6" cols="3"
+            ><vue-plotly :data="pieData2" :layout="layout2" :options="options"
+          /></v-col>
+        </v-row>
+      </v-container>
+    </div>
   </div>
 </template>
 <script>
@@ -80,16 +173,16 @@ export default {
       },
       pieData1: [
         {
-          values: [26, 47],
-          labels: ['Human', 'Mouse'],
+          values: [34, 12],
+          labels: ['single-cell & single-nuclei', 'spatial transcriptomics'],
           type: 'pie'
         }
       ],
       layout1: {
         title: {
-          text: 'Species',
+          text: 'Studies',
           font: {
-            size: 20
+            size: 16
           }
         },
         autosize: true,
@@ -98,9 +191,9 @@ export default {
         margin: {
           l: 20,
           r: 20,
-          b: 210,
-          t: 50,
-          pad: 4
+          b: 10,
+          t: 30,
+          pad: 0
         },
         legend: {
           font: {
@@ -134,9 +227,9 @@ export default {
         margin: {
           l: 20,
           r: 20,
-          b: 210,
-          t: 50,
-          pad: 4
+          b: 10,
+          t: 30,
+          pad: 0
         },
         legend: {
           font: {
@@ -160,10 +253,12 @@ export default {
             'Mouse_Prefrontal cortex',
             'Mouse_Subventricular zone'
           ],
-          type: 'pie'
+          type: 'bar'
         }
       ],
       layout3: {
+        paper_bgcolor: '#faf5ff',
+        plot_bgcolor: '#faf5ff',
         title: {
           text: 'Region',
           font: {
@@ -176,9 +271,9 @@ export default {
         margin: {
           l: 20,
           r: 20,
-          b: 210,
-          t: 50,
-          pad: 4
+          b: 10,
+          t: 30,
+          pad: 0
         },
         legend: {
           font: {
@@ -216,6 +311,139 @@ export default {
             size: 14
           },
           orientation: 'h'
+        }
+      },
+      barData1: [
+        {
+          x: [
+            'Entorhinal Cortex',
+            'Prefrontal cortex',
+            'Superior frontal gyrus',
+            'Superior parietal lobe',
+            'Cortex',
+            'Cerebellum',
+            'Cerebral cortex',
+            'Hippocampus',
+            'Subventricular zone',
+            'Habenula',
+            'Olfactory bulbs',
+            'Striatum',
+            'Thalamus'
+          ],
+
+          y: [10, 41, 5, 14, 45, 4, 7, 31, 8, 0, 0, 0, 0],
+
+          name: 'single-cell & single-nuclei',
+
+          type: 'bar'
+        },
+        {
+          x: [
+            'Entorhinal Cortex',
+            'Prefrontal cortex',
+            'Superior frontal gyrus',
+            'Superior parietal lobe',
+            'Cortex',
+            'Cerebellum',
+            'Cerebral cortex',
+            'Hippocampus',
+            'Subventricular zone',
+            'Habenula',
+            'Olfactory bulbs',
+            'Striatum',
+            'Thalamus'
+          ],
+
+          y: [6, 12, 3, 6, 13, 2, 5, 48, 21, 8, 24, 11, 6],
+
+          name: 'spatial transcriptomics',
+
+          type: 'bar'
+        }
+      ],
+      barLayout1: {
+        barmode: 'group',
+        paper_bgcolor: '#faf5ff',
+        plot_bgcolor: '#faf5ff',
+        title: {
+          text: 'Number of datasets',
+          font: {
+            size: 20
+          }
+        },
+        autosize: true,
+        width: this.pieWidth,
+        height: 500,
+        margin: {
+          l: 40,
+          r: 80,
+          b: 100,
+          t: 50,
+          pad: 10
+        },
+        legend: {
+          x: 1,
+          xanchor: 'right',
+          y: 1,
+          font: {
+            size: 14
+          }
+        }
+      },
+      sankeyData1: [
+        {
+          type: 'sankey',
+
+          orientation: 'h',
+
+          node: {
+            pad: 15,
+
+            thickness: 30,
+
+            line: {
+              color: 'black',
+
+              width: 0.5
+            },
+
+            label: [
+              'Single-cell & Single nuclei',
+              'Spatial Transcriptomics',
+              'Human',
+              'Mouse',
+              'Male',
+              'Female',
+              'Disease',
+              'Control'
+            ],
+
+            color: [
+              '#E64B35FF',
+              '#E64B35FF',
+              '#4DBBD5FF',
+              '#4DBBD5FF',
+              '#00A087FF',
+              '#00A087FF',
+              '#3C5488FF',
+              '#3C5488FF'
+            ]
+          },
+
+          link: {
+            source: [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5],
+
+            target: [2, 3, 2, 3, 4, 5, 4, 5, 6, 7, 6, 7],
+
+            value: [82, 30, 20, 140, 40, 37, 50, 45, 59, 31, 47, 35]
+          }
+        }
+      ],
+      sankeyLayout1: {
+        title: 'Number of datasets',
+
+        font: {
+          size: 10
         }
       },
       options: {
@@ -352,4 +580,15 @@ export default {
   }
 }
 </script>
-<style></style>
+<style scoped>
+.bg {
+  opacity: 1;
+  background: url('https://bmbl.bmi.osumc.edu/downloadFiles/scread/img/scread-bg.png');
+  background-size: cover;
+  height: 43vh;
+}
+
+.bg-1 {
+  background-color: #faf5ff;
+}
+</style>

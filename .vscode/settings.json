@@ -1,0 +1,40 @@
+{
+	"cSpell.words": [
+		"antfu",
+		"arrowParens",
+		"Attributify",
+		"BMBL",
+		"Cankun",
+		"composables",
+		"demi",
+		"Echarts",
+		"iconify",
+		"intlify",
+		"Neue",
+		"nprogress",
+		"pinia",
+		"pnpm",
+		"Roboto",
+		"scread",
+		"stylelint",
+		"typecheck",
+		"unocss",
+		"unplugin",
+		"Vite",
+		"vitejs",
+		"Vitesse",
+		"vitest",
+		"vueuse"
+	],
+	"editor.codeActionsOnSave": {
+		"source.fixAll": false,
+		"source.fixAll.eslint": true, // this allows ESLint to auto fix on save
+		"source.organizeImports": false,
+		"source.fixAll.stylelint": false
+	},
+	"files.associations": {
+		"*.css": "css"
+	},
+	"editor.formatOnSave": false,
+	"stylelint.enable": true
+}
