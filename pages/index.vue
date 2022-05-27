@@ -443,7 +443,17 @@ export default {
         title: 'Number of datasets',
 
         font: {
-          size: 10
+          size: 12
+        },
+        autosize: true,
+        width: this.pieWidth,
+        height: 500,
+        margin: {
+          l: 40,
+          r: 40,
+          b: 80,
+          t: 50,
+          pad: 10
         }
       },
       options: {
