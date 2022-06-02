@@ -17,10 +17,6 @@
             </p>
             <ul class="py-2">
               <li>
-                Interactive visualization and filters support multiple
-                selections
-              </li>
-              <li>
                 Detailed annotations including cell types and spatial layers
               </li>
               <li>
@@ -101,6 +97,35 @@
           <v-col class="pa-6" cols="3"
             ><vue-plotly :data="pieData2" :layout="layout2" :options="options"
           /></v-col>
+        </v-row>
+      </v-container>
+    </div>
+    <div class="bg-1">
+      <v-container>
+        <v-row>
+          <v-col class="pa-6" cols="6"></v-col>
+          <v-col cols="6"
+            ><p class="text-h4 mt-6" align-center>Interactive visualizations</p>
+            <p class="font-weight-medium mt-6" align-center>
+              User-friendly web server to provide comprehensive analysis
+              interpretations and filters support multiple selections
+            </p>
+            <ul class="py-2">
+              <li>
+                Detailed annotations including cell types and spatial layers
+              </li>
+              <li>
+                Differential gene expressions and functional enrichment analysis
+              </li>
+              <li>
+                Spatially variable genes and deconvolution with single-cell
+                datasets
+              </li>
+            </ul>
+            <v-btn class="mt-6" large color="primary" to="/spatial/ST001"
+              >Check example</v-btn
+            >
+          </v-col>
         </v-row>
       </v-container>
     </div>
@@ -593,7 +618,7 @@ export default {
 <style scoped>
 .bg {
   opacity: 1;
-  background: url('https://bmbl.bmi.osumc.edu/downloadFiles/scread/img/scread-bg.png');
+  background: url('https://bmblx.bmi.osumc.edu/spatial/scread-bg2.png');
   background-size: cover;
   height: 43vh;
 }
