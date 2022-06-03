@@ -103,7 +103,24 @@
     <div class="bg-1">
       <v-container>
         <v-row>
-          <v-col class="pa-6" cols="6"></v-col>
+          <v-col class="pa-6" cols="6"
+            ><v-radio-group v-model="radioGroup">
+              <v-radio label="Cells" value="1"></v-radio>
+              <v-radio label="Spatial spots" value="2"></v-radio>
+            </v-radio-group>
+            <vue-plotly
+              v-if="radioGroup == 1"
+              :data="allCellDim"
+              :layout="umapLayout"
+              :options="options"/>
+
+            <vue-plotly
+              v-if="radioGroup == 2"
+              :data="allSpatialDim"
+              :layout="spatialLayout"
+              :options="options"
+          /></v-col>
+
           <v-col cols="6"
             ><p class="text-h4 mt-6" align-center>Interactive visualizations</p>
             <p class="font-weight-medium mt-6" align-center>
@@ -141,6 +158,9 @@ export default {
       await store.dispatch('ad_v2/fetchDatasets')
       await store.dispatch('ad_v2/fetchAllDeMeta')
       await store.dispatch('ad_v2/clearExpression')
+      await store.dispatch('ad_v2/fetchSpatialDimension', {
+        id: 'ST00101'
+      })
     } catch (e) {
       error({
         statusCode: 503,
@@ -151,6 +171,18 @@ export default {
 
   data() {
     return {
+      colors: [
+        '#E64B35FF',
+        '#4DBBD5FF',
+        '#00A087FF',
+        '#3C5488FF',
+        '#F39B7FFF',
+        '#8491B499',
+        '#91D1C2FF',
+        '#7E6148FF',
+        '#7E6148FE'
+      ],
+      radioGroup: '1',
       dialog: false,
       selectDatasetDialog: false,
       totalStudy: '16',
@@ -481,6 +513,54 @@ export default {
           pad: 10
         }
       },
+      umapLayout: {
+        autosize: true,
+        paper_bgcolor: '#faf5ff',
+        plot_bgcolor: '#faf5ff',
+        title: 'Example UMAP plot',
+        height: 500,
+        legend: {
+          font: {
+            size: 14
+          },
+          orientation: 'h',
+          marker: {
+            size: 20
+          }
+        },
+        xaxis: {
+          showgrid: true,
+          zeroline: false,
+          showline: false,
+          showticklabels: false,
+          tickfont: {
+            size: 16,
+            color: 'black'
+          },
+          title: {
+            text: 'UMAP_1',
+            font: {
+              size: 18
+            }
+          }
+        },
+        yaxis: {
+          showgrid: true,
+          zeroline: false,
+          showline: false,
+          showticklabels: false,
+          tickfont: {
+            size: 16,
+            color: 'black'
+          },
+          title: {
+            text: 'UMAP_2',
+            font: {
+              size: 18
+            }
+          }
+        }
+      },
       options: {
         toImageButtonOptions: {
           format: 'png', // one of png, svg, jpeg, webp
@@ -504,7 +584,8 @@ export default {
         return data
       },
       dialogData: (state) => state.ad_v2.dialogDataset,
-      selectDatasetDialogData: (state) => state.ad_v2.SelectDatasetDialogData
+      selectDatasetDialogData: (state) => state.ad_v2.SelectDatasetDialogData,
+      dimension: (state) => state.ad_v2.spatialDimension
     }),
     bannerMessage() {
       return `You are visiting scREAD's dev version. Please let us know for any issues or suggestions via qin.ma@osumc.edu.`
@@ -562,6 +643,120 @@ export default {
     },
     totalCells() {
       return _.sumBy(this.dataset, 'n_original_cell')
+    },
+    allCellDim() {
+      const clusterNames = [
+        ...new Set(this.dimension.map((row) => row.cluster))
+      ].sort()
+
+      const traces = new Array([])
+      for (const [i, clusterName] of clusterNames.entries()) {
+        const X = this.dimension
+          .filter((row) => row.cluster === clusterName)
+          .map((row) => row.umap_1)
+        const Y = this.dimension
+          .filter((row) => row.cluster === clusterName)
+          .map((row) => row.umap_2)
+        const cellNames = this.dimension
+          .filter((row) => row.cluster === clusterName)
+          .map((row) => row.cell_name)
+        const trace = {
+          x: X,
+          y: Y,
+          mode: 'markers',
+          text: cellNames,
+          marker: {
+            size: this.pointSize,
+            color: this.colors[i]
+          },
+          colorscale: 'YlOrRd',
+          name: clusterName
+        }
+        traces.push(trace)
+      }
+      return traces
+    },
+    allSpatialDim() {
+      const clusterNames = [
+        ...new Set(this.dimension.map((row) => row.cluster))
+      ].sort()
+
+      const traces = new Array([])
+      for (const [i, clusterName] of clusterNames.entries()) {
+        const Y = this.dimension
+          .filter((row) => row.cluster === clusterName)
+          .map((row) => row.row * -1)
+        const X = this.dimension
+          .filter((row) => row.cluster === clusterName)
+          .map((row) => row.col)
+        const cellNames = this.dimension
+          .filter((row) => row.cluster === clusterName)
+          .map((row) => row.cell_name)
+        const trace = {
+          x: X,
+          y: Y,
+          mode: 'markers',
+          text: cellNames,
+          marker: {
+            size: this.pointSize,
+            color: this.colors[i]
+          },
+          colorscale: 'YlOrRd',
+          name: clusterName
+        }
+        traces.push(trace)
+      }
+      return traces
+    },
+    spatialLayout() {
+      return {
+        autosize: true,
+        paper_bgcolor: '#faf5ff',
+        plot_bgcolor: '#faf5ff',
+        height: 500,
+        title: 'Example spatial spots',
+        legend: {
+          font: {
+            size: 14
+          },
+          orientation: 'h',
+          marker: {
+            size: 20
+          }
+        },
+        xaxis: {
+          showgrid: true,
+          zeroline: false,
+          showline: false,
+          showticklabels: false,
+          tickfont: {
+            size: 16,
+            color: 'black'
+          },
+          title: {
+            text: '',
+            font: {
+              size: 18
+            }
+          }
+        },
+        yaxis: {
+          showgrid: true,
+          zeroline: false,
+          showline: false,
+          showticklabels: false,
+          tickfont: {
+            size: 16,
+            color: 'black'
+          },
+          title: {
+            text: '',
+            font: {
+              size: 18
+            }
+          }
+        }
+      }
     }
   },
   mounted() {

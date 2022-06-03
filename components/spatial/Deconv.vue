@@ -62,11 +62,6 @@
           width="700"
           :src="`spatial/${scSelect.value}-cor.png`"
         ></v-img
-        ><v-img
-          contain
-          width="700"
-          :src="`spatial/${scSelect.value}-enhance.png`"
-        ></v-img
       ></v-col>
     </v-row>
   </v-card>
@@ -89,8 +84,17 @@ export default {
       stItems: [{ name: 'ST00109', value: 'AD00105' }],
       scSelect: { name: 'AD00103', value: 'AD00103' },
       scItems: [
+        { name: 'AD00101', value: 'AD00103' },
+        { name: 'AD00102', value: 'AD00103' },
         { name: 'AD00103', value: 'AD00103' },
-        { name: 'AD00203', value: 'AD00203' }
+        { name: 'AD00104', value: 'AD00203' },
+        { name: 'AD00105', value: 'AD00203' },
+        { name: 'AD00106', value: 'AD00203' },
+        { name: 'AD00201', value: 'AD00203' },
+        { name: 'AD00202', value: 'AD00203' },
+        { name: 'AD00203', value: 'AD00203' },
+        { name: 'AD00204', value: 'AD00203' },
+        { name: 'AD00205', value: 'AD00203' }
       ]
     }
   },

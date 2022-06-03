@@ -144,7 +144,7 @@
             ></v-col>
             <v-col cols="12" class="py-0 my-0">
               <v-card-title class="my-2 py-0 subtitle-1 font-weight-medium"
-                >Download<v-divider class="my-2 py-0"></v-divider
+                >Download dataset<v-divider class="my-2 py-0"></v-divider
               ></v-card-title>
               <v-card-text>
                 <v-col cols="8"
@@ -161,27 +161,51 @@
 
                         <v-list-item-content>
                           <v-list-item-title>
-                            <v-btn small depressed color="primary">
-                              Raw data (Seurat)
+                            <v-btn
+                              small
+                              depressed
+                              color="primary"
+                              href="https://bmblx.bmi.osumc.edu/downloadFiles/scread/ST00101_raw.h5Seurat"
+                              target="_blank"
+                            >
+                              Raw (Seurat)
                               <v-icon small>
                                 mdi-download
                               </v-icon>
                             </v-btn>
-                            <v-btn small depressed color="primary">
-                              Raw data (Scanpy)
+                            <v-btn
+                              small
+                              depressed
+                              color="primary"
+                              href="https://bmblx.bmi.osumc.edu/downloadFiles/scread/ST00101_raw.h5ad"
+                              target="_blank"
+                            >
+                              Raw (Scanpy)
                               <v-icon small>
                                 mdi-download
                               </v-icon> </v-btn
                             ><v-divider vertical></v-divider>
 
-                            <v-btn small depressed color="primary">
-                              Processed data (Seurat)
+                            <v-btn
+                              small
+                              depressed
+                              color="primary"
+                              href="https://bmblx.bmi.osumc.edu/downloadFiles/scread/ST00101_processed.h5Seurat"
+                              target="_blank"
+                            >
+                              Processed (Seurat)
                               <v-icon small>
                                 mdi-download
                               </v-icon>
                             </v-btn>
-                            <v-btn small depressed color="primary">
-                              Processed data (Scanpy)
+                            <v-btn
+                              small
+                              depressed
+                              color="primary"
+                              href="https://bmblx.bmi.osumc.edu/downloadFiles/scread/ST00101_processed.h5ad"
+                              target="_blank"
+                            >
+                              Processed (Scanpy)
                               <v-icon small>
                                 mdi-download
                               </v-icon>
