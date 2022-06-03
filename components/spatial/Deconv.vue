@@ -84,17 +84,17 @@ export default {
       stItems: [{ name: 'ST00109', value: 'AD00105' }],
       scSelect: { name: 'AD00103', value: 'AD00103' },
       scItems: [
-        { name: 'AD00101', value: 'AD00103' },
-        { name: 'AD00102', value: 'AD00103' },
+        { name: 'AD00101', value: 'AD00101' },
+        { name: 'AD00102', value: 'AD00102' },
         { name: 'AD00103', value: 'AD00103' },
-        { name: 'AD00104', value: 'AD00203' },
-        { name: 'AD00105', value: 'AD00203' },
-        { name: 'AD00106', value: 'AD00203' },
-        { name: 'AD00201', value: 'AD00203' },
-        { name: 'AD00202', value: 'AD00203' },
+        { name: 'AD00104', value: 'AD00104' },
+        { name: 'AD00105', value: 'AD00105' },
+        { name: 'AD00106', value: 'AD00106' },
+        { name: 'AD00201', value: 'AD00201' },
+        { name: 'AD00202', value: 'AD00202' },
         { name: 'AD00203', value: 'AD00203' },
-        { name: 'AD00204', value: 'AD00203' },
-        { name: 'AD00205', value: 'AD00203' }
+        { name: 'AD00204', value: 'AD00204' },
+        { name: 'AD00205', value: 'AD00205' }
       ]
     }
   },
