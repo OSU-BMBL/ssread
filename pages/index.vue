@@ -32,11 +32,12 @@
             >
           </v-col>
           <v-col class="pa-6" cols="6"
-            ><vue-plotly
-              :data="sankeyData1"
-              :layout="sankeyLayout1"
-              :options="options"
-          /></v-col>
+            ><client-only
+              ><vue-plotly
+                :data="sankeyData1"
+                :layout="sankeyLayout1"
+                :options="options"/></client-only
+          ></v-col>
         </v-row>
       </v-container>
     </div>
@@ -44,11 +45,12 @@
       <v-container>
         <v-row>
           <v-col class="pa-6" cols="6"
-            ><vue-plotly
-              :data="barData1"
-              :layout="barLayout1"
-              :options="options"
-          /></v-col>
+            ><client-only
+              ><vue-plotly
+                :data="barData1"
+                :layout="barLayout1"
+                :options="options"/></client-only
+          ></v-col>
           <v-col cols="6"
             ><p class="text-h4 mt-6" align-center>Search</p>
             <p class="font-weight-medium mt-6" align-center>
@@ -92,11 +94,19 @@
           </v-col>
 
           <v-col class="pa-6" cols="3"
-            ><vue-plotly :data="pieData1" :layout="layout1" :options="options"
-          /></v-col>
+            ><client-only
+              ><vue-plotly
+                :data="pieData1"
+                :layout="layout1"
+                :options="options"/></client-only
+          ></v-col>
           <v-col class="pa-6" cols="3"
-            ><vue-plotly :data="pieData2" :layout="layout2" :options="options"
-          /></v-col>
+            ><client-only
+              ><vue-plotly
+                :data="pieData2"
+                :layout="layout2"
+                :options="options"/></client-only
+          ></v-col>
         </v-row>
       </v-container>
     </div>
@@ -108,18 +118,19 @@
               <v-radio label="Cells" value="1"></v-radio>
               <v-radio label="Spatial spots" value="2"></v-radio>
             </v-radio-group>
-            <vue-plotly
-              v-if="radioGroup == 1"
-              :data="allCellDim"
-              :layout="umapLayout"
-              :options="options"/>
+            <client-only
+              ><vue-plotly
+                v-if="radioGroup == 1"
+                :data="allCellDim"
+                :layout="umapLayout"
+                :options="options"/>
 
-            <vue-plotly
-              v-if="radioGroup == 2"
-              :data="allSpatialDim"
-              :layout="spatialLayout"
-              :options="options"
-          /></v-col>
+              <vue-plotly
+                v-if="radioGroup == 2"
+                :data="allSpatialDim"
+                :layout="spatialLayout"
+                :options="options"/></client-only
+          ></v-col>
 
           <v-col cols="6"
             ><p class="text-h4 mt-6" align-center>Interactive visualizations</p>
