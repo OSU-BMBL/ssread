@@ -396,10 +396,11 @@ export default {
             'Habenula',
             'Olfactory bulbs',
             'Striatum',
-            'Thalamus'
+            'Thalamus',
+            'Whole brain sections'
           ],
 
-          y: [10, 41, 5, 14, 45, 4, 7, 31, 8, 0, 0, 0, 0],
+          y: [10, 41, 5, 14, 45, 4, 7, 31, 8, 0, 0, 0, 0, 0],
 
           name: 'single-cell & single-nuclei',
 
@@ -419,10 +420,11 @@ export default {
             'Habenula',
             'Olfactory bulbs',
             'Striatum',
-            'Thalamus'
+            'Thalamus',
+            'Whole brain sections'
           ],
 
-          y: [6, 12, 3, 6, 13, 2, 5, 48, 21, 8, 24, 11, 6],
+          y: [0, 16, 0, 0, 0, 0, 0, 48, 21, 8, 24, 11, 6, 75],
 
           name: 'spatial transcriptomics',
 
