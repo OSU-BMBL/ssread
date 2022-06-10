@@ -242,9 +242,6 @@
             ></de-info
           ></v-col>
         </v-row>
-        <v-row>
-          <v-col class="mx-4" cols="12"> <cirro-info></cirro-info></v-col>
-        </v-row>
       </v-col>
     </v-row>
     <Fab></Fab>
@@ -257,15 +254,13 @@ import Fab from '@/components/utils/Fab'
 import DimensionInfo from '@/components/spatial/DimensionInfo'
 import DeInfo from '@/components/spatial/DeInfo'
 import SvgInfo from '@/components/spatial/SvgInfo'
-import CirroInfo from '@/components/spatial/CirroInfo'
 
 export default {
   components: {
     Fab,
     'dimension-info': DimensionInfo,
     'de-info': DeInfo,
-    'svg-info': SvgInfo,
-    'cirro-info': CirroInfo
+    'svg-info': SvgInfo
   },
   async asyncData({ store, error, params }) {
     const tmpId = 'AD00102'
