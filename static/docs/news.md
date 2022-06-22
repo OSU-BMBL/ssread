@@ -2,6 +2,18 @@
 
 # News
 
+## 6/22/2022
+
+### Added
+
+- Hint for calculating DEGs
+
+### Updated
+
+- The homepage sankey plot will arrange the layout to default
+- Updated user & data statistics 
+
+
 ## 5/27/2022
 
 ### Added

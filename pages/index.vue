@@ -34,8 +34,8 @@
           <v-col class="pa-6" cols="6"
             ><client-only
               ><vue-plotly
-                :data="sankeyData1"
-                :layout="sankeyLayout1"
+                :data="barData1"
+                :layout="barLayout1"
                 :options="options"/></client-only
           ></v-col>
         </v-row>
@@ -47,8 +47,8 @@
           <v-col class="pa-6" cols="6"
             ><client-only
               ><vue-plotly
-                :data="barData1"
-                :layout="barLayout1"
+                :data="sankeyData1"
+                :layout="sankeyLayout1"
                 :options="options"/></client-only
           ></v-col>
           <v-col cols="6"
@@ -433,8 +433,6 @@ export default {
       ],
       barLayout1: {
         barmode: 'group',
-        paper_bgcolor: '#faf5ff',
-        plot_bgcolor: '#faf5ff',
         title: {
           text: 'Number of datasets',
           font: {
@@ -463,7 +461,7 @@ export default {
       sankeyData1: [
         {
           type: 'sankey',
-
+          arrangement: 'snap',
           orientation: 'h',
 
           node: {
@@ -511,7 +509,8 @@ export default {
       ],
       sankeyLayout1: {
         title: 'Number of datasets',
-
+        paper_bgcolor: '#faf5ff',
+        plot_bgcolor: '#faf5ff',
         font: {
           size: 12
         },

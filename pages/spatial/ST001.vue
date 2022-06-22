@@ -334,7 +334,9 @@ export default {
       await store.dispatch('ad_v2/fetchSpatialDimension', {
         id: 'ST00101'
       })
-
+      await store.dispatch('ad_v2/fetchDatasets')
+      await store.dispatch('ad_v2/fetchAllDeMeta')
+      await store.dispatch('ad_v2/clearExpression')
       await store.dispatch('ad_v2/fetchExpressionGenes', 'ST00101')
       await store.dispatch('ad_v2/fetchDatasets')
       await store.dispatch('ad_v2/fetchDataset', tmpId)
