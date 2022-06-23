@@ -319,7 +319,7 @@
       <v-expansion-panels v-model="panel" hover multiple>
         <v-expansion-panel>
           <v-expansion-panel-header @click="submitEnrichr('kegg')"
-            >KEGG pathway
+            >KEGG pathway (2018)
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <p>
@@ -327,7 +327,8 @@
               real-time by sending the DEGs to the
               <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
                 Enrichr</a
-              >.
+              >
+              (2018 version).
             </p>
             <p>
               Enrichr does not allow uploading custom background gene sets, and
@@ -443,7 +444,7 @@
 
         <v-expansion-panel>
           <v-expansion-panel-header @click="submitEnrichr('bp')"
-            >GO: Biological Process</v-expansion-panel-header
+            >GO: Biological Process (2018)</v-expansion-panel-header
           >
 
           <v-expansion-panel-content>
@@ -452,7 +453,8 @@
               real-time by sending the DEGs to the
               <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
                 Enrichr</a
-              >.
+              >
+              (2018 version).
             </p>
             <p>
               Enrichr does not allow uploading custom background gene sets, and
@@ -570,7 +572,7 @@
 
         <v-expansion-panel>
           <v-expansion-panel-header @click="submitEnrichr('mf')"
-            >GO: Molecular Function</v-expansion-panel-header
+            >GO: Molecular Function (2018)</v-expansion-panel-header
           >
           <v-expansion-panel-content>
             <p>
@@ -578,7 +580,8 @@
               real-time by sending the DEGs to the
               <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
                 Enrichr</a
-              >.
+              >
+              (2018 version).
             </p>
             <p>
               Enrichr does not allow uploading custom background gene sets, and
@@ -693,7 +696,7 @@
         </v-expansion-panel>
         <v-expansion-panel>
           <v-expansion-panel-header @click="submitEnrichr('cc')"
-            >GO: Cellular Component</v-expansion-panel-header
+            >GO: Cellular Component (2018)</v-expansion-panel-header
           >
           <v-expansion-panel-content>
             <p>
@@ -701,7 +704,8 @@
               real-time by sending the DEGs to the
               <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
                 Enrichr</a
-              >.
+              >
+              (2018 version).
             </p>
             <p>
               Enrichr does not allow uploading custom background gene sets, and

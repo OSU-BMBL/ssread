@@ -37,7 +37,7 @@
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Date added to scREAD:</span>
-                  <span class="text--primary"> 4-14-2022</span>
+                  <span class="text--primary"> 5-1-2022</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Abstract: </span>
@@ -428,8 +428,8 @@ export default {
           id: ids[idx],
           raw: `${value}`,
           name: `${ids[idx]} (original sample name: ${value})`,
-          pngLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/${value}_tissue_hires_image.png`,
-          tiffLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/${value}_tissue_lowres_image.png`
+          tiffLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/${value}_tissue_hires_image.png`,
+          pngLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/${value}_tissue_lowres_image.png`
         })
       }
 

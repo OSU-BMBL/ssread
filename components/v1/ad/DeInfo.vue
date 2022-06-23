@@ -327,7 +327,8 @@
               real-time by sending the DEGs to the
               <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
                 Enrichr</a
-              >.
+              >
+              (2018 version).
             </p>
             <p>
               Enrichr does not allow uploading custom background gene sets, and
@@ -452,7 +453,8 @@
               real-time by sending the DEGs to the
               <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
                 Enrichr</a
-              >.
+              >
+              (2018 version).
             </p>
             <p>
               Enrichr does not allow uploading custom background gene sets, and
@@ -578,7 +580,8 @@
               real-time by sending the DEGs to the
               <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
                 Enrichr</a
-              >.
+              >
+              (2018 version).
             </p>
             <p>
               Enrichr does not allow uploading custom background gene sets, and
@@ -701,7 +704,8 @@
               real-time by sending the DEGs to the
               <a href="https://maayanlab.cloud/Enrichr/" target="_blank">
                 Enrichr</a
-              >.
+              >
+              (2018 version).
             </p>
             <p>
               Enrichr does not allow uploading custom background gene sets, and

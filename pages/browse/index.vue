@@ -48,7 +48,7 @@
                     </p>
                     <p class="my-2">
                       <span class="text--secondary">Date added to scREAD:</span>
-                      <span class="text--primary"> 4-14-2022</span>
+                      <span class="text--primary"> 5-1-2022</span>
                     </p>
                     <p class="my-2">
                       <span class="text--secondary">Abstract: </span>

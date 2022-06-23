@@ -31,6 +31,13 @@
       <v-spacer></v-spacer>
     </v-card-title>
     <v-card-text>
+      <v-row
+        ><v-col
+          ><v-btn depressed color="primary" @click="fillExample">
+            Example
+          </v-btn></v-col
+        ></v-row
+      >
       <v-row>
         <v-col xs="6" md="4" lg="2">
           <p class="subtitle-1 font-weight-bold py-0 my-0">Species:</p>
@@ -200,6 +207,20 @@ export default {
     }
   },
   methods: {
+    fillExample() {
+      this.species = 'Human'
+      this.region = 'Entorhinal Cortex'
+      this.top = 100
+      this.threshold = 3
+      this.direction = 'up'
+      this.searchOverlap(
+        this.species,
+        this.region,
+        this.top,
+        this.threshold,
+        this.direction
+      )
+    },
     async searchOverlap(species, region, top, threshold, direction) {
       const params = {
         species,

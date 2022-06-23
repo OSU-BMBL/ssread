@@ -160,7 +160,7 @@
 
     <v-main>
       <alert top></alert>
-      <nuxt />
+      <nuxt class="pa-4" />
     </v-main>
 
     <v-footer

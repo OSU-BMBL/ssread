@@ -12,10 +12,28 @@
     <v-card-title>
       <p class="title">
         Search differentially expressed genes
+        <v-tooltip top max-width="500px">
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon color="primary" dark v-bind="attrs" v-on="on"
+              >mdi-help-circle-outline</v-icon
+            >
+          </template>
+          <span
+            >Search a gene symbol and returns all differential expression
+            analysis results of this gene.</span
+          >
+        </v-tooltip>
       </p>
       <v-spacer></v-spacer>
     </v-card-title>
     <v-card-text>
+      <v-row
+        ><v-col
+          ><v-btn depressed color="primary" @click="fillExample">
+            Example
+          </v-btn></v-col
+        ></v-row
+      >
       <v-row>
         <v-col xs="12" md="12" lg="12">
           <v-row>
@@ -522,6 +540,10 @@ export default {
     }
   },
   methods: {
+    fillExample() {
+      this.searchGene = 'GAD1'
+      this.searchDeByGene('GAD1')
+    },
     async searchDeByGene(gene) {
       this.loading = true
       this.loaded = false

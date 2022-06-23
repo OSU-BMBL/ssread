@@ -7,12 +7,16 @@
 ### Added
 
 - Hint for calculating DEGs
+- Replaced sankey plots with pie charts
+- Links with GEO & Synapse database on the browse page
+- Enrichment database version using Enrichr
+- Example button when searching genes
 
 ### Updated
 
-- The homepage sankey plot will arrange the layout to default
-- Updated user & data statistics 
-
+- The homepage plot will arrange the layout to default
+- Updated user & data statistics
+- 
 
 ## 5/27/2022
 

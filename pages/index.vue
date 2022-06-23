@@ -44,11 +44,25 @@
     <div class="bg-1">
       <v-container>
         <v-row>
-          <v-col class="pa-6" cols="6"
+          <!--<v-col class="pa-6" cols="6"
             ><client-only
               ><vue-plotly
                 :data="sankeyData1"
                 :layout="sankeyLayout1"
+                :options="options"/></client-only
+          ></v-col>-->
+          <v-col class="pa-6" cols="3"
+            ><client-only
+              ><vue-plotly
+                :data="pieData1"
+                :layout="layout1"
+                :options="options"/></client-only
+          ></v-col>
+          <v-col class="pa-6" cols="3"
+            ><client-only
+              ><vue-plotly
+                :data="pieData2"
+                :layout="layout2"
                 :options="options"/></client-only
           ></v-col>
           <v-col cols="6"
@@ -96,15 +110,15 @@
           <v-col class="pa-6" cols="3"
             ><client-only
               ><vue-plotly
-                :data="pieData1"
-                :layout="layout1"
+                :data="pieData3"
+                :layout="layout3"
                 :options="options"/></client-only
           ></v-col>
           <v-col class="pa-6" cols="3"
             ><client-only
               ><vue-plotly
-                :data="pieData2"
-                :layout="layout2"
+                :data="pieData4"
+                :layout="layout4"
                 :options="options"/></client-only
           ></v-col>
         </v-row>
@@ -247,6 +261,8 @@ export default {
         }
       ],
       layout1: {
+        paper_bgcolor: '#faf5ff',
+        plot_bgcolor: '#faf5ff',
         title: {
           text: 'Studies',
           font: {
@@ -283,6 +299,8 @@ export default {
         }
       ],
       layout2: {
+        paper_bgcolor: '#faf5ff',
+        plot_bgcolor: '#faf5ff',
         title: {
           text: 'Condition',
           font: {
@@ -321,12 +339,10 @@ export default {
             'Mouse_Prefrontal cortex',
             'Mouse_Subventricular zone'
           ],
-          type: 'bar'
+          type: 'pie'
         }
       ],
       layout3: {
-        paper_bgcolor: '#faf5ff',
-        plot_bgcolor: '#faf5ff',
         title: {
           text: 'Region',
           font: {

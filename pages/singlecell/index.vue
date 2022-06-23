@@ -229,7 +229,25 @@
             <td>{{ row.item.stage }}</td>
             <td>{{ row.item.age }}</td>
             <td>{{ row.item.mice_model }}</td>
-            <td>{{ row.item.public_id }}</td>
+            <td>
+              <a
+                v-if="row.item.public_id.startsWith('GSE')"
+                :href="
+                  'https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=' +
+                    row.item.public_id
+                "
+                target="_blank"
+                >{{ row.item.public_id }}</a
+              >
+              <a
+                v-else
+                :href="
+                  'https://www.synapse.org/#!Synapse:' + row.item.public_id
+                "
+                target="_blank"
+                >{{ row.item.public_id }}</a
+              >
+            </td>
             <td>{{ row.item.n_cell }}</td>
           </tr>
         </template>

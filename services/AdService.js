@@ -50,8 +50,8 @@ export default {
     )
   },
   getOverlap(params) {
-    return apiClient.get(
-      `/overlap?region=${params.region}&species=${params.species}&top=${params.top}&threshold=${params.threshold}&direction=${params.direction}`
+    return axios.get(
+      `https://osubmi.com/api/scread/v1/overlap?region=${params.region}&species=${params.species}&top=${params.top}&threshold=${params.threshold}&direction=${params.direction}`
     )
   },
   getRegulon(id) {
