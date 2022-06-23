@@ -16,22 +16,21 @@
                 <p class="my-2">
                   <span class="text--secondary">Title: </span>
                   <span class="text--primary font-weight-medium"
-                    >Slide-seq: A scalable technology for measuring genome-wide
-                    expression at high spatial resolution</span
+                    >Highly sensitive spatial transcriptomics at near-cellular
+                    resolution with Slide-seqV2</span
                   >
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Authors: </span>
                   <span class="text--primary"
-                    >Samuel G Rodriques, Robert R Stickels, Aleksandrina Goeva,
-                    Carly A Martin, Evan Murray, Charles R Vanderburg, Joshua
-                    Welch, Linlin M Chen, Fei Chen, Evan Z Macosko
-                    <sup>$</sup></span
+                    >Robert R Stickels, Evan Murray, Pawan Kumar, Jilong Li,
+                    Jamie L Marshall, Daniela J Di Bella, Paola Arlotta, Evan Z
+                    Macosko, Fei Chen <sup>$</sup></span
                   >
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Date published: </span>
-                  <span class="text--primary">3-29-2019</span>
+                  <span class="text--primary">12-07-2020</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Date added to scREAD:</span>
@@ -45,7 +44,7 @@
                       target="_blank"
                       class="text-decoration-none"
                     >
-                      Science
+                      Nature Biotechnology
                       <v-icon color="primary" size="1.2em"
                         >mdi-open-in-new</v-icon
                       >
@@ -60,7 +59,7 @@
                   <span class="text--secondary">Data: </span>
                   <span class="text--primary"
                     ><a
-                      href="https://singlecell.broadinstitute.org/single_cell/study/SCP354/slide-seq-study"
+                      href="https://www.nature.com/articles/s41587-020-0739-1"
                       target="_blank"
                       class="text-decoration-none"
                     >
@@ -86,14 +85,12 @@
                 <p class="my-2">
                   <span class="text--secondary">Number of samples: </span>
 
-                  <span class="text--primary">106</span>
+                  <span class="text--primary">11</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Region: </span>
 
-                  <span class="text--primary"
-                    >hippocampi and olfactory bulbs</span
-                  >
+                  <span class="text--primary">cortex and striatum</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Experimental factors: </span>
@@ -114,17 +111,7 @@
                 <p class="my-2">
                   <span class="text--secondary">Description: </span>
 
-                  <span class="text--primary"
-                    >s from portion of the DLPFC that spans six neuronal layers
-                    plus white matter (A) for a total of three subjects with two
-                    pairs of spatially adjacent replicates (B). Each dissection
-                    of DLPFC was designed to span all six layers plus white
-                    matter (C). Using this web application you can explore the
-                    expression of known genes such as SNAP25 (D, a neuronal
-                    gene), MOBP (E, an oligodendrocyte gene), and known layer
-                    markers from mouse studies such as PCP4 (F, a known layer 5
-                    marker gene).</span
-                  >
+                  <span class="text--primary"></span>
                 </p>
                 <v-row>
                   <v-col cols="8">
@@ -134,7 +121,7 @@
                     >
                     <span class="text--primary"
                       ><v-img
-                        src="https://www.science.org/cms/10.1126/science.aaw1219/asset/c2b8070a-1bfb-4c2c-9c75-aedb8143dbfd/assets/graphic/363_1463_f1.jpeg"
+                        src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41587-020-0739-1/MediaObjects/41587_2020_739_Fig1_HTML.png?as=webp"
                         target="_blank"
                         class="text-decoration-none"
                         max-width="800px"

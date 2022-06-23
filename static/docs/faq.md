@@ -7,6 +7,8 @@ This list of questions is not exhaustive. If you have any other questions please
 
 ## How to cite scREAD?
 
+scREAD 2.0 is still under development. To cite scREAD 1.0, please use the following:
+
 Jiang, Jing, Cankun Wang, Ren Qi, Hongjun Fu, and Qin Ma. “ScREAD: A Single-Cell RNA-Seq Database for Alzheimer’s Disease.” IScience 23, no. 11 (November 20, 2020): 101769. https://doi.org/10.1016/j.isci.2020.101769.
 
 ## What is Alzheimer's disease?
@@ -17,9 +19,23 @@ Alzheimer's disease (AD) is the most common cause of dementia, accounting for an
 
 Single-cell RNA sequencing (scRNA-Seq) examines the dynamic transcriptomic profile of individual cells with next-generation sequencing technologies, and hence provide a higher resolution of cellular differences and a better understanding of the function of an individual cell in the context of its microenvironment. The scRNA-Seq can reveal complex and rare cell populations, uncover regulatory relationships between genes, and track the trajectories of distinct cell lineages in development. The scRNA-Seq is becoming widely used across biological disciplines including neuroscience. More recently, scRNA-Seq has been used in the field of AD and significantly improves our understanding of the pathogenesis of AD at the single-cell level.
 
+
+## What is spatial transcriptomics?
+
+Spatial transcriptomics is a groundbreaking molecular profiling method that allows scientists to measure all the gene activity in a tissue sample and map where the activity is occurring. Already this technology is leading to new discoveries that are proving instrumental in helping scientists gain a better understanding of biological processes and disease.
+
 ## What is scREAD?
 
 scREAD (**s**ingle-**c**ell **R**NA-S**e**q database for **A**lzheimer's **D**isease), as far as we know, is the first database dedicated to the management of all existing scRNA-Seq and single-nucleus RNA-sequencing (snRNA-Seq) datasets from human postmortem brain tissue with AD and mouse models with AD pathology. By manually curating 15 AD-related studies, six scRNA-Seq datasets and 11 snRNA-Seq datasets were retrieved with the following factors well-annotated, i.e., organism, gender, brain region, disease/control, and age information. scREAD re-defines the 17 scRNA-Seq & snRNA-Seq datasets into 73 datasets (in total 713,640 cells and nine cell types), each of which corresponds to a specific organism (human or mouse), gender (male or female), brain region (entorhinal cortex, prefrontal cortex, superior frontal gyrus, cortex, cerebellum, cerebral cortex, or hippocampus), disease or control, and age stage (seven months, 15 months, or 20 months for mice, and 50-100+ years old for human). These datasets have been published and freely accessible in the public domain as of September 22nd, 2020. Furthermore, scREAD provides comprehensive analysis results and interactive visualizations based on all the collected AD datasets. Moreover, scREAD allows users to submit a new dataset to reproduce all the analyses results showcased in scREAD in support of their AD research. It is freely and openly accessible to all users with no login or registration required and no password-protected.
+
+## What is a spatially variable gene (svg)?
+
+SVGs are spatial dependence for a given gene by testing whether gene expression levels at different locations covary in a manner that depends on their relative location, and thus are spatially variable.
+
+## What is deconvolution analysis?
+
+Deconvolution is a computational method that treats the image as an estimate of the true specimen intensity and using an expression for the point spread function performs the mathematical inverse of the imaging process to obtain an improved estimate of the image intensity. It track compositional alterations of cell types (scRNA-seq or snRNA-seq dataset) in gene expression data (spatial transcriptomics dataset).
+
 
 ## Which browsers are supported?
 
@@ -29,60 +45,9 @@ The browsers that scREAD supported are Google Chrome, Safari, and Firefox. The s
 
 Human and Mouse.
 
-## Which brain regions are covered in scREAD?
-
-For the human species, the scREAD covers four regions. For mouse species, the scREAD covers six regions. The detailed information is shown in the following table:
-
-| Species | Region                 | Brodmann area            |
-| ------- | ---------------------- | ------------------------ |
-| Human   | Entorhinal cortex      | NA; NA                   |
-| Human   | Prefrontal cortex      | Area 9, Area 46; Area 10 |
-| Human   | Superior frontal gyrus | Area 8                   |
-| Human   | Superior parietal lobe | NA                       |
-| Mouse   | Cortex                 | NA                       |
-| Mouse   | Cerebellum             | NA                       |
-| Mouse   | Cerebral cortex        | NA                       |
-| Mouse   | Hippocampus            | NA                       |
-| Mouse   | Prefrontal cortex      | NA                       |
-| Mouse   | Subventricular zone    | NA                       |
-
-Note: We separated the mouse brain region of cortex from the cerebral cortex because the corresponding datasets used different mouse models.
-
-## What are the data sources in scREAD?
-
-The scREAD contains six human and 11 mouse AD scRNA-Seq & snRNA-Seq datasets that are collected from [GEO](https://www.ncbi.nlm.nih.gov/geo/) and [Synapse](https://www.synapse.org/#) databases as of September 22nd, 2020. The detail information is shown in the following table
-
-| Species | Data_ID     | Pubmed_ID      | Publication                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ------- | ----------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Human   | GSE138852   | PMID: 31768052 | Grubman A, Chew G, Ouyang JF, Sun G et al. A single-cell atlas of entorhinal cortex from individuals with Alzheimer's disease reveals cell-type-specific gene expression regulation. Nat Neurosci 2019 Dec;22(12):2087-2097.                                                                                                                                                                                                          |
-| Human   | syn18485175 | PMID: 31042697 | Mathys, H., Davila-Velderrain, J., Peng, Z. et al. Single-cell transcriptomic analysis of Alzheimer’s disease. Nature 570, 332–337 (2019). https://doi.org/10.1038/s41586-019-1195-2                                                                                                                                                                                                                                                  |
-| Human   | GSE147528   | NA             | Leng K, Li E, Eser R, et al. Molecular characterization of selectively vulnerable neurons in Alzheimer’s Disease. bioRxiv; 2020. DOI: 10.1101/2020.04.04.025825.                                                                                                                                                                                                                                                                      |
-| Human   | syn21125841 | PMID: 31932797 | Zhou Y, Song WM, Andhey PS, Swain A et al. Human and mouse single-nucleus transcriptomics reveal TREM2-dependent and TREM2-independent cellular responses in Alzheimer's disease. Nat Med 2020 Jan;26(1):131-142.                                                                                                                                                                                                                     |
-| Human   | GSE129308   | NA             | Single-soma transcriptomics of tangle-bearing neurons in Alzheimer’s disease reveals the signatures of tau-associated synaptic dysfunction Marcos Otero-Garcia, Yue-Qiang Xue, Tamara Shakouri, Yongning Deng, Samuel Morabito, Thomas Allison, William E. Lowry, Riki Kawaguchi, Vivek Swarup, Inma Cobos bioRxiv 2020.05.11.088591; doi: https://doi.org/10.1101/2020.05.11.088591                                                  |
-| Human   | GSE146639   | NA             | Profiling microglia from AD donors and non-demented elderly in acute human post-mortem cortical tissue Astrid M. Alsema, Qiong Jiang, Laura Kracht, Emma Gerrits, Marissa L. Dubbelaar, Anneke Miedema, Nieske Brouwer, Maya Woodbury, Astrid Wachter, Hualin S. Xi, Thomas Möller, Knut P. Biber, Susanne M. Kooistra, Erik W.G.M Boddeke, Bart J.L. Eggen bioRxiv 2020.03.18.995332; doi: https://doi.org/10.1101/2020.03.18.995332 |
-| Mouse   | GSE98969    | PMID: 28602351 | Keren-Shaul H, Spinrad A, Weiner A, Matcovitch-Natan O et al. A Unique Microglia Type Associated with Restricting Development of Alzheimer's Disease. Cell 2017 Jun 15;169(7):1276-1290.e17.                                                                                                                                                                                                                                          |
-| Mouse   | GSE103334   | PMID: 29020624 | Mathys H, Adaikkan C, Gao F, Young JZ et al. Temporal Tracking of Microglia Activation in Neurodegeneration at Single-Cell Resolution. Cell Rep 2017 Oct 10;21(2):366-380.                                                                                                                                                                                                                                                            |
-| Mouse   | GSE130626   | PMID: 31902528 | Nugent AA, Lin K, van Lengerich B, Lianoglou S et al. TREM2 Regulates Microglial Cholesterol Metabolism upon Chronic Phagocytic Challenge. Neuron 2020 Mar 4;105(5):837-854.e9.                                                                                                                                                                                                                                                       |
-| Mouse   | GSE141044   | PMID: 31928331 | Zhong S, Wang M, Zhan Y, Zhang J et al. Single-nucleus RNA sequencing reveals transcriptional changes of hippocampal neurons in APP23 mouse model of Alzheimer's disease. Biosci Biotechnol Biochem 2020 May;84(5):919-926.                                                                                                                                                                                                           |
-| Mouse   | GSE140510   | PMID: 31932797 | Zhou Y, Song WM, Andhey PS, Swain A et al. Human and mouse single-nucleus transcriptomics reveal TREM2-dependent and TREM2-independent cellular responses in Alzheimer's disease. Nat Med 2020 Jan;26(1):131-142.                                                                                                                                                                                                                     |
-| Mouse   | GSE140399   | PMID: 31932797 | Zhou Y, Song WM, Andhey PS, Swain A et al. Human and mouse single-nucleus transcriptomics reveal TREM2-dependent and TREM2-independent cellular responses in Alzheimer's disease. Nat Med 2020 Jan;26(1):131-142.                                                                                                                                                                                                                     |
-| Mouse   | GSE143758   | PMID: 32341542 | Habib, N., McCabe, C., Medina, S. et al. Disease-associated astrocytes in Alzheimer’s disease and aging. Nat Neurosci (2020). https://doi.org/10.1038/s41593-020-0624-8                                                                                                                                                                                                                                                               |
-| Mouse   | GSE147495   | PMID: 32320664 | Lau SF, Chen C, Fu WY, et al. IL-33-PU.1 Transcriptome Reprogramming Drives Functional State Transition and Clearance Activity of Microglia in Alzheimer's Disease. Cell Rep. 2020;31(3):107530. doi:10.1016/j.celrep.2020.107530                                                                                                                                                                                                     |
-| Mouse   | GSE150358   | PMID: 32579671 | Wang S, Mustafa M, Yuede CM, Salazar SV, Kong P, Long H, Ward M, Siddiqui O, Paul R, Gilfillan S, Ibrahim A, Rhinn H, Tassi I, Rosenthal A, Schwabe T, Colonna M. Anti-human TREM2 induces microglia proliferation and reduces pathology in an Alzheimer's disease model. J Exp Med. 2020 Sep 7;217(9):e20200785. doi: 10.1084/jem.20200785                                                                                           |
-| Mouse   | GSE142853   | PMID: 32503894 | Zhang Y, Fung ITH, Sankar P, Chen X, Robison LS, Ye L, D'Souza SS, Salinero AE, Kuentzel ML, Chittur SV, Zhang W, Zuloaga KL, Yang Q. Depletion of NK Cells Improves Cognitive Function in the Alzheimer Disease Mouse Model. J Immunol. 2020 Jul 15;205(2):502-510. doi: 10.4049/jimmunol.2000037. Epub 2020 Jun 5.                                                                                                                  |
-| Mouse   | GSE142858   | PMID: 32503894 | Zhang Y, Fung ITH, Sankar P, Chen X, Robison LS, Ye L, D'Souza SS, Salinero AE, Kuentzel ML, Chittur SV, Zhang W, Zuloaga KL, Yang Q. Depletion of NK Cells Improves Cognitive Function in the Alzheimer Disease Mouse Model. J Immunol. 2020 Jul 15;205(2):502-510. doi: 10.4049/jimmunol.2000037. Epub 2020 Jun 5.                                                                                                                  |
-
 ## How many data files are covered?
 
-The scREAD contains 73 files in total, which are redefined from 17 existing human and mouse AD scRNA-Seq & snRNA-Seq datasets from the public domain. These files are redefined according to species, gender, brain region, disease or control, and age. The number of cells in each of these 73 files is shown in the following figure. The x-axis represents the number of cells of each file, and the y-axis represents the file names of these 73 files. The color intensity of the bar stands for the number of cells, i.e. the darker of the color represents the more cell numbers in the corresponding file.
-
-![barplot](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/FigS1.jpg)
-
-The following figure represents the distribution of the species, gender, condition, and brain region for these 73 files. For each panel in this figure, the color of the bar stands for the number of files, the darker the color is the more files in the corresponding factor.
-
-![barplot](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/FigS2.jpg)
-(A) X-axis represents the species are covered in the 73 files, and y-axis represents the numbers of files for human and mouse species. (B) X-axis represents the gender information is covered in the 73 files, and y-axis represents the numbers of files for each element. (C ) X-axis represents the condition information is covered in the 73 files, and y-axis represents the numbers of files for each element. (D) X-axis represents the numbers of files for each element, and y-axis represents the brain regions that are covered in the 73 files.
-
+The scREAD contains 34 existing human and mouse AD scRNA-Seq & snRNA-Seq datasets, and 12 spatial transcriptomic studies  from the public domain. These files are redefined according to species, gender, brain region, disease or control, and age. 
 ## How can we define different mouse age stages?
 
 The choice of rodent age should be given more consideration, as it improves the quality and relevance of the data obtained, and reduces variability. As for the age of mice used, it depends on the development or senescence of the system being studied. For example, [Flurkey et al.](https://www.elsevier.com/books/the-mouse-in-biomedical-research/fox/978-0-12-369457-7) defined a mature adult C57BL6/J mouse as 3–6 months (equivalent in this analysis to 20–30 human years), a middle-aged mouse as 10–14 months (equivalent to 38–47 human years) and an old mouse as 18–24 months (equivalent to 56–69 human years). We, therefore, define the different mouse age stages in our database as shown in the following table:
@@ -93,25 +58,6 @@ The choice of rodent age should be given more consideration, as it improves the 
 | 7 months  | 4-7 months    |
 | 15 months | 10-15 months  |
 | 20 months | 20 months     |
-
-## What is a control atlas?
-
-We constructed 23 control cell atlases of human and mouse based on 17 datasets, which cover 10 brain regions, two genders, and three different mouse age stages. Cell types of these 23 control atlases were clustered using Seurat and SCINA based on known cell type markers that collected from literature and [PanglaoDB](https://panglaodb.se).
-
-## How to interpret the control atlas?
-
-![Healthy atlas](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/H3.jpg)
-
-This is the UMAP of control cells coming from the prefrontal cortex region of human male datasets.
-
-1. Clicking the 'DETAILS' button will navigate to the analysis result page of this dataset.
-2. The point size on this UMAP can be adjusted by clicking the point on this sliding bar. The point size ranges from 1 to 10.
-3. A floating window will appear when to move your cursor on cells, indicating the belonging cell type, cell name, and the UMAP coordinate.
-4. This bar has 11 options; you can choose each option by clicking it and the corresponding UMAP will be changed as you change your options. For example, you can download this UMAP by clicking the 'Download plot as a png' button.
-
-## Which cell types are covered in scREAD?
-
-There are eight cell types covered in our database. They are Astrocytes, Endothelial cells, Excitatory neurons, Inhibitory neurons, Microglia, Oligodendrocytes, Oligodendrocyte precursor cells, and Pericytes.
 
 ## Where can I find subclusters?
 
@@ -191,12 +137,7 @@ Note: For control datasets across different brain regions with different genders
 
 ## How to interpret the data_id?
 
-The data_id name is composed of three parts, they are Alzheimer's disease (the two letters), the region of different species (the first three numbers), and code numbers (the last two numbers). Here are two examples showing how to read data_id:
-
-| data_id | Alzheimer's disease | Region                | code_number |
-| ------- | ------------------- | --------------------- | ----------- |
-| AD00101 | AD                  | region of human (001) | 01          |
-| AD00402 | AD                  | region of mouse (004) | 02          |
+The data_id name is composed of three parts, they are Alzheimer's disease (the two letters), the region of different species (the first three numbers), and code numbers (the last two numbers). 
 
 Here is the table showing which brain regions are the first three letters corresponded to:
 | Three letters | Brain Region |
@@ -213,20 +154,13 @@ Here is the table showing which brain regions are the first three letters corres
 | 010 | Mouse subventricular zone and hippocampus|
 | 011 | Human prefrontal cortex (BA9)|
 | 012 | Human superior parietal lobe|
+
 Note: We separated the mouse brain region of cortex from the cerebral cortex because the corresponding datasets used different mouse models. We separated the human prefrontal cortex brain region because the corresponding braak stages are different.
 
 ## What is fst format?
 
 Multithreaded serialization of compressed data frames using the 'fst' format. The 'fst' format allows for random access of stored data and compression with the LZ4 and ZSTD compressors created by Yann Collet.
 You can see more information about Package ‘fst’ [here](https://cran.r-project.org/web/packages/fst/fst.pdf).
-
-## Where does scREAD store the data uploaded by users?
-
-We will ask for your permission when we want to store the data uploaded by you into our database. Then we will store the data in the background of our database.
-
-## How can I submit my AD scRNA-Seq data to scREAD to do an analysis?
-
-The users can submit their AD scRNA-Seq dataset as well as the corresponding control dataset to scREAD to do all the analysis through [Submit](https://bmbls.bmi.osumc.edu/scread/submit) page.
 
 ## Where can I find the source code?
 
@@ -238,9 +172,8 @@ The datasets of scREAD can be downloaded from [Download](https://bmbls.bmi.osumc
 
 ## What are the future plans of scREAD?
 
-- Collect more AD scRNA-Seq & snRNA-Seq data from more brain regions, and build up healthy atlas in diverse brain regions of human, mouse and extend to other species.
+- Collect more AD scRNA-Seq, snRNA-Seq data, spatial transcriptomics from more brain regions, and build up healthy atlas in diverse brain regions of human, mouse and extend to other species.
 - Collect AD single-cell omics data, such as scATAC-seq data, and achieve more comprehensive analysis results based on single-cell multiple omics data.
-- Identify significant differentially expressed regulons for each cell type across different files by using IRIS3.
 
 ## What computational tools are used in scREAD?
 
@@ -257,7 +190,7 @@ The datasets of scREAD can be downloaded from [Download](https://bmbls.bmi.osumc
 
 In the identification of disease cell types, we used Seurat's _FindTransferAnchors_ and _TransferData_ function to transfer cell types from the control atlas to disease datasets, which project PCA structure from the query (disease dataset) onto the reference (control atlas). PCA is [recommended](https://rdrr.io/cran/Seurat/man/FindTransferAnchors.html) when reference and query datasets are from scRNA-seq. CCA is [considered](https://satijalab.org/seurat/v3.1/atacseq_integration_vignette.html) better captures the shared feature correlation structure across single-cell modalities. LSI is [considered](https://satijalab.org/seurat/v3.1/atacseq_integration_vignette.html) better captures the 'internal' structure of ATAC-seq data in the case of scRNA-seq to scATAC-seq transfer.
 
-## What is the scREAD overall pipeline?
+## What is scREAD's scRNAseq pipeline?
 
 Our database organically integrates multiple state-of-the-art tools, including [IRIS3](https://bmbl.bmi.osumc.edu/iris3/), [SCINA](https://github.com/jcao89757/SCINA), [Seurat](https://satijalab.org/seurat/), and [IRIS-EDA](https://bmbls.bmi.osumc.edu/IRIS). These tools are either reputed or have been justified with the best performance in the analytical area.
 
@@ -267,22 +200,31 @@ Human and Mouse control atlases come from the 15 scRNA-Seq & snRNA-Seq studies. 
 
 SCINA is an R package that leverages prior marker genes information and simultaneously performs cell type clustering and assignment for known cell types, SCINA shows top performances among prior-knowledge classifiers when high-quality marker genes were provided. Each cell was assigned a cell type based on a manually created marker gene list file using SCINA v1.2.0, the cells with unknown labels marked by SCINA were first compared with predicted clusters from Seurat, then the unknown labels were assigned to the most dominate cell types within the predicted clusters.
 
-#### scREAD v1 marker genes
+#### Marker genes
 
-| **Astrocytes** | **Endothelial cells** | **Excitatory neurons** | **Inhibitory neurons** | **Microglia** | **Oligodendrocytes** | **Oligodendrocyte precursor cells** | **Pericytes** |
-| :------------: | :-------------------: | :--------------------: | :--------------------: | :-----------: | :------------------: | :---------------------------------: | :-----------: |
-|      GFAP      |         FLT1          |        SLC17A6         |        SLC32A1         |     IBA-1     |        OLIG2         |                VCAN                 |     AMBP      |
-|     EAAT1      |         CLDN5         |        SLC17A7         |          GAD1          |    P2RY12     |         MBP          |                CSPG4                |    HIGD1B     |
-|      AQP4      |          VTN          |          NRGN          |          GAD2          |     CSF1R     |         MOBP         |               PDGFRA                |    COX4I2     |
-|      LCN2      |         ITM2A         |         CAMK2A         |          TAC1          |     CD74      |         PLP1         |                SOX10                |     AOC3      |
-|      GJA1      |          VWF          |         SATB2          |          PENK          |      C3       |         MOG          |                NEU4                 |     PDE5A     |
-|     SLC1A2     |        FAM167B        |         COL5A1         |          SST           |     CST3      |        CLDN11        |               PCDH15                |     PTH1R     |
-|     FGFR3      |          BMX          |          SDK2          |          NPY           |     HEXB      |         MYRF         |               GPR37L1               |    P2RY14     |
-|     NKAIN4     |        CLEC1B         |          NEFM          |         MYBPC1         |     C1QA      |         GALC         |                C1QL1                |     ABCC9     |
-|      AGT       |         CD93          |         GRIN1          |         PVALB          |     CD74      |         ERMN         |                CDO1                 |     KCNJ8     |
-|     PLXNB1     |         CDH5          |          GLS           |         GABBR2         |    CX3CR1     |         MAG          |                EPN2                 |     CD248     |
-|     SLC1A3     |                       |                        |                        |     AIF-1     |                      |                                     |
-|                |                       |                        |                        |    TMEM119    |                      |
+We found some of the marker genes used in v1 were not specific enough during the development of scREAD v2. To improve the cell type annotate accuracy, we filtered out several markers and used an updated workflow by performing two iterations of cell type annotation. We used the same software in scREAD v1. The differences are that only Neurons would be annotated during the first iteration. Next, the Neurons were a subset from the whole dataset and used iteration 2 marker genes to annotate the Excitatory neurons and Inhibitory neurons. Finally, the Neurons' cell labels would be replaced by Excitatory neurons or Inhibitory neurons. The new workflow can improve the annotation by taking considering the differences between cell types and subtypes. scREAD v2 can be accessed from http://bmbls.bmi.osumc.edu/scread/v2
+
+Iteration 1 marker genes:
+
+| Astrocytes | Endothelial cells | Neurons | Microglia | Oligodendrocytes | Oligodendrocyte precursor cells | Pericytes |
+| ---------- | ----------------- | ------- | --------- | ---------------- | ------------------------------- | --------- |
+| GFAP       | CLDN5             | GLS     | P2RY12    | MBP              | VCAN                            | AMBP      |
+| AQP4       | VWF               | RBFOX3  | CSF1R     | MOBP             | SOX8                            | HIGD1B    |
+| GJA1       |                   | CAMK2A  | CX3CR1    | PLP1             |                                 | PTH1R     |
+| SLC1A2     |                   |         | C3        | MYRF             |                                 |           |
+| FGFR3      |                   |         |           | MAG              |                                 |           |
+| NKAIN4     |                   |         |           |                  |                                 |           |
+| AGT        |                   |         |           |                  |                                 |           |
+| PLXNB1     |                   |         |           |                  |                                 |           |
+| SLC1A3     |                   |         |           |                  |                                 |           |
+
+Iteration 2 marker genes:
+
+| Excitatory neurons | Inhibitory neurons |
+| ------------------ | ------------------ |
+| SLC17A6            | GAD1               |
+| SLC17A7            | GAD2               |
+| SATB2              |                    |
 
 ### 2. Identification of Human and Mouse disease cell types based on the control atlas
 
@@ -299,3 +241,22 @@ Seurat’s FindAllMarkers and FindMarkers functions that utilize the MAST packag
 ### 4. Identification of CTSRs
 
 Cell-type-specific regulons (CTSRs) are defined as a group of genes, which receive similar regulatory signals in a specific cell type, hence tending to have similar expression patterns and share conserved motifs in this cell type. A successful elucidation of CTSRs will substantially improve the identification of transcriptionally co-regulated gene modules, realistically allowing reliable prediction of global transcription regulation networks encoded in a specific cell typeThe CTSRs analysis in scREAD is performed using default [IRIS3](https://bmbl.bmi.osumc.edu/iris3/) settings.
+
+## What is scREAD's spatial transcriptomics pipeline?
+
+### 1. Data preprocessing
+
+For each samples within the study, we imported them into the [Squidpy](https://squidpy.readthedocs.io/en/stable/) Python package. We follow the standard workflow on [Squidpy and Scanpy](https://squidpy.readthedocs.io/en/stable/auto_tutorials/tutorial_visium_hne.html).
+### 2. Identification of Spatially variable genes (SVGs)
+
+[SpaGCN](https://github.com/jianhuupenn/SpaGCN) is a graph convolutional network model. We used SpaGCN to integrate gene expression and histology to identify spatial domains and spatially variable genes.
+### 3. Identification of differentially expressed genes
+
+Seurat’s FindAllMarkers and FindMarkers functions that utilize the MAST package were used to run DE testing on normalized gene expression data. Cell-type-specific genes were identified by performing DE testing between the cell type of interest and the average of the remaining cell types. Subcluster-specific genes were identified by performing DE testing between the subcluster of interest and the average of the remaining subclusters from the same cell type. For each cell type, several DE comparisons were performed within two different datasets, categorized from AD versus control, and AD versus AD in the same species under the same gender, brain region, and age. To regress out technical biases from different datasets, the dataset latent variables were added in all cross-dataset DE testing. All of the above-mentioned DE results can be sent to Enrichr web server real-time against different functional annotation databases to identify the enriched KEGG pathways, Gene Ontology(GO), etc.
+### 4. Deconvolution analysis with scRNA-seq & snRNA-seq datasets
+
+[CARD](https://github.com/YingMa0107/CARD) is a reference-based deconvolution method that estimates cell type composition in spatial transcriptomics based on cell type specific expression information obtained from a reference scRNA-seq data. In scREAD, we used CARD to track compositional alterations of cell types (from scRNA-seq or snRNA-seq dataset) in gene expression data (spatial transcriptomics dataset).
+
+### 5. Exporting sample ojbects for Python & R environment
+
+For each samples within the study, we provite raw and processed data object. The objects are both exported the object to h5ad format for Python users, and h5Seurat object for R users. The [seurat-disk](https://github.com/mojaveazure/seurat-disk) package was used to convert the h5ad object to h5Seurat format.

@@ -16,8 +16,8 @@
                 <p class="my-2">
                   <span class="text--secondary">Title: </span>
                   <span class="text--primary font-weight-medium"
-                    >Slide-seq: A scalable technology for measuring genome-wide
-                    expression at high spatial resolution</span
+                    >A spatially resolved brain region- and cell type-specific
+                    isoform atlas of the postnatal mouse brain</span
                   >
                 </p>
                 <p class="my-2">
@@ -31,7 +31,7 @@
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Date published: </span>
-                  <span class="text--primary">3-29-2019</span>
+                  <span class="text--primary">01-19-2021</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Date added to scREAD:</span>
@@ -86,13 +86,13 @@
                 <p class="my-2">
                   <span class="text--secondary">Number of samples: </span>
 
-                  <span class="text--primary">106</span>
+                  <span class="text--primary">11</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Region: </span>
 
                   <span class="text--primary"
-                    >hippocampi and olfactory bulbs</span
+                    >hippocampus and prefrontal cortex</span
                   >
                 </p>
                 <p class="my-2">
@@ -134,7 +134,7 @@
                     >
                     <span class="text--primary"
                       ><v-img
-                        src="https://www.science.org/cms/10.1126/science.aaw1219/asset/c2b8070a-1bfb-4c2c-9c75-aedb8143dbfd/assets/graphic/363_1463_f1.jpeg"
+                        src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41467-020-20343-5/MediaObjects/41467_2020_20343_Fig1_HTML.png?as=webp"
                         target="_blank"
                         class="text-decoration-none"
                         max-width="800px"

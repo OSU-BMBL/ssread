@@ -9,7 +9,7 @@
     </v-layout>
 
     <client-only>
-      <v-row v-show="false">
+      <v-row v-if="false">
         <v-col ref="pie" xs="6" md="6" lg="3">
           <vue-plotly
             :data="pieData1"
@@ -49,8 +49,8 @@
           </p>
           <v-spacer></v-spacer>
         </v-card-title>
-        <v-card-text
-          ><p class="title">Select filters:</p>
+        <v-card-text>
+          <!-- <p class="title">Select filters:</p>
           <v-row>
             <v-col xs="12" md="6" lg="2">
               <p class="subtitle-1 font-weight-bold py-0 my-0">Species:</p>
@@ -88,10 +88,10 @@
                 multiple
               ></v-autocomplete>
             </v-col>
-          </v-row>
+          </v-row>-->
           <v-card-actions>
             <download-excel class="mr-4" :data="filterDataset" type="csv">
-              <v-btn color="primary"> Download current table</v-btn>
+              <v-btn color="primary"> Download table</v-btn>
             </download-excel>
 
             <v-btn
@@ -252,7 +252,13 @@
               <td>
                 Transcriptome-scale spatial gene expression in the human
               </td>
-              <td>https://github.com/LieberInstitute/HumanPilot</td>
+              <td>
+                <a
+                  target="_blank"
+                  href="https://github.com/LieberInstitute/HumanPilot"
+                  >https://github.com/LieberInstitute/HumanPilot</a
+                >
+              </td>
               <td>
                 <ul>
                   <li>Disease</li>
@@ -274,7 +280,13 @@
                 Spatial Transcriptomics and In Situ Sequencing to Study
                 Alzheimer's Disease
               </td>
-              <td>GSE152506</td>
+              <td>
+                <a
+                  target="_blank"
+                  href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE152506"
+                  >GSE152506</a
+                >
+              </td>
               <td>
                 <ul>
                   <li>Disease</li>
@@ -298,7 +310,13 @@
                 Dysregulated Mitochondrial Functions and Stress Signaling in
                 Alzheimer Disease
               </td>
-              <td>10.17632/6s959w2zyr.1</td>
+              <td>
+                <a
+                  target="_blank"
+                  href="https://data.mendeley.com/datasets/6s959w2zyr/1"
+                  >10.17632/6s959w2zyr.1</a
+                >
+              </td>
               <td>
                 <ul>
                   <li>Disease</li>
@@ -321,7 +339,13 @@
                 High-definition spatial transcriptomics for in situ tissue
                 profiling
               </td>
-              <td>GSE130682</td>
+              <td>
+                <a
+                  target="_blank"
+                  href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE152506"
+                  >GSE130682</a
+                >
+              </td>
               <td>
                 <ul>
                   <li>Brain disorder</li>
@@ -342,7 +366,9 @@
                 expression at high spatial resolution
               </td>
               <td>
-                10.5281/zenodo.2571615
+                <a target="_blank" href="https://zenodo.org/record/2571615"
+                  >10.5281/zenodo.2571615
+                </a>
               </td>
               <td>
                 <ul>
@@ -365,7 +391,11 @@
                 resolution with Slide-seqV2
               </td>
               <td>
-                NA
+                <a
+                  target="_blank"
+                  href="https://singlecell.broadinstitute.org/single_cell/study/SCP815/highly-sensitive-spatial-transcriptomics-at-near-cellular-resolution-with-slide-seqv2#study-summary"
+                  >https://singlecell.broadinstitute.org/single_cell/study/SCP815
+                </a>
               </td>
               <td>
                 <ul>
@@ -385,7 +415,13 @@
               <td>
                 Molecular atlas of the adult mouse brain
               </td>
-              <td>GSE147747</td>
+              <td>
+                <a
+                  target="_blank"
+                  href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147747"
+                  >GSE147747</a
+                >
+              </td>
               <td>
                 <ul>
                   <li>Brain</li>
@@ -403,7 +439,13 @@
               <td>
                 Neuroinflammatory astrocyte subtypes in the mouse brain
               </td>
-              <td>GSE147747</td>
+              <td>
+                <a
+                  target="_blank"
+                  href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE165098"
+                  >GSE165098</a
+                >
+              </td>
               <td>
                 <ul>
                   <li>Brain disorder</li>
@@ -423,7 +465,13 @@
                 Clonal relations in the mouse brain revealed by single-cell and
                 spatial transcriptomics
               </td>
-              <td>GSE15342</td>
+              <td>
+                <a
+                  target="_blank"
+                  href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE15342"
+                  >GSE15342</a
+                >
+              </td>
               <td>
                 <ul>
                   <li>Brain disorder</li>
@@ -443,7 +491,13 @@
                 A spatially resolved brain region- and cell type-specific
                 isoform atlas of the postnatal mouse brain
               </td>
-              <td>GSE158450</td>
+              <td>
+                <a
+                  target="_blank"
+                  href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE158450"
+                  >GSE158450</a
+                >
+              </td>
               <td>
                 <ul>
                   <li>Brain disorder</li>
@@ -495,7 +549,7 @@ export default {
         { text: 'Species', value: 'species' },
         { text: 'Region', value: 'gender' },
         { text: 'Publication', value: 'condition' },
-        { text: 'GEO/synapse ID', value: 'public_id' },
+        { text: 'Public ID', value: 'public_id' },
         { text: 'Experimental factors', value: 'public_id' },
         { text: 'Number of samples', value: 'public_id' }
       ],
@@ -732,8 +786,8 @@ export default {
     async handleClick(item) {
       // this.$router.push('/browse/' + dataset.data_id)
       await this.$store.dispatch('ad_v2/setDialog', item.data_id)
-      this.computedDialogData = this.dialogData[0]
-      this.dialog = true
+      // this.computedDialogData = this.dialogData[0]
+      // this.dialog = true
     },
 
     clickSelectDatasetDialog(item) {

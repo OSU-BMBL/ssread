@@ -9,14 +9,20 @@
 - Hint for calculating DEGs
 - Replaced sankey plots with pie charts
 - Links with GEO & Synapse database on the browse page
-- Enrichment database version using Enrichr
-- Example button when searching genes
+- Hint for enrichment database version using Enrichr
+- Example button when searching genes and filter DEGs in the query page
 
 ### Updated
 
 - The homepage plot will arrange the layout to default
 - Updated user & data statistics
-- 
+- FAQ, Contact, Tutorials
+- Color palette when ploting cell clusters and homepage
+
+### Fixed
+
+- Fixed issue while loading gene expression profile in scatter plot
+- Fixed issue while calculating overlapping DEGs from query page
 
 ## 5/27/2022
 

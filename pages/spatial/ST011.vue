@@ -115,8 +115,9 @@
                   <span class="text--secondary">Description: </span>
 
                   <span class="text--primary"
-                    >s from portion of the DLPFC that spans six neuronal layers
-                    plus white matter (A) for a total of three subjects with two
+                    >As a quick overview, the data presented here is from
+                    portion of the DLPFC that spans six neuronal layers plus
+                    white matter (A) for a total of three subjects with two
                     pairs of spatially adjacent replicates (B). Each dissection
                     of DLPFC was designed to span all six layers plus white
                     matter (C). Using this web application you can explore the

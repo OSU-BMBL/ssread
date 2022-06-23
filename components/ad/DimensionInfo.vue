@@ -283,7 +283,39 @@ export default {
           'hoverCompareCartesian',
           'hoverClosestCartesian'
         ]
-      }
+      },
+      colors: [
+        '#E64B35FF',
+        '#4DBBD5FF',
+        '#00A087FF',
+        '#3C5488FF',
+        '#F39B7FFF',
+        '#8491B499',
+        '#91D1C2FF',
+        '#7E6148FF',
+        '#7E6148FE',
+        '#222222',
+        '#f3c300',
+        '#875692',
+        '#f38400',
+        '#a1caf1',
+        '#be0032',
+        '#c2b280',
+        '#848482',
+        '#008856',
+        '#e68fac',
+        '#0067a5',
+        '#f99379',
+        '#604e97',
+        '#f6a600',
+        '#b3446c',
+        '#dcd300',
+        '#882d17',
+        '#8db600',
+        '#654522',
+        '#e25822',
+        '#2b3d26'
+      ]
     }
   },
   computed: {
@@ -292,10 +324,11 @@ export default {
       allGenes: (state) => state.ad_v2.expressionGenes
     }),
     allColors() {
-      const result = this.allCellDim.map((i) => {
-        return i.marker.color
-      })
-      return result
+      // const result = this.allCellDim.map((i) => {
+      //   return i.marker.color
+      // })
+      // return result
+      return this.colors
     },
     dimensionFreq() {
       const names = this.dimension

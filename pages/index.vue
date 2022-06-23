@@ -68,7 +68,7 @@
           <v-col cols="6"
             ><p class="text-h4 mt-6" align-center>Search</p>
             <p class="font-weight-medium mt-6" align-center>
-              Query results over 34 single-cell & single-nuclei RNA-seq and 12
+              Query results over 34 single-cell & single-nuclei RNA-seq and 10
               spatial studies in 17 brain regions.
             </p>
             <ul class="py-2">
@@ -154,14 +154,13 @@
             </p>
             <ul class="py-2">
               <li>
-                Detailed annotations including cell types and spatial layers
+                Scatter plots for clusters, cell types, and spatial layers
               </li>
               <li>
-                Differential gene expressions and functional enrichment analysis
+                Feature plots and violin plots for gene expression profile
               </li>
               <li>
-                Spatially variable genes and deconvolution with single-cell
-                datasets
+                Real-time gene set enrichment analysis
               </li>
             </ul>
             <v-btn class="mt-6" large color="primary" to="/spatial/ST001"
@@ -255,7 +254,7 @@ export default {
       },
       pieData1: [
         {
-          values: [34, 12],
+          values: [34, 10],
           labels: ['single-cell & single-nuclei', 'spatial transcriptomics'],
           type: 'pie'
         }
@@ -419,7 +418,20 @@ export default {
           y: [10, 41, 5, 14, 45, 4, 7, 31, 8, 0, 0, 0, 0, 0],
 
           name: 'single-cell & single-nuclei',
-
+          marker: {
+            color: [
+              '#3b5998',
+              '#3b5998',
+              '#3b5998',
+              '#3b5998',
+              '#3b5998',
+              '#3b5998',
+              '#3b5998',
+              '#3b5998',
+              '#3b5998',
+              '#3b5998'
+            ]
+          },
           type: 'bar'
         },
         {
@@ -443,7 +455,25 @@ export default {
           y: [0, 16, 0, 0, 0, 0, 0, 48, 21, 8, 24, 11, 6, 75],
 
           name: 'spatial transcriptomics',
-
+          marker: {
+            color: [
+              '#F2DC46',
+              '#F2DC46',
+              '#F2DC46',
+              '#F2DC46',
+              '#F2DC46',
+              '#F2DC46',
+              '#F2DC46',
+              '#F2DC46',
+              '#F2DC46',
+              '#F2DC46',
+              '#F2DC46',
+              '#F2DC46',
+              '#F2DC46',
+              '#F2DC46',
+              '#F2DC46'
+            ]
+          },
           type: 'bar'
         }
       ],

@@ -16,22 +16,21 @@
                 <p class="my-2">
                   <span class="text--secondary">Title: </span>
                   <span class="text--primary font-weight-medium"
-                    >Slide-seq: A scalable technology for measuring genome-wide
-                    expression at high spatial resolution</span
+                    >Clonal relations in the mouse brain revealed by single-cell
+                    and spatial transcriptomics</span
                   >
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Authors: </span>
                   <span class="text--primary"
-                    >Samuel G Rodriques, Robert R Stickels, Aleksandrina Goeva,
-                    Carly A Martin, Evan Murray, Charles R Vanderburg, Joshua
-                    Welch, Linlin M Chen, Fei Chen, Evan Z Macosko
-                    <sup>$</sup></span
+                    >Michael Ratz, Leonie von Berlin, Ludvig Larsson, Marcel
+                    Martin, Jakub Orzechowski Westholm, Gioele La Manno, Joakim
+                    Lundeberg & Jonas Frisén <sup>$</sup></span
                   >
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Date published: </span>
-                  <span class="text--primary">3-29-2019</span>
+                  <span class="text--primary">02-24-2022</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Date added to scREAD:</span>
@@ -41,11 +40,11 @@
                   <span class="text--secondary">Full paper: </span>
                   <span class="text--primary"
                     ><a
-                      href="https://www.science.org/doi/10.1126/science.aaw1219"
+                      href="https://www.nature.com/articles/s41593-022-01011-x"
                       target="_blank"
                       class="text-decoration-none"
                     >
-                      Science
+                      Nature Neuroscience
                       <v-icon color="primary" size="1.2em"
                         >mdi-open-in-new</v-icon
                       >
@@ -86,14 +85,12 @@
                 <p class="my-2">
                   <span class="text--secondary">Number of samples: </span>
 
-                  <span class="text--primary">106</span>
+                  <span class="text--primary">8</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Region: </span>
 
-                  <span class="text--primary"
-                    >hippocampi and olfactory bulbs</span
-                  >
+                  <span class="text--primary">Forebrain</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Experimental factors: </span>
@@ -114,27 +111,17 @@
                 <p class="my-2">
                   <span class="text--secondary">Description: </span>
 
-                  <span class="text--primary"
-                    >s from portion of the DLPFC that spans six neuronal layers
-                    plus white matter (A) for a total of three subjects with two
-                    pairs of spatially adjacent replicates (B). Each dissection
-                    of DLPFC was designed to span all six layers plus white
-                    matter (C). Using this web application you can explore the
-                    expression of known genes such as SNAP25 (D, a neuronal
-                    gene), MOBP (E, an oligodendrocyte gene), and known layer
-                    markers from mouse studies such as PCP4 (F, a known layer 5
-                    marker gene).</span
-                  >
+                  <span class="text--primary"></span>
                 </p>
                 <v-row>
                   <v-col cols="8">
                     <span class="text--secondary"
-                      >Figure 1: High-definition spatial transcriptomics for in
-                      situ tissue profiling.</span
+                      >Figure 1: TREX enables simultaneous profiling of cell
+                      phenotype and clonality..</span
                     >
                     <span class="text--primary"
                       ><v-img
-                        src="https://www.science.org/cms/10.1126/science.aaw1219/asset/c2b8070a-1bfb-4c2c-9c75-aedb8143dbfd/assets/graphic/363_1463_f1.jpeg"
+                        src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41593-022-01011-x/MediaObjects/41593_2022_1011_Fig1_HTML.png?as=webp"
                         target="_blank"
                         class="text-decoration-none"
                         max-width="800px"

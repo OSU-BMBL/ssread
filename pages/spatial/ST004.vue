@@ -117,9 +117,8 @@
                   <span class="text--secondary">Description: </span>
 
                   <span class="text--primary"
-                    >As a quick overview, the data presented here is from
-                    portion of the DLPFC that spans six neuronal layers plus
-                    white matter (A) for a total of three subjects with two
+                    >s from portion of the DLPFC that spans six neuronal layers
+                    plus white matter (A) for a total of three subjects with two
                     pairs of spatially adjacent replicates (B). Each dissection
                     of DLPFC was designed to span all six layers plus white
                     matter (C). Using this web application you can explore the
@@ -228,6 +227,9 @@
             ></de-info
           ></v-col>
         </v-row>
+        <v-row>
+          <v-col class="mx-4" cols="12"> <deconv></deconv></v-col>
+        </v-row>
       </v-col>
     </v-row>
     <Fab></Fab>
@@ -240,13 +242,14 @@ import Fab from '@/components/utils/Fab'
 import DimensionInfo from '@/components/spatial/DimensionInfo'
 import DeInfo from '@/components/spatial/DeInfo'
 import SvgInfo from '@/components/spatial/SvgInfo'
-
+import Deconv from '@/components/spatial/Deconv2'
 export default {
   components: {
     Fab,
     'dimension-info': DimensionInfo,
     'de-info': DeInfo,
-    'svg-info': SvgInfo
+    'svg-info': SvgInfo,
+    deconv: Deconv
   },
   async asyncData({ store, error, params }) {
     const tmpId = 'AD00102'
@@ -258,15 +261,18 @@ export default {
     }
     try {
       await store.dispatch('ad_v2/fetchSpatialDimension', {
-        id: 'ST001'
+        id: 'ST00101'
       })
-
-      await store.dispatch('ad_v2/fetchExpressionGenes', 'ST001')
+      await store.dispatch('ad_v2/fetchDatasets')
+      await store.dispatch('ad_v2/fetchAllDeMeta')
+      await store.dispatch('ad_v2/clearExpression')
+      await store.dispatch('ad_v2/fetchExpressionGenes', 'ST00101')
       await store.dispatch('ad_v2/fetchDatasets')
       await store.dispatch('ad_v2/fetchDataset', tmpId)
       await store.dispatch('ad_v2/fetchCellType', tmpId)
       await store.dispatch('ad_v2/fetchPublication', tmpId)
       await store.dispatch('ad_v2/fetchDe', defaultDeParams)
+      await store.dispatch('ad_v2/fetchSvg', defaultDeParams)
       await store.dispatch('ad_v2/fetchDeMeta', tmpId)
     } catch (e) {
       error({
@@ -316,7 +322,7 @@ export default {
     clusterData() {
       return [
         {
-          name: '151673',
+          name: 'NULL',
           pngLink: `https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_lowres_image.png`,
           tiffLink: `${this.baseUrl}/cluster/Seurat-Figue-unsupervised-clustering.tiff`
         }

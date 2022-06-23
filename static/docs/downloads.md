@@ -8,9 +8,9 @@ IMPORTANT: If you are unable to download, please try to right click the 'downloa
 
 Gene expression matrix in fst format can be downloaded [here](https://cloud.osubmi.com/downloadFiles/scread/fst/)
 
-| scREAD data ID | Description                                            | Gene expression matrix (.txt.gz)                                                                                          | Cell type label (.txt.gz)                                                                 | Processed Seurat object (.rds)                                            |
-| -------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| AD00101        | H-H-Prefrontal cortex-Male                             | [syn18485175](https://www.synapse.org/#!Synapse:syn18485175);[syn21125841](https://www.synapse.org/#!Synapse:syn21125841) | NA                                                                                        | NA                                                                        |
+| scREAD data ID | Description                                            | Gene expression matrix (.txt.gz)                                                                                          | Cell type label (.txt.gz)                                                                 | Processed Seurat object (.h5Seurat)                                            | Processed Anndata object (.h5ad)                                            |
+| -------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Uploading in progress: https://cloud.osubmi.com/downloadFiles/scread/fst/|
 
 # Source code
 
