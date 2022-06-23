@@ -35,6 +35,11 @@
           ></v-select>
         </v-col>
         <v-col xs="12" md="10" lg="10" class="px-4 py-0 my-2">
+          <p>
+            Note: The MAST package were used to calculate DEGs on normalized
+            gene expression data (parameter: log2FC &gt; 0.25, adj.p-value &lt;
+            0.05).
+          </p>
           <p class="subtitle-1 font-weight-bold py-0 my-2">
             Group:
             <v-tooltip top>
