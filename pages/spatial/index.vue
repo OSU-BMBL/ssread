@@ -44,7 +44,7 @@
       <v-card class="mx-auto">
         <v-card-title>
           <p class="title">
-            scREAD covers 300 spatial datasets from 10 studies, 21 brain
+            ssREAD covers 300 spatial datasets from 10 studies, 21 brain
             regions.
           </p>
           <v-spacer></v-spacer>
@@ -109,7 +109,7 @@
             <v-divider class="my-2 py-2"></v-divider>
             <v-card-text>
               <p class="my-2">
-                <span class="text--secondary">scREAD ID: </span>
+                <span class="text--secondary">Data ID: </span>
                 <span class="text--primary">ST001</span>
               </p>
               <p class="my-2">
@@ -541,7 +541,7 @@ export default {
       factors: ['Disease', 'Brain disorder', 'Age'],
       headers: [
         {
-          text: 'scREAD ID',
+          text: 'ssREAD ID',
           align: 'start',
           sortable: false,
           value: 'data_id'
@@ -816,8 +816,8 @@ export default {
       title: 'Home',
       meta: [
         {
-          hid: 'scREAD homepage',
-          name: 'scREAD home page',
+          hid: 'ssREAD homepage',
+          name: 'ssREAD home page',
           content: `Alzheimers disease single-cell RNA-seq database,
             Alzheimers disease AD single-cell datasets database analysis workflow pipeline,
             Search gene expression, DEG, , Differential expression and Gene set enrichment analysis,

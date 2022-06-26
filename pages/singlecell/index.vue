@@ -11,7 +11,7 @@
     <v-card class="mx-auto">
       <v-card-title>
         <p class="title">
-          scREAD covers {{ totalDatasets }} datasets from 34 studies, 18 brain
+          ssREAD covers {{ totalDatasets }} datasets from 34 studies, 18 brain
           regions, and 2,194,144 cells.
         </p>
         <v-spacer></v-spacer>
@@ -84,7 +84,7 @@
           <v-divider class="my-2 py-2"></v-divider>
           <v-card-text>
             <p class="my-2">
-              <span class="text--secondary">scREAD Data ID: </span>
+              <span class="text--secondary">Data ID: </span>
               <span class="text--primary">{{
                 computedDialogData.data_id
               }}</span>
@@ -281,7 +281,7 @@ export default {
       computedDialogData: [],
       headers: [
         {
-          text: 'scREAD data ID',
+          text: 'Data ID',
           align: 'start',
           sortable: false,
           value: 'data_id'
@@ -575,8 +575,8 @@ export default {
       title: 'Home',
       meta: [
         {
-          hid: 'scREAD homepage',
-          name: 'scREAD home page',
+          hid: 'ssREAD homepage',
+          name: 'ssREAD home page',
           content: `Alzheimers disease single-cell RNA-seq database, 
             Alzheimers disease AD single-cell datasets database analysis workflow pipeline,
             Search gene expression, DEG, , Differential expression and Gene set enrichment analysis,

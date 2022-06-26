@@ -1,7 +1,7 @@
 {
-  "name": "scread",
+  "name": "ssread",
   "version": "2.0.1",
-  "description": "Scread init message.",
+  "description": "ssREAD.",
   "author": "Cankun Wang",
   "private": true,
   "scripts": {

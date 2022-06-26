@@ -37,7 +37,7 @@
                   <span class="text--primary">8-20-2020</span>
                 </p>
                 <p class="my-2">
-                  <span class="text--secondary">Date added to scREAD:</span>
+                  <span class="text--secondary">Date added:</span>
                   <span class="text--primary"> 5-1-2022</span>
                 </p>
                 <p class="my-2">

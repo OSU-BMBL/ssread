@@ -18,7 +18,7 @@
 
           <v-card-text>
             <p class="my-2">
-              <span class="text--secondary">scREAD Data ID: </span>
+              <span class="text--secondary">Data ID: </span>
               <span class="text--primary">{{ dataset[0].data_id }}</span>
             </p>
             <p class="my-2">
@@ -61,7 +61,7 @@
               <v-divider class="my-2 py-2"></v-divider>
               <v-card-text>
                 <p class="my-2">
-                  <span class="text--secondary">scREAD Data ID: </span>
+                  <span class="text--secondary">Data ID: </span>
                   <span class="text--primary">{{
                     computedDialogData.data_id
                   }}</span>
@@ -142,7 +142,7 @@
               </p>
               <p class="my-2">
                 <span class="text--secondary"
-                  >Number of cells in scREAD after filtering:
+                  >Number of cells after filtering:
                 </span>
                 <span class="text--primary">{{ dataset[0].n_cell }}</span>
               </p>
@@ -252,7 +252,7 @@ export default {
       search: '',
       headers: [
         {
-          text: 'scREAD data ID',
+          text: 'Data ID',
           align: 'start',
           sortable: false,
           value: 'data_id'

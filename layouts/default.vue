@@ -172,7 +172,7 @@
       width="auto"
     >
       <v-col class="text-center caption" cols="12">
-        scREAD is developed by <a href="https://u.osu.edu/bmbl/">BMBL</a>, it is
+        ssREAD is developed by <a href="https://u.osu.edu/bmbl/">BMBL</a>, it is
         free and open to all users and there is no login requirement. |
         {{ new Date().getFullYear() }}
       </v-col>
@@ -190,7 +190,7 @@ export default {
   data() {
     return {
       drawer: null,
-      title: 'scREAD',
+      title: 'ssREAD',
       fullTitle:
         "A Single-cell and Spatial RNA-Seq Database for Alzheimer's Disease",
       appBarColor: 'primary',
@@ -311,7 +311,7 @@ export default {
   },
   head() {
     return {
-      titleTemplate: '%s - scREAD',
+      titleTemplate: '%s - ssREAD',
       meta: [
         {
           hid: 'default description',

@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const apiClient = axios.create({
-  // baseURL: `https://bmbls.bmi.osumc.edu/api/scread`,
   baseURL: process.env.API_URL,
   withCredentials: false,
   headers: {
@@ -10,7 +9,6 @@ const apiClient = axios.create({
   }
 })
 const uploadClient = axios.create({
-  // baseURL: `https://bmbls.bmi.osumc.edu/api/scread`,
   baseURL: process.env.API_URL,
   method: 'post',
   headers: {

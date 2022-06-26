@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-layout column justify-center align-center class="bg">
-      <p class="text-h1 font-weight-regular" align-center>scREAD</p>
+      <p class="text-h1 font-weight-regular" align-center>ssREAD</p>
       <p class="text-bg display-1">
         A Single-cell and Spatial RNA-Seq Database for Alzheimer's Disease
       </p>
@@ -27,8 +27,8 @@
                 datasets
               </li>
             </ul>
-            <v-btn class="mt-6" large color="primary" to="/browse"
-              >Browse all</v-btn
+            <v-btn class="mt-6" large color="primary" to="/singlecell"
+              >Browse</v-btn
             >
           </v-col>
           <v-col class="pa-6" cols="6"
@@ -213,7 +213,7 @@ export default {
       computedDialogData: [],
       headers: [
         {
-          text: 'scREAD data ID',
+          text: 'Data ID',
           align: 'start',
           sortable: false,
           value: 'data_id'
@@ -646,7 +646,7 @@ export default {
       dimension: (state) => state.ad_v2.spatialDimension
     }),
     bannerMessage() {
-      return `You are visiting scREAD's dev version. Please let us know for any issues or suggestions via qin.ma@osumc.edu.`
+      return `You are visiting ssREAD's dev version. Please let us know for any issues or suggestions via qin.ma@osumc.edu.`
     },
     currentBrowseItems() {
       return this.browseItems.species

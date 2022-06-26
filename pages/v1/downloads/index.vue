@@ -36,7 +36,7 @@ export default {
       const navContent = post.default
         .substring(navStart, navEnd)
         .replace(/href="([^\\'\\"]+)/g, function(m, s) {
-          return 'href="/scread/v1/downloads/' + s + '"'
+          return 'href="/ssread/v1/downloads/' + s + '"'
         })
       // await store.dispatch('docs/commitToc', navContent)
       return {

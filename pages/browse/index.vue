@@ -47,7 +47,7 @@
                       <span class="text--primary">2-21-2021</span>
                     </p>
                     <p class="my-2">
-                      <span class="text--secondary">Date added to scREAD:</span>
+                      <span class="text--secondary">Date added:</span>
                       <span class="text--primary"> 5-1-2022</span>
                     </p>
                     <p class="my-2">
@@ -73,7 +73,7 @@
                       <v-btn
                         ><span class="text--primary"
                           ><a
-                            href="/scread/spatial/ST001"
+                            href="/ssread/spatial/ST001"
                             target="_blank"
                             class="text-decoration-none"
                           >

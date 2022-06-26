@@ -59,14 +59,6 @@ Spatial page:
 
 ## 4/1/2022
 
-### Added
-
-scREAD now has multiple instances:
-
-- Main server (v1): https://bmbls.bmi.osumc.edu/scread/
-- Alternative server: http://osubmi.com/scread/
-- scREAD v2 (in development)https://bmblx.bmi.osumc.edu/scread/
-
 Enrichment analysis:
 
 - Added debunce when filtering DEGs to avoid too many Enrichr API calls
