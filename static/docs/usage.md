@@ -34,23 +34,23 @@
   
   - Contact
   
-  - News: updates on scREAD
+  - News: updates on ssREAD
 
 - Download
   
   - Download raw and processed datasets.
   
-  - Steps to run scREAD backend workflow locally.
+  - Steps to run ssREAD backend workflow locally.
 
 - Version 1 (Archived)
   
-  - Explore scREAD version 1.
+  - Explore ssREAD version 1.
 
 # scRNA-seq Result Illustration
 
-We used [AD00103](https://bmbls.bmi.osumc.edu/scread/AD00103) this dataset to showcase, it consists of 6,629 cells comes from the human AD female prefrontal cortex region in [Mathys, et al.](https://pubmed.ncbi.nlm.nih.gov/31042697/) research.
+We used [AD00103](https://bmblx.bmi.osumc.edu/ssread/AD00103) this dataset to showcase, it consists of 6,629 cells comes from the human AD female prefrontal cortex region in [Mathys, et al.](https://pubmed.ncbi.nlm.nih.gov/31042697/) research.
 
-This tutorial will guide you through the analysis result page of scREAD in detail.
+This tutorial will guide you through the analysis result page of ssREAD in detail.
 
 ### General information
 
@@ -58,11 +58,11 @@ The general information of this dataset is shown in the first section of the ana
 
 ![General information](https://raw.githubusercontent.com/Crystal-JJ/scREAD/master/General_information2.jpg)
 
-1. Overview of current dataset: 'scREAD Data ID', 'Species', 'Region', 'Condition', 'Braak Stage', 'Gender', and 'Age'.
+1. Overview of current dataset: 'ssREAD Data ID', 'Species', 'Region', 'Condition', 'Braak Stage', 'Gender', and 'Age'.
 2. The number of identified cell types, control-like cells, and AD-associated cells.
 3. General information of the corresponding research paper for this dataset.
 4. All other datasets that are included in the same experiment or publication.
-5. A dialog will appear when users click on the scREAD Data ID, then users can click the 'DETAILS' button to go to the analysis result page of the corresponding dataset.
+5. A dialog will appear when users click on the ssREAD Data ID, then users can click the 'DETAILS' button to go to the analysis result page of the corresponding dataset.
 
 ### Cell clustering
 
@@ -111,7 +111,7 @@ Two high-resolution UMAP plots show the predicted cell types and the expression 
 
 We used the dataset [ST00109](https://bmblx.bmi.osumc.edu/scread/spatial/ST001) to showcase the functions of the database. It comes from the dorsolateral prefrontal cortex region of a 30-year-old, caucasian female in a non-diseased state in [Maynard, et al.](https://urldefense.com/v3/__https://www.nature.com/articles/s41593-020-00787-0__;!!AU3bcTlGKuA!HID7VJHq0bXFFkn14kCZH6wF3KzbE46Ik0TMhiwrVypDUObnlvF952rZdr6zjJMkm5gW4UF06apnILhAbCndhr2Q_HeFA91V$ ) research. 
 
-This tutorial will guide you through the analysis result page of scREAD in detail.
+This tutorial will guide you through the analysis result page of ssREAD in detail.
 
 ## General Information
 
@@ -119,7 +119,7 @@ The summary of this dataset is shown in the first section of the analysis result
 
    ![](./docs/images/Summary.png#center)
 
-1. **Publication Overview:** 'Title', 'Date published', 'Date added to scREAD', 'Abstract', 'Protocol', and 'Data'.
+1. **Publication Overview:** 'Title', 'Date published', 'Date added', 'Abstract', 'Protocol', and 'Data'.
 
 2. **Study Design:** 'Species', 'Number of Samples', 'Region', 'Experimental factors', 'Description', and 'Figure: Spatial transcriptomics in DLPFC using Visium'.
 
@@ -226,7 +226,7 @@ The 'Spot-level data' section allows users to select specific samples from the d
 
 ---
 
-The 'Browse' page allows users to browse scRNA-seq or spatial transcriptomics datasets that are stored in scREAD based on factors such as species, brain region, or experimental factors.
+The 'Browse' page allows users to browse scRNA-seq or spatial transcriptomics datasets that are stored in ssREAD based on factors such as species, brain region, or experimental factors.
 
    ![](./docs/images/Browse.png#center)
 

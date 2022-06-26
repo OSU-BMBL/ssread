@@ -85,15 +85,11 @@ Enrichment analysis:
 
 - Data query: added search function for finding overlapping DEGs from multiple comparisons
 
-## 3/10/2022
-
-scREAD main server is currently in maintenance and scREAD has been migrated to the alternative server at http://osubmi.com/scread/.
-
 ## 12/28/2021
 
 ### Added
 
-Six new publication were added to scREAD v2 (in-development)
+Six new publication were added to ssREAD (in-development)
 
 - Single-nucleus transcriptome analysis reveals dysregulation of angiogenic endothelial cells and neuroprotective glia in Alzheimer’s disease
 - Overexpressing low-density lipoprotein receptor reduces tau-associated neurodegeneration in relation to apoE-linked mechanisms
@@ -119,8 +115,8 @@ Six new publication were added to scREAD v2 (in-development)
 
 ## 5/18/2021
 
-The scREAD protocol: [Use of scREAD to Explore and Analyze Single-cell and Single-nucleus RNA-Seq data for Alzheimer’s Disease](https://doi.org/10.1016/j.xpro.2021.100513) has been published on STAR protocols!
+Our protocol paper: [Use of scREAD to Explore and Analyze Single-cell and Single-nucleus RNA-Seq data for Alzheimer’s Disease](https://doi.org/10.1016/j.xpro.2021.100513) has been published on STAR protocols!
 
 ## 11/13/2020
 
-scREAD is online in [iScience](<https://www.cell.com/iscience/fulltext/S2589-0042(20)30966-4?rss=yes>)! Please feel free to [contact](https://bmbls.bmi.osumc.edu/scread/help/contact) us if you encounter any issues.
+The scREAD paper is published online in [iScience](<https://www.cell.com/iscience/fulltext/S2589-0042(20)30966-4?rss=yes>)!
