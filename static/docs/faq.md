@@ -7,7 +7,7 @@ This list of questions is not exhaustive. If you have any other questions please
 
 ## How to cite ssREAD?
 
-ssREAD is still under development. To cite scREAD 1.0, please use the following:
+ssREAD is still under development. To cite 1.0 version, please use the following:
 
 Jiang, Jing, Cankun Wang, Ren Qi, Hongjun Fu, and Qin Ma. “ScREAD: A Single-Cell RNA-Seq Database for Alzheimer’s Disease.” IScience 23, no. 11 (November 20, 2020): 101769. https://doi.org/10.1016/j.isci.2020.101769.
 
@@ -198,7 +198,7 @@ SCINA is an R package that leverages prior marker genes information and simultan
 
 #### Marker genes
 
-We found some of the marker genes used in v1 were not specific enough during the development of ssREAD. To improve the cell type annotate accuracy, we filtered out several markers and used an updated workflow by performing two iterations of cell type annotation. We used the same software in scREAD v1. The differences are that only Neurons would be annotated during the first iteration. Next, the Neurons were a subset from the whole dataset and used iteration 2 marker genes to annotate the Excitatory neurons and Inhibitory neurons. Finally, the Neurons' cell labels would be replaced by Excitatory neurons or Inhibitory neurons. The new workflow can improve the annotation by taking considering the differences between cell types and subtypes.
+We found some of the marker genes used in v1 were not specific enough during the development of ssREAD. To improve the cell type annotate accuracy, we filtered out several markers and used an updated workflow by performing two iterations of cell type annotation. The differences are that only Neurons would be annotated during the first iteration. Next, the Neurons were a subset from the whole dataset and used iteration 2 marker genes to annotate the Excitatory neurons and Inhibitory neurons. Finally, the Neurons' cell labels would be replaced by Excitatory neurons or Inhibitory neurons. The new workflow can improve the annotation by taking considering the differences between cell types and subtypes.
 
 Iteration 1 marker genes:
 
