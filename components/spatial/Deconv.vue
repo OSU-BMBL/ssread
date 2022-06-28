@@ -24,7 +24,7 @@
             v-model="stSelect"
             :items="stItems"
             item-text="name"
-            item-value="value"
+            item-value="name"
             return-object
             single-line
             persistent-hint
@@ -52,15 +52,22 @@
           ></v-select> </v-col
       ></v-col>
       <v-col xs="12" md="4" lg="10" class="px-4 py-0 my-2">
+        {{
+          `https://bmblx.bmi.osumc.edu/ssread_download/img/${stSelect.name}_${scSelect.value}_deconv.png`
+        }}
         <v-img
           width="700"
           contain
-          :src="`spatial/${scSelect.value}.png`"
+          :src="
+            `https://bmblx.bmi.osumc.edu/ssread_download/img/${stSelect.name}_${scSelect.value}_deconv.png`
+          "
         ></v-img
         ><v-img
           contain
           width="700"
-          :src="`spatial/${scSelect.value}-cor.png`"
+          :src="
+            `https://bmblx.bmi.osumc.edu/ssread_download/img/${stSelect.name}_${scSelect.value}_cor.png`
+          "
         ></v-img
       ></v-col>
     </v-row>
@@ -80,9 +87,22 @@ export default {
   },
   data() {
     return {
-      stSelect: { name: 'ST00109', value: 'AD00105' },
-      stItems: [{ name: 'ST00109', value: 'AD00105' }],
-      scSelect: { name: 'AD00103', value: 'AD00103' },
+      stSelect: { name: 'ST00109' },
+      stItems: [
+        { name: 'ST00101' },
+        { name: 'ST00102' },
+        { name: 'ST00103' },
+        { name: 'ST00104' },
+        { name: 'ST00105' },
+        { name: 'ST00106' },
+        { name: 'ST00107' },
+        { name: 'ST00108' },
+        { name: 'ST00109' },
+        { name: 'ST00110' },
+        { name: 'ST00111' },
+        { name: 'ST00112' }
+      ],
+      scSelect: { name: 'AD00103', value: 'AD00101' },
       scItems: [
         { name: 'AD00101', value: 'AD00101' },
         { name: 'AD00102', value: 'AD00102' },

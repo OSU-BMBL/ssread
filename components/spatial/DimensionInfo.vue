@@ -76,21 +76,42 @@
       <v-col xs="12" md="12" lg="4" class="px-4 py-0 my-0">
         <v-col xs="12" md="12" lg="10" class="px-4 py-0 my-0"
           ><p class="subtitle-1 font-weight-bold">
-            Opacity:
+            Image opacity:
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
                 <v-icon color="primary" dark v-bind="attrs" v-on="on"
                   >mdi-help-circle-outline</v-icon
                 >
               </template>
-              <span
-                >Limit testing to genes which show, on average, at least X-fold
-                difference (log-scale) between the two groups of cells.</span
-              >
+              <span>Set the opacity of the background spatial images.</span>
             </v-tooltip>
           </p>
           <v-slider
             v-model="spatialOpacity"
+            max="1"
+            min="0"
+            hide-details
+            :thumb-size="24"
+            thumb-label="always"
+            class="align-center"
+            step="0.1"
+            ticks="always"
+            tick-size="4"
+          >
+          </v-slider>
+          <p class="subtitle-1 font-weight-bold">
+            Point opacity:
+            <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon color="primary" dark v-bind="attrs" v-on="on"
+                  >mdi-help-circle-outline</v-icon
+                >
+              </template>
+              <span>Set the opacity of the foreground spatial spots.</span>
+            </v-tooltip>
+          </p>
+          <v-slider
+            v-model="spatialOpacity2"
             max="1"
             min="0"
             hide-details
@@ -233,6 +254,7 @@ export default {
       toggleSvg: false,
       pointSize: 6,
       spatialOpacity: 0.4,
+      spatialOpacity2: 1.0,
       spatialX: 0,
       spatialY: 0,
       headers: [
@@ -611,7 +633,8 @@ export default {
             text: cellNames,
             marker: {
               size: this.pointSize,
-              color: this.colors[i]
+              color: this.colors[i],
+              opacity: this.spatialOpacity2
             },
             colorscale: 'YlOrRd',
             name: clusterName
@@ -641,7 +664,8 @@ export default {
             text: cellNames,
             marker: {
               size: this.pointSize,
-              color: this.colors[i]
+              color: this.colors[i],
+              opacity: this.spatialOpacity2
             },
             colorscale: 'YlOrRd',
             name: clusterName

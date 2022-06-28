@@ -16,7 +16,7 @@
   
   - scRNA-seq datasets: 172 datasets, 34 studies, 18 brain regions, and 2,194,144 cells.
   
-  - Spatial Transcriptomics datasets: 300 spatial datasets, 10 studies, and 21 brain regions.
+  - Spatial Transcriptomics datasets: 300 spatial datasets, 10 studies, and 17 brain regions.
   
   - Sort by species, brain region, and experimental factors.
 
@@ -221,23 +221,6 @@ The 'Spot-level data' section allows users to select specific samples from the d
 3. Average gene expression (scaled 0-1) for each spot from a mixture of cells of potentially heterogeneous cell types. The outputs are the estimated cell-type composition across spatial locations for the corresponding scRNA-seq dataset.
 
 4. Correlations in proportions of cell-types across spatial locations between cell-type pairs, where correlations range from -1 (dark sage green) to 1 (burgundy).
-
-# Browse
-
----
-
-The 'Browse' page allows users to browse scRNA-seq or spatial transcriptomics datasets that are stored in ssREAD based on factors such as species, brain region, or experimental factors.
-
-   ![](./docs/images/Browse.png#center)
-
-1. Users can sort by species (mouse or human) by clicking the drop-down arrow.
-
-2. Users can sort by brain region by clicking the drop-down arrow.
-
-3. Users can sort by experimental factors such as disease, brain disorder, or age by clicking the drop-down arrow.
-
-4. Users can download the table by clicking 'Download Current Table'.
-
 # Query
 
 ---
