@@ -2,6 +2,24 @@
 
 # News
 
+## 6/28/2022
+
+### Added
+
+- Option to select the opacity of the spots in spatial page
+- Moved download section in result page to an individual download page
+
+### Updated
+
+- The tutorials due to the function changed in the spatial result page
+- Contact information
+
+### Fixed
+
+- Fixed error while loading deconvolution results
+- Fixed issue while loading the spots image under the scatter plot
+- The number of spatial samples and brain regions
+
 ## 6/22/2022
 
 ### Added

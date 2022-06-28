@@ -115,7 +115,7 @@ This tutorial will guide you through the analysis result page of ssREAD in detai
 
 ## General Information
 
-The summary of this dataset is shown in the first section of the analysis result page. This section includes three parts: (1) Publication, (2) Study design, and (3) Download dataset.
+The summary of this dataset is shown in the first section of the analysis result page. This section includes two parts: (1) Publication and (2) Study design.
 
    ![](./docs/images/Summary.png#center)
 
@@ -123,13 +123,11 @@ The summary of this dataset is shown in the first section of the analysis result
 
 2. **Study Design:** 'Species', 'Number of Samples', 'Region', 'Experimental factors', 'Description', and 'Figure: Spatial transcriptomics in DLPFC using Visium'.
 
-3. **Download dataset** provides the link to download the raw or processed data via Seurat or Scanpy.
-
 ## Spot-level data
 
 The 'Spot-level data' section allows users to select specific samples from the dataset and manipulate interactive UMAP plots that show predicted cell types, the expression and distribution of genes, and the number of  spots of each cell type.
 
-   ![](./docs/images/spot_level_data.png#center)
+   ![](./docs/images/spot_level.png#center)
 
 
 1. Users select their desired sample from the dataset. For this example, ST00109 was used. The following UMAP will change to the UMAP of predicted subclusters for this specific sample.
@@ -142,7 +140,7 @@ The 'Spot-level data' section allows users to select specific samples from the d
 
 5. This function bar contains several quick buttons for graphic operations.
 
-6. A sliding bar is used to control the opacity of the underlying raw image. It ranges from 1 (translucent) to 10 (completely opaque).
+6. A sliding bar is used to control the opacity of the underlying raw image and the plotted points. It ranges from 1 (translucent) to 10 (completely opaque) for both functions.
 
 7. Hover the cursor on cell points to display cell type, cell name, and UMAP coordinates.
 

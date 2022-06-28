@@ -52,9 +52,7 @@
           ></v-select> </v-col
       ></v-col>
       <v-col xs="12" md="4" lg="10" class="px-4 py-0 my-2">
-        {{
-          `https://bmblx.bmi.osumc.edu/ssread_download/img/${stSelect.name}_${scSelect.value}_deconv.png`
-        }}
+        {{ `Showing results: ${stSelect.name} and ${scSelect.value}` }}
         <v-img
           width="700"
           contain

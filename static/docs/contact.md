@@ -1,14 +1,11 @@
 [[toc]]
 
 # Contact us
-
-ssREAD is a free resource database, we welcome all kinds of feedback. We envisage that this will benefit the research and medical community.
-
 # Authors
 
-Cankun Wang, Megan McNutt, Hongjun Fu, Qin Ma
+Cankun Wang, Megan McNutt, Anjun Ma, Hongjun Fu, Qin Ma
 
-If you have any questions, suggestions, or found a new AD paper generated scRNA-seq datasets, please let us know through [google form](https://docs.google.com/forms/d/e/1FAIpQLSereTkpOfJ4LJLe9Ke5dZq78SnX3D7qXjQWY0ofDut0kIfDPg/viewform), or email: [hongjun.fu@osumc.edu](hongjun.fu@osumc.edu) or [qin.ma@osumc.edu](qin.ma@osumc.edu).
+If you have any questions, suggestions, or found a new AD paper generated scRNA-seq datasets, please let us know through via email: [hongjun.fu@osumc.edu](hongjun.fu@osumc.edu) or [qin.ma@osumc.edu](qin.ma@osumc.edu).
 
 More web servers developed by [BMBL](https://u.osu.edu/bmbl/) can be found [here](https://u.osu.edu/bmbl/highlights/webservers/).
 
