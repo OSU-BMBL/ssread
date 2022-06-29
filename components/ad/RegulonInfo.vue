@@ -41,23 +41,23 @@
               </tr>
             </template>
           </v-data-table>
-          <no-ssr>
-            <iframe :src="iris3Frame" height="800" width="100%"></iframe
-          ></no-ssr>
-          <p class="text--primary ma-4">
-            <span class="font-weight-bold"
-              ><a
-                :href="
-                  'https://bmbl.bmi.osumc.edu/iris3/results_scread.php?jobid=' +
-                    jobid
-                "
-                target="_blank"
-                style="text-decoration:none;"
+          <no-ssr v-show="false">
+            <iframe :src="iris3Frame" height="800" width="100%"></iframe>
+            <p class="text--primary ma-4">
+              <span class="font-weight-bold"
+                ><a
+                  :href="
+                    'https://bmbl.bmi.osumc.edu/iris3/results_scread.php?jobid=' +
+                      jobid
+                  "
+                  target="_blank"
+                  style="text-decoration:none;"
+                >
+                  Open cell-type-specific regulon result page in new tab</a
+                ></span
               >
-                Open cell-type-specific regulon result page in new tab</a
-              ></span
-            >
-          </p>
+            </p></no-ssr
+          >
         </v-col></v-row
       >
     </v-card-text>
