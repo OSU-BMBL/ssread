@@ -126,7 +126,7 @@
       </v-list>
 
       <template v-slot:append>
-        <v-card class="grey lighten-4 my-0 ">
+        <v-card v-show="false" class="grey lighten-4 my-0">
           <v-card-title class="subtitle-1 black--text font-weight-bold"
             >Cite Us</v-card-title
           >
