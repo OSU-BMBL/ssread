@@ -48,7 +48,7 @@
           </v-list>
         </v-menu>
         <v-btn to="/downloads" text> Download </v-btn>
-        <v-menu open-on-hover bottom offset-y rounded="0">
+        <v-menu v-if="false" open-on-hover bottom offset-y rounded="0">
           <template v-slot:activator="{ on, attrs }">
             <v-btn v-bind="attrs" text v-on="on">Version 1 (archived)</v-btn>
           </template>
@@ -233,12 +233,14 @@ export default {
             }
           ]
         },
-        { icon: 'mdi-download', text: 'Downloads', path: '/downloads' },
-        {
-          icon: 'mdi-table',
-          text: 'Version 1 (archived)',
-          path: '/v1/home'
-        }
+        { icon: 'mdi-download', text: 'Downloads', path: '/downloads' }
+        //*
+        // {
+        //   icon: 'mdi-table',
+        //   text: 'Version 1 (archived)',
+        //   path: '/v1/home'
+        // }
+        //* /
       ],
       browseMenu: [
         {
