@@ -3,13 +3,11 @@
 # FAQ
 
 
-This list of questions is not exhaustive. If you have any other questions please email any authors on the [Contact](https://bmbls.bmi.osumc.edu/scread/help/contact) page.
+This list of questions is not exhaustive. If you have any other questions please email any authors on the [Contact](https://bmblx.bmi.osumc.edu/ssread/help/contact) page.
 
 ## How to cite ssREAD?
 
-ssREAD is still under development. To cite 1.0 version, please use the following:
-
-Jiang, Jing, Cankun Wang, Ren Qi, Hongjun Fu, and Qin Ma. “ScREAD: A Single-Cell RNA-Seq Database for Alzheimer’s Disease.” IScience 23, no. 11 (November 20, 2020): 101769. https://doi.org/10.1016/j.isci.2020.101769.
+ssREAD is still under review. 
 
 ## What is Alzheimer's disease?
 
@@ -164,7 +162,7 @@ You can see more information about Package ‘fst’ [here](https://cran.r-proje
 
 ## Where can I find the source code?
 
-The source code of ssREAD can be accessed on [GitHub](https://github.com/Wang-Cankun/scread).
+The source code of ssREAD can be accessed on [GitHub](https://github.com/OSU-BMBL/ssread).
 
 ## What are the future plans of ssREAD?
 
