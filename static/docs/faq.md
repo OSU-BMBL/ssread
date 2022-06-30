@@ -2,7 +2,7 @@
 
 # FAQ
 
-
+ 
 This list of questions is not exhaustive. If you have any other questions please email any authors on the [Contact](https://bmblx.bmi.osumc.edu/ssread/help/contact) page.
 
 ## How to cite ssREAD?
