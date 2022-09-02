@@ -4,9 +4,9 @@
       <v-col cols="12">
         <p class="my-2 py-0 text-h3 font-weight-medium"></p>
         <v-card>
-          <v-card-title class="primary white--text text-no-wrap py-2">{{
-            titles[0]
-          }}</v-card-title>
+          <v-card-title class="primary white--text text-no-wrap py-2">
+            {{ titles[0] }}
+          </v-card-title>
 
           <v-row>
             <v-col cols="12" class="py-0 my-0">
@@ -107,9 +107,9 @@
     <v-row class="mb-4">
       <v-col cols="12">
         <v-card>
-          <v-card-title class="primary white--text text-no-wrap py-2">{{
-            titles[1]
-          }}</v-card-title>
+          <v-card-title class="primary white--text text-no-wrap py-2">
+            {{ titles[1] }}
+          </v-card-title>
 
           <v-card-title class="my-2 py-0 subtitle-1 font-weight-normal">
           </v-card-title>
@@ -162,9 +162,9 @@
     <v-row class="mb-4">
       <v-col cols="12">
         <v-card>
-          <v-card-title class="primary white--text text-no-wrap  py-2">{{
-            titles[3]
-          }}</v-card-title>
+          <v-card-title class="primary white--text text-no-wrap  py-2">
+            {{ titles[3] }}</v-card-title
+          >
 
           <v-card-actions>
             <v-col cols="4">
@@ -212,10 +212,61 @@
     <v-row class="mb-4">
       <v-col cols="12">
         <v-card>
-          <v-card-title class="primary white--text text-no-wrap  py-2">{{
-            titles[4]
-          }}</v-card-title>
-
+          <v-card-title class="primary white--text text-no-wrap  py-2">
+            {{ titles[4] }}
+          </v-card-title>
+          <v-col cols="12">
+            <p>
+              Please download the high-resolution RNAscope images following the
+              link provided.
+            </p></v-col
+          >
+          <v-card-actions>
+            <v-col cols="6">
+              <v-select
+                v-model="selectedSampleModule2"
+                label="Whole tiles images for RNAscope assay"
+                :items="moduleData2"
+                item-text="name"
+                item-value="name"
+                return-object
+                placeholder="Name"
+              ></v-select>
+            </v-col>
+            <v-col cols="6">
+              <a
+                :href="selectedSampleModule2.pngLink"
+                class="text-decoration-none"
+                target="_blank"
+              >
+                <v-btn small>
+                  Download (PNG)
+                  <v-icon color="primary" size="1.5em"
+                    >mdi-cloud-download-outline</v-icon
+                  ></v-btn
+                >
+              </a>
+              <a
+                :href="selectedSampleModule2.tiffLink"
+                class="text-decoration-none"
+                download
+              >
+                <v-btn small>
+                  Download (RAW TIFF) (~5GB)<v-icon
+                    color="primary "
+                    size="1.5em"
+                    >mdi-cloud-download-outline</v-icon
+                  ></v-btn
+                >
+              </a>
+            </v-col>
+          </v-card-actions>
+          <v-row>
+            <v-col class="ma-4" xl="6" lg="8" md="10" sm="11" xs="11">
+              <v-img contain :src="selectedSampleModule2.pngLink"></v-img>
+              <v-img contain :src="moduleLegend"></v-img>
+            </v-col>
+          </v-row>
           <v-card-actions>
             <v-col cols="6">
               <v-select
@@ -263,44 +314,6 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row class="mb-4">
-      <v-col cols="12">
-        <v-card>
-          <v-card-title class="primary white--text text-no-wrap  py-2">{{
-            titles[5]
-          }}</v-card-title>
-
-          <v-card-actions
-            ><v-col cols="2">
-              <a
-                :href="tableData[0].link"
-                class="text-decoration-none"
-                target="_blank"
-              >
-                <v-btn small class="my-2">
-                  {{ tableData[0].name }}
-                  <v-icon color="primary" size="1.5em"
-                    >mdi-cloud-download-outline</v-icon
-                  ></v-btn
-                >
-              </a>
-              <a
-                :href="tableData[1].link"
-                class="text-decoration-none "
-                target="_blank"
-              >
-                <v-btn small class="my-2">
-                  {{ tableData[1].name }}
-                  <v-icon color="primary" size="1.5em"
-                    >mdi-cloud-download-outline</v-icon
-                  ></v-btn
-                >
-              </a>
-            </v-col></v-card-actions
-          >
-        </v-card>
-      </v-col>
-    </v-row>
 
     <Fab></Fab>
   </div>
@@ -315,19 +328,20 @@ export default {
   data() {
     return {
       baseUrl: 'https://cloud.osubmi.com/downloadFiles/stofad-2',
+      baseUrl2: 'https://bmblx.bmi.osumc.edu/downloadFiles/stofad-2',
       titles: [
         'Summary',
         'Spatial map (gene modules)',
         '',
         'Circos plot',
-        'RNA scope',
-        'Deconvolution table'
+        'RNA scope'
       ],
 
       // Component variables
       selectedSampleClustering: '',
       selectedSampleAnnotation: '',
       selectedSampleModule: '',
+      selectedSampleModule2: '',
       selectedSampleCircos: '',
       selectedSampleHeatmap: '',
       selectedPathology: 'Ab',
@@ -457,6 +471,40 @@ export default {
       }
       return result
     },
+    moduleData2() {
+      const names = [
+        'AD-1_CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'AD-1_SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'AD-3_CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'AD-3_SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'AD-4_CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'AD-4_SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'AD-5_CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'AD-5_SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'AD-6_CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'AD-6_SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'CT-1_CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'CT-1_SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'CT-2_CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'CT-2_SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'CT-3_CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'CT-3_SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'CT-4_CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'CT-4_SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'CT-5_CD9,C1QB,RBFOX3,SPP1,CD63,CRYAB,YWHAH,GFAP,MBP',
+        'CT-5_SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP',
+        'CT-6_SLC1A3,P2RY12,KIF5A,RBFOX3,SNCG,STMN2,CSRP1,PLP1,GLUL,GFAP,PAQR6,MBP'
+      ]
+      const result = []
+      for (const i of names) {
+        result.push({
+          name: i,
+          pngLink: `${this.baseUrl2}/small/${i}-0.png`,
+          tiffLink: `${this.baseUrl2}/${i}.tif`
+        })
+      }
+      return result
+    },
     circosData() {
       return [
         {
@@ -547,6 +595,7 @@ export default {
   mounted() {
     this.selectedSampleClustering = this.clusterData[0]
     this.selectedSampleModule = this.moduleData[0]
+    this.selectedSampleModule2 = this.moduleData2[0]
     this.selectedSampleCircos = this.circosDataDisplay[0]
   },
   methods: {
@@ -568,6 +617,5 @@ export default {
     }
   }
 }
+// for f in *.tif; do  echo "Converting $f"; convert "$f"  "$(basename "$f" .tif).png"; done
 </script>
-
-<style lang="scss" scoped></style>
