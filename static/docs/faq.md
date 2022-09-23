@@ -3,11 +3,11 @@
 # FAQ
 
 
-This list of questions is not exhaustive. If you have any other questions please email any authors on the [Contact](https://bmblx.bmi.osumc.edu/ssread/help/contact) page.
+This list of questions is not exhaustive. If you have any other questions please email any authors on the [Contact](https://bmblx.bmi.osumc.edu/scread/help/contact) page.
 
-## How to cite ssREAD?
+## How to cite scREAD?
 
-ssREAD is still under review. 
+scREAD is still under review. 
 
 ## What is Alzheimer's disease?
 
@@ -22,13 +22,13 @@ Single-cell RNA sequencing (scRNA-Seq) examines the dynamic transcriptomic profi
 
 Spatial transcriptomics is a groundbreaking molecular profiling method that allows scientists to measure all the gene activity in a tissue sample and map where the activity is occurring. Already this technology is leading to new discoveries that are proving instrumental in helping scientists gain a better understanding of biological processes and disease.
 
-## What is ssREAD?
+## What is scREAD?
 
-ssREAD (**s**ingle-cell and **s**patial **R**NA-S**e**q  database for **A**lzheimer's **D**isease), dedicated to the management of scRNA-Seq, single-nucleus RNA-sequencing (snRNA-Seq), and Spatial transcriptomics datasets from human postmortem brain tissue with AD and mouse models with AD pathology. ssREAD has major updates to include more datasets and enhanced analytical pipeline, visibility, and usability:
+scREAD (**s**ingle-cell and **s**patial **R**NA-S**e**q  database for **A**lzheimer's **D**isease), dedicated to the management of scRNA-Seq, single-nucleus RNA-sequencing (snRNA-Seq), and Spatial transcriptomics datasets from human postmortem brain tissue with AD and mouse models with AD pathology. scREAD has major updates to include more datasets and enhanced analytical pipeline, visibility, and usability:
 
-1. ssREAD hosts comprehensive scRNA-seq & snRNA-seq & ST datasets of AD and their analysis results, which are not covered by any single existing database or resource. Specifically, we include 172 datasets collected from 34 AD-related scRNA-seq & snRNA-seq studies, covering 2,194,144 cells. In addition, 300 ST datasets collected from 12 brain studies (two AD studies and ten healthy brain studies) are collected and archived in ssREAD. All datasets are well-annotated with species, gender, brain region, disease/control, age, and pathology stage.
+1. scREAD hosts comprehensive scRNA-seq & snRNA-seq & ST datasets of AD and their analysis results, which are not covered by any single existing database or resource. Specifically, we include 172 datasets collected from 34 AD-related scRNA-seq & snRNA-seq studies, covering 2,194,144 cells. In addition, 300 ST datasets collected from 12 brain studies (two AD studies and ten healthy brain studies) are collected and archived in scREAD. All datasets are well-annotated with species, gender, brain region, disease/control, age, and pathology stage.
 
-2. ssREAD provides in-depth analysis, such as cell clustering and annotation, identification of cell-type-specific marker genes, differentially expressed genes (DEGs), spatially variable genes (SVGs), and cell-type-specific regulons, for both individual data and integrated cell atlas. All results interpretations are under the guidance of Dr. Hongjun (Harry) Fu, who is an Assistant Professor in the Ohio State University with expertise in AD studies, especially the selective cellular and regional vulnerability. We also provide cross-data queries and analyses, such as DEGs between males and females across multiple datasets. Specifically, we provide spot deconvolution for the integrative analysis of ST and scRNA-seq & snRNA-seq data.
+2. scREAD provides in-depth analysis, such as cell clustering and annotation, identification of cell-type-specific marker genes, differentially expressed genes (DEGs), spatially variable genes (SVGs), and cell-type-specific regulons, for both individual data and integrated cell atlas. All results interpretations are under the guidance of Dr. Hongjun (Harry) Fu, who is an Assistant Professor in the Ohio State University with expertise in AD studies, especially the selective cellular and regional vulnerability. We also provide cross-data queries and analyses, such as DEGs between males and females across multiple datasets. Specifically, we provide spot deconvolution for the integrative analysis of ST and scRNA-seq & snRNA-seq data.
 
 3. All the analytical results are presented through a one-stop and user-friendly interface to free AD biologists from programming burdens. New interactive plots are provided for visualizing cells and spatial spots, including scatter plots, bar plots, and violin plots. Real-time analyses are available for the query of DEGs, SVGs, and functional enrichment analysis.
 
@@ -46,15 +46,15 @@ Deconvolution is a computational method that treats the image as an estimate of 
 
 ## Which browsers are supported?
 
-The browsers that ssREAD supported are Google Chrome, Safari, and Firefox. The ssREAD is not supported by the Internet Explorer browser.
+The browsers that scREAD supported are Google Chrome, Safari, and Firefox. The scREAD is not supported by the Internet Explorer browser.
 
-## Which species are covered in ssREAD?
+## Which species are covered in scREAD?
 
 Human and Mouse.
 
 ## How many data files are covered?
 
-The ssREAD contains 34 existing human and mouse AD scRNA-Seq & snRNA-Seq datasets, and 12 spatial transcriptomic studies  from the public domain. These files are redefined according to species, gender, brain region, disease or control, and age. 
+The scREAD contains 34 existing human and mouse AD scRNA-Seq & snRNA-Seq datasets, and 12 spatial transcriptomic studies  from the public domain. These files are redefined according to species, gender, brain region, disease or control, and age. 
 ## How can we define different mouse age stages?
 
 The choice of rodent age should be given more consideration, as it improves the quality and relevance of the data obtained, and reduces variability. As for the age of mice used, it depends on the development or senescence of the system being studied. For example, [Flurkey et al.](https://www.elsevier.com/books/the-mouse-in-biomedical-research/fox/978-0-12-369457-7) defined a mature adult C57BL6/J mouse as 3–6 months (equivalent in this analysis to 20–30 human years), a middle-aged mouse as 10–14 months (equivalent to 38–47 human years) and an old mouse as 18–24 months (equivalent to 56–69 human years). We, therefore, define the different mouse age stages in our database as shown in the following table:
@@ -78,7 +78,7 @@ The subcluster information can be found at the 'Cell Clustering' part. For each 
 ## What is differential gene expression analysis?
 
 We categorized the experiments for differential gene expression as one of the following conditions: AD versus control and AD versus AD in the same species under the same gender, brain region, and age. The differential gene expression analysis under each condition can be accessed through the Seurat FindMarkers function. All results were scaled by cell types and presented in the tables, allowing users to explore the differential expression of interesting genes across different conditions.
-The cases how to achieve differential expressed genes between different conditions (Condition 1 v.s. Condition 2) for diverse cell types in ssREAD are showed in the following table:
+The cases how to achieve differential expressed genes between different conditions (Condition 1 v.s. Condition 2) for diverse cell types in scREAD are showed in the following table:
 | Species | If in the same region | Condition 1 | Condition 2 |
 | ------- | --------------------- | ----------- | ----------- |
 | Human | Yes | Disease | Control |
@@ -121,7 +121,7 @@ Regulon results are separately showcased in each cell type. Click on the "CT#" b
 
 IRIS3 (Integrated Cell-type-specific Regulon Inference Server from Single-cell RNA-Seq) is an easy-to-use server empowered by over 20 functionalities to support comprehensive interpretations and graphical visualizations of identified CTSRs. CTSR data can be used to reliably characterize and distinguish the corresponding cell type from others and can be combined with other computational or experimental analyses for biomedical studies. CTSRs can, therefore, aid in the discovery of major regulatory mechanisms and allow reliable constructions of global transcriptional regulation networks encoded in a specific cell type. The broader impact of IRIS3 includes, but is not limited to, investigation of complex diseases hierarchies and heterogeneity, causal gene regulatory network construction, and drug development. IRIS3 is freely accessible from [https://bmbl.bmi.osumc.edu/iris3/](https://bmbl.bmi.osumc.edu/iris3/) with no login requirement. More information about this paper can be found [here](https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkaa394/5838867).
 
-## What are the input files of the ssREAD?
+## What are the input files of the scREAD?
 
 The required input file is a gene expression matrix with three acceptable formats, compressed files are encouraged to decrease the uploading time.
 
@@ -171,14 +171,14 @@ You can see more information about Package ‘fst’ [here](https://cran.r-proje
 
 ## Where can I find the source code?
 
-The source code of ssREAD can be accessed on [GitHub](https://github.com/OSU-BMBL/ssread).
+The source code of scREAD can be accessed on [GitHub](https://github.com/OSU-BMBL/scread).
 
-## What are the future plans of ssREAD?
+## What are the future plans of scREAD?
 
 - Collect more AD scRNA-Seq, snRNA-Seq data, spatial transcriptomics from more brain regions, and build up healthy atlas in diverse brain regions of human, mouse and extend to other species.
 - Collect AD single-cell omics data, such as scATAC-seq data, and achieve more comprehensive analysis results based on single-cell multiple omics data.
 
-## What computational tools are used in ssREAD?
+## What computational tools are used in scREAD?
 
 | Tools      | Publication                                                                                                                                                                                                                                                                                                                                       |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -189,11 +189,11 @@ The source code of ssREAD can be accessed on [GitHub](https://github.com/OSU-BMB
 | Destiny    | Angerer P, Haghverdi L, Büttner M, Theis F, Marr C, Büttner F (2015). “destiny: diffusion maps for large-scale single-cell data in R.” Bioinformatics, 32(8), 1241 1242 1243. doi: 10.1093/bioinformatics/btv715, More information at <http://www.helmholtz-muenchen.de/icb/destiny>, http://bioinformatics.oxfordjournals.org/content/32/8/1241. |
 | SCINA      | Zhang, Z., Luo, D., Zhong, X., Choi, J. H., Ma, Y., Wang, S., Mahrt, E., Guo, W., Stawiski, E. W., Modrusan, Z., Seshagiri, S., Kapur, P., Hon, G. C., Brugarolas, J., & Wang, T. (2019). Scina: Semi-supervised analysis of single cells in silico. Genes, 10(7), [531]. https://doi.org/10.3390/genes10070531                                   |
 
-## Why does ssREAD use PCA instead of CCA or LSI for the dimensional reduction in the identification of disease dataset cell types?
+## Why does scREAD use PCA instead of CCA or LSI for the dimensional reduction in the identification of disease dataset cell types?
 
 In the identification of disease cell types, we used Seurat's _FindTransferAnchors_ and _TransferData_ function to transfer cell types from the control atlas to disease datasets, which project PCA structure from the query (disease dataset) onto the reference (control atlas). PCA is [recommended](https://rdrr.io/cran/Seurat/man/FindTransferAnchors.html) when reference and query datasets are from scRNA-seq. CCA is [considered](https://satijalab.org/seurat/v3.1/atacseq_integration_vignette.html) better captures the shared feature correlation structure across single-cell modalities. LSI is [considered](https://satijalab.org/seurat/v3.1/atacseq_integration_vignette.html) better captures the 'internal' structure of ATAC-seq data in the case of scRNA-seq to scATAC-seq transfer.
 
-## What is ssREAD's scRNAseq pipeline?
+## What is scREAD's scRNAseq pipeline?
 
 Our database organically integrates multiple state-of-the-art tools, including [IRIS3](https://bmbl.bmi.osumc.edu/iris3/), [SCINA](https://github.com/jcao89757/SCINA), [Seurat](https://satijalab.org/seurat/), and [IRIS-EDA](https://bmbls.bmi.osumc.edu/IRIS). These tools are either reputed or have been justified with the best performance in the analytical area.
 
@@ -205,7 +205,7 @@ SCINA is an R package that leverages prior marker genes information and simultan
 
 #### Marker genes
 
-We found some of the marker genes used in v1 were not specific enough during the development of ssREAD. To improve the cell type annotate accuracy, we filtered out several markers and used an updated workflow by performing two iterations of cell type annotation. The differences are that only Neurons would be annotated during the first iteration. Next, the Neurons were a subset from the whole dataset and used iteration 2 marker genes to annotate the Excitatory neurons and Inhibitory neurons. Finally, the Neurons' cell labels would be replaced by Excitatory neurons or Inhibitory neurons. The new workflow can improve the annotation by taking considering the differences between cell types and subtypes.
+We found some of the marker genes used in v1 were not specific enough during the development of scREAD. To improve the cell type annotate accuracy, we filtered out several markers and used an updated workflow by performing two iterations of cell type annotation. The differences are that only Neurons would be annotated during the first iteration. Next, the Neurons were a subset from the whole dataset and used iteration 2 marker genes to annotate the Excitatory neurons and Inhibitory neurons. Finally, the Neurons' cell labels would be replaced by Excitatory neurons or Inhibitory neurons. The new workflow can improve the annotation by taking considering the differences between cell types and subtypes.
 
 Iteration 1 marker genes:
 
@@ -231,7 +231,7 @@ Iteration 2 marker genes:
 
 ### 2. Identification of Human and Mouse disease cell types based on the control atlas
 
-Not all cells collected from patient samples are malignant, there are heterogeneous cells within individual patients, that is, normal healthy cells are included. In Granja et al.’s research, they defined these healthy cells as control-like cells. These control-like cells maintain distinct regulatory mechanisms and gene expression patterns compared to disease cells and will disturb the accurate identification of cancer cell clusters. Thus, the removal of control-like cells from disease data is critical to identify real disease-associated cells. Granja et al. used this strategy to remove control-like cells, and we used this strategy in ssREAD to identify AD-associated cells. For each of the AD datasets in ssREAD, the ratio of the control-like cells out of all the cells in this dataset is about 10%. We tested at Mathys et al.’s dataset, and found out the ARI scores between with control-like cells and without control-like cells has no significant difference. However, the ARI score of without control-like cells datasets is higher than with control-like cells datasets.
+Not all cells collected from patient samples are malignant, there are heterogeneous cells within individual patients, that is, normal healthy cells are included. In Granja et al.’s research, they defined these healthy cells as control-like cells. These control-like cells maintain distinct regulatory mechanisms and gene expression patterns compared to disease cells and will disturb the accurate identification of cancer cell clusters. Thus, the removal of control-like cells from disease data is critical to identify real disease-associated cells. Granja et al. used this strategy to remove control-like cells, and we used this strategy in scREAD to identify AD-associated cells. For each of the AD datasets in scREAD, the ratio of the control-like cells out of all the cells in this dataset is about 10%. We tested at Mathys et al.’s dataset, and found out the ARI scores between with control-like cells and without control-like cells has no significant difference. However, the ARI score of without control-like cells datasets is higher than with control-like cells datasets.
 
 To determine whether cells from disease datasets are control-like, Harmony R package v1.0 was first used to integrate the disease dataset with its corresponding control atlas. Harmony shows similar ARI scores but having a significantly shorter run-time compared to other data integration tools. After the integration, cells were clustered using Seurat FindClusters function with a resolution of 4. A hypergeometric test was performed for each cluster using the number of cells from disease cells and the number of cells from the control atlas. Clusters were considered to be control-like if the hypergeometric test result was significant (p-value < 0.0001, Benjamini-Hochberg adjusted), and the cells from the disease dataset in control-like clusters were removed from the downstream analyses.
 
@@ -243,9 +243,9 @@ Seurat’s FindAllMarkers and FindMarkers functions that utilize the MAST packag
 
 ### 4. Identification of CTSRs
 
-Cell-type-specific regulons (CTSRs) are defined as a group of genes, which receive similar regulatory signals in a specific cell type, hence tending to have similar expression patterns and share conserved motifs in this cell type. A successful elucidation of CTSRs will substantially improve the identification of transcriptionally co-regulated gene modules, realistically allowing reliable prediction of global transcription regulation networks encoded in a specific cell typeThe CTSRs analysis in ssREAD is performed using default [IRIS3](https://bmbl.bmi.osumc.edu/iris3/) settings.
+Cell-type-specific regulons (CTSRs) are defined as a group of genes, which receive similar regulatory signals in a specific cell type, hence tending to have similar expression patterns and share conserved motifs in this cell type. A successful elucidation of CTSRs will substantially improve the identification of transcriptionally co-regulated gene modules, realistically allowing reliable prediction of global transcription regulation networks encoded in a specific cell typeThe CTSRs analysis in scREAD is performed using default [IRIS3](https://bmbl.bmi.osumc.edu/iris3/) settings.
 
-## What is ssREAD's spatial transcriptomics pipeline?
+## What is scREAD's spatial transcriptomics pipeline?
 
 ### 1. Data preprocessing
 
@@ -258,7 +258,7 @@ For each samples within the study, we imported them into the [Squidpy](https://s
 Seurat’s FindAllMarkers and FindMarkers functions that utilize the MAST package were used to run DE testing on normalized gene expression data. Cell-type-specific genes were identified by performing DE testing between the cell type of interest and the average of the remaining cell types. Subcluster-specific genes were identified by performing DE testing between the subcluster of interest and the average of the remaining subclusters from the same cell type. For each cell type, several DE comparisons were performed within two different datasets, categorized from AD versus control, and AD versus AD in the same species under the same gender, brain region, and age. To regress out technical biases from different datasets, the dataset latent variables were added in all cross-dataset DE testing. All of the above-mentioned DE results can be sent to Enrichr web server real-time against different functional annotation databases to identify the enriched KEGG pathways, Gene Ontology(GO), etc.
 ### 4. Deconvolution analysis with scRNA-seq & snRNA-seq datasets
 
-[CARD](https://github.com/YingMa0107/CARD) is a reference-based deconvolution method that estimates cell type composition in spatial transcriptomics based on cell type specific expression information obtained from a reference scRNA-seq data. In ssREAD, we used CARD to track compositional alterations of cell types (from scRNA-seq or snRNA-seq dataset) in gene expression data (spatial transcriptomics dataset).
+[CARD](https://github.com/YingMa0107/CARD) is a reference-based deconvolution method that estimates cell type composition in spatial transcriptomics based on cell type specific expression information obtained from a reference scRNA-seq data. In scREAD, we used CARD to track compositional alterations of cell types (from scRNA-seq or snRNA-seq dataset) in gene expression data (spatial transcriptomics dataset).
 
 ### 5. Exporting sample ojbects for Python & R environment
 

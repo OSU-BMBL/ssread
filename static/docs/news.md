@@ -107,7 +107,7 @@ Enrichment analysis:
 
 ### Added
 
-Six new publication were added to ssREAD (in-development)
+Six new publication were added to scREAD (in-development)
 
 - Single-nucleus transcriptome analysis reveals dysregulation of angiogenic endothelial cells and neuroprotective glia in Alzheimer’s disease
 - Overexpressing low-density lipoprotein receptor reduces tau-associated neurodegeneration in relation to apoE-linked mechanisms

@@ -11,7 +11,7 @@
     <v-card class="mx-auto">
       <v-card-title>
         <p class="title">
-          ssREAD covers {{ totalDatasets }} datasets from 34 studies, 18 brain
+          scREAD covers {{ totalDatasets }} datasets from 34 studies, 18 brain
           regions, and 2,194,144 cells.
         </p>
         <v-spacer></v-spacer>
@@ -575,8 +575,8 @@ export default {
       title: 'Home',
       meta: [
         {
-          hid: 'ssREAD homepage',
-          name: 'ssREAD home page',
+          hid: 'scREAD homepage',
+          name: 'scREAD home page',
           content: `Alzheimers disease single-cell RNA-seq database, 
             Alzheimers disease AD single-cell datasets database analysis workflow pipeline,
             Search gene expression, DEG, , Differential expression and Gene set enrichment analysis,

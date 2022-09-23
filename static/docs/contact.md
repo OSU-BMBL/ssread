@@ -15,7 +15,7 @@ This work was supported by the National Institutes of Health [R01 GM131399-01, Q
 
 # Disclaimer
 
-Whilst the data ssREAD provided, some of the data on the website are downloaded from the Gene Expression Omnibus (GEO) database, and the others are downloaded from an institution contributed by the Rush Alzheimer’s Disease Center (RADC) and hosted by Sage Bionetworks in the Synapse system. GEO is a database supported by the National Center for Biotechnology Information (NCBI). GEO is a data available database, documents and files on GEO Web servers can be freely downloaded and reproduced. However, we have got the permission of RADC to expose their data. Thus, only part of the data is publicly accessible on our website.
+Whilst the data scREAD provided, some of the data on the website are downloaded from the Gene Expression Omnibus (GEO) database, and the others are downloaded from an institution contributed by the Rush Alzheimer’s Disease Center (RADC) and hosted by Sage Bionetworks in the Synapse system. GEO is a database supported by the National Center for Biotechnology Information (NCBI). GEO is a data available database, documents and files on GEO Web servers can be freely downloaded and reproduced. However, we have got the permission of RADC to expose their data. Thus, only part of the data is publicly accessible on our website.
 
 # Privacy notice
 

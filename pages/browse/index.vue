@@ -73,7 +73,7 @@
                       <v-btn
                         ><span class="text--primary"
                           ><a
-                            href="/ssread/spatial/ST001"
+                            href="/scread/spatial/ST001"
                             target="_blank"
                             class="text-decoration-none"
                           >
