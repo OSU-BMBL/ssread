@@ -507,6 +507,34 @@
               </td>
               <td>11</td>
             </tr>
+            <tr>
+              <td>
+                <nuxt-link :to="'/spatial/ST011'">ST011</nuxt-link>
+              </td>
+              <td>Human</td>
+              <td>Middle temporal gyrus</td>
+              <td>
+                Spatially resolved transcriptomics reveals genes associated with
+                the vulnerability of middle temporal gyrus in Alzheimer’s
+                disease
+              </td>
+              <td>
+                <a
+                  target="_blank"
+                  href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE220442"
+                  >GSE220442</a
+                >
+              </td>
+              <td>
+                <ul>
+                  <li>Brain disorder</li>
+                  <li>Age</li>
+                  <li>inferred cell type - authors labels</li>
+                  <li>Layer annotation - authors labels</li>
+                </ul>
+              </td>
+              <td>11</td>
+            </tr>
           </template>
         </v-data-table>
       </v-card>
