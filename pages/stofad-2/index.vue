@@ -327,7 +327,7 @@ export default {
   },
   data() {
     return {
-      baseUrl: 'https://cloud.osubmi.com/downloadFiles/stofad-2',
+      baseUrl: 'https://bmblx.bmi.osumc.edu/downloadFiles/stofad-2',
       baseUrl2: 'https://bmblx.bmi.osumc.edu/downloadFiles/stofad-2',
       titles: [
         'Summary',
