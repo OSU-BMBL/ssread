@@ -2,8 +2,6 @@
 
 Main server (version 1 archive): https://bmbls.bmi.osumc.edu/scread
 
-Alternative server (version 1 archive): http://osubmi.com/scread
-
 Dev server (still processing datasets): https://bmblx.bmi.osumc.edu/scread/
 
 ---
