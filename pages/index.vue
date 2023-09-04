@@ -12,7 +12,7 @@
           <v-col cols="6"
             ><p class="text-h4 mt-6" align-center>Datasets</p>
             <p class="font-weight-medium mt-6" align-center>
-              Over 2,200,000 cells and 300 Spatial Transcriptomics samples from
+              Over 2,500,000 cells and 300 Spatial Transcriptomics samples from
               46 Human & Mouse studies.
             </p>
             <ul class="py-2">
@@ -68,8 +68,8 @@
           <v-col cols="6"
             ><p class="text-h4 mt-6" align-center>Search</p>
             <p class="font-weight-medium mt-6" align-center>
-              Query results over 34 single-cell & single-nuclei RNA-seq and 10
-              spatial studies in 17 brain regions.
+              Query results over 35 single-cell & single-nuclei RNA-seq and 11
+              spatial studies in 19 brain regions.
             </p>
             <ul class="py-2">
               <li>Search differentially expressed genes</li>
@@ -236,15 +236,17 @@ export default {
       },
       browseItems: {
         species: ['All', 'Human', 'Mouse'],
-        condition: ['All', 'Control', 'Disease'],
+        condition: ['All', 'Control', 'AD'],
         region: [
           'All',
           'Cerebellum',
           'Cerebral cortex',
           'Cortex',
           'Cortex and hippocampus',
+          'Dorsolateral Prefrontal cortex',
           'Entorhinal Cortex',
           'Hippocampus',
+          'Middle temporal gyrus',
           'Prefrontal cortex',
           'Subventricular zone and hippocampus',
           'Superior frontal gyrus (BA8)',
@@ -254,8 +256,11 @@ export default {
       },
       pieData1: [
         {
-          values: [34, 10],
-          labels: ['single-cell & single-nuclei', 'spatial transcriptomics'],
+          values: [35, 11],
+          labels: [
+            'single-cell & single-nuclei RNA-seq',
+            'spatial transcriptomics'
+          ],
           type: 'pie'
         }
       ],
@@ -287,12 +292,12 @@ export default {
       },
       pieData2: [
         {
-          values: [9, 20, 14, 30],
+          values: [114, 75, 120, 100],
           labels: [
-            'Human-control',
-            'Human-disease',
-            'Mouse-control',
-            'Mouse-disease'
+            'AD (sc/sn RNA-seq)',
+            'Control (sc/sn RNA-seq)',
+            'AD (ST)',
+            'Control (ST)'
           ],
           type: 'pie'
         }
@@ -325,25 +330,19 @@ export default {
       },
       pieData3: [
         {
-          values: [6, 14, 3, 6, 13, 2, 5, 24, 4, 4],
+          values: [94, 95, 43, 208],
           labels: [
-            'Human_Entorhinal Cortex',
-            'Human_Prefrontal cortex',
-            'Human_Superior frontal gyrus',
-            'Human_Superior parietal lobe',
-            'Mouse_Cortex',
-            'Mouse_Cerebellum',
-            'Mouse_Cerebral cortex',
-            'Mouse_Hippocampus',
-            'Mouse_Prefrontal cortex',
-            'Mouse_Subventricular zone'
+            'Human (sc/sn RNA-seq)',
+            'Mouse (sc/sn RNA-seq)',
+            'Human (ST)',
+            'Mouse (ST)'
           ],
           type: 'pie'
         }
       ],
       layout3: {
         title: {
-          text: 'Region',
+          text: 'Species',
           font: {
             size: 20
           }
@@ -367,14 +366,19 @@ export default {
       },
       pieData4: [
         {
-          values: [17, 9, 29, 18],
-          labels: ['Human-male', 'Human-female', 'Mouse-male', 'Mouse-female'],
+          values: [90, 99, 169, 142],
+          labels: [
+            'Female (sc/sn RNA-seq)',
+            'Male (sc/sn RNA-seq)',
+            'Female (ST)',
+            'Male (ST)'
+          ],
           type: 'pie'
         }
       ],
       layout4: {
         title: {
-          text: 'Gender',
+          text: 'Sex',
           font: {
             size: 20
           }
@@ -399,79 +403,75 @@ export default {
       barData1: [
         {
           x: [
-            'Entorhinal Cortex',
-            'Prefrontal cortex',
-            'Superior frontal gyrus',
-            'Superior parietal lobe',
-            'Cortex',
             'Cerebellum',
             'Cerebral cortex',
+            'Cortex',
+            'Cortex and hippocampus',
+            'Dorsolateral Prefrontal cortex',
+            'Entorhinal Cortex',
             'Hippocampus',
-            'Subventricular zone',
-            'Habenula',
-            'Olfactory bulbs',
-            'Striatum',
-            'Thalamus',
-            'Whole brain sections'
+            'Middle temporal gyrus',
+            'Prefrontal cortex',
+            'Subventricular zone and hippocampus',
+            'Superior frontal gyrus (BA8)',
+            'Superior parietal lobe'
           ],
-
-          y: [10, 41, 5, 14, 45, 4, 7, 31, 8, 0, 0, 0, 0, 0],
-
-          name: 'single-cell & single-nuclei',
+          y: [2, 8, 45, 6, 4, 10, 16, 17, 41, 23, 3, 14],
+          name: 'single-cell & single-nuclei RNA-seq',
           marker: {
             color: [
-              '#3b5998',
-              '#3b5998',
-              '#3b5998',
-              '#3b5998',
-              '#3b5998',
-              '#3b5998',
-              '#3b5998',
-              '#3b5998',
-              '#3b5998',
-              '#3b5998'
+              '#76D6FE',
+              '#76D6FE',
+              '#76D6FE',
+              '#76D6FE',
+              '#76D6FE',
+              '#76D6FE',
+              '#76D6FE',
+              '#76D6FE',
+              '#76D6FE',
+              '#76D6FE',
+              '#76D6FE',
+              '#76D6FE'
             ]
           },
           type: 'bar'
         },
         {
           x: [
-            'Entorhinal Cortex',
-            'Prefrontal cortex',
-            'Superior frontal gyrus',
-            'Superior parietal lobe',
-            'Cortex',
-            'Cerebellum',
-            'Cerebral cortex',
-            'Hippocampus',
-            'Subventricular zone',
-            'Habenula',
-            'Olfactory bulbs',
-            'Striatum',
-            'Thalamus',
-            'Whole brain sections'
+            'Dorsolateral prefrontal cortex',
+            'Forebrain',
+            'Main olfactory bulb',
+            'Middle temporal gyrus',
+            'Whole brain sections',
+            'Central ventricle and the habenula',
+            'Coronal brain sections',
+            'Cortex and striatum',
+            'Hippocampi and olfactory bulbs',
+            'Hippocampus and prefrontal cortex',
+            'Ventral cortex, thalamus, and hippocampus',
+            'Superior parietal lobe'
           ],
 
-          y: [0, 16, 0, 0, 0, 0, 0, 48, 21, 8, 24, 11, 6, 75],
+          y: [12, 8, 3, 11, 75, 106, 6, 11, 48, 11, 20],
 
           name: 'spatial transcriptomics',
           marker: {
             color: [
-              '#F2DC46',
-              '#F2DC46',
-              '#F2DC46',
-              '#F2DC46',
-              '#F2DC46',
-              '#F2DC46',
-              '#F2DC46',
-              '#F2DC46',
-              '#F2DC46',
-              '#F2DC46',
-              '#F2DC46',
-              '#F2DC46',
-              '#F2DC46',
-              '#F2DC46',
-              '#F2DC46'
+              '#FF7E7A',
+              '#FF7E7A',
+              '#FF7E7A',
+              '#FF7E7A',
+              '#FF7E7A',
+              '#FF7E7A',
+              '#FF7E7A',
+              '#FF7E7A',
+              '#FF7E7A',
+              '#FF7E7A',
+              '#FF7E7A',
+              '#FF7E7A',
+              '#FF7E7A',
+              '#FF7E7A',
+              '#FF7E7A'
             ]
           },
           type: 'bar'
@@ -487,11 +487,11 @@ export default {
         },
         autosize: true,
         width: this.pieWidth,
-        height: 500,
+        height: 550,
         margin: {
-          l: 40,
-          r: 80,
-          b: 100,
+          l: 30,
+          r: 110,
+          b: 180,
           t: 50,
           pad: 10
         },
@@ -528,7 +528,7 @@ export default {
               'Mouse',
               'Male',
               'Female',
-              'Disease',
+              'AD',
               'Control'
             ],
 

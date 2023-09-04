@@ -2,7 +2,24 @@
 
 # News
 
-## 6/28/2022
+## 8/1/2023
+
+### Added
+
+- AD035 - single-nuclei RNA-seq atlas from SEA-AD (Seattle Alzheimer's Disease Brain Cell Atlas)
+
+### Updated
+
+- Total number of cells and brain regions statistics
+
+### Fixed
+
+- Fixed error while loading deconvolution results
+- Fixed issue while loading the spots image under the scatter plot
+- The number of spatial samples and brain regions
+
+
+## 9/28/2022
 
 ### Added
 

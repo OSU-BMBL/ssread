@@ -44,8 +44,7 @@
       <v-card class="mx-auto">
         <v-card-title>
           <p class="title">
-            ssREAD covers 300 spatial datasets from 10 studies, 17 brain
-            regions.
+            ssREAD covers 300 spatial transcriptomics datasets from 11 studies.
           </p>
           <v-spacer></v-spacer>
         </v-card-title>

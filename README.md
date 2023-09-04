@@ -46,6 +46,7 @@ Create a `.env` file in project root and put API URL in the env file:
 
 Next,
 ```bash
+export NODE_OPTIONS=--openssl-legacy-provider
 npm install
 npm run dev
 ```

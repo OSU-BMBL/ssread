@@ -11,8 +11,8 @@
     <v-card class="mx-auto">
       <v-card-title>
         <p class="title">
-          ssREAD covers {{ totalDatasets }} datasets from 34 studies, 18 brain
-          regions, and 2,194,144 cells.
+          ssREAD covers 189 datasets from 35 single-cell/single-nuclei RNA-seq
+          studies, 19 brain regions, and 2,572,355 cells.
         </p>
         <v-spacer></v-spacer>
       </v-card-title>
