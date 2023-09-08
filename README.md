@@ -1,13 +1,13 @@
-# scREAD
+# ssREAD
 
-Main server (version 1 archive): https://bmbls.bmi.osumc.edu/scread
+scREAD (version 1 archive): https://bmbls.bmi.osumc.edu/scread
 
-Dev server (still processing datasets): https://bmblx.bmi.osumc.edu/scread/
+Dev server: https://bmblx.bmi.osumc.edu/ssread/
 
 ---
-This repository serves as the front end part of scREAD, it also contains scREAD workflow in the /script folder.
+This repository serves as the front end part of ssREAD, it also contains ssREAD workflow in the /script folder.
 
-[scREAD](https://bmblx.bmi.osumc.edu/scread/) (A single-cell and spatial RNA-seq database for Alzheimer’s Disease) is the first database dedicated to collect all existing Human and Mouse Alzheimer's Disease scRNA-Seq, snRNA-seq, and spatially resovled transcriptomics data, and provide comprehensive interpretations.
+[ssREAD](https://bmblx.bmi.osumc.edu/ssread/) (A single-cell and spatial RNA-seq database for Alzheimer’s Disease) is the first database dedicated to collect all existing Human and Mouse Alzheimer's Disease scRNA-Seq, snRNA-seq, and spatially resovled transcriptomics data, and provide comprehensive interpretations.
 
 If you have any questions, suggestions, or found a new AD paper generated scRNA-seq datasets, please let us know via email: [qin.ma@osumc.edu](qin.ma@osumc.edu).
 
@@ -31,16 +31,11 @@ First, install [Node.js](https://nodejs.org/en/) (v12+)
 ### Add configuration file
 
 ```bash
-git clone git@github.com:OSU-BMBL/scread.git
-cd scread
+git clone git@github.com:OSU-BMBL/ssread.git
+cd ssread
 ```
 
 Create a `.env` file in project root and put API URL in the env file:
-
-```env
-#Alternatively use:
-#API_URL=http://osubmi.com/api/scread
-```
 
 Next,
 ```bash
