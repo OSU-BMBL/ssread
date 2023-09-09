@@ -107,20 +107,15 @@
                     </ul></span
                   >
                 </p>
-                <p class="my-2">
-                  <span class="text--secondary">Description: </span>
-
-                  <span class="text--primary">.</span>
-                </p>
                 <v-row>
                   <v-col cols="8">
                     <span class="text--secondary"
-                      >Figure 1: High-definition spatial transcriptomics for in
-                      situ tissue profiling.</span
+                      >Figure 1: Astrocytes undergo a fast inflammatory
+                      transition that drastically changes over time.</span
                     >
                     <span class="text--primary"
                       ><v-img
-                        src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41593-021-00905-6/MediaObjects/41593_2021_905_Fig1_HTML.png?as=webp"
+                        src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41593-021-00905-6/MediaObjects/41593_2021_905_Fig1_HTML.png?"
                         target="_blank"
                         class="text-decoration-none"
                         max-width="800px"

@@ -113,21 +113,6 @@
                     </ul></span
                   >
                 </p>
-                <p class="my-2">
-                  <span class="text--secondary">Description: </span>
-
-                  <span class="text--primary"
-                    >s from portion of the DLPFC that spans six neuronal layers
-                    plus white matter (A) for a total of three subjects with two
-                    pairs of spatially adjacent replicates (B). Each dissection
-                    of DLPFC was designed to span all six layers plus white
-                    matter (C). Using this web application you can explore the
-                    expression of known genes such as SNAP25 (D, a neuronal
-                    gene), MOBP (E, an oligodendrocyte gene), and known layer
-                    markers from mouse studies such as PCP4 (F, a known layer 5
-                    marker gene).</span
-                  >
-                </p>
                 <v-row>
                   <v-col cols="12">
                     <span class="text--secondary"

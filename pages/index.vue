@@ -487,12 +487,12 @@ export default {
         },
         autosize: true,
         width: this.pieWidth,
-        height: 550,
+        height: 600,
         margin: {
           l: 30,
-          r: 110,
+          r: 40,
           b: 180,
-          t: 50,
+          t: 40,
           pad: 10
         },
         legend: {

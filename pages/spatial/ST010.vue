@@ -23,10 +23,14 @@
                 <p class="my-2">
                   <span class="text--secondary">Authors: </span>
                   <span class="text--primary"
-                    >Samuel G Rodriques, Robert R Stickels, Aleksandrina Goeva,
-                    Carly A Martin, Evan Murray, Charles R Vanderburg, Joshua
-                    Welch, Linlin M Chen, Fei Chen, Evan Z Macosko
-                    <sup>$</sup></span
+                    >Anoushka Joglekar, Andrey Prjibelski, Ahmed Mahfouz, Paul
+                    Collier, Susan Lin, Anna Katharina Schlusche, Jordan
+                    Marrocco, Stephen R. Williams, Bettina Haase, Ashley Hayes,
+                    Jennifer G. Chew, Neil I. Weisenfeld, Man Ying Wong,
+                    Alexander N. Stein, Simon A. Hardwick, Toby Hunt, Qi Wang,
+                    Christoph Dieterich, Zachary Bent, Olivier Fedrigo, Steven
+                    A. Sloan, Davide Risso, Erich D. Jarvis, Paul Flicek, …Hagen
+                    U. Tilgner <sup>$</sup></span
                   >
                 </p>
                 <p class="my-2">
@@ -35,17 +39,17 @@
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Date added:</span>
-                  <span class="text--primary"> 5-1-2022</span>
+                  <span class="text--primary"> 6-1-2022</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Full paper: </span>
                   <span class="text--primary"
                     ><a
-                      href="https://www.science.org/doi/10.1126/science.aaw1219"
+                      href="https://www.nature.com/articles/s41467-020-20343-5"
                       target="_blank"
                       class="text-decoration-none"
                     >
-                      Science
+                      Nature Communications
                       <v-icon color="primary" size="1.2em"
                         >mdi-open-in-new</v-icon
                       >
@@ -60,7 +64,7 @@
                   <span class="text--secondary">Data: </span>
                   <span class="text--primary"
                     ><a
-                      href="https://singlecell.broadinstitute.org/single_cell/study/SCP354/slide-seq-study"
+                      href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE158450"
                       target="_blank"
                       class="text-decoration-none"
                     >
@@ -103,38 +107,23 @@
                       <li>Disease</li>
                       <li>Brain disorder</li>
                       <li>
-                        Brain atlas
+                        Brain
                       </li>
                       <li>Age</li>
                       <li>Sex</li>
-                      <li>Inferred cell type - authors labels</li>
                     </ul></span
-                  >
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Description: </span>
-
-                  <span class="text--primary"
-                    >s from portion of the DLPFC that spans six neuronal layers
-                    plus white matter (A) for a total of three subjects with two
-                    pairs of spatially adjacent replicates (B). Each dissection
-                    of DLPFC was designed to span all six layers plus white
-                    matter (C). Using this web application you can explore the
-                    expression of known genes such as SNAP25 (D, a neuronal
-                    gene), MOBP (E, an oligodendrocyte gene), and known layer
-                    markers from mouse studies such as PCP4 (F, a known layer 5
-                    marker gene).</span
                   >
                 </p>
                 <v-row>
                   <v-col cols="8">
                     <span class="text--secondary"
-                      >Figure 1: High-definition spatial transcriptomics for in
-                      situ tissue profiling.</span
+                      >Figure 1: Short read clustering of P7 hippocampus and
+                      prefrontal cortex tissue recovers precursors to known
+                      adult cell-types..</span
                     >
                     <span class="text--primary"
                       ><v-img
-                        src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41467-020-20343-5/MediaObjects/41467_2020_20343_Fig1_HTML.png?as=webp"
+                        src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41467-020-20343-5/MediaObjects/41467_2020_20343_Fig1_HTML.png?"
                         target="_blank"
                         class="text-decoration-none"
                         max-width="800px"

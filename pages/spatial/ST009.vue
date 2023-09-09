@@ -34,7 +34,7 @@
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Date added:</span>
-                  <span class="text--primary"> 5-1-2022</span>
+                  <span class="text--primary"> 6-1-2022</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Full paper: </span>
@@ -59,7 +59,7 @@
                   <span class="text--secondary">Data: </span>
                   <span class="text--primary"
                     ><a
-                      href="https://singlecell.broadinstitute.org/single_cell/study/SCP354/slide-seq-study"
+                      href="https://www.nature.com/articles/s41593-022-01011-x"
                       target="_blank"
                       class="text-decoration-none"
                     >
@@ -108,11 +108,6 @@
                     </ul></span
                   >
                 </p>
-                <p class="my-2">
-                  <span class="text--secondary">Description: </span>
-
-                  <span class="text--primary"></span>
-                </p>
                 <v-row>
                   <v-col cols="8">
                     <span class="text--secondary"
@@ -121,7 +116,7 @@
                     >
                     <span class="text--primary"
                       ><v-img
-                        src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41593-022-01011-x/MediaObjects/41593_2022_1011_Fig1_HTML.png?as=webp"
+                        src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41593-022-01011-x/MediaObjects/41593_2022_1011_Fig1_HTML.png?"
                         target="_blank"
                         class="text-decoration-none"
                         max-width="800px"

@@ -108,11 +108,6 @@
                     </ul></span
                   >
                 </p>
-                <p class="my-2">
-                  <span class="text--secondary">Description: </span>
-
-                  <span class="text--primary"></span>
-                </p>
                 <v-row>
                   <v-col cols="8">
                     <span class="text--secondary"

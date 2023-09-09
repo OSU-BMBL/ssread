@@ -16,36 +16,39 @@
                 <p class="my-2">
                   <span class="text--secondary">Title: </span>
                   <span class="text--primary font-weight-medium"
-                    >Slide-seq: A scalable technology for measuring genome-wide
-                    expression at high spatial resolution</span
+                    >Spatially resolved transcriptomics reveals genes associated
+                    with the vulnerability of middle temporal gyrus in
+                    Alzheimer’s disease</span
                   >
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Authors: </span>
                   <span class="text--primary"
-                    >Samuel G Rodriques, Robert R Stickels, Aleksandrina Goeva,
-                    Carly A Martin, Evan Murray, Charles R Vanderburg, Joshua
-                    Welch, Linlin M Chen, Fei Chen, Evan Z Macosko
-                    <sup>$</sup></span
+                    >Shuo Chen, Yuzhou Chang, Liangping Li, Diana Acosta, Yang
+                    Li, Qi Guo, Cankun Wang, Emir Turkes, Cody Morrison, Dominic
+                    Julian, Mark E. Hester, Douglas W. Scharre, Chintda
+                    Santiskulvong, Sarah XueYing Song, Jasmine T. Plummer, Geidy
+                    E. Serrano, Thomas G. Beach, Karen E. Duff, Qin Ma & Hongjun
+                    Fu <sup>$</sup></span
                   >
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Date published: </span>
-                  <span class="text--primary">3-29-2019</span>
+                  <span class="text--primary">12-21-2022</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Date added:</span>
-                  <span class="text--primary"> 5-1-2022</span>
+                  <span class="text--primary"> 1-1-2023</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Full paper: </span>
                   <span class="text--primary"
                     ><a
-                      href="https://www.science.org/doi/10.1126/science.aaw1219"
+                      href="https://actaneurocomms.biomedcentral.com/articles/10.1186/s40478-022-01494-6"
                       target="_blank"
                       class="text-decoration-none"
                     >
-                      Science
+                      Acta Neuropathologica Communications
                       <v-icon color="primary" size="1.2em"
                         >mdi-open-in-new</v-icon
                       >
@@ -60,7 +63,7 @@
                   <span class="text--secondary">Data: </span>
                   <span class="text--primary"
                     ><a
-                      href="https://singlecell.broadinstitute.org/single_cell/study/SCP354/slide-seq-study"
+                      href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE44220"
                       target="_blank"
                       class="text-decoration-none"
                     >
@@ -81,19 +84,17 @@
                 <p class="my-2">
                   <span class="text--secondary">Species: </span>
 
-                  <span class="text--primary">Mouse</span>
+                  <span class="text--primary">Human</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Number of samples: </span>
 
-                  <span class="text--primary">106</span>
+                  <span class="text--primary">6</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Region: </span>
 
-                  <span class="text--primary"
-                    >hippocampi and olfactory bulbs</span
-                  >
+                  <span class="text--primary">middle temporal gyrus</span>
                 </p>
                 <p class="my-2">
                   <span class="text--secondary">Experimental factors: </span>
@@ -107,35 +108,19 @@
                       </li>
                       <li>Age</li>
                       <li>Sex</li>
-                      <li>Inferred cell type - authors labels</li>
+                      <li>Inferred layers - authors labels</li>
                     </ul></span
-                  >
-                </p>
-                <p class="my-2">
-                  <span class="text--secondary">Description: </span>
-
-                  <span class="text--primary"
-                    >As a quick overview, the data presented here is from
-                    portion of the DLPFC that spans six neuronal layers plus
-                    white matter (A) for a total of three subjects with two
-                    pairs of spatially adjacent replicates (B). Each dissection
-                    of DLPFC was designed to span all six layers plus white
-                    matter (C). Using this web application you can explore the
-                    expression of known genes such as SNAP25 (D, a neuronal
-                    gene), MOBP (E, an oligodendrocyte gene), and known layer
-                    markers from mouse studies such as PCP4 (F, a known layer 5
-                    marker gene).</span
                   >
                 </p>
                 <v-row>
                   <v-col cols="8">
                     <span class="text--secondary"
-                      >Figure 1: High-definition spatial transcriptomics for in
-                      situ tissue profiling.</span
+                      >Figure 1: Spatial transcriptomics (SRT) of the human
+                      middle temporal gyrus (MTG)..</span
                     >
                     <span class="text--primary"
                       ><v-img
-                        src="https://www.science.org/cms/10.1126/science.aaw1219/asset/c2b8070a-1bfb-4c2c-9c75-aedb8143dbfd/assets/graphic/363_1463_f1.jpeg"
+                        src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1186%2Fs40478-022-01494-6/MediaObjects/40478_2022_1494_Fig1_HTML.png"
                         target="_blank"
                         class="text-decoration-none"
                         max-width="800px"
